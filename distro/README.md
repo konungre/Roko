@@ -118,6 +118,56 @@ Required evidence still missing for a release:
 | Devices | Intel i915/xe generation matrix, firmware, Wi-Fi, audio, touchpad, USB, NVMe, suspend/resume |
 | Resources | 32 GiB host pressure, model OOM recovery without desktop loss, CPU/GPU latency and thermals |
 
-Tests use explicitly synthetic fixture bytes, not executable kernels or real
-models. QEMU is not installed in this environment. Hardware and production claims
-remain blocked on actual inputs, integration and target-device testing.
+Release tests use synthetic asset bytes. Probe tests additionally compile and
+inspect real x86-64 ELF/initramfs outputs and check safe host refusal. No system
+QEMU is installed, but a separate preserved workspace runtime was discovered and
+verified for the fresh minimal boot described below. Hardware and production
+claims remain blocked on integration and target-device testing.
+
+## Fresh boot integration checkpoint
+
+`build_probe.py` reuses the live-system baseline's deterministic newc writer,
+archive inspector and ELF checker. It compiles `boot_probe.c` as a static,
+freestanding PID1 and produces `init`, `initramfs.cpio.gz`, and a manifest in a
+new exclusive directory. It never edits historical boot inputs. The probe refuses
+host execution with exit 77 before privileged operations. In the guest it mounts
+proc/sys, forks one child, removes supplementary groups, sets all real/effective/
+saved UID/GID values to 1000, enables no-new-privileges, checks those values and
+requires an attempted root restoration to fail with EPERM. Parent waits for that
+child and powers down. UID1000 is a qualification fixture, not production login
+provisioning. No shell, COSMIC, model or persistent disk is included.
+
+```sh
+python3 -B distro/build_probe.py /absolute/new-build-directory
+python3 -B distro/probe_gate.py /absolute/new-build-directory /absolute/boot-assets.lock.json
+# Explicit execution; review the runtime and lock first:
+python3 -B distro/run_probe.py /absolute/new-build-directory /absolute/runtime-root /absolute/runtime-files.lock.json /absolute/new-evidence-directory
+```
+
+`probe_gate.py` only prints a plan and keeps execution blocked until a complete
+runtime closure is checked. `run_probe.py` is the explicit execution path: it
+verifies all files, modes and symlink objects against a reviewed inventory and
+rejects unlisted files before using the workspace loader/QEMU/kernel/BIOS.
+The runtime directory and lock must remain trusted and unmodified throughout
+verification and execution; this is not protection against a concurrent hostile
+writer or a substitute for signed acquisition provenance. Absolute symlinks are
+checked as objects; directory-symlink traversal is forbidden.
+
+The runner uses 256 MiB, one TCG CPU, no network or disk devices, serial output
+only, a 60-second deadline and a 2 MiB output threshold. It reaps its own process
+and records artifact hashes, admission, serial log and result in a fresh folder.
+It never enables KVM, starts system services or installs runtime packages.
+The preserved runtime is the documented reduced-permission restoration: nine
+unrelated setuid/setgid programs have ordinary modes. Its own inventory was
+verified; the old exact-mode runtime check is not claimed to pass.
+
+On 2026-11-09, all 7,759 restored entries verified and this probe booted with
+Debian kernel 6.12.115+deb13.1-amd64. Its exact non-root marker and completion
+marker appeared in order, and QEMU exited 0 after guest poweroff in 3.45 seconds.
+The initramfs SHA256 is
+`68a364a8ac3dba3221bddbb418b66ec863744de71c8c07f5f068907a15281036`.
+Two independent compiler runs produced identical output. This establishes only
+this minimal emulated boot/drop lifecycle. It does not establish cgroup sandboxing,
+COSMIC login, model operation, persistence, Intel hardware or signed updates.
+The existing 71 native-context tests remain separate portable evidence; their
+omitted runtime/bootstrap dependencies were not silently substituted.
