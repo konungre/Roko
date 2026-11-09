@@ -195,3 +195,8 @@ Motion tests check transform continuity, independent head/tail displacement,
 finite transforms and depth planes. Optional rendered-frame checks compare
 opaque UI interiors pixel-for-pixel during behind-surface movement. These are
 visual-renderer checks, not runtime AI or desktop integration tests.
+
+The coding, shopping and research `*-concept-v3.png` stills use the same
+articulated flight rig and depth rules. Render them without re-encoding the
+GIFs with `ROKO_STATIC_ONLY=1 node docs/demo-source/render-serpentine-demo.cjs`.
+Previous stills remain unchanged.

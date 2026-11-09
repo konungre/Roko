@@ -55,21 +55,21 @@ the solid note widget, with apparent scale changing to suggest depth.
 ### More ways Roko could help
 
 These are **concept mockups**, not verified integrations. All use the same
-original desktop styling. Roko reaches into the IDE, points at a shopping card
-in the browser, and carries a research source into a note. The examples and
+original desktop styling. Roko glides around the IDE and browser edges, with a curved body and tail,
+and emerges from behind a research note. The examples and
 shopping prices are fictional.
 
 **Coding:** spot an edge case and offer an edit for review.
 
-![Coding concept: Roko suggests guarding against an empty list before calculating an average](docs/media/roko-coding-concept-v2.png)
+![Coding concept: Roko suggests guarding against an empty list before calculating an average](docs/media/roko-coding-concept-v3.png)
 
 **Shopping:** compare options against a budget before any purchase decision.
 
-![Shopping concept: Roko compares three fictional keyboards below a 100 dollar budget](docs/media/roko-shopping-concept-v2.png)
+![Shopping concept: Roko compares three fictional keyboards below a 100 dollar budget](docs/media/roko-shopping-concept-v3.png)
 
 **Research:** organize sources, compare claims and keep citations with findings.
 
-![Research concept: Roko carries an example browser source into a local reading-list note](docs/media/roko-research-concept-v2.png)
+![Research concept: Roko carries an example browser source into a local reading-list note](docs/media/roko-research-concept-v3.png)
 
 See [visual provenance and limitations](docs/CONCEPT_VISUALS.md) for how these
 images were made, and [current status](docs/STATUS.md) for what actually exists.

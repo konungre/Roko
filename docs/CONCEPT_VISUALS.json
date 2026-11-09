@@ -242,6 +242,36 @@
       ],
       "unique_frames": 336,
       "loop": 0
+    },
+    {
+      "path": "docs/media/roko-coding-concept-v3.png",
+      "bytes": 1251210,
+      "sha256": "0276568a414a20e1c7116131736f921e30ce91bec5c8bf7403fc3c97225e695c",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "frames": 1
+    },
+    {
+      "path": "docs/media/roko-shopping-concept-v3.png",
+      "bytes": 1253731,
+      "sha256": "d1d93d0b497ce09640674cf15d716c75bb647c6f7d8813b179244a6ee8906d6b",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "frames": 1
+    },
+    {
+      "path": "docs/media/roko-research-concept-v3.png",
+      "bytes": 1172323,
+      "sha256": "64c0c8a582b756a15b9feac698e194024db9f91250d6c8203eda192e6953eae9",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "frames": 1
     }
   ]
 }

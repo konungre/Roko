@@ -107,9 +107,24 @@ s+=animatedRoko(x,y,flying?1:phase===0?3:2,300,t,AUTO_FLIGHTS)+text(72,794,['Sel
 function still(kind){if(kind==='coding'){let s=shell()+ide(false,false,true);s+=bubble(1080,200,['This guard handles an empty list.','Review it before applying.'],970,447,475)+roko(824,392,2,355)+`<circle cx="812" cy="489" r="38" fill="none" stroke="#dbbf75" stroke-width="3"/>`+text(73,795,'Coding concept / Roko reaches into the IDE to highlight a proposed patch',21,'#e0d6b3');return s+'</svg>';}
 if(kind==='shopping'){let s=shell()+browser('shopping');s+=bubble(1055,191,['This option fits your budget.','Want to compare the details?'],862,485,505)+roko(785,433,2,350)+rect(633,445,252,223,'none',12,'#b7a05d')+text(73,795,'Shopping concept / Roko highlights an option inside the browser',21,'#e0d6b3');return s+'</svg>';}
 let s=shell()+browser('research',3)+savedCard(1155,425)+bubble(1060,185,['I’ll keep the source attached','to your research note.'],920,415,490)+roko(795,365,1,330)+rect(956,475,190,48,'#e3dcac',10,'#a99954')+text(972,506,'★ Source link',18,'#304731',600)+text(73,795,'Research concept / Roko carries a source from the browser to a note',21,'#e0d6b3');return s+'</svg>';}
+function fluidStill(kind) {
+  if(kind==='research') {
+    let frame=autonomous(11.1);
+    return frame.replace('Complete / Save the source, not just a summary','Research concept / Roko carries a source behind the note');
+  }
+  const t=6.3,x=955,y=kind==='coding'?365:435,width=355;
+  const anchor=motionAnchor(x,y,width,t,TASK_FLIGHTS);
+  let frame=shell()+(kind==='coding'?ide(false,false,true):browser('shopping'));
+  frame+=bubble(1070,191,kind==='coding'?['I’ll come around the editor.','Let’s review this small guard.']:['This option fits your budget.','Let’s compare the details.'],anchor[0],anchor[1],490);
+  frame+=animatedRoko(x,y,1,width,t,TASK_FLIGHTS);
+  if(kind==='shopping')frame+=rect(633,445,252,223,'none',12,'#b7a05d');
+  frame+=text(73,795,kind==='coding'?'Coding concept / Roko emerges around the editor to review a change':'Shopping concept / Roko glides around the browser to compare options',21,'#e0d6b3');
+  return frame+'</svg>';
+}
 async function save(svg,file,width=1672){await sharp(Buffer.from(svg)).resize({width}).png().toFile(file);}
 if(require.main===module)(async()=>{
   flightData=(await sharp(Buffer.from(poses,'base64')).extract({left:768,top:0,width:768,height:512}).resize(384,256).png().toBuffer()).toString('base64');
+  if(process.env.ROKO_STATIC_ONLY==='1'){for(const kind of ['coding','shopping','research'])await save(fluidStill(kind),path.join(out,`roko-${kind}-concept-v3.png`));return;}
   const preview=process.env.ROKO_PREVIEW_DIR;
   if(preview){fs.mkdirSync(preview,{recursive:true});for(const t of [4.1,4.5,5,5.5,6,6.5,6.8,7.3,13.5,14])await save(demo(t),path.join(preview,`task-${t}.png`),1254);for(const t of [9.5,10,10.5,11,11.5,12.5])await save(autonomous(t),path.join(preview,`auto-${t}.png`),1254);return;}
   if(process.env.ROKO_FRAME_DIR){fs.mkdirSync(process.env.ROKO_FRAME_DIR,{recursive:true});for(let i=0;i<16*MOTION_FPS;i++)await save(demo(i/MOTION_FPS),path.join(process.env.ROKO_FRAME_DIR,String(i).padStart(4,'0')+'.png'),1254);}
