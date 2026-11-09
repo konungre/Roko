@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "checks": {
+    "four_saved_native_replies": true,
+    "cli_matches_read_only_view": true,
+    "no_input_mutation": true,
+    "all_provenance_presentable": true,
+    "all_deny_live_authority": true,
+    "missing_not_package_absence": true,
+    "available_unknown_observation_age": true,
+    "historical_not_current": true,
+    "expired_not_observation_age": true,
+    "model_text_labeled_advisory": true,
+    "repeated_render_is_identical": true
+  },
+  "input_native_result_sha256": "3cc65f844106af0cdc1026074829cb9358377c760c82a2960fdd540309285ac5",
+  "source_hashes": {
+    "/workspace/Roko/components/conversation/package_reply_view.py": "2949858ca0d5d96b4acf1d185e102eb7b19e17281925363d6b0e3bd7668dd391",
+    "/workspace/Roko/components/conversation/tests/probe_package_reply_view.py": "8021c7a1e041af0ebe4461ea1446a8f9ba910ee3fc540176ac1e6a4d48d0a024"
+  },
+  "native_runtime_rerun": false,
+  "graphical_ui_tested": false,
+  "executed_actions": 0,
+  "limitations": [
+    "Presenter does not authenticate the transport/producer or recheck files.",
+    "Generated prose is labeled advisory; arbitrary unsupported language is not detected or suppressed."
+  ],
+  "conversation_tests": {
+    "run": 259,
+    "passed": 250,
+    "skipped": 9
+  },
+  "reviewed_pr": {
+    "number": 32,
+    "head": "0fb30b1b733dda48925d6a7b4bc0b1a06fac001f",
+    "draft": true,
+    "includes_presentation": false
+  }
+}
