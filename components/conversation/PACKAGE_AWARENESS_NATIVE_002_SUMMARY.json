@@ -1,0 +1,73 @@
+{
+  "status": "passed",
+  "checks": {
+    "plain_requests_completed": true,
+    "no_cognitive_tasks_required": true,
+    "source_identity_in_ordinary_reply": true,
+    "package_state_bound": true,
+    "no_mutation_or_running_authority": true,
+    "default_context_not_silently_projected": true,
+    "explicit_projection_loss_recorded": true,
+    "package_retained_in_effective_native_prompt": true,
+    "source_full_history_bound": true,
+    "authoritative_history_preserved": true,
+    "cognitive_ledger_unchanged": true,
+    "one_query_four_bound_stages": true,
+    "same_receipt_provenance": true,
+    "exact_replay_and_policy_conflict": true,
+    "restart_replay_no_native_calls": true,
+    "projection_used_native_token_counter": true
+  },
+  "seconds": 156.97222562800016,
+  "executed_actions": 0,
+  "native_nix_reexecuted_here": false,
+  "runtime_code_commit": "c97b4cf49e9b3368420da89e56b1d273002e820c",
+  "reviewed_checkpoint_preserved": "c9c1813c1067b19fe388f0dd30e2dfaa82ccbb44",
+  "main_reconciled": "5a8e3a4",
+  "suite": {
+    "tests": 198,
+    "passed": 194,
+    "skipped": 4
+  },
+  "model_text": [
+    "Recorded.\n",
+    "Source revision 3, machine private-profile-gate.\n",
+    "No, the package receipt does not establish the running system. It only mentions imported data from a specific source revision and machine, but does not confirm current-host state, system activation, running system, or health. The repeated user context about calm ocean forest mountain does not change this.\n"
+  ],
+  "projection": {
+    "summary_policy": "experimental_extractive_user_prefixes_lossy_v1",
+    "full_history_sha256": "b6abaf75be042b33f43ee7d3195f94a56707cda0718ca1d9b97d22d6cc2e5141",
+    "prompt_sha256": "0de12b8aa9bb4fdebb1b3ef9d67d3d74449678ffbcfeb78e9161b2d9610a7a10",
+    "token_count": 472,
+    "budget": 512,
+    "excerpt_character_limit": 128,
+    "omitted_count": 2,
+    "omitted_assistant_count": 1,
+    "retained_recent_indices": [
+      2,
+      3
+    ],
+    "excerpts": [
+      {
+        "index": 0,
+        "role": "user",
+        "source_sha256": "511ee7bb554b3afb45ae50876e4e67009dbae714674cd46eca427b2677c549d3",
+        "span": [
+          0,
+          128
+        ],
+        "span_unit": "unicode_codepoint",
+        "excerpt_sha256": "847af4a0b539e2741b8beed11ae07c3250acd4bea6aae5c574a1304d6e84ba3f",
+        "truncated": true
+      }
+    ],
+    "authoritative_history_changed": false,
+    "model_context_complete": false,
+    "policy": "extractive_v1",
+    "full_input_tokens": 587,
+    "full_count_unavailable_reason": null
+  },
+  "source_context": "qualified imported Nix private-profile receipt; no current-host or mutation authority",
+  "infer_sha256": "4072d93133c690d1423e7990c6c67bf12b8a0e5f882f09695ff731386d2f6877",
+  "infer_source_sha256": "a6dbbb788eb78ccc75a64c6219f6c14d86371cfb69509b1b80d3b5ab79d4fbfa"
+}
