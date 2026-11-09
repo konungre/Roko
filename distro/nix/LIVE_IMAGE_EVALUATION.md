@@ -43,3 +43,8 @@ for these results. PR22 remains draft; no readiness/redistribution clearance cla
 A subsequent read-only [prerequisite audit](LIVE_PREREQUISITES.md) measures declared
 build-output availability and the resolved network/firmware/storage/access gaps.
 Those graph counts must not be presented as a realized runtime closure.
+
+[Explicit policies](LIVE_POLICIES.md) now make firmware, networking and operator
+access choices parameters, with conservative defaults and negative evaluations.
+Earlier graph identities/counts are historical snapshots, not the new policy
+combinations. No credential or host service is activated by these definitions.
