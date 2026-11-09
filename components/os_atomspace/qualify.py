@@ -37,6 +37,14 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--symbolic-profile',required=True)
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--os-fact')
+    parser.add_argument('--os-receipt')
+    parser.add_argument('--os-source-commit')
+    parser.add_argument('--built-ledger','--os-ledger',dest='os_ledger')
+    parser.add_argument('--os-machine')
+    parser.add_argument('--os-backend')
+    parser.add_argument('--os-profile-facts')
+    parser.add_argument('--os-profile-receipts')
     args=parser.parse_args();args.output=args.output.resolve();args.output.mkdir(parents=True,exist_ok=False)
     profile=json.loads(Path(args.symbolic_profile).read_bytes());verify(profile)
     files=list(ROOT.glob('*.py'))+list(ROOT.glob('*.pl'))+[ROOT.parent/'conversation'/p for p in
@@ -44,7 +52,35 @@ def main():
     profile['files'].update({str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in files})
     write_record(args.output/'profile.json',profile)
     rows=[];started=time.monotonic()
-    for index,packet in enumerate([fixture(0,['desired']),fixture(1,PHASES),fixture(2,[])]):
+    native_import=any((args.os_fact,args.os_receipt))
+    ledger_import=any((args.os_ledger,args.os_machine,args.os_backend))
+    profile_import=any((args.os_profile_facts,args.os_profile_receipts))
+    if sum((native_import,ledger_import,profile_import))>1:
+        raise ValueError('Choose one OS-owner evidence source')
+    if profile_import:
+        if not all((args.os_profile_facts,args.os_profile_receipts,args.os_source_commit)):
+            raise ValueError('All OS-owner profile source options required')
+        from components.os_atomspace.owner_profile import import_profile_history
+        packets=[import_profile_history(Path(args.os_profile_facts).read_bytes(),Path(args.os_profile_receipts).read_bytes(),args.os_source_commit)]
+    elif ledger_import:
+        if not all((args.os_ledger,args.os_machine,args.os_backend)):
+            raise ValueError('All OS ledger query options required')
+        if not Path(args.os_ledger).is_file():
+            raise ValueError('Require an existing durable OS-state ledger')
+        from components.os_atomspace.ledger import Ledger
+        ledger=Ledger(args.os_ledger)
+        try:state=ledger.snapshot(args.os_machine,args.os_backend)
+        finally:ledger.close()
+        if state['packet'] is None:raise ValueError('No durable OS-state snapshot')
+        packets=[state['packet']]
+    elif native_import:
+        if not all((args.os_fact,args.os_receipt,args.os_source_commit)):
+            raise ValueError('All OS-owner v1 source options required')
+        from components.os_atomspace.os_fact_v1 import import_built_fact
+        packets=[import_built_fact(Path(args.os_fact).read_bytes(),Path(args.os_receipt).read_bytes(),args.os_source_commit)]
+    else:
+        packets=[fixture(0,['desired']),fixture(1,PHASES),fixture(2,[])]
+    for index,packet in enumerate(packets):
         packet=validate(packet);directory=args.output/str(index);directory.mkdir(mode=0o700)
         write_record(directory/'input.json',packet);verify(profile)
         stamp=Path(f'/proc/{os.getpid()}/stat').read_text().rsplit(')',1)[1].split()[19]
@@ -84,7 +120,10 @@ def main():
             failure.receipt=receipt;raise failure
         rows.append(response)
     result={'status':'passed','cases':rows,'seconds':time.monotonic()-started,'actual_runtime':'PeTTa with upstream Omega modules',
-            'os_receipts':'synthetic fixtures only','verified_native_nix_guix':False,'executed_actions':0}
+            'os_receipts':'external OS-owner observed Nix private-profile history with canonical predecessor hashes' if profile_import else
+                'durable external OS-owner v1 built fact with hash-bound Nix receipt' if ledger_import else
+                'external OS-owner v1 built fact with hash-bound Nix receipt' if native_import else 'synthetic fixtures only',
+            'verified_native_nix_guix':False,'executed_actions':0}
     write_record(args.output/'result.json',result)
     print(json.dumps({'status':result['status'],'cases':len(rows),'seconds':result['seconds'],'verified_native_nix_guix':False}))
 

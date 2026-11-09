@@ -32,6 +32,8 @@ class Session:
         self.pending_cognition = []
         self.cognitive_binding = None
         self.pending_component_results = []
+        self.package_context = []
+        self.pending_package_state = None
 
     def prepare(self, request, *, learning_tasks=None):
         """Stage one turn. Failed inference must leave committed history intact."""
@@ -41,6 +43,8 @@ class Session:
         self.cognitive_context = [dict(item) for item in self.cognitive_history]
         self.pending_cognition = []
         self.pending_component_results = []
+        self.package_context = []
+        self.pending_package_state = None
         if type(request) is not dict or set(request) != {'text', 'context'}:
             raise ValueError('Expected text and context')
         if len(self.history) >= self.max_history:
@@ -121,6 +125,24 @@ class Session:
         self.pending_component_results = json.loads(json.dumps(component_results,allow_nan=False))
         self.pending_cognition = [dict(item) for item in observations]
         self.cognitive_context += self.pending_cognition
+        awareness=getattr(self.provider,'package_awareness',None)
+        if type(getattr(self.provider,'profile',None)) is dict and 'package_awareness' in self.provider.profile:
+            try:
+                if awareness is None:raise ValueError('Package awareness is not initialized')
+                stage=awareness.stage(self.cognitive_binding,[dict(m) for m in self.history])
+                if type(stage) is not dict or set(stage)!={'context','state'} or type(stage['context']) is not list or len(stage['context'])!=1:
+                    raise ValueError('Package context schema')
+                row=stage['context'][0]
+                if type(row) is not dict or set(row)!={'id','text'}:
+                    raise ValueError('Package observation schema')
+                bounded_text(row['id'],128);bounded_text(row['text'],500)
+                if (type(stage['state']) is not dict or stage['state'].get('binding')!=self.cognitive_binding
+                        or stage['state'].get('observation_id')!=row['id'] or stage['state'].get('mutation_authority') is not False
+                        or type(stage['state'].get('executed_actions')) is not int or stage['state']['executed_actions']!=0):
+                    raise ValueError('Package observation binding/authority mismatch')
+                self.package_context=json.loads(json.dumps(stage['context'],allow_nan=False))
+                self.pending_package_state=json.loads(json.dumps(stage['state'],allow_nan=False))
+            except Exception as error:raise NativePreparationError(str(error)) from error
         self.pending = {'role': 'user', 'content': text}
         return True
 
@@ -139,6 +161,9 @@ class Session:
                   'Symbolic context: ' + json.dumps(self.context, ensure_ascii=False) +
                   ('\nDerived cognitive observations: '+json.dumps(self.cognitive_context,ensure_ascii=False)
                    if self.cognitive_context else ''))
+        if self.package_context:
+            from package_awareness import prompt_suffix
+            system += prompt_suffix(self.package_context)
         self.reply = bounded_text(self.provider.chat(
             [{'role': 'system', 'content': system}] + expected))
         return {'role': 'assistant', 'content': self.reply}

@@ -80,3 +80,34 @@ the OS owner's native receipt schema is still pending. This is an inspected
 baseline and proposed interface, not a claim that those
 build, switch, boot or conversation paths already exist. No host package-manager
 installation, system-generation switch or OS mutation was performed here.
+
+## OS-owner native v1 handoff consumed
+
+The OS branch subsequently published `roko-os-fact-v1` at
+`e428821335abda7c58b0caa165ea6922bc73e161`, with a built fact from an actual
+Nix 2.26.3 offline fixed-output build. Its exact stdout receipt has SHA-256
+`1d160f61fdd3bf2398a386a7b9fda0ec5d2879bdb1f17b4686b67343d288e511`.
+The cognitive reader now checks that raw-byte binding, Nix result shape and
+generation identity, preserving the original fact, predecessor and source
+commit. Actual local PeTTa/Omega queries publish only the built phase; activation,
+running and health remain unestablished. This executor did not rerun Nix.
+The cognitive boundary now persists built facts with SQLite revision CAS,
+predecessor checks and exact replay, then revalidates the chain before querying
+its replacement snapshot in PeTTa/Omega after database restart. This is durable
+representation only. Producer authentication, freshness, output artifact bytes
+and native system-generation lifecycle still require OS/cognitive owner
+integration. The native reader never turns this built receipt into activation,
+running or health evidence.
+
+The OS owner's newer profile gate at
+`1bce6aece867b5b88fdb01f03e541c1c8def5f0d` exports observed private-profile
+switch/rollback receipts and a canonical predecessor chain over
+`{"fact": DOCUMENT, "mode": "observed"}`. The cognitive `owner_profile.py`
+adapter now verifies that chain, binds each canonical receipt digest, replaces
+the projected snapshot with the latest operation, and ingests it into actual
+PeTTa/Omega. The isolated built-fact test ledger has a different predecessor
+scheme and must not be substituted for the OS owner's canonical ledger.
+Use the OS ledger as the state authority source after receipt authentication;
+AtomSpace still supplies representation and no execution authority. Current
+projection is unverified and scoped strictly to external private-profile
+observations, with no system activation, running or health inference.

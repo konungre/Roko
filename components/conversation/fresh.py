@@ -56,6 +56,9 @@ def load_profile(path):
     if 'motto_transport' in profile:
         from motto import validate_profile
         validate_profile(profile)
+    if 'package_awareness' in profile:
+        from package_awareness import validate_profile
+        validate_profile(profile)
     return profile
 
 
@@ -259,7 +262,8 @@ class FreshProvider:
             session = conversation.session
             projected, metadata = build_summary(messages[1:-1], messages[-1]['content'],
                 count_tokens=counter, budget=512, recent_pairs=1,
-                context=session.context, cognitive_context=session.cognitive_context)
+                context=session.context, cognitive_context=session.cognitive_context,
+                package_context=getattr(session,'package_context',[]))
             if time.monotonic() > deadline:
                 raise GenerationError('context_projection_limit')
             return projected, dict(metadata, policy='extractive_v1',
@@ -396,7 +400,12 @@ def initialize():
             return result
     reasoner = None
     provider.learning = None
+    provider.package_awareness = None
     try:
+        if 'package_awareness' in profile:
+            if os.environ.get('ROKO_API_VERSION')!='2':raise ValueError('Package awareness requires durable v2')
+            from package_awareness import PackageAwareness
+            provider.package_awareness=PackageAwareness(profile)
         if 'learning_components' in profile:
             from learning import LearningComponents
             provider.learning = LearningComponents(profile)
@@ -427,7 +436,8 @@ def finish():
               'learning_receipts':getattr(provider.learning,'receipts',[]),
               'motto_receipts':getattr(provider.motto,'receipts',[]),
               'mork_receipts':provider.mork_receipts,
-              'token_counter_calls':provider.token_counter_receipts}), file=sys.stderr)
+              'token_counter_calls':provider.token_counter_receipts,
+              'package_awareness_receipts':getattr(getattr(provider,'package_awareness',None),'receipts',[])}), file=sys.stderr)
     finally:
         provider.close()
     return True

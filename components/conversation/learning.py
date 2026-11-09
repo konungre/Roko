@@ -14,7 +14,9 @@ SOURCE=Path(__file__).resolve().parent
 ROOT=SOURCE.parents[1]
 COMPONENTS={'metamo':ROOT/'components/metamo_host/source/contract.py',
             'airis':ROOT/'components/airis_host/source/contract.py',
-            'nace':ROOT/'components/nace/source/contract.py'}
+            'nace':ROOT/'components/nace/source/contract.py',
+            'ai_dsl':ROOT/'components/ai_dsl/contract.py',
+            'os_state':ROOT/'components/os_atomspace/conversation_contract.py'}
 _CONTRACTS={}
 
 
@@ -39,7 +41,8 @@ def validate_tasks(tasks):
         name=row['component']
         if type(name) is not str or name not in COMPONENTS or name in seen:raise ValueError('Unknown or duplicate cognitive component')
         seen.add(name);module=contract(name)
-        if name=='nace':module.parse_request(row['request']);request=json.loads(canonical(row['request']))
+        if name in ('ai_dsl','os_state'):request=module.validate(row['request'])
+        elif name=='nace':module.parse_request(row['request']);request=json.loads(canonical(row['request']))
         else:request=module.parse_request(canonical(row['request']))
         result.append({'component':name,'request':request})
     return result
@@ -55,6 +58,19 @@ def observation(name,response):
             '. Empty knowledge: step='+str(values['empty']['step'])+', hold='+str(values['empty']['hold'])+
             '. Restored knowledge: step='+str(values['restored']['step'])+', hold='+str(values['restored']['hold'])+
             '. These are hypothetical meter values, not counts of actions. No action authorized.')
+    elif name=='ai_dsl':
+        return ('AI-DSL actual type-composition search for '+response['goal']+
+            ': accepted='+str(len(response['accepted']))+', rejected='+str(len(response['rejected']))+
+            '. Accepted plans were checked for types, depth and required services. '
+            'The rejected shortcut may omit a required service. No speech or emotion recognition '
+            'service ran; executed_services=0. Full search results are in cognitive_results.')
+    elif name=='os_state':
+        value=response['latest_observation']['value']
+        return ('OS receipt: imported external Nix private-profile '+value['operation']+
+            ' observation, source revision='+str(response['source_revision'])+
+            ', machine='+response['machine']+'. Source receipt chain checked in local PeTTa/Omega. '
+            'This does not establish current-host state, system activation, running system or health. '
+            'Nix was not rerun here. No mutation authorized; executed_actions=0.')
     else:
         value={'selected_rules':response['selected_rules'],'prediction':response['prediction']}
     text=name.upper()+' native bounded result: '+canonical(value).decode()+'. Advisory hypothetical data; no action executed or authorized.'
@@ -129,7 +145,10 @@ class LearningComponents:
         snapshot=canonical({'text':text,'history':history,'tasks':tasks,'binding':binding})
         key=hashlib.sha256(snapshot).hexdigest();observations=[];results=[]
         for row in tasks:
-            name=row['component'];config=self.profile['learning_components']['components'][name]
+            name=row['component']
+            if name not in self.profile['learning_components']['components']:
+                raise ValueError('Requested component is not qualified in this profile')
+            config=self.profile['learning_components']['components'][name]
             directory=self.root/(name+'-'+key+'-'+uuid.uuid4().hex);directory.mkdir(mode=0o700)
             write_record(directory/'turn-start.json',{'binding':binding,'snapshot_sha256':key,'task':row})
             command=[self.profile['python'],'-B',str(SOURCE/'fresh_supervise.py'),
@@ -182,13 +201,15 @@ def validate_profile(profile):
     if not Path(config['evidence_root']).is_absolute():raise ValueError('Absolute learning evidence root required')
     if profile['files'].get(config['guard_manifest'])!=config['guard_admission']:
         raise ValueError('Learning closure guard must be pinned')
-    if type(config['components']) is not dict or set(config['components'])!=set(COMPONENTS):
-        raise ValueError('Exact learning component configuration required')
+    if (type(config['components']) is not dict or not {'metamo','airis','nace'}<=set(config['components'])
+            or not set(config['components'])<=set(COMPONENTS)):
+        raise ValueError('Qualified learning component configuration required')
     for name,item in config['components'].items():
         if type(item) is not dict or set(item)!={'manifest','sha256'}:raise ValueError('Component profile schema')
         if profile['files'].get(item['manifest'])!=item['sha256']:raise ValueError('Component manifest must be pinned')
         manifest=json.loads(Path(item['manifest']).read_bytes())
         for path,sha in manifest['files'].items():
             if profile['files'].get(path)!=sha:raise ValueError('Component closure missing from profile')
-    for path in COMPONENTS.values():
+    for name in config['components']:
+        path=COMPONENTS[name]
         if str(path) not in profile['files']:raise ValueError('Unpinned component contract')

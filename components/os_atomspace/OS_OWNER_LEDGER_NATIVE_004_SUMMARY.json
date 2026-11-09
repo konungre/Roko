@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "seconds": 0.2504199939994578,
+  "actual_runtime": "PeTTa with upstream Omega modules",
+  "os_receipts": "durable external OS-owner v1 built fact with hash-bound Nix receipt",
+  "verified_native_nix_guix": false,
+  "executed_actions": 0,
+  "result_sha256": "77273d96db94a881e2fbbbb3bd104bc02819d9874ac2e7df2c68f4b66ab330df",
+  "source_os_commit": "e428821335abda7c58b0caa165ea6922bc73e161",
+  "source_os_fact_schema": "roko-os-fact-v1",
+  "source_native_receipt_sha256": "1d160f61fdd3bf2398a386a7b9fda0ec5d2879bdb1f17b4686b67343d288e511",
+  "tests": 18,
+  "source_revision": 1,
+  "stages_present": [
+    "built"
+  ],
+  "producer_authenticated": false,
+  "output_artifact_bytes_verified": false,
+  "mutation_authority": false
+}

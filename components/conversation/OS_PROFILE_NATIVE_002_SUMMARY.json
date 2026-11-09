@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "checks": {
+    "completed": true,
+    "imported_observation_identity": true,
+    "no_running_system_or_mutation_authority": true,
+    "ai_search_no_service_execution": true,
+    "two_native_queries_two_model_motto": true,
+    "structured_matches_native_receipts": true,
+    "mutation_rejected_before_execution": true,
+    "ordinary_followup_completed": true,
+    "ordinary_followup_recalls_source": true,
+    "ordinary_followup_no_new_tasks": true,
+    "atomic_two_observations": true,
+    "restart_replay_no_execution": true
+  },
+  "seconds": 122.48620299999857,
+  "executed_actions": 0,
+  "native_nix_reexecuted_here": false,
+  "result_sha256": "74715ce13c74afa919d5f2c5effae6739f16a58bfdf909279c3916cf69468cfd",
+  "conversation_suite": {
+    "tests": 155,
+    "passed": 151,
+    "skipped": 4
+  },
+  "os_suite": {
+    "tests": 26,
+    "passed": 26
+  },
+  "source_os_commit": "1bce6aece867b5b88fdb01f03e541c1c8def5f0d",
+  "model_text": [
+    "The imported OS profile observation shows a Nix private-profile rollback with source revision 3, but does not confirm current-host state or system health. The AI-DSL search found one accepted and one rejected plan, but no speech or emotion recognition service actually ran. Running-system state and service execution were not established.\n",
+    "The imported OS record mentions source revision 3 and machine private-profile-gate. It does not establish this computer's running system.\n"
+  ],
+  "scope": "Actual imported Nix receipt and AI-DSL -> PeTTa/Omega -> Motto -> Granite, ordinary stored-observation recall and restart replay"
+}
