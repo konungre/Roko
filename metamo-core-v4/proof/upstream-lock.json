@@ -1,0 +1,91 @@
+{
+  "repository": "iCog-Labs-Dev/MetaMo",
+  "commit": "bf97e50a68aa5059457092dfbe70699b7dd1dbe2",
+  "license": "MIT",
+  "runtime_modules": [
+    "core/state.metta",
+    "core/state_accessors.metta",
+    "openpsi/config.metta",
+    "category/functors.metta",
+    "magus/decision.metta"
+  ],
+  "files": {
+    "upstream/magus/decision.metta": {
+      "sha256": "011b8db5fed671855e3ab99aa5512b7b301c35f36cfb9d6f0dc4dabd1386ee59",
+      "git_blob_sha": "1937b72718068eb1ff103b93fc5b3cea3501c6ec",
+      "bytes": 6451,
+      "url": "https://github.com/iCog-Labs-Dev/MetaMo/blob/bf97e50a68aa5059457092dfbe70699b7dd1dbe2/magus/decision.metta",
+      "runtime_loaded": true
+    },
+    "review-only/core/config.metta": {
+      "sha256": "dcba3efe0c6bbb69451bf82d866a7f22eba66ba8ec16746266c48f0b64b87d64",
+      "git_blob_sha": "2ea3ba5e9f1bb2530a7f893e0afc1fa03ea03f4c",
+      "bytes": 1023,
+      "url": "https://github.com/iCog-Labs-Dev/MetaMo/blob/bf97e50a68aa5059457092dfbe70699b7dd1dbe2/core/config.metta",
+      "runtime_loaded": false
+    },
+    "review-only/core/helper.metta": {
+      "sha256": "98c4064e528ce852cb9f2d1a557a2e75f5332f08b5b935f2ce37aa536ba2189c",
+      "git_blob_sha": "504035f2ca6de489fb38a99dd59bef76011c9ffc",
+      "bytes": 4721,
+      "url": "https://github.com/iCog-Labs-Dev/MetaMo/blob/bf97e50a68aa5059457092dfbe70699b7dd1dbe2/core/helper.metta",
+      "runtime_loaded": false
+    },
+    "review-only/core/registry.metta": {
+      "sha256": "c418add47bc01215b048a33f69669886a5e54710cb0065aef74ad70cd57f8f6f",
+      "git_blob_sha": "dea961786e22db52d68e0d5e7519459fdf053d4b",
+      "bytes": 2013,
+      "url": "https://github.com/iCog-Labs-Dev/MetaMo/blob/bf97e50a68aa5059457092dfbe70699b7dd1dbe2/core/registry.metta",
+      "runtime_loaded": false
+    },
+    "upstream/core/state.metta": {
+      "sha256": "2ce76f38f07494cfa86c0fc7dd8f779367c9623f05f12fddbc25b4bc277f3cf5",
+      "git_blob_sha": "e1cc32aaad53bc4ac6faace7f417c1f6d5644a4a",
+      "bytes": 1896,
+      "url": "https://github.com/iCog-Labs-Dev/MetaMo/blob/bf97e50a68aa5059457092dfbe70699b7dd1dbe2/core/state.metta",
+      "runtime_loaded": true
+    },
+    "upstream/core/state_accessors.metta": {
+      "sha256": "d4ebf5bbeec3f9d9c50add675af61405158554ecf9dc359f0268b22f71da2ca0",
+      "git_blob_sha": "f0a5dc1f62d528b96991a0700e12c50414720c85",
+      "bytes": 1026,
+      "url": "https://github.com/iCog-Labs-Dev/MetaMo/blob/bf97e50a68aa5059457092dfbe70699b7dd1dbe2/core/state_accessors.metta",
+      "runtime_loaded": true
+    },
+    "review-only/magus/tests/decision_tests.metta": {
+      "sha256": "d777f5222f5ef11f6f6cb1e217da22241a27075ac76c6ce7ff8f27055b85e81f",
+      "git_blob_sha": "34d98d29d2b73c0c02d06acaf43d706a72802d8c",
+      "bytes": 2605,
+      "url": "https://github.com/iCog-Labs-Dev/MetaMo/blob/bf97e50a68aa5059457092dfbe70699b7dd1dbe2/magus/tests/decision_tests.metta",
+      "runtime_loaded": false
+    },
+    "upstream/openpsi/config.metta": {
+      "sha256": "670feb4df4f0322f5906efddf6da3ce4eba6232c8640e1e6fbab07e943639c4d",
+      "git_blob_sha": "3dfec40d18e7b428146b6e4cf5a9eb41ca089451",
+      "bytes": 5837,
+      "url": "https://github.com/iCog-Labs-Dev/MetaMo/blob/bf97e50a68aa5059457092dfbe70699b7dd1dbe2/openpsi/config.metta",
+      "runtime_loaded": true
+    },
+    "upstream/category/functors.metta": {
+      "sha256": "11b85507cb6aef4300910782e70ac9d43d5fc9ea3b21004cef9c60fcf200f4e0",
+      "git_blob_sha": "f50b6baf331c402928ffb68b65a3ab52c8cb3e44",
+      "bytes": 6182,
+      "url": "https://github.com/iCog-Labs-Dev/MetaMo/blob/bf97e50a68aa5059457092dfbe70699b7dd1dbe2/category/functors.metta",
+      "runtime_loaded": true
+    },
+    "upstream/LICENSE": {
+      "sha256": "64704400fd8296d2e7300f4c2173d1c0bbe5e0ed4b56cb8edb7e6bf5ba9cd621",
+      "git_blob_sha": "25c1091583606e678b4b1bf8d40612b16e79d5a9",
+      "bytes": 1066,
+      "url": "https://github.com/iCog-Labs-Dev/MetaMo/blob/bf97e50a68aa5059457092dfbe70699b7dd1dbe2/LICENSE",
+      "runtime_loaded": false
+    },
+    "review-only/core/helpers.py": {
+      "sha256": "9d2146ee06072232116b649139b002234676c4b20ec0a008e354e76da4cd8855",
+      "git_blob_sha": "3b0ff6e1f1b4119dc94896a5801ba177ea0741d2",
+      "bytes": 8927,
+      "url": "https://github.com/iCog-Labs-Dev/MetaMo/blob/bf97e50a68aa5059457092dfbe70699b7dd1dbe2/core/helpers.py",
+      "runtime_loaded": false
+    }
+  }
+}

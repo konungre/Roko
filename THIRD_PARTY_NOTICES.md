@@ -26,3 +26,13 @@ This source checkpoint integrates with, references, or adapts interfaces from:
 Build recipes are not a determination that a future assembled binary/image
 fulfills all applicable source-delivery, relinking, notice or license obligations.
 Artwork rights and newly authored project-wide distribution terms remain open.
+
+## NACE derived function slice
+
+`components/nace/source/nace_slice.py` retains seven exact function blocks from
+[patham9/NACE](https://github.com/patham9/NACE) commit
+`361fddf5f6885a60b6d5e0d179e0394da876df4c`, MIT. Both source module notices
+credit Patrick Hammer and Peter Isaev (2024) and are retained in the derived
+file. The upstream repository license is `components/nace/LICENSE.upstream`.
+The adapter, deterministic rule-group composition and bounded fixture bindings
+are authored integration code, not a claim of full upstream execution.
