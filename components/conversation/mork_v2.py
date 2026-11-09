@@ -2,7 +2,7 @@
 
 SQLite owns history and revisions. This adapter neither commits nor recovers
 requests. MORK sees generated turn IDs and roles, never raw conversation text.
-Only the explicitly qualified eight-message candidate scope is admitted; its
+Each native query stays within the qualified eight-fact candidate scope; its
 PathMap revision predates the zipper fix. No matching fallback exists here.
 """
 import hashlib
@@ -12,7 +12,8 @@ import time
 
 from mork_host import ExternalMORKBackend
 
-MAX_MESSAGES = 8
+MAX_MESSAGES = 16
+BATCH_SIZE = 8
 MAX_MESSAGE_BYTES = 4096
 MAX_HISTORY_BYTES = 65536
 
@@ -28,7 +29,7 @@ def history_digest(history):
 
 def validate_history(history):
     if type(history) is not list or len(history)>MAX_MESSAGES or len(history)%2:
-        raise ValueError('MORK history requires at most eight complete messages')
+        raise ValueError('MORK history requires at most sixteen complete messages')
     for index,message in enumerate(history):
         if (type(message) is not dict or set(message)!={'role','content'}
                 or message['role']!=('user' if index%2==0 else 'assistant')
@@ -67,23 +68,40 @@ def retrieve_history(history, binding, profile):
     # used: only the reviewed runtime manifest is mapped into its host config.
     backend=ExternalMORKBackend({'python':profile['python'],'durable_memory':config})
     started=time.monotonic()
-    native=backend.query_facts(facts,{'relation':'chat_turn','args':[None,None]},timeout=3)
-    if (native.get('implementation')!='native-mork-rebuild-bounded-facts'
-            or native.get('runtime_manifest_sha256')!=config['manifest_sha256']
-            or native.get('authorizes_actions') is not False
-            or native.get('descendants_cleaned') is not True):
-        raise ValueError('MORK retrieval receipt mismatch')
-    rows=native.get('facts')
-    if type(rows) is not list or len(rows)!=len(facts):
-        raise ValueError('MORK did not return complete committed history')
-    actual=[]
-    for row in rows:
-        if type(row) is not dict or set(row)!={'relation','args'} or row['relation']!='chat_turn' or type(row['args']) is not list or len(row['args'])!=2 or any(type(x) is not str for x in row['args']):
-            raise ValueError('Invalid MORK turn row')
-        actual.append(tuple(row['args']))
-    expected=[tuple(row['args']) for row in facts]
-    if len(actual)!=len(set(actual)) or set(actual)!=set(expected):
-        raise ValueError('MORK selected missing, changed or unknown turn evidence')
+    batches=[]
+    # Empty history still requires a real empty native query. Global turn IDs
+    # remain bound to their original positions across independent processes.
+    for offset in range(0,max(1,len(facts)),BATCH_SIZE):
+        batch=facts[offset:offset+BATCH_SIZE]
+        native=backend.query_facts(batch,{'relation':'chat_turn','args':[None,None]},timeout=3)
+        if (native.get('implementation')!='native-mork-rebuild-bounded-facts'
+                or native.get('runtime_manifest_sha256')!=config['manifest_sha256']
+                or native.get('authorizes_actions') is not False
+                or native.get('descendants_cleaned') is not True):
+            raise ValueError('MORK retrieval receipt mismatch')
+        rows=native.get('facts')
+        if type(rows) is not list or len(rows)!=len(batch):
+            raise ValueError('MORK did not return complete committed history')
+        actual=[]
+        for row in rows:
+            if type(row) is not dict or set(row)!={'relation','args'} or row['relation']!='chat_turn' or type(row['args']) is not list or len(row['args'])!=2 or any(type(x) is not str for x in row['args']):
+                raise ValueError('Invalid MORK turn row')
+            actual.append(tuple(row['args']))
+        expected=[tuple(row['args']) for row in batch]
+        if len(actual)!=len(set(actual)) or set(actual)!=set(expected):
+            raise ValueError('MORK selected missing, changed or unknown turn evidence')
+        batches.append(native)
+    if len(batches)==1:
+        native=batches[0]
+    else:
+        native={'implementation':'native-mork-rebuild-batched-facts',
+                'runtime_manifest_sha256':config['manifest_sha256'],
+                'batches':batches,'batch_size':BATCH_SIZE,'batch_count':len(batches),
+                'authorizes_actions':False,'descendants_cleaned':True,
+                'network_denied':all(item.get('network_denied') is True for item in batches),
+                'fresh_process':all(item.get('fresh_process') is True for item in batches),
+                'persistent_state_changed':any(item.get('persistent_state_changed') is not False for item in batches),
+                'advisory_only':all(item.get('advisory_only') is True for item in batches)}
     if _canonical(history)!=before:
         raise ValueError('History changed during native MORK retrieval')
     # Mapping admitted IDs back to text is hydration, not a Python matching
@@ -95,6 +113,7 @@ def retrieve_history(history, binding, profile):
                           'message_sha256':history_digest(message)}
                          for i,message in enumerate(selected)],
              'indexed_messages':len(selected),'history_omitted':False,
+             'batch_size':BATCH_SIZE,'batch_count':len(batches),
              'pathmap_limitation':'Pinned candidate predates zipper fix; bounded adapter scope only',
              'authorizes_actions':False,'executed_actions':0}
     return selected,receipt

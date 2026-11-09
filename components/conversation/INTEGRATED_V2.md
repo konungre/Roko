@@ -32,7 +32,7 @@ MORK indexes generated turn IDs and roles. Every expected native row must return
 before the adapter hydrates the original transcript text, in order. It does not
 index raw user text as executable expressions. It uses a separate SWI 9.3.34
 process, not the Janus-loaded symbolic process. Its PathMap pin predates the
-zipper fix; this is only the bounded adapter workload. It admits four exchanges,
+zipper fix; this is only the bounded adapter workload. It now admits eight exchanges through at most two native retrieval batches,
 with no silent history windowing. The existing model token budget may reject
 sooner.
 
@@ -141,7 +141,7 @@ synthetic resource failures with real SQLite rollback/restart. A separate real
 supervisor test killed a harmless sleeping process at a 0.1-second deadline and
 reported cleanup; it did not run a model or induce memory exhaustion.
 
-The native fourth-turn boundary probe passed eight checks: MORK retrieved six
+The historical four-exchange profile's boundary probe passed eight checks: MORK retrieved six
 prior messages, both NARS observations remained committed, and Granite answered
 “Red foxes and robins” using 412 input tokens. The fifth exchange returned
 `history_limit` without another model or MORK call. Snapshot retained all eight
@@ -154,3 +154,22 @@ request at the same revision then completed as the fourth exchange. Native MORK
 retrieved all six prior messages for both claims, both NARS observations remained
 intact, and the final snapshot retained eight messages. All nine checks passed.
 See `CAPACITY_RECOVERY_SUMMARY.json` and `tests/probe_capacity_recovery.py`.
+
+## Eight-exchange batched successor
+
+The v2 transcript ceiling is now sixteen messages. Native retrieval is split
+into independently validated batches of at most eight typed facts, preserving
+global IDs and complete transcript order. Any batch failure prevents model
+inference and commit. No history is omitted; the 512-token model admission and
+all native memory/deadline caps remain in force. Older four-exchange summaries
+above remain historical checkpoint evidence.
+
+All 134 conversation tests passed, including real native retrieval of ten and
+sixteen messages through 8+2 and 8+8 queries. A copied native four-turn checkpoint
+continued through turns five and six with correct creature recall, complete
+MORK retrieval, retained cognition and exact saved replay. All eleven probe
+checks and both independent full-history/cognitive prompt-hash audits passed.
+The sixth turn used 460 input tokens and retained twelve messages. Native MORK
+used two queries for its ten-message input; no new NARS inference was claimed.
+See `SIX_TURN_NATIVE_SUMMARY.json`, `tests/probe_six_turns.py` and
+`tests/audit_cognitive_prompts.py`. The PathMap pre-fix limitation is preserved.
