@@ -110,3 +110,19 @@ The rebuilt host symbolic runtime therefore cannot currently be tested inside
 the preserved non-root guest. ISO401 remains untouched; no alternate download
 route was attempted. Model weights and inference binary are also not present in
 this consumer runtime. No fresh conversation inference or guest result is claimed.
+
+## Independent minimal guest path now qualified
+
+The prior missing-QEMU statement above describes the historical ISO closure.
+A separate workspace-only runtime was subsequently acquired from authenticated
+Debian repositories: QEMU10.0.13, SeaBIOS and kernel6.12.116+deb13-amd64. Its own
+131-entry inventory and exact package hashes are recorded separately; it does not
+satisfy or replace the old ISO lock. ISO401 remains untouched.
+
+Using this runtime, actual minimal guest boot trials/fallback passed. A new
+headless symbolic initramfs also ran SWI/Janus/Python3.12, PeTTa arithmetic and
+Omega imports under UID/GID1000 with no privilege regain and inherited network
+denial. Two successful guest runs and one exec-permission failure are preserved.
+See `distro/integration/VM_VALIDATION.json`. This resolves minimal guest symbolic
+ABI execution; full COSMIC and model conversation remain unqualified. The new
+runtime has no model assets and does not start `fresh_server.py` or a chat session.

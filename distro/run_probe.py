@@ -44,7 +44,12 @@ def verify_runtime(root, lock_path):
     return {"entries_verified": len(files), "lock_sha256": sha(Path(lock_path))}
 
 
-def run(probe, runtime, lock, output):
+def run(probe, runtime, lock, output, *, memory_mib=256):
+    if type(memory_mib) is not int or not 256 <= memory_mib <= 2048:
+        raise ValueError("Guest memory must be 256..2048 MiB")
+    available = next(int(line.split()[1])*1024 for line in Path("/proc/meminfo").read_text().splitlines() if line.startswith("MemAvailable:"))
+    if available < (memory_mib + 2048)*1024**2:
+        raise ValueError("Insufficient host headroom for bounded probe")
     probe, runtime, output = Path(probe).resolve(), Path(runtime), Path(output)
     if output.exists() or output.is_symlink():
         raise FileExistsError(output)
@@ -62,13 +67,13 @@ def run(probe, runtime, lock, output):
         str(runtime / "usr/bin/qemu-system-x86_64"), "-L", str(runtime / "usr/share/qemu"),
         "-bios", str(runtime / "usr/share/seabios/bios-256k.bin"),
         "-no-user-config", "-nodefaults", "-machine", "q35,accel=tcg",
-        "-m", "256", "-smp", "1", "-display", "none", "-monitor", "none",
+        "-m", str(memory_mib), "-smp", "1", "-display", "none", "-monitor", "none",
         "-serial", "stdio", "-nic", "none", "-no-reboot", "-kernel", str(kernels[0]),
         "-initrd", str(probe / "initramfs.cpio.gz"),
         "-append", "console=ttyS0 rdinit=/init panic=1"]
     output.mkdir(mode=0o700)
     report = {"schema": "roko-foundation-vm-v1", "command": command,
-              "runtime": verification, "kernel_sha256": sha(kernels[0]),
+              "guest_memory_mib": memory_mib, "runtime": verification, "kernel_sha256": sha(kernels[0]),
               "initramfs_sha256": manifest["initramfs_sha256"], "build_id": manifest["build_id"],
               "boot_tested": False, "boot_passed": False, "network": False, "host_disks": False,
               "scope": "Minimal PID1/non-root probe only; no COSMIC, model or persistence"}
@@ -109,6 +114,11 @@ def run(probe, runtime, lock, output):
     report.update({"boot_tested": True, "boot_passed": stop == "eof" and evidence["serial_contract_passed"],
         "returncode": proc.returncode, "stop_reason": stop, "elapsed_seconds": time.monotonic() - started,
         "serial_sha256": sha(output / "serial.txt"), "child_reaped": proc.poll() is not None})
+    if manifest.get("schema") == "roko-symbolic-guest-build-v1":
+        lines = data.decode(errors="replace").replace("\r\n", "\n").splitlines()
+        report["symbolic_guest_passed"] = report["boot_passed"] and lines.count("NATIVE_PETTA_OMEGA_IMPORT_PASS") == 1
+        report["boot_passed"] = report["symbolic_guest_passed"]
+        report["scope"] = "Non-root minimal SWI/Janus/PeTTa/Omega import guest; no COSMIC, model inference or persistence"
     # This controller measured its own artifact binding and child exit, unlike a supplied log.
     report["native_execution_independently_established"] = report["boot_passed"]
     (output / "result.json").write_text(json.dumps(report, indent=2) + "\n")
@@ -119,8 +129,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("probe", "runtime", "lock", "output"):
         parser.add_argument(name, type=Path)
+    parser.add_argument("--memory-mib", type=int, default=256)
     args = parser.parse_args()
-    report = run(args.probe, args.runtime, args.lock, args.output)
+    report = run(args.probe, args.runtime, args.lock, args.output, memory_mib=args.memory_mib)
     print(json.dumps(report, indent=2))
     return 0 if report["boot_passed"] else 1
 

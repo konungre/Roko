@@ -42,6 +42,9 @@ __attribute__((noreturn)) void _start(void) {
  if(child<0 || sc(61,child,(long)&status,0,0,0,0)!=child || status!=0){
   say(1,"ROKO_FOUNDATION_FAILED child\n");stop();
  }
+#ifdef ROKO_TRIAL_FAIL
+ say(1,"ROKO_FOUNDATION_FAILED injected-trial-health\n");stop();
+#endif
  say(1,"ROKO_FOUNDATION_COMPLETE " ROKO_BUILD_ID "\n");
  stop();
  for(;;){}

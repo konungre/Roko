@@ -33,13 +33,15 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def build(output, compiler="gcc"):
+def build(output, compiler="gcc", *, fail_trial=False):
     output = Path(output)
     if output.exists() or output.is_symlink():
         raise FileExistsError(output)
     source = (HERE / "boot_probe.c").read_bytes()
-    profile = (json.dumps(PROFILE, sort_keys=True, separators=(",", ":")) + "\n").encode()
-    build_id = digest(source + profile + json.dumps(FLAGS).encode())
+    selected_profile = {**PROFILE, "injected_trial_failure": bool(fail_trial)}
+    flags = FLAGS + (["-DROKO_TRIAL_FAIL=1"] if fail_trial else [])
+    profile = (json.dumps(selected_profile, sort_keys=True, separators=(",", ":")) + "\n").encode()
+    build_id = digest(source + profile + json.dumps(flags).encode())
     executable = shutil.which(compiler)
     if executable is None:
         raise ValueError("Compiler unavailable")
@@ -47,7 +49,7 @@ def build(output, compiler="gcc"):
         stage = Path(temporary)
         # Compile a private snapshot, not a source pathname that can change mid-build.
         (stage / "init.c").write_bytes(source)
-        subprocess.run([executable, *FLAGS, '-DROKO_BUILD_ID="' + build_id + '"',
+        subprocess.run([executable, *flags, '-DROKO_BUILD_ID="' + build_id + '"',
                         str(stage / "init.c"), "-o", str(stage / "init")], check=True, timeout=60)
         binary = (stage / "init").read_bytes()
         baseline.check_elf(binary)
@@ -71,7 +73,8 @@ def build(output, compiler="gcc"):
         report = {"schema": "roko-foundation-build-v1", "build_id": build_id,
                   "source_sha256": digest(source), "baseline_helper_sha256": digest(BASELINE.read_bytes()),
                   "compiler": subprocess.check_output([executable, "--version"], text=True).splitlines()[0],
-                  "compiler_sha256": digest(Path(executable).read_bytes()), "flags": FLAGS,
+                  "compiler_sha256": digest(Path(executable).read_bytes()), "flags": flags,
+                  "injected_trial_failure": bool(fail_trial),
                   "init_sha256": digest(binary), "initramfs_sha256": digest(compressed),
                   "entries": entries, "boot_tested": False, "nonroot_guest_tested": False,
                   "scope": "Compiled PID1 probe only; no COSMIC, model or persistence"}
@@ -100,8 +103,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("output", type=Path)
     parser.add_argument("--compiler", default="gcc")
+    parser.add_argument("--fail-trial", action="store_true", help="Build an intentionally unsuccessful health-check fixture")
     args = parser.parse_args()
-    print(json.dumps(build(args.output, args.compiler), sort_keys=True, indent=2))
+    print(json.dumps(build(args.output, args.compiler, fail_trial=args.fail_trial), sort_keys=True, indent=2))
 
 
 if __name__ == "__main__":
