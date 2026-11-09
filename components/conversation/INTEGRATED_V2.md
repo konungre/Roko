@@ -11,11 +11,11 @@ The basilisk client must explicitly adopt v2 before switching launchers.
 
 ## Qualification
 
-The integrated native probe passed all 31 checks in 192.635 seconds. Both real
+The integrated native probe passed all 42 checks in 337.783 seconds. Both real
 conversation turns completed across a worker restart; replay, CAS rejection,
 partial-output replay, input rejection, resident-model cancellation and explicit
-recovery passed. The first two native model calls took 6.448 and 8.319 seconds.
-These are this host's measured cases, not a latency guarantee. All 94 conversation
+recovery passed. The first two native model calls took 18.857 and 18.906 seconds.
+These are this host's measured cases, not a latency guarantee. All 114 conversation
 tests and four NARS parent-lifetime tests passed. See
 [the native summary](INTEGRATED_NATIVE_SUMMARY.json) for exact checks.
 
@@ -36,8 +36,12 @@ zipper fix; this is only the bounded adapter workload. It admits four exchanges,
 with no silent history windowing. The existing model token budget may reject
 sooner.
 
-NARS recognizes only two leading explicit inheritance assertions forming one
-three-symbol chain. Unsupported prose remains ordinary conversation. Native
+NARS recognizes two controlled-language inheritance premises forming one
+three-symbol chain. It supports bounded plural forms, reversed order, separators,
+multiword labels and explicitly hypothetical `Assume`/`Suppose` premises.
+Unsupported prose remains ordinary conversation. This is a finite lexical
+grammar: it rejects known qualifiers and `-ly` words but does not provide general
+semantic hedge detection, morphology, or synonym resolution. Native
 truth functions derive an uncertain belief; premise confidence is labeled
 controller policy, not independent evidence. Committed observations survive
 restart. Each v2 observation is keyed by the claimed session, request and CAS
@@ -80,3 +84,27 @@ This conversation integration does not run those modules or establish new
 qualification claims for them. It does not qualify a graphical bubble, guest
 installation, arbitrary prose-to-logic extraction, full ECAN diffusion, or a
 full autonomous Omega loop.
+
+## Selected successor changes
+
+The grammar and its tests were ported individually from published cognitive
+commit `5367d32`, with additional conservative qualifier refusal cases. The
+requested `f5ee004` was not available on the published branch during this port;
+no claim of an exact diff or wholesale merge of that unpublished commit is made.
+Pre-execution records, request-level native provenance and duplicate-ID admission
+were implemented on the existing v2 integration. They preserve CAS and atomic
+history/cognition commits.
+
+The UTF-8 boundary regression uses a mocked native subprocess and real SQLite
+commit/restart/replay. It forces an incomplete multibyte suffix. The separate
+native Unicode probe reports whether the actual model chose such a suffix;
+ordinary successful generation alone does not establish that reproduction. Raw
+stdout bytes are retained as base64 with a byte count and SHA-256 before decoding.
+
+The native Unicode probe did reproduce the boundary: one generated token emitted
+bytes `f0 9f`, followed by the native newline (`0a`). V2 returned one U+FFFD plus
+newline with `status: truncated`, kept the three-field generation metadata and
+replayed the identical saved response without inference. Raw bytes remain in
+the private receipt. Both expanded-language turns completed: “A red fox is an
+animal” and “Robins are animals.” Their premise labels/modes remain provenance,
+not a general factual-verification claim.

@@ -3,6 +3,7 @@
 Uses real Omega provider dispatch. No action executor or remote fallback exists.
 Symbolic context requires a separately qualified native ECAN profile.
 """
+import base64
 import hashlib
 import json
 import os
@@ -81,6 +82,35 @@ def generation_metadata(stderr, max_tokens):
     return row
 
 
+def decode_output(raw, generation, receipt):
+    """Only a token-limit cut inside the final UTF-8 code point is repairable."""
+    try:
+        text = raw.decode('utf-8')
+    except UnicodeDecodeError as original:
+        # infer appends one newline after generation; it is not a model token.
+        suffix = b'\n' if raw.endswith(b'\n') else b''
+        payload = raw[:-1] if suffix else raw
+        try:
+            payload.decode('utf-8')
+        except UnicodeDecodeError as error:
+            if (generation['finish_reason'] == 'length'
+                    and error.reason == 'unexpected end of data'
+                    and error.end == len(payload)):
+                receipt['stdout_encoding'] = {
+                    'encoding':'utf-8', 'status':'incomplete_suffix_replaced',
+                    'replacement':'U+FFFD', 'byte_offset':error.start,
+                    'byte_count':error.end-error.start,
+                    'suffix_hex':payload[error.start:].hex(),
+                    'native_newline_preserved':bool(suffix)}
+                return payload[:error.start].decode('utf-8') + '\ufffd' + suffix.decode('ascii')
+        receipt['stdout_encoding'] = {'encoding':'utf-8', 'status':'invalid',
+            'byte_offset':original.start, 'byte_end':original.end,
+            'reason':original.reason}
+        raise GenerationError('invalid_output_encoding') from original
+    receipt['stdout_encoding'] = {'encoding':'utf-8', 'status':'valid'}
+    return text
+
+
 class FreshProvider:
     def __init__(self, profile):
         try:
@@ -144,11 +174,15 @@ class FreshProvider:
             raise
         receipt = {'returncode':proc.returncode, 'seconds':round(time.monotonic()-started,3),
                    'prompt_sha256':hashlib.sha256(prompt.encode()).hexdigest(),
-                   'stdout':out.decode('utf-8'), 'stderr':err.decode('utf-8',errors='replace'),
+                   'stdout_base64':base64.b64encode(out).decode('ascii'),
+                   'stdout_sha256':hashlib.sha256(out).hexdigest(),
+                   'stdout_bytes':len(out), 'stderr':err.decode('utf-8',errors='replace'),
                    'network_denied':True, 'executed_actions':0}
         self.receipts.append(receipt)
         try:
             generation = generation_metadata(receipt['stderr'], self.max_tokens)
+            receipt['generation'] = generation
+            self.last_generation = generation
         except GenerationError as error:
             self.last_error = error.code
             raise
@@ -156,8 +190,11 @@ class FreshProvider:
             raise RuntimeError('Fresh native inference failed: '+str(proc.returncode))
         self.verify_model()
         receipt['model_verified_before_history_commit'] = True
-        receipt['generation'] = generation
-        self.last_generation = generation
+        try:
+            receipt['stdout'] = decode_output(out, generation, receipt)
+        except GenerationError as error:
+            self.last_error = error.code
+            raise
         if generation['finish_reason'] == 'length' and not self.allow_partial:
             self.last_error = 'output_limit'
             raise GenerationError('output_limit')

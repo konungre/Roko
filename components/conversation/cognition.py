@@ -5,6 +5,7 @@ The accepted grammar is intentionally small; other conversation remains ordinary
 """
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
 import sys
@@ -13,30 +14,29 @@ import uuid
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
 from components.nars_hyperon.source.contract import canonical,make_premise
 from components.nars_hyperon.source.runtime import run_native
+if __package__:
+    from .assertions import extract,parse_assertions
+else:
+    from assertions import extract,parse_assertions
 
-ASSERTION=re.compile(r'(?:^|(?<=[.!?])\s+)(?:a |an )?([a-z][a-z0-9_]{0,31}) is (?:a |an )?([a-z][a-z0-9_]{0,31})\.',re.I)
+
+def bind_request(request,binding):
+    """Carry the complete durable identity digest into native premise provenance."""
+    if binding is None:return request
+    digest=hashlib.sha256(canonical(binding)).hexdigest()
+    result=dict(request,task_id='req_'+digest[:28])
+    result['premises']=[make_premise(p['id'],p['source']+';turn:'+digest,
+        p['subject'],p['predicate'],p['frequency_milli'],p['confidence_milli']) for p in request['premises']]
+    return result
 
 
-def extract(text,revision):
-    """Only two whole affirmative sentences, forming one distinct-symbol chain."""
-    matches=list(ASSERTION.finditer(text))
-    if len(matches)!=2:return None
-    if matches[0].start()!=0 or matches[1].start()!=matches[0].end():return None
-    suffix=text[matches[1].end():].strip()
-    if suffix and (not suffix.endswith('?') or any(c in suffix for c in '.!\n')):return None
-    a,b=matches[0].group(1).lower(),matches[0].group(2).lower()
-    middle,c=matches[1].group(1).lower(),matches[1].group(2).lower()
-    if b!=middle or len({a,b,c})!=3:return None
-    digest=hashlib.sha256(text.encode()).hexdigest()
-    premises=[]
-    for index,match in enumerate(matches):
-        # Truth numbers are an explicit controller policy for user assertions,
-        # never claimed to be measured confidence or independent corroboration.
-        provenance=f'user-assertion:sha256:{digest}:span:{match.start()}:{match.end()};policy:f=1,c=0.9'
-        premises.append(make_premise('assertion_'+str(index),provenance,
-            match.group(1).lower(),match.group(2).lower(),1000,900))
-    return {'version':1,'operation':'nal1-chain','task_id':'turn_'+str(revision),
-            'revision':revision,'premises':premises}
+def write_record(path,record):
+    fd=os.open(path,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
+    with os.fdopen(fd,'wb') as stream:
+        stream.write(canonical(record)+b'\n');stream.flush();os.fsync(stream.fileno())
+    fd=os.open(path.parent,os.O_RDONLY|os.O_DIRECTORY)
+    try:os.fsync(fd)
+    finally:os.close(fd)
 
 
 class NarsCognition:
@@ -65,28 +65,31 @@ class NarsCognition:
 
     def _reason(self,text,history,binding):
         snapshot=canonical({'text':text,'history':history})
-        request=extract(text,len(history)//2+1)
-        if request is None:return []
+        parsed=parse_assertions(text,len(history)//2+1)
+        if parsed is None:return []
+        request=bind_request(parsed.request,binding)
         identity=hashlib.sha256(canonical(binding)).hexdigest() if binding is not None else request['task_id']
         directory=self.evidence_root/(identity+'-'+uuid.uuid4().hex)
+        directory.mkdir(mode=0o700)
+        fd=os.open(directory.parent,os.O_RDONLY|os.O_DIRECTORY)
+        try:os.fsync(fd)
+        finally:os.close(fd)
+        provenance={'turn_binding':binding,'binding_sha256':identity,
+            'snapshot_sha256':hashlib.sha256(snapshot).hexdigest(),
+            'native_request_sha256':hashlib.sha256(canonical(request)).hexdigest()}
+        write_record(directory/'turn-start.json',dict(provenance,request=request,phase='prepared'))
         response,receipt=self.run(request,manifest=self.manifest,admission=self.admission,
-            evidence_directory=directory)
+            evidence_directory=directory/'native')
         if canonical({'text':text,'history':history})!=snapshot:raise ValueError('Conversation changed during inference')
         # Runtime verifies the native rows independently. Keep their full evidence
         # while giving the LLM a compact, explicitly uncertain prompt projection.
         conclusion=next(c for c in response['conclusions'] if c['rule']=='deduction')
-        self.receipts.append({'snapshot_sha256':hashlib.sha256(snapshot).hexdigest(),
-            'request':request,'response':response,'receipt':receipt})
-        if binding is not None:
-            provenance={'turn_binding':binding,'binding_sha256':identity,
-                'snapshot_sha256':hashlib.sha256(snapshot).hexdigest(),
-                'native_request_sha256':hashlib.sha256(canonical(request)).hexdigest(),
-                'native_response_sha256':hashlib.sha256(canonical(response)).hexdigest()}
-            with (directory/'turn-binding.json').open('xb') as stream:
-                stream.write(canonical(provenance)+b'\n')
-            self.receipts[-1].update(provenance)
-        text=(f"MeTTa-NARS NAL-1 derived {conclusion['subject']} -> {conclusion['predicate']} "
-              f"from the two user assertions (frequency={conclusion['frequency']:.6g}, "
+        provenance['native_response_sha256']=hashlib.sha256(canonical(response)).hexdigest()
+        write_record(directory/'turn-binding.json',provenance)
+        self.receipts.append({**provenance,'request':request,'response':response,'receipt':receipt,
+            'term_labels':parsed.labels,'premise_mode':parsed.mode,'evidence_directory':str(directory)})
+        text=(f"MeTTa-NARS NAL-1 derived {parsed.labels[conclusion['subject']]} -> {parsed.labels[conclusion['predicate']]} "
+              f"from the two {parsed.mode} premises (frequency={conclusion['frequency']:.6g}, "
               f"confidence={conclusion['confidence']:.6g}). Uncertain derived belief. "
               "Premise values f=1,c=0.9 are controller policy, not measured probabilities "
               "or verified facts. No action is authorized.")

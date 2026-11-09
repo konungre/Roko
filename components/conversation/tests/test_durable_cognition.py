@@ -38,10 +38,15 @@ class FakeProvider:
 
 
 class FakeNarsRunner:
-    def __init__(self):self.calls=[];self.directories=[]
+    def __init__(self):self.calls=[];self.directories=[];self.starts=[]
     def __call__(self,request,*,manifest,admission,evidence_directory):
         # Match the real runner's exclusive-directory behavior. The generated
         # payload is a unit-test oracle, never presented as native evidence.
+        if evidence_directory.name!='native':raise AssertionError('Native output must have its own child directory')
+        start=json.loads((evidence_directory.parent/'turn-start.json').read_text())
+        if start['request']!=request or start['phase']!='prepared':raise AssertionError('Start record must predate native callback')
+        if start['native_request_sha256']!=hashlib.sha256(canonical(request)).hexdigest():raise AssertionError('Start request digest mismatch')
+        self.starts.append(start)
         evidence_directory.mkdir(parents=True,exist_ok=False)
         (evidence_directory/'SYNTHETIC_TEST_ONLY').write_text('No native inference')
         self.calls.append(request);self.directories.append(evidence_directory)
@@ -116,23 +121,31 @@ class DurableCognitionTests(unittest.TestCase):
         self.assertEqual(receipt['turn_binding'],binding)
         self.assertEqual(receipt['binding_sha256'],digest)
         self.assertEqual(receipt['prompt_context']['id'],'nars_'+digest)
-        sidecar=json.loads((self.runner.directories[-1]/'turn-binding.json').read_text())
+        native=self.runner.directories[-1]
+        self.assertEqual(native.name,'native')
+        sidecar=json.loads((native.parent/'turn-binding.json').read_text())
         self.assertEqual(sidecar['turn_binding'],binding)
         self.assertEqual(sidecar['native_request_sha256'],hashlib.sha256(canonical(self.runner.calls[-1])).hexdigest())
+        self.assertEqual(self.runner.calls[-1]['task_id'],'req_'+digest[:28])
+        self.assertTrue(all(p['source'].endswith(';turn:'+digest) for p in self.runner.calls[-1]['premises']))
+        first_native=canonical(self.runner.calls[-1])
         self.complete()
         self.assertTrue(self.prepare(session_id='two'))
         self.assertNotEqual(conversation.session.reasoner.receipts[-1]['binding_sha256'],digest)
+        self.assertNotEqual(canonical(self.runner.calls[-1]),first_native)
         self.complete()
 
     def test_failed_request_successor_has_distinct_evidence_identity(self):
         self.assertTrue(self.prepare())
         first=conversation.session.reasoner.receipts[-1]['binding_sha256']
+        first_request=canonical(self.runner.calls[-1])
         api.abort()
         self.assertTrue(self.prepare(request_id='retry-new-id'))
         receipt=conversation.session.reasoner.receipts[-1]
         self.assertNotEqual(receipt['binding_sha256'],first)
         self.assertEqual(receipt['turn_binding']['revision'],0)
         self.assertEqual(receipt['turn_binding']['request_id'],'retry-new-id')
+        self.assertNotEqual(canonical(self.runner.calls[-1]),first_request)
         self.complete()
 
     def test_failed_model_preserves_prior_cognitive_ledger_and_history(self):
@@ -156,7 +169,7 @@ class DurableCognitionTests(unittest.TestCase):
         self.assertTrue(self.prepare(session_id='two',text=CAT));self.complete()
         self.assertEqual([r['revision'] for r in self.runner.calls],[1,1])
         self.assertEqual(len(set(self.runner.directories)),2)
-        self.assertTrue(all(p.name.startswith(r['binding_sha256']+'-')
+        self.assertTrue(all(p.parent.name.startswith(r['binding_sha256']+'-')
             for p,r in zip(self.runner.directories,conversation.session.reasoner.receipts)))
         one=self.snapshot('one');two=self.snapshot('two')
         self.assertIn('robin -> animal',one['cognitive_history'][0]['text'])
@@ -175,6 +188,45 @@ class DurableCognitionTests(unittest.TestCase):
         self.assertEqual(first['context_ids'],[])
         self.assertNotIn('cognitive_history',api.store.snapshot('one'))
         self.assertNotIn('cognitive_observation_ids',first)
+
+    def test_duplicate_new_observation_ids_cannot_invoke_model_or_commit(self):
+        conversation.session.reasoner=lambda *_:[{'id':'duplicate','text':'One'},
+                                                  {'id':'duplicate','text':'Two'}]
+        self.assertFalse(self.prepare())
+        self.assertEqual(json.loads(api.immediate_json())['code'],'native_turn_failed')
+        self.assertEqual(self.provider.calls,0)
+        self.assertEqual(self.snapshot(),{'revision':0,'history':[],'pending':None,'cognitive_history':[]})
+        self.assertEqual(conversation.session.pending_cognition,[])
+
+    def test_observation_clash_with_committed_ledger_cannot_generate_or_commit(self):
+        self.assertTrue(self.prepare());self.complete()
+        prior=self.snapshot();old=dict(prior['cognitive_history'][0])
+        conversation.session.reasoner=lambda *_:[dict(old,text='Changed belief with existing identity')]
+        self.assertFalse(self.prepare(request_id='r2',expected_revision=1,text=CAT))
+        self.assertEqual(json.loads(api.immediate_json())['code'],'native_turn_failed')
+        self.assertEqual(self.provider.calls,1)
+        self.assertEqual(self.snapshot(),prior)
+        self.assertEqual(conversation.session.pending_cognition,[])
+        self.assertEqual(conversation.session.cognitive_context,prior['cognitive_history'])
+
+    def test_nars_timeout_retains_attempt_identity_but_not_history_or_model_output(self):
+        directories=[]
+        def timeout(request,**kwargs):
+            attempt=kwargs['evidence_directory'].parent
+            self.assertTrue((attempt/'turn-start.json').is_file())
+            directories.append(attempt)
+            raise TimeoutError('Synthetic callback timeout')
+        conversation.session.reasoner.run=timeout
+        self.assertFalse(self.prepare())
+        self.assertEqual(json.loads(api.immediate_json())['code'],'native_turn_failed')
+        self.assertEqual(self.provider.calls,0)
+        self.assertEqual(self.snapshot(),{'revision':0,'history':[],'pending':None,'cognitive_history':[]})
+        start=json.loads((directories[0]/'turn-start.json').read_text())
+        self.assertEqual(start['turn_binding'],{'session_id':'one','request_id':'r1','revision':0})
+        self.assertFalse((directories[0]/'turn-binding.json').exists())
+        self.assertFalse(self.prepare())
+        self.assertEqual(json.loads(api.immediate_json())['code'],'failed')
+        self.assertEqual(len(directories),1)
 
 
 if __name__=='__main__':unittest.main()

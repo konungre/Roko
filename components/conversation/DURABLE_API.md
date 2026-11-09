@@ -37,7 +37,12 @@ A completed turn returns the same JSON response value saved before delivery:
 The numbers and text above illustrate the schema, not a model-test receipt.
 When the native output budget is exhausted, `status` is `truncated` and
 `generation.finish_reason` is `length`. That explicitly partial reply is committed
-and replayed unchanged. There is no automatic continuation, repair or retry. A user
+and replayed unchanged. If the token limit cuts the final UTF-8 code point, its incomplete bytes render
+as one U+FFFD replacement character; the private receipt preserves the original
+bytes and the exact affected suffix. Interior malformed bytes and malformed EOS
+output fail with `invalid_output_encoding`. This boundary decoding does not
+change token counts or the three-field generation schema. There is no automatic
+continuation, semantic repair or retry. A user
 can explicitly ask to continue using a new request ID and the new revision.
 The v1 endpoint cannot represent truncation metadata, so this newer implementation
 rejects output-limit replies before committing them rather than silently presenting
@@ -67,7 +72,7 @@ requires a new ID. A cancelled worker may leave a pending claim; this is intenti
 Errors return `api_version: 2`, `status: error`, `code`, `executed_actions: 0`, and
 valid request/session IDs when available. Important codes are `stale_revision`,
 `request_conflict`, `busy`, `pending`, `failed`, `interrupted`, `context_limit`,
-`history_limit`, `invalid_request`, and `native_turn_failed`. No text is committed on failed native
+`history_limit`, `invalid_request`, `invalid_output_encoding`, and `native_turn_failed`. No text is committed on failed native
 inference or input-limit admission. An oversized transport line ends the process.
 
 ## Durability and concurrency
@@ -118,8 +123,13 @@ before hydrating its original text in order. There is no matching fallback or
 automatic recovery. The pinned PathMap predates its zipper fix, so this only
 qualifies the bounded adapter workload, not arbitrary MORK workloads.
 
-An optional `nars_cognition` profile recognizes exactly two explicit affirmative
-inheritance assertions forming a three-symbol chain. Other prose does not run
+An optional `nars_cognition` profile recognizes exactly two controlled-language inheritance
+assertions forming a three-symbol chain. It admits singular/plural `is`/`are`,
+reviewed articles, reversed premise order, periods/semicolons/`and`, bounded
+multiword labels, and explicit `Assume`/`Suppose` premises labeled hypothetical.
+There is no stemming or synonym/pronoun resolution. Reserved qualifiers and
+`-ly` words are refused conservatively; this finite lexical grammar cannot
+classify every possible English modifier or ambiguity. Other prose does not run
 NARS. Actual native NAL-1 deductions enter the model prompt as uncertain beliefs,
 with premise values explicitly labeled controller policy. The internal ledger
 is restored across worker restarts and commits with history; failed or cancelled
@@ -127,8 +137,14 @@ turns do not commit new observations. It is separate from ECAN `context_ids`.
 NARS evidence is bound to the claimed `{session_id, request_id, revision}`;
 `revision` is the pre-turn CAS revision. The internal observation ID is `nars_`
 plus the SHA-256 of that canonical binding. A unique suffix isolates evidence
-attempt directories. A `turn-binding.json` sidecar links the binding, conversation
-snapshot, and native request/response hashes. Saved replay performs no inference.
+attempt directories. Before native execution, a private fsynced `turn-start.json` records the binding,
+snapshot and exact native request. The full binding digest also enters each
+native premise's provenance; the native task ID carries a bounded digest prefix.
+The native child writes under a separate `native/` directory. A completion
+`turn-binding.json` links the binding, snapshot and native request/response hashes.
+A failed inference retains its pre-execution record, without committing cognition.
+Duplicate observation IDs are rejected before model invocation and again at the
+durable store boundary. Saved replay performs no inference.
 No public v2 fields changed for either integration.
 No full autonomous Omega loop, model-generated command execution, guest deployment,
 or graphical desktop qualification is implied.

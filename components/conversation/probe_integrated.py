@@ -5,6 +5,7 @@ Creates synthetic history in a new directory. Runtime paths come only from the
 trusted profile. The parent must run this after preparing a matching admission.
 """
 import argparse
+import base64
 import hashlib
 import json
 import os
@@ -18,7 +19,7 @@ from types import SimpleNamespace
 
 SOURCE=Path(__file__).resolve().parent
 sys.path.insert(0,str(SOURCE));sys.path.insert(0,str(SOURCE.parents[1]))
-from cognition import extract
+from cognition import extract,bind_request
 from recovered import render,system_message
 from components.nars_hyperon.source.contract import canonical,response_from_rows
 
@@ -124,6 +125,12 @@ def main():
         check('first_explicit_turn_binding',cognitive.get('turn_binding')==binding
               and cognitive.get('binding_sha256')==hashlib.sha256(canonical(binding)).hexdigest()
               and cognitive['prompt_context']['id']=='nars_'+cognitive['binding_sha256'])
+        start_record=json.loads((Path(cognitive['evidence_directory'])/'turn-start.json').read_text())
+        check('first_pre_execution_record',start_record['phase']=='prepared'
+              and start_record['request']==cognitive['request']
+              and start_record['turn_binding']==binding)
+        check('first_native_request_binding',cognitive['request']==bind_request(extract(FIRST,1),binding)
+              and all(';turn:'+cognitive['binding_sha256'] in p['source'] for p in cognitive['request']['premises']))
         check('first_actual_nars',native['status']=='passed' and native['returncode']==0
               and response_from_rows(cognitive['request'],packet['native_rows'])==cognitive['response'])
         check('first_nars_snapshot',cognitive['snapshot_sha256']==hashlib.sha256(canonical({'text':FIRST,'history':[]})).hexdigest())
@@ -181,7 +188,7 @@ def main():
         deadline=time.monotonic()+10
         while supervisor and group_rows(supervisor) and time.monotonic()<deadline:time.sleep(.05)
         after=group_rows(supervisor) if supervisor else []
-        expected=extract(CANCEL,3);nars_evidence=[]
+        expected=bind_request(extract(CANCEL,3),{'session_id':'main','request_id':'cancelled','revision':2});nars_evidence=[]
         for path in set(evidence_root.rglob('receipt.json'))-old_evidence:
             receipt=json.loads(path.read_text())
             if receipt.get('request_sha256')==hashlib.sha256(canonical(expected)).hexdigest():
@@ -193,7 +200,7 @@ def main():
               and not after and cancel_receipt['answer_bytes']==0)
         check('cancel_nars_completed_before_model',len(nars_evidence)==1 and nars_evidence[0]['receipt']['status']=='passed')
         cancelled_binding={'session_id':'main','request_id':'cancelled','revision':2}
-        sidecars=[json.loads((Path(item['path']).parent/'turn-binding.json').read_text()) for item in nars_evidence]
+        sidecars=[json.loads((Path(item['path']).parent.parent/'turn-binding.json').read_text()) for item in nars_evidence]
         check('cancel_explicit_turn_binding',len(sidecars)==1
               and sidecars[0]['turn_binding']==cancelled_binding
               and sidecars[0]['binding_sha256']==hashlib.sha256(canonical(cancelled_binding)).hexdigest())
@@ -208,6 +215,32 @@ def main():
               and replies[3]['pending'] is None and replies[4]==one)
         final=read_state(database,'main')
         check('recovery_preserves_ledger',final==baseline)
+        expanded=[turn('language-1',0,'Every mammal is an animal. A red fox is a mammal. What follows?',session='language'),
+                  turn('language-2',1,'Assume robins are birds and birds are animals. What follows?',session='language')]
+        replies,info,record=run('08-expanded-language',expanded)
+        check('expanded_two_real_turns',info['native_calls']==2 and info['cognitive_receipts']==2
+              and info['mork_receipts']==2 and all(x.get('status')=='completed' for x in replies))
+        for i,observed in enumerate(record['cognitive_receipts']):
+            bind={'session_id':'language','request_id':'language-'+str(i+1),'revision':i}
+            check('expanded_native_binding_'+str(i),observed['request']==bind_request(extract(expanded[i]['text'],i+1),bind)
+                  and observed['receipt']['status']=='passed' and observed['turn_binding']==bind)
+        check('expanded_reordered_multiword',bool(re.search(r'\bred fox\b',replies[0].get('text',''),re.I))
+              and bool(re.search(r'\banimal\b',replies[0].get('text',''),re.I)))
+        check('expanded_plural_hypothetical',bool(re.search(r'\brobins?\b',replies[1].get('text',''),re.I))
+              and bool(re.search(r'\banimals?\b',replies[1].get('text',''),re.I))
+              and record['cognitive_receipts'][1]['premise_mode']=='hypothetical')
+        unicode_turn=turn('unicode',0,'Reply with exactly the owl emoji 🦉 and nothing else.',limit=1,session='unicode')
+        replies,info,record=run('09-unicode-limit',[unicode_turn,unicode_turn])
+        call=record['native_calls'][0]
+        raw=base64.b64decode(call['stdout_base64'])
+        check('unicode_limit_and_replay',replies[0].get('status')=='truncated'
+              and replies[1]==replies[0] and info['native_calls']==1 and info['mork_receipts']==1)
+        check('unicode_raw_evidence',len(raw)==call['stdout_bytes']
+              and hashlib.sha256(raw).hexdigest()==call['stdout_sha256']
+              and call['stdout_encoding']['status'] in ('valid','incomplete_suffix_replaced'))
+        # This observation is not itself a pass criterion: the actual model may
+        # choose a complete token. The synthetic regression forces the boundary.
+        phases[-1]['actual_incomplete_utf8_suffix']=call['stdout_encoding']['status']=='incomplete_suffix_replaced'
     except BaseException as error:
         failure=repr(error)
     result={'status':'passed' if failure is None and checks and all(checks.values()) else 'failed',

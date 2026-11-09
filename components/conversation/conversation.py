@@ -87,6 +87,7 @@ class Session:
                 raise NativePreparationError(str(error)) from error
             if type(observations) is not list or len(observations)>2:
                 raise NativePreparationError('Cognitive observation cap')
+            seen_observations={item['id'] for item in self.cognitive_history}
             for item in observations:
                 if type(item) is not dict or set(item)!={'id','text'}:
                     raise NativePreparationError('Cognitive observation schema')
@@ -94,6 +95,9 @@ class Session:
                     bounded_text(item['id'],128);bounded_text(item['text'],500)
                 except ValueError as error:
                     raise NativePreparationError(str(error)) from error
+                if item['id'] in seen_observations:
+                    raise NativePreparationError('Duplicate cognitive observation ID')
+                seen_observations.add(item['id'])
             self.pending_cognition = observations
             self.cognitive_context += observations
         self.pending = {'role': 'user', 'content': text}
