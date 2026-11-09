@@ -1,0 +1,10 @@
+{
+  "passed": false,
+  "returncode": 4,
+  "image_unchanged": true,
+  "image_sha256": "0e030be04bc1da0e714ff18f4e0a6113a1ce5dda63c9513f8c8d1de65117d395",
+  "output": "ext2fs_open2: Bad magic number in super-block\n/workspace/scratch/firmware-tools-001/root/usr/sbin/e2fsck: Superblock invalid, trying backup blocks...\nPass 1: Checking inodes, blocks, and sizes\nPass 2: Checking directory structure\nPass 3: Checking directory connectivity\nPass 4: Checking reference counts\nPass 5: Checking group summary information\nFree blocks count wrong for group #1 (7934, counted=7933).\nFix? no\n\nFree blocks count wrong (55991, counted=55990).\nFix? no\n\nFree inodes count wrong for group #0 (2036, counted=2035).\nFix? no\n\nFree inodes count wrong (16372, counted=16371).\nFix? no\n\nPadding at end of inode bitmap is not set. Fix? no\n\nInode bitmap differences: Group 0 inode bitmap does not match checksum.\nIGNORED.\nGroup 1 inode bitmap does not match checksum.\nIGNORED.\nGroup 2 inode bitmap does not match checksum.\nIGNORED.\nGroup 3 inode bitmap does not match checksum.\nIGNORED.\nGroup 4 inode bitmap does not match checksum.\nIGNORED.\nGroup 5 inode bitmap does not match checksum.\nIGNORED.\nGroup 6 inode bitmap does not match checksum.\nIGNORED.\nGroup 7 inode bitmap does not match checksum.\nIGNORED.\nBlock bitmap differences: Group 1 block bitmap does not match checksum.\nIGNORED.\nGroup 4 block bitmap does not match checksum.\nIGNORED.\nGroup 6 block bitmap does not match checksum.\nIGNORED.\n\n/proc/self/fd/3: ********** WARNING: Filesystem still has errors **********\n\n/proc/self/fd/3: 12/16384 files (0.0% non-contiguous), 9545/65536 blocks\ne2fsck 1.47.2 (1-Jan-2025)\n",
+  "tool_sha256": "be1f2c99e0dc73640cffb549da5f3f4b15da0f89e7334c6730feb69eff784571",
+  "intentional_damage": "Primary ext4 superblock magic cleared in a new disposable copy",
+  "source_unchanged": true
+}

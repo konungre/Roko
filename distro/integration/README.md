@@ -153,3 +153,8 @@ and the image hash stays unchanged. The retained crash-001 image passed all five
 fsck passes with zero errors; its SHA256 still matches the guest recovery receipt.
 See `persistence-evidence/crash-001-offline-fsck.json` for the actual checker output
 and checker binary identity.
+
+A negative check cleared the primary ext4 superblock magic in a new disposable
+copy. The same read-only checker rejected it with exit4 and preserved the damaged
+copy unchanged. The original recovered image retained its pinned SHA256.
+`persistence-evidence/corrupt-001-offline-fsck.json` records this actual failure.
