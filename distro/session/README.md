@@ -107,3 +107,20 @@ A successful serial startup/state result never certifies the complete visible
 desktop. The read004 capture showed only a dark compositor surface and cursor.
 The extended render attempt read005 failed before capturing. Both observations
 remain preserved. The final readiness-fix run must be evaluated on its own evidence.
+
+## Final transfer checkpoint
+
+Development stopped at the parent request after read006 completed its scheduled
+captures and QEMU exited0 with its child reaped. The credential-checked PipeWire
+readiness marker, all non-root startup evidence, and exact persisted checkpoint
+read passed. The90-second image showed the COSMIC panel, dock, background and
+companion. At120 seconds the panel/background/cursor remained visible but the
+dock and companion were not visible in that frame; their continuous presence is
+not claimed. No input or model request was sent. Five actual session attempts,
+including both WirePlumber failures, remain preserved. The suite passed61 tests.
+
+Transfer must retain the source Git bundle, capsule revisions, post-write state
+snapshot, subsequent state images and actual results/serial/capture files. The
+read-only7.5GB ISO and full external native runtimes are dependencies, not silently
+embedded in the transfer artifact. Exact locks/hashes accompany the handoff.
+Do not restart work on this old computer, delete artifacts, or push.

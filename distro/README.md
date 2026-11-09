@@ -171,3 +171,5 @@ this minimal emulated boot/drop lifecycle. It does not establish cgroup sandboxi
 COSMIC login, model operation, persistence, Intel hardware or signed updates.
 The existing 71 native-context tests remain separate portable evidence; their
 omitted runtime/bootstrap dependencies were not silently substituted.
+
+See [the session transfer checkpoint](session/README.md) for later actual non-root COSMIC, private XDG-state cold-boot validation and the resolved PipeWire ordering gate.
