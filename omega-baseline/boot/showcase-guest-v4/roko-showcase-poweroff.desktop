@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Power Off Roko
+Comment=End the live prototype. Unsaved live-session state is lost.
+Exec=/usr/bin/roko-showcase-poweroff
+Icon=system-shutdown
+Terminal=false
+Categories=System;

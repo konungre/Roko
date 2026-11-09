@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Roko Graphics Test
+Comment=Trusted local frame and input diagnostic
+Exec=/usr/bin/roko-session-test
+Icon=com.system76.CosmicTerm
+Terminal=false
+Categories=Utility;
+StartupNotify=false

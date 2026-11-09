@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Roko Terminal
+Comment=Real COSMIC Terminal with guest diagnostic logs
+Exec=/usr/bin/roko-terminal-launch
+Icon=com.system76.CosmicTerm
+Terminal=false
+Categories=System;TerminalEmulator;

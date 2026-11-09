@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=End Session Probe
+Exec=/usr/bin/roko-avatar-finish
+Terminal=false
+Categories=Utility;

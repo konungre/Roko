@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Roko Avatar Test
+Comment=Real layer-shell avatar with guest diagnostic logs
+Exec=/usr/bin/roko-avatar-test
+Terminal=false
+Categories=Utility;

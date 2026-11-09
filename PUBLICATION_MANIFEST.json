@@ -1,0 +1,1496 @@
+{
+  "schema": 1,
+  "scope": "Initial core authored source checkpoint; remaining selected source follows in a separate commit. No runtime/host inventories.",
+  "files": {
+    ".gitignore": {
+      "sha256": "13ab9878f855b08162785df259f2c76040c5139707454c7b1b895efaad4008ae",
+      "bytes": 194,
+      "mode": "100644"
+    },
+    "README.md": {
+      "sha256": "298c580fc202e41949c5581c1dd328d2aa92b8bcb4d89dc4166931648731ebde",
+      "bytes": 2595,
+      "mode": "100644"
+    },
+    "THIRD_PARTY_NOTICES.md": {
+      "sha256": "71611eeb7fdb9588f34db923d5a6c63e81cef054741cc50740ed766fcd067844",
+      "bytes": 1820,
+      "mode": "100644"
+    },
+    "ai-component-map-v1/validate_plan.py": {
+      "sha256": "f693eee50c0175c543e4cf9ea740f3ea387176ac299b976bee6eff0f7e250730",
+      "bytes": 2756,
+      "mode": "100644"
+    },
+    "docs/PUBLICATION_SCOPE.md": {
+      "sha256": "febf7e7a42fabe2cbe969355a4a70b0d3999f221ba91596adc5928a0a7f6e0b8",
+      "bytes": 1907,
+      "mode": "100644"
+    },
+    "docs/REPOSITORY_MAP.md": {
+      "sha256": "95faef2f6d221a7a94f8bc299336da94246f6d142edc559ba2eabf952ef5ff58",
+      "bytes": 2054,
+      "mode": "100644"
+    },
+    "docs/REPRODUCING.md": {
+      "sha256": "bddf34fae3221b3c0895f3da01d5be870f5ad9164fea95c08ae94a722ae7dfdc",
+      "bytes": 2527,
+      "mode": "100644"
+    },
+    "docs/STATUS.md": {
+      "sha256": "e15b84eef33664d2a0485e0fc4faa942599463c954aaeaa835eab3c396ce8d61",
+      "bytes": 3577,
+      "mode": "100644"
+    },
+    "docs/VALIDATION.json": {
+      "sha256": "f678a2f598b31a37a228f1438b2f9fbef7289a22b711fa31e9a4671835a2e544",
+      "bytes": 945,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/capsule-bridge/backing_identity.py": {
+      "sha256": "eded77b9a01141b78158da546ac4510319ef00db70070e73b11e8181b2b6b45b",
+      "bytes": 9878,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/capsule-bridge/bank_bridge.py": {
+      "sha256": "7a6dbd807b28698e06e246ce1205c61fd7aaf44bf14c1afb4fd505907885ed15",
+      "bytes": 4301,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/capsule-bridge/cognition_protocol.py": {
+      "sha256": "994a4ec23758dae9472885853a2ff9930014ca177d32314fd0e7d390830cd8db",
+      "bytes": 5321,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/capsule-bridge/context_pipeline.py": {
+      "sha256": "15fab50aa858e6b2df052db392e1f9d6214fca6f5dd533c50186197c45868b51",
+      "bytes": 2239,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/capsule-bridge/ecan_guest_advisory.py": {
+      "sha256": "73704a28fb25be796c4e7e7981c49d4e15da16700c613a041657585159cd454d",
+      "bytes": 7973,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/capsule-bridge/ecan_guest_contract.py": {
+      "sha256": "5378db226075e63c2255fc31fe840ad59027d0e3a769e93ff698c59ec9a5aca4",
+      "bytes": 11695,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/capsule-bridge/gateway.py": {
+      "sha256": "c06be815925844871bf4e57c9386abbebeda1e9728c5ffc6c76aa7a7e5bb3852",
+      "bytes": 14160,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/capsule-bridge/launch.py": {
+      "sha256": "dfbba87e77f7fd76441cdf5f0b430d80e3c0fb88b902e220b96cf6d00043654d",
+      "bytes": 3258,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/capsule-bridge/omega_bridge.py": {
+      "sha256": "8d96e7ed400c562ac125588c8b2be26c41d4d4045786e6017a6cf8629fe9ffa8",
+      "bytes": 1868,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/capsule-bridge/paths.py": {
+      "sha256": "d47e65fbad50dbee025344992d24d5429591fcdd645851c0694c00c19b875d54",
+      "bytes": 841,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/capsule-bridge/runtime_guard.py": {
+      "sha256": "b86d3243d07e04ebf681edd2458542b0815f36badebc5707d4befe1b0e6d9615",
+      "bytes": 1784,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/capsule-bridge/work_fs.py": {
+      "sha256": "2dadb141fbad2f94adb278c3ab0ecd2ab62c1df883382fdca806497f6ac522b6",
+      "bytes": 1724,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/capsule-bridge/worker-ecan.pl": {
+      "sha256": "23e5b786213a7b92ca59447dfbdbfb621af5b5af056b136e3c306e55e9e538e6",
+      "bytes": 3939,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/capsule-bridge/worker-omega.pl": {
+      "sha256": "04468c6d3652145e4f36f8e219d7efd279d974e9161742912d93ff57b85efa67",
+      "bytes": 1739,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/capsule-bridge/working_state.py": {
+      "sha256": "98de1a99406f32835f1676a3ee09d7b65efbcdaefa92e17d4528fcb96d503674",
+      "bytes": 5100,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/measure_plan.py": {
+      "sha256": "2467d9711e54fd9f7149139921f0d6670cde5e1e541f5d36bc337ce7f1580160",
+      "bytes": 5095,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/root-bootstrap/backing_identity.py": {
+      "sha256": "eded77b9a01141b78158da546ac4510319ef00db70070e73b11e8181b2b6b45b",
+      "bytes": 9878,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/root-bootstrap/context_backing.py": {
+      "sha256": "48281cd0ed9b7d671d2422424847958f98fc68941d74d54b1245faaecba72596",
+      "bytes": 2440,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/root-bootstrap/prepare_session.py": {
+      "sha256": "0e095fe22b5b7a71752fd17a2b80fd2e1e55731e45ff59f7c092df0859f86ba0",
+      "bytes": 11263,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/source/cli.py": {
+      "sha256": "8c4f61d60129ccce1ec6ff69cef7988ed873393d62acfdc3f770d396d81bb8ce",
+      "bytes": 1279,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/source/context_policy.py": {
+      "sha256": "6f478e82994c0192e84bf5297d7367550d15a394a81cdb86dc83f0c2cb2c8551",
+      "bytes": 491,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/source/live_context.py": {
+      "sha256": "d202a2a0b4691315d82c804fe71d52869fe4db62a738d5ca4921615e3e1bd4c8",
+      "bytes": 11191,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/source/live_contract.py": {
+      "sha256": "9ad2d239706d2959501876220d0cc6977b9b89fad3b6f7b03f9a8f30eeb66161",
+      "bytes": 6437,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/source/live_controller.py": {
+      "sha256": "7dab49bbb7c3572a6720b100c9a235f87529238ebfc84c34b4c8d0d33f1149bc",
+      "bytes": 17932,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/source/session_identity.py": {
+      "sha256": "b78d48ec939f0edf7e9b9a725eb5029b74b5f795fbc127d1910a02dcb0158267",
+      "bytes": 6070,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/test_bootstrap.py": {
+      "sha256": "dfe6fe654ff5d81e1d537ea5cfd7af9cb8564b8a2c5237a7087a517b34572783",
+      "bytes": 14488,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/test_context.py": {
+      "sha256": "116dbdb6edfacd89ae3de7dab63d461af395e5c96b8adb86aeca8387e7b9e5d8",
+      "bytes": 11805,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/test_gateway_lifecycle.py": {
+      "sha256": "dae8114844a64d284595d857ca69ea88c216419b756607294c506953c55ffc62",
+      "bytes": 2765,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/test_regressions.py": {
+      "sha256": "5d81cd2ffb5ac653993274abbc7b0635787a86730971195a477ab6492a29701a",
+      "bytes": 1406,
+      "mode": "100644"
+    },
+    "live-symbolic-context-v5/test_review_regressions.py": {
+      "sha256": "f0a9e0ebc14d59dd2a56634c6c6134dd5dd3cb112aa1d94f36a1e57a01695b72",
+      "bytes": 3327,
+      "mode": "100644"
+    },
+    "metamo-core-v3/source/bridge.py": {
+      "sha256": "a42384d535cc5f031aefbebdc5e578f032fb1afc299f25a28663a065adc5c4fa",
+      "bytes": 3156,
+      "mode": "100644"
+    },
+    "metamo-core-v3/source/contract.py": {
+      "sha256": "a0028e70899cfd792f8c1706613082573eb61469d2b0a1e91ea04db88ccae3f6",
+      "bytes": 6098,
+      "mode": "100644"
+    },
+    "metamo-core-v3/source/fixtures.py": {
+      "sha256": "8613f597ff79c49c223ffb005c93dea62a5af93574591e17525c1ce7ce04ab73",
+      "bytes": 1878,
+      "mode": "100644"
+    },
+    "metamo-core-v3/source/freeze.py": {
+      "sha256": "cbed69b03cda6fedb99ef7ada9b85ea57ff8fe84ad01ff0e0b78966c1100b251",
+      "bytes": 3222,
+      "mode": "100644"
+    },
+    "metamo-core-v3/source/gateway.py": {
+      "sha256": "2962f16e4766c44e7f68bd09d2d9ba23651570c5ed35a7143b9686178a5f1a6d",
+      "bytes": 15403,
+      "mode": "100644"
+    },
+    "metamo-core-v3/source/helper_probes.py": {
+      "sha256": "90a6d60a8841be02e98a5b3988aba99e517b8bac20e8004d22aa66a2eff7b4c0",
+      "bytes": 994,
+      "mode": "100644"
+    },
+    "metamo-core-v3/source/launch.py": {
+      "sha256": "dce077dfb9d728bdd025ca5149d7643674beaeb1bef10317addbad18764511bf",
+      "bytes": 2935,
+      "mode": "100644"
+    },
+    "metamo-core-v3/source/numeric_compat.metta": {
+      "sha256": "b476836c90426d5e9fa0adf13533b412947c0e97c6f5ffba65db3f349ad14a69",
+      "bytes": 1319,
+      "mode": "100644"
+    },
+    "metamo-core-v3/source/paths.py": {
+      "sha256": "4fe6a7b5e1c9360b7b90c01ecb1db8afce7a73eff365c63adde486deee8ba8a7",
+      "bytes": 764,
+      "mode": "100644"
+    },
+    "metamo-core-v3/source/reference_oracle.py": {
+      "sha256": "96275f656f1f8c0ef9d94c5454cc948f70e5656c83fa5e11e9ab680fbc32f576",
+      "bytes": 860,
+      "mode": "100644"
+    },
+    "metamo-core-v3/source/run_gate.py": {
+      "sha256": "d39ef5a15cce1e1593e939f560d11facfd3c9472eff45cc987e79a6312628cb3",
+      "bytes": 3821,
+      "mode": "100644"
+    },
+    "metamo-core-v3/source/runtime_guard.py": {
+      "sha256": "b86d3243d07e04ebf681edd2458542b0815f36badebc5707d4befe1b0e6d9615",
+      "bytes": 1784,
+      "mode": "100644"
+    },
+    "metamo-core-v3/source/test_pure.py": {
+      "sha256": "f18bdd3ddc99cdfbab05445b67fd92f396f8891f372630047b1cd0b53919112e",
+      "bytes": 14034,
+      "mode": "100644"
+    },
+    "metamo-core-v3/source/worker.pl": {
+      "sha256": "718e3775ef9b39f98b6120838da0e03860dac039f9802028e6e037759a1e42d7",
+      "bytes": 2526,
+      "mode": "100644"
+    },
+    "mork-recovery-v1/source/audit.py": {
+      "sha256": "557f6b8f6a3f5fe925876e3667e470bc40dab48dcbd17fbdfeb6dbf26f46a8f4",
+      "bytes": 5107,
+      "mode": "100644"
+    },
+    "mork-recovery-v1/source/native_mork.py": {
+      "sha256": "d03f99f2cdd1e1feaf00c695ee71d0aac12e8764fbbf0e8475f5ae55f4e3b311",
+      "bytes": 12615,
+      "mode": "100644"
+    },
+    "mork-recovery-v1/source/qualification_worker.pl": {
+      "sha256": "b80754115d8cabdd90aad420f71fd4c439cc21d3199d6de235eca6187d8dfebe",
+      "bytes": 1897,
+      "mode": "100644"
+    },
+    "mork-recovery-v1/tests/test_audit.py": {
+      "sha256": "a2d2779d35f35295711ba0795df39fabc14a1d2c1885b838b273c49ab91b63ad",
+      "bytes": 2064,
+      "mode": "100644"
+    },
+    "mork-recovery-v1/tests/test_cleanup.py": {
+      "sha256": "68f22a3932fd5360969f2e4924e4211062be352b65872ff890e1209805ea8392",
+      "bytes": 5768,
+      "mode": "100644"
+    },
+    "mork-recovery-v1/tests/test_native_mork.py": {
+      "sha256": "b008977fcabab15bbd88531832ce2fdd3f3dab9057f3048e73900246bdca6962",
+      "bytes": 9492,
+      "mode": "100644"
+    },
+    "nars-inference-v3/source/contract.py": {
+      "sha256": "495685d6559d42b8f7fb10cb7fa9dcd8bc0090fa8ec216a0563695c53d1b8c35",
+      "bytes": 6546,
+      "mode": "100644"
+    },
+    "nars-inference-v3/source/freeze.py": {
+      "sha256": "f96cb85ac65b87ac5d4b72dafa08b342475863dd6f7f46d5c5c91b9d32759234",
+      "bytes": 3653,
+      "mode": "100644"
+    },
+    "nars-inference-v3/source/gateway.py": {
+      "sha256": "8c03c965ac71f820e7176ef936e197c0518dce0804c59ed28847a0b3732f5027",
+      "bytes": 14110,
+      "mode": "100644"
+    },
+    "nars-inference-v3/source/launch.py": {
+      "sha256": "ced006c48d4527fb67f2b1c841295ed149d2c9a08e1f1186f7b7d7e53255e546",
+      "bytes": 2948,
+      "mode": "100644"
+    },
+    "nars-inference-v3/source/nars_bridge.py": {
+      "sha256": "b77a5143229a6a08a7e79c0a361bb96b43fc88c610a658392fda3907eacbeefb",
+      "bytes": 2194,
+      "mode": "100644"
+    },
+    "nars-inference-v3/source/paths.py": {
+      "sha256": "175cda9d5404fa56d01251ff9d51d572710637d56f766983d085e8211681c5cc",
+      "bytes": 545,
+      "mode": "100644"
+    },
+    "nars-inference-v3/source/run_gate.py": {
+      "sha256": "f18edada4a74aadf6c73645aaf276d02df626206a7c17008ef178dd16a0305ab",
+      "bytes": 3794,
+      "mode": "100644"
+    },
+    "nars-inference-v3/source/runtime_guard.py": {
+      "sha256": "b86d3243d07e04ebf681edd2458542b0815f36badebc5707d4befe1b0e6d9615",
+      "bytes": 1784,
+      "mode": "100644"
+    },
+    "nars-inference-v3/source/test_pure.py": {
+      "sha256": "b977093d77de18e31713d2f1af896a7767284282200e7d9f5e01cf6b2c50f06f",
+      "bytes": 11810,
+      "mode": "100644"
+    },
+    "nars-inference-v3/source/worker-nars.pl": {
+      "sha256": "3f082481d43b6aefdf551691ad0b8b68c521db7e070c7b73b316298028425eca",
+      "bytes": 2112,
+      "mode": "100644"
+    },
+    "omega-baseline/adapters/avatar_events.py": {
+      "sha256": "a1d7021bec659af75ee47141cade46efdbee52beb8958568176f3c7dfa523fdb",
+      "bytes": 3877,
+      "mode": "100644"
+    },
+    "omega-baseline/adapters/granite_pipe.py": {
+      "sha256": "b1d0bce6f486f2decad4288bb0613a977ccca1f859731eeae496706a5d1e4fb3",
+      "bytes": 6894,
+      "mode": "100644"
+    },
+    "omega-baseline/adapters/local_bounded.py": {
+      "sha256": "a909fbd72bf4b48c84964bb1ec489750ae0e3a9243f26fabef250ac724ce94a7",
+      "bytes": 6688,
+      "mode": "100644"
+    },
+    "omega-baseline/adapters/native_ecan.py": {
+      "sha256": "bf5fdd3825f185d9fe37d0a66a9a233bfa23cb0e46b0d2251eb3001851446646",
+      "bytes": 9076,
+      "mode": "100644"
+    },
+    "omega-baseline/adapters/native_mork.py": {
+      "sha256": "27f82b18f3eb2fa25e7d7f4b73cae3731a9220e6ba9a51c92b14bec25a37a050",
+      "bytes": 10684,
+      "mode": "100644"
+    },
+    "omega-baseline/adapters/package_inventory.py": {
+      "sha256": "f9b992b75b935535224f25a30bb4aa758bbf8871fb85faa1df4ca032c972f861",
+      "bytes": 3717,
+      "mode": "100644"
+    },
+    "omega-baseline/adapters/package_planning.py": {
+      "sha256": "79eaf5d1b7d4f353b1a8faf414419dd521b01c34ce8ae9630072cf0abcfffae0",
+      "bytes": 3504,
+      "mode": "100644"
+    },
+    "omega-baseline/adapters/state_store.py": {
+      "sha256": "78e42787fa367d1ee948469001857b801ca1ac8f62c1554aee0dd49a6f3e4652",
+      "bytes": 5928,
+      "mode": "100644"
+    },
+    "omega-baseline/adapters/working_state.py": {
+      "sha256": "98de1a99406f32835f1676a3ee09d7b65efbcdaefa92e17d4528fcb96d503674",
+      "bytes": 5100,
+      "mode": "100644"
+    },
+    "omega-baseline/bin/roko": {
+      "sha256": "fa0a0b7e32d8469335239e9ee15ebd0379cc25ab491f408d240adddef15f8a74",
+      "bytes": 186,
+      "mode": "100755"
+    },
+    "omega-baseline/boot/acquire-tooling.py": {
+      "sha256": "f1084173cb4396b12ec2f433239c176f8d48473f6126ee08010d3978e444239d",
+      "bytes": 2604,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-avatar-guest/build.py": {
+      "sha256": "9175485f83890dce0bbb64da50fdea2e440f7bdc7ac2f1f24a10b94c81d0ea48",
+      "bytes": 8408,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-avatar-guest/com.roko.AvatarFinish.desktop": {
+      "sha256": "274a08bf6f2a19f73381ad194b61a5d9c6ef9df975436478ab9640fa46a95e37",
+      "bytes": 124,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-avatar-guest/com.roko.AvatarTest.desktop": {
+      "sha256": "b7bcfacf4c1268554871c8073842e0080aff7c7d08874f4d1f78fc8da561fe2d",
+      "bytes": 180,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-avatar-guest/console-fixture.sh": {
+      "sha256": "8de09741c232c3c3fa35901ea9483c2c4d21c8f33cc4e847af41fb5b6610f82c",
+      "bytes": 381,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-avatar-guest/control.py": {
+      "sha256": "f8dc06727446b72dd2b11cc0879ae38405c29fec2315bfd692202e2c8cdacb35",
+      "bytes": 455,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-avatar-guest/direct-start.sh": {
+      "sha256": "47f14ef0e21bcbd336b0062526412a96671b56779b2addc5706b31ee5cc1dc54",
+      "bytes": 531,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-avatar-guest/finish.sh": {
+      "sha256": "496a574b93a3f912ea096db1974002e82fb1fa86123a2e809ff1aa1489ee8406",
+      "bytes": 264,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-avatar-guest/launch.sh": {
+      "sha256": "0e9c0c2c73bab4a657c187e9a7d7d7c3194add935ee5a1611ffb191eeff6945c",
+      "bytes": 224,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-avatar-guest/observe-v3.py": {
+      "sha256": "7a434901ee13ff37bc32e5a8c39660e4520d9f9335a76509c9d700747c00b2a1",
+      "bytes": 5013,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-avatar-guest/observe-v4.py": {
+      "sha256": "bbff0608ba8975903d022af4d27ff61bb777c1399bbe41722edae33188e73f48",
+      "bytes": 5240,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-avatar-guest/observe.py": {
+      "sha256": "607f9f90b7d56036954a23a97afe0ca66d3b8864217187a8b9e18323585889f8",
+      "bytes": 3534,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-avatar-guest/run.py": {
+      "sha256": "7887301d6d3ef354067f34ecdf68b6bad409027cf0114b442f91b41e717d337a",
+      "bytes": 7860,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-avatar-guest/test_scripts.py": {
+      "sha256": "71031b9571657dbfad73fa6049f6359eb6e1ec87754150c16039b4c8f58d7193",
+      "bytes": 2573,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-guest/capture_oracle.py": {
+      "sha256": "ae9ca08c5f68d438ff5c63a4f28d75f8b2fae791efeb6dbea40fec631ff3cc8f",
+      "bytes": 6863,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-guest/check_controller_overlay.py": {
+      "sha256": "b8c07eae85d1291acfdfe5b5fa956db3db640b7c5074d11da4adaeea3396d3e3",
+      "bytes": 10903,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-guest/check_gio_overlay.py": {
+      "sha256": "0f42e641b045e376a73e222c8c0f6ae5fe934cba30953f1ee692930731131d08",
+      "bytes": 2462,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-guest/check_mime_overlay.py": {
+      "sha256": "dc4cf76090e4bbea7b358c09deef6e9bd0c1e84f159e3518e9c60051a3a4664b",
+      "bytes": 2437,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-guest/gui_probe.py": {
+      "sha256": "1125fbdd4b59fb144d7d5ea49742da6f70083d19678737796d8e0fc643b3f695",
+      "bytes": 5196,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-guest/headless_check.sh": {
+      "sha256": "fe5202da8b0ac0dff7533824bc90dd31eb2ed57ca45259acf348ea3ce9e3576f",
+      "bytes": 2000,
+      "mode": "100755"
+    },
+    "omega-baseline/boot/basilisk-guest/prepare_controller_overlay.py": {
+      "sha256": "10a24cbfa4e71184a7edd459619d43bb535163e816917a751ccf559bd8e0789f",
+      "bytes": 4496,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-guest/prepare_gio_overlay.py": {
+      "sha256": "7f9f3becf6967b25f59801db68260bcdb90683e883f5e35a770d4e0e1f2ec1c9",
+      "bytes": 1631,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-guest/prepare_layer_overlay.py": {
+      "sha256": "fbf11e92b6eef5e9ad1537be3f3605027ce0490c179f00c95f348cbd5f913f1f",
+      "bytes": 2394,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-guest/prepare_mime_overlay.py": {
+      "sha256": "6e5feafdb7bd3d7cc29bc59218168935071bb25e3a2a49a36f79f647370db51a",
+      "bytes": 2105,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-guest/prepare_overlay.py": {
+      "sha256": "009bb3f33b014bb799732bf91c8ec44ec6c31ade24970fa673e4930286c18152",
+      "bytes": 3595,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/basilisk-guest/test_capture_oracle.py": {
+      "sha256": "7164a6e904156c0cf5d34e08ae198548ab26115f6eba5ce77e4aafd73ad449e2",
+      "bytes": 3654,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/build-userland.py": {
+      "sha256": "2214ccd041678d104bf12d953bfcb8b2911decfc36f12c5cf6a4f96f800237f3",
+      "bytes": 5917,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/build.py": {
+      "sha256": "9cab150a3dab38244564361e5ff096ac44881c2742bd3386fe464718a4a91a94",
+      "bytes": 4785,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-capsule-guest/guest_driver.py": {
+      "sha256": "d529da6d77d72249df3a391738e16d0fa49d2b5ad2a9c1052579554a0d625c32",
+      "bytes": 8892,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-capsule-guest/guest_init.sh": {
+      "sha256": "eb95f2a5869d82de9b3347ffcc82a3b1285bf27e53dff3e8aca4a5f0442e20f9",
+      "bytes": 549,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-capsule-guest/harness.py": {
+      "sha256": "c001ceaf78ed198e235870a68764f4ecef7d7255befd9eaab763942d7a6608be",
+      "bytes": 9167,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-capsule-guest/prepare.py": {
+      "sha256": "4ba2f274c2009c2d042119f86660d72cfeba29a6aee5adc199cc37f0a70a8808",
+      "bytes": 13910,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-capsule-guest/run_serial.py": {
+      "sha256": "e64da3ebb94fbda5bca258ab9e314680b0d300c0d42420f929b8e4e1ffb1fa47",
+      "bytes": 14050,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-capsule-guest/source/cognition_protocol.py": {
+      "sha256": "994a4ec23758dae9472885853a2ff9930014ca177d32314fd0e7d390830cd8db",
+      "bytes": 5321,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-capsule-guest/source/cognitive_bridge.py": {
+      "sha256": "1eaf67003532914e1dfcdd803042b4fef4c5ffda17b4e829bbd8ea5732f52757",
+      "bytes": 3162,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-capsule-guest/source/guest_cognition.py": {
+      "sha256": "3b0b6f7e5002258cc4aa31addb1ac390ccc26262607732ca74ef185a901d7b44",
+      "bytes": 14297,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-capsule-guest/source/launch.py": {
+      "sha256": "b8d786740162dc2d9cc6f5af2002a9ee75e50e3da5ee388fd9406525d887d878",
+      "bytes": 2130,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-capsule-guest/source/worker.pl": {
+      "sha256": "850789c9da11a5f69799c743e933b88ce4835ebfcd46f8e6347662d053f6106c",
+      "bytes": 2343,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-capsule-guest/verify_libgcc.py": {
+      "sha256": "7fab79e7c11010241ee0e40e07cd84325b2dd232f0a0ffd10c0f3c3abc6dac32",
+      "bytes": 3540,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-filesystem-guest/build.py": {
+      "sha256": "de6cadc5e4d655781edea71fdcd2fa06e07020b9bfdbb765b582936c3d725d57",
+      "bytes": 4609,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-filesystem-guest/check.py": {
+      "sha256": "ccd68cbd6594e3aa71cf8e86c267f2373a69d4b2aae9df7b9880e6501aad4126",
+      "bytes": 5292,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-filesystem-guest/formatter.py": {
+      "sha256": "7bef1bf2b81fbaf1de233b84aee1df69afd88450fd2fef53d42c76b0d175be4b",
+      "bytes": 3000,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-filesystem-guest/image.py": {
+      "sha256": "03ccf1b012aaf1f1164e7022712ca303a01b73d5ff1497ac6972d171ab753fba",
+      "bytes": 2540,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-filesystem-guest/init.sh": {
+      "sha256": "858b5b459308174b10513744d06dea6b9f0d32899ab84d0b2b07c084f897586b",
+      "bytes": 1222,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-filesystem-guest/run.py": {
+      "sha256": "5e66a1c9317f6ebbbcb8374a5513e1d905b54907656776e252cc0527fbbd4d67",
+      "bytes": 6169,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-filesystem-guest/test_controller.py": {
+      "sha256": "eccdd5101bed82412d1dbea5719a559ed90964e1dd9fd0ea9ea9197b113e0d08",
+      "bytes": 2779,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cognitive-filesystem-guest/test_filesystem.py": {
+      "sha256": "eb33f25b48912dd30e3a132d26053d787799e6259035161111509b64c3181480",
+      "bytes": 4031,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/companion-controls-guest/build.py": {
+      "sha256": "8230b94eedbbae7a105ae5c8cf3a7b58d2da8ba8f03d7ae5e1535f44784a4767",
+      "bytes": 2948,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/companion-controls-guest/control.py": {
+      "sha256": "3139abe3bbd9864cb05f52797a11c123883fb5f227a3783aba11f53a6bb61acc",
+      "bytes": 458,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/companion-controls-guest/delta.py": {
+      "sha256": "0ec5f348193650b728a5e51b572f6fefe1488af5a037da8bdff01b62f865f3a4",
+      "bytes": 3017,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/companion-controls-guest/run.py": {
+      "sha256": "bf9554d17d9e2d146057c4ded300210df3bbe0e12cb01e71e676157f46603f2b",
+      "bytes": 10527,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/companion-model-guest/control.py": {
+      "sha256": "a793e3c6e19dd71605f067dc4eec65a43e57c7f90f94b3397e067e33c0b024c4",
+      "bytes": 690,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/companion-model-guest/inspect_guest.py": {
+      "sha256": "3207e80231092b17246b506a508f4409c2d6b5549ecc2795534940b71087086e",
+      "bytes": 1179,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/companion-model-guest/prepare.py": {
+      "sha256": "c94a9c71caed44a96fed8f4347200794a51397b4da3d3ddf5c2f536b71398c14",
+      "bytes": 11075,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/companion-model-guest/run.py": {
+      "sha256": "f9c853b25ad5c18d911d18239e6d3d66433e094603a0b2e6ee65a60a720278c3",
+      "bytes": 12924,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/companion-model-guest/test_combined.py": {
+      "sha256": "02cf9aae5bddb233bc84e95d96eebc0a952a3e81562ae2878dacd48002f35df1",
+      "bytes": 5873,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/companion-model-guest-cache128/analyze.py": {
+      "sha256": "ff253a21e1ccd1cb747ebf41b1bbd665fbe895cc3e89c7f32c626a4c01d8ffb7",
+      "bytes": 13582,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/companion-model-guest-cache128/run.py": {
+      "sha256": "86bdb02541a4bb9dbd5406f646c992acfce40c18751de229a7a0aff6b1121cc5",
+      "bytes": 15687,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/companion-model-guest-compact/control.py": {
+      "sha256": "a793e3c6e19dd71605f067dc4eec65a43e57c7f90f94b3397e067e33c0b024c4",
+      "bytes": 690,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/companion-model-guest-compact/inspect_guest.py": {
+      "sha256": "3207e80231092b17246b506a508f4409c2d6b5549ecc2795534940b71087086e",
+      "bytes": 1179,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/companion-model-guest-compact/prepare.py": {
+      "sha256": "f0d97b802f7d48608f754c51255c0a0fd9bf92b13414ce1f2d4c8c69be847b64",
+      "bytes": 12922,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/companion-model-guest-compact/run.py": {
+      "sha256": "1c7986adb76174f6ad9851e26420c4e133cd2555f3e9df5d74c141c9e2574e5a",
+      "bytes": 12957,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/companion-model-guest-compact/test_combined.py": {
+      "sha256": "02cf9aae5bddb233bc84e95d96eebc0a952a3e81562ae2878dacd48002f35df1",
+      "bytes": 5873,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-dock-overlay/build.py": {
+      "sha256": "d5cdf3b5361d55e5185dcf2ebf50dd673cc719a7980599310bbbbdbd983aea72",
+      "bytes": 3162,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-files-portals-guest/build.py": {
+      "sha256": "466035fcef246dd56e05547d559a9b8aebc8a927592684f6b34c282def51f7a9",
+      "bytes": 5366,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-files-portals-guest/check.py": {
+      "sha256": "7a747ac4a6511a0abfa50cc56606b15a12b686eb6c672eafc45152e836a8fa67",
+      "bytes": 2656,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-files-portals-guest/control.py": {
+      "sha256": "12e9ec3c3d793463da07d212ca3667e2aa6cc3a429e0438ce63e1894ca644ed7",
+      "bytes": 460,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-files-portals-guest/diagnose.py": {
+      "sha256": "9ee06f8fa992dff5e97320a510a476be253535536c31b51589587def2b53ef84",
+      "bytes": 6916,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-files-portals-guest/diagnostic-entry.sh": {
+      "sha256": "2d1ea6fc69d383d8f2215ddb4a843f63fd210b8d3db3f9767957f4423400e664",
+      "bytes": 826,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-files-portals-guest/prepare.py": {
+      "sha256": "188e83cdb28321c0a8fb8bbef4c0203591775b991341e3592f7c3b6429d50033",
+      "bytes": 6352,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-files-portals-guest/probe.py": {
+      "sha256": "7c022dd58953473827cf0a36aea51dd5095b4124091738780485857120f113b3",
+      "bytes": 3366,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-files-portals-guest/run.py": {
+      "sha256": "3e4e73bc55df7d8a9bd73a489564ca9eae4510ee0ad9a5030d7e7912ab2ca805",
+      "bytes": 8967,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-files-portals-guest/session-env.sh": {
+      "sha256": "57b0b9eb65eb8add91001b836be35a0ffaa9398c0be18337607a1966864f28e6",
+      "bytes": 888,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-files-portals-guest/test_builder.py": {
+      "sha256": "65cf5154f40883666c70bbfd8815717e57f4437d8d37698b4ccb77ff6ae26b02",
+      "bytes": 1076,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-files-portals-guest/test_diagnostics.py": {
+      "sha256": "7263f3d138c50fa462c6ece7a72578ec4e013ed6b0242b2e6adb984ef7fcf2ab",
+      "bytes": 2121,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-guest/60-roko-input.rules": {
+      "sha256": "7b3ac5be0f71f2ec84116d575a25b378272b6297c5d8beb58f6fbb6d99f9f718",
+      "bytes": 212,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-guest/build-egl-client.sh": {
+      "sha256": "74325c01b888df8baf93535c6080846c745b84ef544fc6ae8d730d79bc717a48",
+      "bytes": 523,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-guest/build.py": {
+      "sha256": "3897fcfa905887ef05fa1ebe733adf44255b346991c2bd56c100eea76c08c6bf",
+      "bytes": 11394,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-guest/egl-init.sh": {
+      "sha256": "58e2e17bf013ca4d750a43b6e8ab72c3f443fcf973d2ac3970ae1ab246ac3c67",
+      "bytes": 959,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-guest/egl-probe.c": {
+      "sha256": "c8045cd0740a8bb6cf8ef71c27f46fccdef0e6850842eeccc36bddd4a0ed36e8",
+      "bytes": 3850,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-guest/egl_probe.py": {
+      "sha256": "08d341a32822503315880d4352f3f1d813b071932adf4ad4dd7cabb9ac45f20f",
+      "bytes": 6901,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-guest/fonts.conf": {
+      "sha256": "f05b0ef8a1679578848884e7281bb12fc289b0b03620e85c6699cf52aa84f147",
+      "bytes": 366,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-guest/init.sh": {
+      "sha256": "dfb05b84618adc58d8f20713717ce391e9601cab350d6db03671c6ab763d2a68",
+      "bytes": 2605,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-guest/run.py": {
+      "sha256": "bebb17a67044070996f4c55fe3fb64ae87ba7c5f940eb9acd4a784af491e3f28",
+      "bytes": 9940,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-guest/session.conf": {
+      "sha256": "20bec68aca23246176f5dd566fb16fd44677317b49b7fa74e6f4eff3db74b41b",
+      "bytes": 383,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-guest/test_scripts.py": {
+      "sha256": "3a4b8f23b7872c3bb99cfa945b527584d45366e43e6997bdd59b1e45a14678a0",
+      "bytes": 5608,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-persistent-guest/build.py": {
+      "sha256": "0f0fd34297a9d13e0c42c964b736494e5c7ffeac2e03af990c942452a0f868b9",
+      "bytes": 5866,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-persistent-guest/run.py": {
+      "sha256": "c87a3cf9d28e1c7d08eb82f3682df2b5cca15c8890984ea7602f3d8169285796",
+      "bytes": 10521,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-persistent-guest/test_runner.py": {
+      "sha256": "638cf4a621470dfa751a1b5c0f66f24d5cb59a9e2415803b8b178ab9e3932aff",
+      "bytes": 1624,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-session-guest/60-roko-input.rules": {
+      "sha256": "7b3ac5be0f71f2ec84116d575a25b378272b6297c5d8beb58f6fbb6d99f9f718",
+      "bytes": 212,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-session-guest/background.ron": {
+      "sha256": "9e079685b88761da5456f43a84a7243f9cd1fb7ab2afd3f61be38711b3e71e9c",
+      "bytes": 215,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-session-guest/build.py": {
+      "sha256": "84f997eaa0102ddeb39d8178d28ed44f5d02d01cf63db259e369a4aae65d04f1",
+      "bytes": 20013,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-session-guest/com.roko.GraphicsTest.desktop": {
+      "sha256": "cacc636af481cefff546c7459bde317e9ef5fbdb268b9d4597d689ca4faccf65",
+      "bytes": 222,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-session-guest/com.roko.Terminal.desktop": {
+      "sha256": "08f52d7eada3dc0d51494632765b74016a1f3736f6a4614d6dca99a451de9604",
+      "bytes": 223,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-session-guest/dock-center.ron": {
+      "sha256": "1c9be0108b93c2a10bbd1937af366e82b1249186e101255048b47323853ace25",
+      "bytes": 153,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-session-guest/fonts.conf": {
+      "sha256": "f05b0ef8a1679578848884e7281bb12fc289b0b03620e85c6699cf52aa84f147",
+      "bytes": 366,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-session-guest/init.sh": {
+      "sha256": "4de30bf7081b8f1410e59d9fc4fd641c9a5f1b52cb7c474dcd18a7886710da59",
+      "bytes": 4345,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-session-guest/panel-wings.ron": {
+      "sha256": "601c20dce9584307db30b9f29835acf317e3f15648d3f95305e136ce9b4426f6",
+      "bytes": 167,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-session-guest/roko-session-finish.sh": {
+      "sha256": "cf46b33e20058ac203695d93e5d58829fff7f66553cad6ac277f442f2fe23ab1",
+      "bytes": 291,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-session-guest/roko-session-test.sh": {
+      "sha256": "3ac6092be650422325e958fbe35f20428504a025cca1e343f3292c29ff659cef",
+      "bytes": 193,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-session-guest/roko-terminal-check.sh": {
+      "sha256": "19fba0e52174d1bf63ed6f848d24b6bf19efe0f581989b8a59d091b51e7fbb74",
+      "bytes": 530,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-session-guest/roko-terminal-launch.sh": {
+      "sha256": "882919abc1fdf1af91d64693a502ec58d40671f0b21e9b35c914163b6f383002",
+      "bytes": 274,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-session-guest/roko-terminal-shell.sh": {
+      "sha256": "9d374c5b51fbb4ea57d76f4b2f217819306219d69b88cc90d081947482be072e",
+      "bytes": 196,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-session-guest/run.py": {
+      "sha256": "f008e68f1ac1e3ad4d96aadd186518f01b1d81b69a0c82f826e2f0a03bc7c1ef",
+      "bytes": 18423,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-session-guest/session.conf": {
+      "sha256": "48290d770b1a4f7688402f945d441aaac6288e826a96a1e68be7f1a5a6fb0ec7",
+      "bytes": 417,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/cosmic-session-guest/test_scripts.py": {
+      "sha256": "f205214ea8c015cab3831a8fd05c539ff75a8900d115753ef0dbc0f75a6e7deb",
+      "bytes": 5673,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/desktop-filesystem-guest/formatter.py": {
+      "sha256": "7550a87e0e97393d3e6615b46998c13e33949170ea588a1bc7c96d189c579097",
+      "bytes": 3023,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/desktop-filesystem-guest/image.py": {
+      "sha256": "2e9568f3e2deec4e38d134843e9a9d9e3bbc29b4897517b3d76baa1ba28f4b8f",
+      "bytes": 2536,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/desktop-filesystem-guest/mount.sh": {
+      "sha256": "b1b7068ed13277e3e27de61c5e1d72975859b1f8de57c2fac612cec950e918b0",
+      "bytes": 1113,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/desktop-filesystem-guest/observe.py": {
+      "sha256": "f86f8f4697179e7c630f72cb1a7b31c7a8ba3fb858d0d8bdcb0620439b1f4970",
+      "bytes": 3335,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/desktop-filesystem-guest/overlay.py": {
+      "sha256": "d9321f61cf266c81c95041a54df88076517b67217ac65c4d68cd98d06af75acb",
+      "bytes": 3318,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/desktop-filesystem-guest/storage.py": {
+      "sha256": "bad36e972aa7b8c87e48806ebadcde301da7ee2d8e3d7a4c8e7875ce215c7c16",
+      "bytes": 5077,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/desktop-filesystem-guest/test_admission.py": {
+      "sha256": "9d53fa27def392313c4d635a35019b9bd6a8f05d93ebfaf6be33f039db3be77c",
+      "bytes": 3362,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/desktop-filesystem-guest/test_overlay.py": {
+      "sha256": "c891b2567b97b7e4bc0a6b205db0187c62ac9d62b29de326d332746e8ba7ba12",
+      "bytes": 5789,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/desktop-filesystem-guest/unmount.sh": {
+      "sha256": "10b9bc98444dfc9993656b98e98ab7421957043082d51c8b9bde9002f0ee642c",
+      "bytes": 219,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/disk-root-guest/bootstrap.py": {
+      "sha256": "0b14405796d0c091f208b1f9e44d410a099f3249a81920d0e23d3c95fb2af78b",
+      "bytes": 2434,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/disk-root-guest/build.py": {
+      "sha256": "58ee2306a5ac75b537aa5766c8a5592dcac8f7f4d5fdb2eec4fcfb85c02b94c8",
+      "bytes": 4377,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/disk-root-guest/control.py": {
+      "sha256": "567e58880d1c31fed56b60ef033406934ac4885b7270670e7ca5d6ba384eea99",
+      "bytes": 449,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/disk-root-guest/data-mount.sh": {
+      "sha256": "061fc82e5261eb1c041d6c2d21e0cf51b88a1d790ef5e5780315811ed7f3badf",
+      "bytes": 886,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/disk-root-guest/data-unmount.sh": {
+      "sha256": "848794dd425a5d0e44a7f2fb2696d64626366a4b6dd42d0be65c1f2b165257c0",
+      "bytes": 217,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/disk-root-guest/data_image.py": {
+      "sha256": "1094cbf0c3059de306a6825563ca335f85d37185c71642bb14b1f7fed675f6a9",
+      "bytes": 2554,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/disk-root-guest/image.py": {
+      "sha256": "e2e830807db3df765d78fc468fe6d2daebe1ffa6e5fa46e28c73ab512ca40c4a",
+      "bytes": 2596,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/disk-root-guest/init.sh": {
+      "sha256": "4dc0a1b6b3386025488d254b015bc8a443e3e635b50893a367e0624c29c52af4",
+      "bytes": 1945,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/disk-root-guest/plan.py": {
+      "sha256": "bd4508d4721e67a4259bbd8d2ace0f3938a6389cdf66cb47cf9f42fda3a2d050",
+      "bytes": 2693,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/disk-root-guest/probe.py": {
+      "sha256": "7435d7f9527dca37df2bad601fd1a3825551fc247a26da586367647b429b78d8",
+      "bytes": 3037,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/disk-root-guest/probe_image.py": {
+      "sha256": "9703337a45d1566e58412bf3f56f8bbbdd1568b51c111e511468e078407ae594",
+      "bytes": 2181,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/disk-root-guest/run.py": {
+      "sha256": "e84a96492ade5f5905fee91f555b57edc0eadb9ec499c875021efd721648040b",
+      "bytes": 9516,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/disk-root-guest/runner_support.py": {
+      "sha256": "9ffaa7ae4924f8fc8b483a4b0370c731563045de3f23caf7a6c9737cc505d342",
+      "bytes": 982,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/disk-root-guest/source.py": {
+      "sha256": "7513a1f0a02df87a669c7d733fc3f6047b18f011fb324a923e337886be15988c",
+      "bytes": 8468,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/disk-root-guest/test_root.py": {
+      "sha256": "f21e91e49e55ff802ed5a9d6d0201445ca386a03936a5ce3ff0c995901aaf4d2",
+      "bytes": 6417,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/disk-root-guest/tooling.py": {
+      "sha256": "29dd9769190b8fd7edbcbfe0df84e660104082b206ece12fe7b5349700b7a04c",
+      "bytes": 3214,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/disk-root-guest/transform.py": {
+      "sha256": "111d494d1a4af4f1c458c5faa6ce4d98fd5dd7b7ecc585b7e2fc68c36ba127dd",
+      "bytes": 1431,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/disk-root-guest/verify.py": {
+      "sha256": "e65e5e27868868996e1759d0032b7d652de81ad478adb71e3a4c35a384ead3db",
+      "bytes": 5550,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/files-delta-guest/build.py": {
+      "sha256": "ccfe5e2712525c3d667d055366d02d697592a8c15acd4f7ee2b7c3f3637f4d82",
+      "bytes": 2968,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/files-delta-guest/control.py": {
+      "sha256": "872003306da46c66bd1bb2c73e3b979b3af563deaa5ba0679b538ba3764c7184",
+      "bytes": 451,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/files-delta-guest/run.py": {
+      "sha256": "175766541ca66f215adb0642c9057a32b2e006203f8f8e432217661839b262b0",
+      "bytes": 10569,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/filesystem-guest/build.py": {
+      "sha256": "63800064b316e73f44e0610ed4b87fede9e325fc66e65f56818fb6b39af70b25",
+      "bytes": 4815,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/filesystem-guest/formatter.py": {
+      "sha256": "3c20ccf182f3f88882d65238eae5a85fc6462ffdf80e348d2345c8542fdf679c",
+      "bytes": 3000,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/filesystem-guest/image.py": {
+      "sha256": "0f1e8b5de8ed632d111ff26f68d32d520f185afcc679480b3034532358ed6c29",
+      "bytes": 2528,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/filesystem-guest/init.sh": {
+      "sha256": "6c710abe19587d2f72e5f88b7482014e50194ca3ee9f6c8bcff624bbdfc92d51",
+      "bytes": 1106,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/filesystem-guest/probe.c": {
+      "sha256": "bbfebbba81c39da478e65a54e5863bb9d1add7a8f9285b6562d9d80ed4851ff9",
+      "bytes": 2821,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/filesystem-guest/run.py": {
+      "sha256": "d072d9ea7afd0d9eef06d198a5f6dc2d052d0863c1cb8b2643a9c65f6b313e10",
+      "bytes": 5578,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/filesystem-guest/test_filesystem.py": {
+      "sha256": "d488e7ff095e80d79fac884a79af2e167c90d94dfa2cf0bf9f06251a2fb9906f",
+      "bytes": 4019,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/admit-helper.py": {
+      "sha256": "de3741e858a83ff95fc40a18a7eaf358bf777c772cf1d5cc826c5462cbc9d9e0",
+      "bytes": 5343,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/admit-host-avx2.py": {
+      "sha256": "515567d846402820b5280ad157b141fc6a781da981088a0d100818265cfdf26c",
+      "bytes": 5568,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/admit-qwen.py": {
+      "sha256": "2d166f4b92af03b26b8568ecc6c13a79c582dc05171fd0ed4a73510865262076",
+      "bytes": 5727,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/build-helper.sh": {
+      "sha256": "bb9c679a052bbb45fa82ee556222dd1597ae5d836c4d8b88e1951bc27ea34073",
+      "bytes": 1045,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/build-host-avx2.sh": {
+      "sha256": "35547e5fc067780ecbde656a2a74201f72c0979886d6fef1ca42665596fdac69",
+      "bytes": 1531,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/build-quantizer.sh": {
+      "sha256": "7e71e042e2f7d8ee05ef5407f2e6f323aaf6c3b26b98eb5551076ed3785e9b90",
+      "bytes": 1131,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/check-converter-env.py": {
+      "sha256": "104b1e32539459601e59d55998e66aa965ea7666d444c179c075ec79b0be3b1a",
+      "bytes": 6054,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/check-python313.py": {
+      "sha256": "63a5530ced9ea99867691d9338b0d8ae38b795dcdab621eb7d4fc714dd663079",
+      "bytes": 3175,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/convert-qwen.py": {
+      "sha256": "8bc89b5d1d9cc828bfd37f0a5e729b214b978c385a95f651edc36c67f291fd5a",
+      "bytes": 3896,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/granite-guest.cpp": {
+      "sha256": "3bc9c00947fce0efc79631f5406ff00ff97e3a60dec85d60ff62f92e53317991",
+      "bytes": 5935,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/granite_guest.py": {
+      "sha256": "71dc73d4eef2b8c3aecf484aefd926bc57f8d597d5ed256086f2d61d39274e62",
+      "bytes": 12063,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/prepare.py": {
+      "sha256": "82a52e08a43c82a33405830367c54770cf581d8bd1668dac0e7c7cdccb164253",
+      "bytes": 6600,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/profile-host-avx2.py": {
+      "sha256": "a0ad734bb9b85f075d5c7a0bbc8e34fab3897ec0b3488f6497623eef34d5c867",
+      "bytes": 4844,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/profile-host.py": {
+      "sha256": "a3e2ec202d0a8e28cc1f558477f0726b230ed317640e35f57b12903961d32610",
+      "bytes": 6614,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/profile-qwen.py": {
+      "sha256": "fe89bf17288971c8a9b371d1b7e8b058a94b3a6062c3ee64b9ab76b3554ba271",
+      "bytes": 9499,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/qwen_candidate.py": {
+      "sha256": "bcd95d2a064898c2a34998d5223160677807bc894329684e6fde3e9ad7a6c833",
+      "bytes": 2992,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/run-bounded.py": {
+      "sha256": "4b566e83fcda8d1d5ed306ca7503e7211a510fe5c879370cce50f68b8103370b",
+      "bytes": 5875,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/test_qwen_candidate.py": {
+      "sha256": "1d3a7a9841cc379b7ddacc3310f67d4198676101191a5639425ea9445c023f9f",
+      "bytes": 2365,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest/test_source.py": {
+      "sha256": "4878ea19b28a2531819e0c1a92ee1d04f211195d5a5ec0fbbf2f05d00451a97c",
+      "bytes": 7774,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest-representative/guest_cases.py": {
+      "sha256": "daf7b4d671240f1395707b8f29ccf0aa6367a231e3b4868073dd67d0db80ffb2",
+      "bytes": 3433,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest-representative/test_cases.py": {
+      "sha256": "09fac586d11ce2698a670e1d1d00c47a1d90aaba9c31026ed79f45887dfa62cc",
+      "bytes": 5429,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest-representative-gate/guest_request.py": {
+      "sha256": "27fde9e8df5f63cf750ff463d71f0018f39b0c00c2f3730d4ec957dcea11b0c1",
+      "bytes": 5194,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest-representative-gate/prepare_gate.py": {
+      "sha256": "634a0fcf2c3caf4c1ffb6913a380e65f39e4f5a9e10ee9d1398bd092372a1de6",
+      "bytes": 4476,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest-representative-gate/run_gate.py": {
+      "sha256": "2bacddf621d0f72c55cde169a2ac899cf84faa451309bee2d06c19d24d087ed1",
+      "bytes": 17247,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-guest-representative-gate/test_gate.py": {
+      "sha256": "4e20b5e3c24b5c4e4afa2bd2e7be578b332160ed5f3f81eb4ca55751dbb1740e",
+      "bytes": 9452,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-host-companion/evaluate_broader.py": {
+      "sha256": "0d47926175e8fd9878c46899945ef68b1ec5c323e221d4bd066d64bb656327f8",
+      "bytes": 10014,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-host-companion/host_companion.py": {
+      "sha256": "0ec70b176f959aeabda1a6a0bdbc4e463b2acd7a4d2fa623f08848802a3fb16a",
+      "bytes": 4560,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-host-companion/native_identity.py": {
+      "sha256": "621f6b0aadc104f02a58ca4d5d9e6f59103d5e5871fe18aa763c5fc766d3bd61",
+      "bytes": 803,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-host-companion/prepare.py": {
+      "sha256": "e9d9faaaf5070678ee2f2485b0b471992ba40f8823e63759ec66c2493a026f9a",
+      "bytes": 6956,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-host-companion/prepare_broader.py": {
+      "sha256": "86f2fdffc3bd68a84530a997c5452fe120e051fc7c21753265a4200401a89748",
+      "bytes": 3207,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-host-companion/profile.py": {
+      "sha256": "1e28be75b552c2e03844d504a3c6a586b57b4af45aa0250bdb1310dbe5966ed1",
+      "bytes": 9967,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-host-companion/run_broader.py": {
+      "sha256": "8358a549b56ce24b53d6491f8e6fdede81af555a8d76de7b1b401e26e77c9908",
+      "bytes": 6088,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-host-companion/run_host.py": {
+      "sha256": "d7b606354ceae08345bae9e891b017d370f43f1a545d54411b42d004cfdb5fc4",
+      "bytes": 5874,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-host-companion/test_broader.py": {
+      "sha256": "6491250deb494af2c38e412b3f716d63b9a4366b734757e327c3f42e955a6e2e",
+      "bytes": 2242,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-host-companion/test_preparation.py": {
+      "sha256": "8e93e80b293c68202dda83f43c09e34e5d8ddb4844e2d83922087bdaaab6dfb1",
+      "bytes": 3227,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-host-companion/ui-controller-hook.patch": {
+      "sha256": "d7803072ae4f65a59c87eb619abc3de47eba7128a798e81ae2c0c491232656fb",
+      "bytes": 1661,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-model-guest/guest_request.py": {
+      "sha256": "62bb1aa60425a5d8fb7d6d49cb61c937e77c9fdb8f8e3ee2297127cb2a6996b1",
+      "bytes": 4609,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-model-guest/host_model.py": {
+      "sha256": "99ab17affc8a51606c8b43c6dae93791c2c1509929bc28e4841396b01058c71d",
+      "bytes": 4574,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-model-guest/memory_guard.py": {
+      "sha256": "9a4f0bcab5c6dfa515dfd37ab0265c2cd49c2e0f8850a9e8782d80cc93047472",
+      "bytes": 1482,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-model-guest/prepare.py": {
+      "sha256": "4a1775935c939d6ee712aa789f193df752e2fa067361879f936ae1b9090e3d96",
+      "bytes": 9518,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-model-guest/run_model.py": {
+      "sha256": "bfed46a076cd3d57d1bf7a08e859872e74fb98c098a464867f7511b0d6f817d5",
+      "bytes": 17435,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-model-guest/test_model_plan.py": {
+      "sha256": "c3a816fa4773c7434658f0b67129c11067b8eda992023043926acc7d36918b2f",
+      "bytes": 5398,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-model-guest-extended/guest_request.py": {
+      "sha256": "62bb1aa60425a5d8fb7d6d49cb61c937e77c9fdb8f8e3ee2297127cb2a6996b1",
+      "bytes": 4609,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-model-guest-extended/prepare_extended.py": {
+      "sha256": "d7f9a46273fa3c20327d0693dc77ea5394ae9cccc24c4424c3a1868906702348",
+      "bytes": 7138,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-model-guest-extended/run_model.py": {
+      "sha256": "dcc8f965d6a99ce8587784e7368e50d24136b301ae721dadf31e253ed1ecdec7",
+      "bytes": 17543,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-model-guest-extended/test_extended.py": {
+      "sha256": "659cac9533ca736a047bbd3820b965b54d226fba66db72b63e7c69db7548105b",
+      "bytes": 3577,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-model-guest-fourcore/guest_request.py": {
+      "sha256": "8f7770ab09545667f3f0d93fdb095ebbaf2ea58c3c8a82806c71bda3f478b3a3",
+      "bytes": 4609,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-model-guest-fourcore/prepare_fourcore.py": {
+      "sha256": "8e9e0acbc3cf747f68f7431bebfa35ffe2b783b93c7ffa8107e2fa8397abba47",
+      "bytes": 6164,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-model-guest-fourcore/run_fourcore.py": {
+      "sha256": "82cfeb27f8891bb741cc70c359d511728aa58d9261538e44e6f0aecfd577c0a3",
+      "bytes": 14141,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-model-guest-fourcore/test_fourcore.py": {
+      "sha256": "ef34dc5cb41cbf919393750a806b86933bb8261521f8b33d78393576bf7fb866",
+      "bytes": 7138,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/granite-model-guest-recovery/run_recovered.py": {
+      "sha256": "8291f01472c01345e69d14a51c7ed070b3a25224baa6c5337814872a8b775c53",
+      "bytes": 13224,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/roko-corner-guest/run.py": {
+      "sha256": "2eecdd0545be28a10d666db7cc47b987cb697ad73340f28b7074b7b1b4d4adfc",
+      "bytes": 10506,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/showcase-guest-v4/background.ron": {
+      "sha256": "7ff99fd5097ab417e447108d67c2e4efe055d3002433176f82fff638fee4a0e7",
+      "bytes": 234,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/showcase-guest-v4/init.sh": {
+      "sha256": "12eff2182cff47adf5ebc7a4e13bc10685a674a4a016ca0eb7dfbd54933ddbed",
+      "bytes": 4833,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/showcase-guest-v4/poweroff.sh": {
+      "sha256": "90d90e3c7b83c66e9b049bd85d2300a8f4094165731180e5cb41e82bfeedf2cf",
+      "bytes": 198,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/showcase-guest-v4/roko-companion-media.sh": {
+      "sha256": "2c0af8d289ad7b462fd30d141107e6fbbb3867e1b1791349f5fd3244b65ce448",
+      "bytes": 185,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/showcase-guest-v4/roko-showcase-poweroff.desktop": {
+      "sha256": "c173ae6303a2cc592c3b25b46fa6e9f59a8102fc52e85a9f8d884c09769a51f6",
+      "bytes": 213,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/showcase-guest-v4/session.sh": {
+      "sha256": "96808cb80e0ef89683f9429dfc53cdfb6a08d192b752621ccbea5c577cd217fc",
+      "bytes": 2148,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/showcase-guest-v4/source.py": {
+      "sha256": "b4fc551326a8b953bb764e578d2b25369b1aa53c01c7b42d61fe959c9733df0c",
+      "bytes": 17876,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/showcase-guest-v4/supervisor.py": {
+      "sha256": "8099d6f2997af1d2c10710d47aa478a4c4b8f147144b184299cfcf416b531ccd",
+      "bytes": 6836,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/showcase-guest-v4/test_source.py": {
+      "sha256": "fd7c25244dfa01f4a1afe92d53eb2d16b019fe665eb746ff6ee790f7ba9436e7",
+      "bytes": 8096,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/test-delta-root/prepare.py": {
+      "sha256": "99e8bed3539aa08559dd09aeb7b5c5859fd34c0973adcdb24ed9870dda6a03e1",
+      "bytes": 6495,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/test-delta-root/test_delta.py": {
+      "sha256": "9669dd2d29fde745002dec5cde3da38fa857b47a65a0087da603d1d61b8d9d0b",
+      "bytes": 3029,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/test_persistence_vm.py": {
+      "sha256": "9543ac9fbc8c233bd7068c119ce75776513411872fd7e7254418c22e2a0dad49",
+      "bytes": 4994,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/test_vm.py": {
+      "sha256": "933188ac54e0882057b20647a803ee36d77741754ac0d5cb901a1f435f55c280",
+      "bytes": 7087,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/userland/guest-smoke.py": {
+      "sha256": "8129f9cc65ca086032fb9a97c783329c8e25bf89566db8a134b40b37661fb6b4",
+      "bytes": 2370,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/userland/persistence-check.py": {
+      "sha256": "76c8101eba4e1f3af11d525ab6a6bd341e3dd4b3425c3b2a0bbd9ce3c09dc767",
+      "bytes": 1331,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/userland/persistence.py": {
+      "sha256": "87c8ed88594b73829a7e7feeb119fa59a6e1a1272dd69186ac26aee17a93ff4b",
+      "bytes": 6297,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/userland/petta_files.py": {
+      "sha256": "ff6667d73e647748acf1bc13699e1fe599aa27b838c72b9c625edb0d4c5e5c20",
+      "bytes": 2267,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/userland/petta_smoke.pl": {
+      "sha256": "966bc1a5f95f50a868d62057c00be78ceb466fa8427e35e8cc66206073db55a2",
+      "bytes": 1659,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/userland/petta_smoke.sh": {
+      "sha256": "c2581444c4255ea320147954f52732f9ba6bd4b994bfff809de7fc1328b4ff0c",
+      "bytes": 483,
+      "mode": "100644"
+    },
+    "omega-baseline/boot/verify-tooling.py": {
+      "sha256": "705e12958499a7e7b65071bc53b17d6787a643ed73c8ee9e3f940d2a00b4cd7b",
+      "bytes": 884,
+      "mode": "100644"
+    },
+    "omega-baseline/build-src/avatar-source-closure/acquire_missing.py": {
+      "sha256": "15e67e878bbb11b7e3a87a4548f959ab821816e17c80cfe8e9471ac9998ca45a",
+      "bytes": 2321,
+      "mode": "100644"
+    },
+    "omega-baseline/build-src/avatar-source-closure/audit.py": {
+      "sha256": "f0d033e87b7b46c7ca95446f13f0a2f08ab4ab620377a3bc6fbf2b843c403b12",
+      "bytes": 19363,
+      "mode": "100644"
+    },
+    "omega-baseline/build-src/avatar-source-closure/retrieve-missing-sources.sh": {
+      "sha256": "6ebaacf5fe5473531cc4be5801e98f439fed71424dfe4b0f366839656931244c",
+      "bytes": 128,
+      "mode": "100644"
+    },
+    "omega-baseline/build-src/basilisk-layer-stage/prepare_debian.py": {
+      "sha256": "9161289b97dcdccd986f2ab52a8a388c8d0f36c552e0d069a75b99bdf2fa07de",
+      "bytes": 6108,
+      "mode": "100644"
+    }
+  }
+}

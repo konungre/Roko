@@ -1,0 +1,4 @@
+# Small guest-only ruleset: libinput needs udev classification, not just nodes.
+SUBSYSTEM=="input", IMPORT{builtin}="input_id"
+SUBSYSTEM=="input", TAG+="seat"
+SUBSYSTEM=="drm", TAG+="seat", TAG+="master-of-seat"

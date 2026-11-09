@@ -1,0 +1,24 @@
+{
+  "scope": "Fresh selected authored source tests only",
+  "passed": {
+    "working_state": 22,
+    "state_store": 30,
+    "avatar_events": 18,
+    "mork_authored_helper": 46
+  },
+  "cli": {
+    "run": 13,
+    "passed": 12,
+    "failed": 1,
+    "reason": "Native ECAN source deliberately excluded because redistribution rights are unknown"
+  },
+  "historical_native_results": "See STATUS.md; not rerun during publication",
+  "scan": {
+    "files_scanned": 774,
+    "high_confidence_credential_findings": 0,
+    "private_artifact_id_findings": 0,
+    "native_runs_for_publication": 0,
+    "limitations": "Allowlist and pattern scan, not proof against every possible secret. No binaries/models/private source/raw runtime logs included."
+  },
+  "metadata_exclusion": "Further removal of development runtime inventories prevents source-provenance/native gates from replaying; selected authored checks were run before that metadata-only pruning."
+}

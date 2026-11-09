@@ -1,0 +1,19 @@
+--- companion.py-original-unchanged
++++ companion.py-proposed-controller-hook
+@@ -33,6 +33,7 @@
+     p.add_argument('--overlay', action='store_true',help='Require Wayland layer-shell; no silent fallback')
+     p.add_argument('--events',type=Path,help='Read a local Omega cosmetic-event file')
+     p.add_argument('--roko-root',type=Path,default=Path('/opt/roko'))
++    p.add_argument('--controller-python',type=Path,default=None,help='Explicit trusted local controller interpreter; never selected by model output')
+     p.add_argument('--state-dir',type=Path,default=Path(os.environ.get('XDG_STATE_HOME',str(Path.home()/'.local/state')))/'roko')
+     p.add_argument('--perch-active',action='store_true',help='Use actual COSMIC active-window geometry and bottom-layer occlusion')
+     p.add_argument('--tracker',type=Path,default=BASE/'tracker/roko-window-tracker')
+@@ -180,7 +181,7 @@
+             def work():
+                 try:
+                     from task_bridge import run_task
+-                    report=run_task(args.roko_root,args.state_dir,mode,question,evidence,cancel_event=cancelled,progress_callback=lambda stage:GLib.idle_add(present_result,'Controller stage: '+stage))
++                    report=run_task(args.roko_root,args.state_dir,mode,question,evidence,cancel_event=cancelled,python_executable=args.controller_python,progress_callback=lambda stage:GLib.idle_add(present_result,'Controller stage: '+stage))
+                 except Exception as exc:report={'accepted':False,'error':str(exc),'executed_actions':0}
+                 GLib.idle_add(done,report)
+             threading.Thread(target=work,name='roko-task',daemon=False).start()
