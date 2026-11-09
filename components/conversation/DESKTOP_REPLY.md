@@ -106,3 +106,32 @@ section; disclosure is not semantic validation or producer authentication.
 behavior on four actual saved native packets using an immutable/read-only evidence
 database. It proves local dataflow and unchanged database bytes, not GUI behavior,
 a fresh model run, a live receipt refresh, or live computer state.
+
+## Complete-frame callback and incomplete evidence
+
+A future trusted transport can pass one bounded UTF-8-decoded JSON reply frame to
+`DesktopDraft.receive_reply_line(text)` instead of supplying an already-decoded
+object. This local callback uses the presenter's strict parser: duplicate keys,
+nonfinite constants or exponent overflow, oversized frames, excessive nesting,
+partial frames, and concatenated reply objects are rejected before accepted
+state changes. It does not frame a stream, buffer fragments, decode bytes, open
+a connection, or retry anything. The transport still owns byte limits, strict
+UTF-8 decoding, frame boundaries, origin/authentication and exception handling.
+An exception preserves the old captured reply and local disclosure choice; it
+does not imply a new source check or current evidence.
+
+An incomplete receipt in a valid matching envelope may be accepted only as an
+uncertain saved reply. Opening details cannot invent missing machine identity,
+clock policy, query proof or producer flags. A corrected packet for that same
+saved request identity is rejected as a conflicting replacement. To obtain a
+consciously new response, the existing user-review/release and new-turn identity
+workflow still applies. No metadata is silently repaired and no automatic new
+request is generated. Legacy strict receipts retain unknown check time; showing
+details does not synthesize a timestamp.
+
+Regression tests exercise missing evidence fields, ambiguous frames, changed
+same-identity packets, preserved expanded state after errors or bad snapshots,
+and explicit release/new identity. Instrumented local disclosure fails on any
+file read, process launch, socket creation or request proposal. The evidence
+probe's `--frame-input` mode uses four real saved packets plus clearly marked
+synthetic bad frames; it is not a new GUI, transport, model, or live-host run.

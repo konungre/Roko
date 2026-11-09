@@ -28,6 +28,9 @@ class DesktopDraft:
     def receive_reply(self, packet):
         self._require_active()
         self._reply.receive(packet)
+    def receive_reply_line(self, line):
+        self._require_active()
+        self._reply.receive_line(line)
     def set_provenance_details_visible(self, visible):
         self._require_active()
         self._reply.set_provenance_details_visible(visible)

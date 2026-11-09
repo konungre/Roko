@@ -2,11 +2,11 @@
 import json
 if __package__:
     from .desktop_diagnostics import DesktopDiagnostics
-    from .package_reply_view import render_reply
+    from .package_reply_view import render_reply,load_packet
     from .desktop_provenance import provenance_view
 else:
     from desktop_diagnostics import DesktopDiagnostics
-    from package_reply_view import render_reply
+    from package_reply_view import render_reply,load_packet
     from desktop_provenance import provenance_view
 
 
@@ -37,6 +37,12 @@ class DesktopReplyPanel:
         if self._reply is not None and self._reply!=encoded:
             raise ValueError('Saved reply changed for the captured request')
         self._reply=encoded
+
+    def receive_line(self,line):
+        if type(line) is not str:raise ValueError('Expected one complete JSON reply frame')
+        if len(line.encode('utf-8'))>131072:raise ValueError('Reply frame byte cap')
+        try:self.receive(load_packet(line))
+        except RecursionError as error:raise ValueError('Reply frame nesting cap') from error
 
     def set_provenance_details_visible(self,visible):
         if type(visible) is not bool:raise ValueError('Local details visibility must be boolean')
