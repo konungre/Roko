@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "checks": {
+    "full_session_zero_capacity": true,
+    "unused_session_four_exchanges": true,
+    "no_database_changes": true,
+    "no_native_inference_or_retrieval": true,
+    "token_admission_explicit": true
+  },
+  "responses": [
+    {
+      "api_version": 2,
+      "status": "limits",
+      "session_id": "language",
+      "revision": 4,
+      "executed_actions": 0,
+      "history_messages": 8,
+      "max_history_messages": 8,
+      "remaining_exchanges": 0,
+      "pending": null,
+      "history_admits_turn": false,
+      "input_token_limit": 512,
+      "max_output_tokens": 128,
+      "token_admission": "checked_during_native_inference",
+      "history_policy": "complete_no_omission"
+    },
+    {
+      "api_version": 2,
+      "status": "limits",
+      "session_id": "unused-session",
+      "revision": 0,
+      "executed_actions": 0,
+      "history_messages": 0,
+      "max_history_messages": 8,
+      "remaining_exchanges": 4,
+      "pending": null,
+      "history_admits_turn": true,
+      "input_token_limit": 512,
+      "max_output_tokens": 128,
+      "token_admission": "checked_during_native_inference",
+      "history_policy": "complete_no_omission"
+    }
+  ],
+  "executed_actions": 0
+}

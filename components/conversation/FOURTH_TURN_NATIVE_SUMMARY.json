@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "checks": {
+    "fourth_completed": true,
+    "recall": true,
+    "fifth_rejected": true,
+    "complete_history_retained": true,
+    "only_one_model_call": true,
+    "model_verified": true,
+    "native_mork_six_messages": true,
+    "two_observations_retained": true
+  },
+  "reply": {
+    "api_version": 2,
+    "session_id": "language",
+    "request_id": "fourth",
+    "status": "completed",
+    "text": "Red foxes and robins.\n",
+    "context_ids": [],
+    "executed_actions": 0,
+    "generation": {
+      "input_tokens": 412,
+      "output_tokens": 7,
+      "finish_reason": "eos"
+    },
+    "history_policy": "complete_no_omission",
+    "revision": 4
+  },
+  "executed_actions": 0
+}

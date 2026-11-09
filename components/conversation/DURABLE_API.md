@@ -193,3 +193,18 @@ invented after a resource stop. Failed request IDs remain terminal; a new reques
 may continue from the unchanged revision. Killing the worker itself still uses
 the existing pending-claim and explicit recovery contract. Resource caps are
 unchanged.
+
+## Read-only capacity query
+
+`{"api_version":2,"op":"limits","session_id":"story"}` returns `status:
+limits`, the current `revision`, `history_messages`, `max_history_messages`,
+`remaining_exchanges`, `pending`, `history_admits_turn`, `input_token_limit:512`,
+`max_output_tokens:128`, `token_admission:checked_during_native_inference`,
+`history_policy:complete_no_omission`, and `executed_actions:0`.
+
+This query creates no session or claim and performs no inference or retrieval.
+With MORK enabled, four exchanges are admitted; the fifth is refused. The
+history flag also accounts for a pending claim. It does not predict rendered
+prompt token count or reserve capacity: the subsequent turn must still supply
+`expected_revision` and pass native token admission. Existing clients can
+continue using the existing turn and snapshot operations.
