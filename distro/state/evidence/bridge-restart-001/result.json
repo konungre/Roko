@@ -1,0 +1,151 @@
+{
+  "passed": true,
+  "native_observation": {
+    "elements": {},
+    "version": 3
+  },
+  "phases": [
+    {
+      "phase": "initial-default",
+      "result": {
+        "started": true,
+        "mode": "legacy",
+        "report": {
+          "authorizes_actions": false,
+          "limitations": "Caller-supplied snapshot only; no closure, profile, version, or installation verification.",
+          "live_nix_observed": false,
+          "mode": "read-only-snapshot-planning",
+          "package_changes_executed": 0,
+          "plan": {
+            "backend": "snapshot-only:native-empty-profile:/workspace/scratch/nix-live-001/profile-2-link",
+            "before": {
+              "packages": {},
+              "revision": "712b11070ffada765902c93e8c5a36f9b71b723c94bfb072f048479ab343f910"
+            },
+            "desired": {
+              "fixture": "/nix/store/00000000000000000000000000000000-explicit-fixture"
+            },
+            "id": "c8d22e6410fdc13179e2f28ca172980810079a63981305ca1364121da28450a4",
+            "operations": [
+              {
+                "name": "fixture",
+                "op": "install",
+                "path": "/nix/store/00000000000000000000000000000000-explicit-fixture"
+              }
+            ],
+            "schema": 1
+          },
+          "schema": 1
+        },
+        "legacy_imported": true
+      }
+    },
+    {
+      "phase": "opt-in",
+      "result": {
+        "started": true,
+        "mode": "successor-v2",
+        "report": {
+          "authorizes_actions": false,
+          "limitations": "Caller-supplied historical snapshot only; not executable or observed Nix state.",
+          "live_nix_observed": false,
+          "mode": "read-only-snapshot-planning-v2",
+          "package_changes_executed": 0,
+          "plan": {
+            "backend": "snapshot-only:native-empty-profile:/workspace/scratch/nix-live-001/profile-2-link",
+            "before": {
+              "packages": {},
+              "revision": "712b11070ffada765902c93e8c5a36f9b71b723c94bfb072f048479ab343f910"
+            },
+            "desired": {
+              "fixture": "/nix/store/00000000000000000000000000000000-explicit-fixture"
+            },
+            "id": "c8d22e6410fdc13179e2f28ca172980810079a63981305ca1364121da28450a4",
+            "operations": [
+              {
+                "name": "fixture",
+                "op": "install",
+                "path": "/nix/store/00000000000000000000000000000000-explicit-fixture"
+              }
+            ],
+            "schema": 1
+          },
+          "schema": 2
+        },
+        "legacy_imported": false
+      }
+    },
+    {
+      "phase": "missing-startup",
+      "result": {
+        "started": false,
+        "error": "injected successor unavailable",
+        "legacy_imported": false
+      }
+    },
+    {
+      "phase": "invalid-startup",
+      "result": {
+        "started": false,
+        "error": "Unknown ROKO_PACKAGE_PLANNER; use legacy or successor-v2",
+        "legacy_imported": false
+      }
+    },
+    {
+      "phase": "restored-default",
+      "result": {
+        "started": true,
+        "mode": "legacy",
+        "report": {
+          "authorizes_actions": false,
+          "limitations": "Caller-supplied snapshot only; no closure, profile, version, or installation verification.",
+          "live_nix_observed": false,
+          "mode": "read-only-snapshot-planning",
+          "package_changes_executed": 0,
+          "plan": {
+            "backend": "snapshot-only:native-empty-profile:/workspace/scratch/nix-live-001/profile-2-link",
+            "before": {
+              "packages": {},
+              "revision": "712b11070ffada765902c93e8c5a36f9b71b723c94bfb072f048479ab343f910"
+            },
+            "desired": {
+              "fixture": "/nix/store/00000000000000000000000000000000-explicit-fixture"
+            },
+            "id": "c8d22e6410fdc13179e2f28ca172980810079a63981305ca1364121da28450a4",
+            "operations": [
+              {
+                "name": "fixture",
+                "op": "install",
+                "path": "/nix/store/00000000000000000000000000000000-explicit-fixture"
+              }
+            ],
+            "schema": 1
+          },
+          "schema": 1
+        },
+        "legacy_imported": true
+      }
+    }
+  ],
+  "complete_plans_equal": true,
+  "profile_and_rollback_links_unchanged": true,
+  "before": {
+    "profile": "profile-3-link",
+    "retained": {
+      "/workspace/scratch/nix-live-001/profile-1-link": "/workspace/scratch/nix-live-001/direct-store/6vzqm80wq96ahyci9j9s53l1nggdhkjx-profile",
+      "/workspace/scratch/nix-live-001/profile-2-link": "/workspace/scratch/nix-live-001/direct-store/8al5jrl15ap3j8ck6zvkd9xf859w48cw-profile",
+      "/workspace/scratch/nix-live-001/profile-3-link": "/workspace/scratch/nix-live-001/direct-store/4jfm1bbyg864qmrabwsxqcdman0hc5qd-profile"
+    }
+  },
+  "after": {
+    "profile": "profile-3-link",
+    "retained": {
+      "/workspace/scratch/nix-live-001/profile-1-link": "/workspace/scratch/nix-live-001/direct-store/6vzqm80wq96ahyci9j9s53l1nggdhkjx-profile",
+      "/workspace/scratch/nix-live-001/profile-2-link": "/workspace/scratch/nix-live-001/direct-store/8al5jrl15ap3j8ck6zvkd9xf859w48cw-profile",
+      "/workspace/scratch/nix-live-001/profile-3-link": "/workspace/scratch/nix-live-001/direct-store/4jfm1bbyg864qmrabwsxqcdman0hc5qd-profile"
+    }
+  },
+  "desired_path_is_fixture": true,
+  "host_activation": false,
+  "license_clearance": false
+}

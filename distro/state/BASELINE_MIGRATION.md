@@ -141,3 +141,23 @@ mode, and unknown-mode rejection. Both launch selections also passed the SAME
 actual PeTTa/Janus bridge fixture (count, desired path, no authority), with native
 logs retained in bridge-opt-in-native-001. The reconciled 101-test OS suite passed.
 This is opt-in behavior only; no production consumer or host state was activated.
+
+## Startup failure and legacy restoration
+
+`qualify_bridge_restart.py REPOSITORY NIX_BASE NEW_OUTPUT` collects the actual
+retained empty native profile manifest, combines it with explicitly labelled
+fixture intent, and exercises five fresh processes: default legacy, explicit
+successor, injected missing successor module, invalid selector, restored unset
+default. All phases pass their expected outcomes. Failed startup does not silently
+fall back or import omega_pm; restoring the default produces the exact original
+legacy report and complete inner plan. The current profile pointer and retained
+rollback links remain unchanged. This does not remove the legacy dependency.
+
+A separate actual PeTTa/Janus launch with an invalid selector emitted the expected
+startup diagnostic and no success marker. A new launch with the selector unset
+passed the same fixture as the old default. Evidence in bridge-restart-001 records
+both failure and restoration. The missing-module injection is a Python import
+fault fixture, not a claim that a real installed package was removed. The prior
+native-profile parity gate separately covers nonempty workspace observations and
+their required canonical-path rejection. No host activation, package operation or
+license clearance follows from these read-only migration checks. Keep PR22 draft.
