@@ -67,6 +67,54 @@ def observation(name,response):
     return text
 
 
+def finalize_process(proc,out,err,primary):
+    """Best-effort independent cleanup; the original exception stays primary.
+
+    communicate() timeout buffers are cumulative on CPython. Keep every observed
+    fragment as exact hex as well as a lossless merged view; later empty drains
+    must never erase earlier output. A cleanup fault must not skip later stages.
+    """
+    errors=[];fragments=[]
+    def retain(stage,stdout=None,stderr=None):
+        nonlocal out,err
+        def raw(value):
+            return value.encode('utf-8') if isinstance(value,str) else value or b''
+        a,b=raw(stdout),raw(stderr)
+        if a or b:fragments.append({'stage':stage,'stdout_hex':a.hex(),'stderr_hex':b.hex()})
+        def merge(old,new):
+            if new.startswith(old):return new
+            if old.startswith(new):return old
+            return old+new
+        out,err=merge(out,a),merge(err,b)
+    def failed(stage,exc):
+        nonlocal primary
+        errors.append({'stage':stage,'type':type(exc).__name__,'error':str(exc)})
+        retain(stage,getattr(exc,'output',None),getattr(exc,'stderr',None))
+        if primary is None:primary=exc
+    def attempt(stage,operation):
+        try:return True,operation()
+        except BaseException as exc:
+            failed(stage,exc);return False,None
+    if primary is not None:
+        retain('execution',getattr(primary,'output',None),getattr(primary,'stderr',None))
+    if proc is not None:
+        if primary is not None:
+            ok,state=attempt('poll-before-terminate',proc.poll)
+            if not ok or state is None:attempt('terminate',proc.terminate)
+            ok,streams=attempt('communicate-after-terminate',lambda:proc.communicate(timeout=5))
+            if ok:retain('communicate-after-terminate',*streams)
+            ok,state=attempt('poll-before-kill',proc.poll)
+            if not ok or state is None:
+                attempt('kill',proc.kill)
+                ok,streams=attempt('communicate-after-kill',lambda:proc.communicate(timeout=3))
+                if ok:retain('communicate-after-kill',*streams)
+        attempt('wait',lambda:proc.wait(timeout=2))
+        for name in ('stdin','stdout','stderr'):
+            ok,stream=attempt('stream-get:'+name,lambda name=name:getattr(proc,name,None))
+            if ok and stream is not None:attempt('stream-close:'+name,stream.close)
+    return out,err,primary,errors,fragments
+
+
 class LearningComponents:
     def __init__(self,profile):
         self.profile=profile;self.receipts=[]
@@ -104,18 +152,24 @@ class LearningComponents:
                 observed={'id':name+'_'+key,'text':observation(name,packet['response'])}
             except BaseException as exc:
                 failure=exc
-                if proc is not None and proc.poll() is None:
-                    proc.terminate()
-                    try:out,err=proc.communicate(timeout=5)
-                    except subprocess.TimeoutExpired:
-                        proc.kill();out,err=proc.communicate(timeout=3)
+            out,err,failure,finalization_errors,fragments=finalize_process(proc,out,err,failure)
             record={'component':name,'binding':binding,'snapshot_sha256':key,'request':row['request'],
                 'status':'passed' if failure is None else 'failed','stdout':out.decode('utf-8',errors='replace'),
                 'stderr':err.decode('utf-8',errors='replace'),'executed_actions':0,
-                'evidence_directory':str(directory),'error':None if failure is None else repr(failure)}
+                'evidence_directory':str(directory),'error':None if failure is None else repr(failure),
+                'stdout_hex':out.hex(),'stderr_hex':err.hex(),'output_fragments':fragments,
+                'returncode':None if proc is None else proc.returncode,
+                'finalization_errors':finalization_errors}
             if failure is None:record.update(response=packet['response'],prompt_context=observed)
-            write_record(directory/'receipt.json',record);self.receipts.append(record)
-            if failure is not None:raise failure
+            self.receipts.append(record)
+            try:write_record(directory/'receipt.json',record)
+            except BaseException as exc:
+                finalization_errors.append({'stage':'receipt-write','type':type(exc).__name__,'error':str(exc)})
+                if failure is None:failure=exc
+                record.update(status='failed',error=repr(failure))
+            if failure is not None:
+                failure.receipt=record
+                raise failure
             observations.append(observed)
             results.append({'component':name,'observation_id':observed['id'],'result':packet['response']})
         return {'observations':observations,'results':results}
