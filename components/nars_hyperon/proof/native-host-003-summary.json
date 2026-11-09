@@ -1,0 +1,400 @@
+{
+  "status": "passed",
+  "scope": "actual original NAL-1 rules on Hyperon 0.2.10; six fresh workers",
+  "seconds": 1.849216996999985,
+  "manifest_sha256": "281644bff711d21d0c011842abe522b7bd4949fbc4c645e593f3d0cbc3a296cf",
+  "executed_actions": 0,
+  "raw_result_sha256": "1bcc0a2b03cb500628f5f5ffe0c546ae58d57bd9e6b8e310ac4f93ea6e3532bf",
+  "cases": [
+    {
+      "case": "baseline",
+      "response": {
+        "authorizes_actions": false,
+        "conclusions": [
+          {
+            "confidence": 0.81,
+            "frequency": 1.0,
+            "predicate": "animal",
+            "premise_ids": [
+              "p0",
+              "p1"
+            ],
+            "rule": "deduction",
+            "status": "uncertain-derived-belief",
+            "subject": "robin"
+          },
+          {
+            "confidence": 0.44751381215469616,
+            "frequency": 1.0,
+            "predicate": "robin",
+            "premise_ids": [
+              "p0",
+              "p1"
+            ],
+            "rule": "exemplification",
+            "status": "uncertain-derived-belief",
+            "subject": "animal"
+          }
+        ],
+        "executed_actions": 0,
+        "full_nars": false,
+        "independent_check": "fixed-point-fraction-oracle",
+        "operation": "nal1-chain",
+        "persistent_state_changed": false,
+        "premises": [
+          {
+            "confidence_milli": 900,
+            "frequency_milli": 1000,
+            "id": "p0",
+            "predicate": "bird",
+            "sha256": "8b227602aacd3f0d5ed24571c099a79b5eb54440a7e7785ecb7c3141f91e24d0",
+            "source": "synthetic:robin-is-bird",
+            "subject": "robin"
+          },
+          {
+            "confidence_milli": 900,
+            "frequency_milli": 1000,
+            "id": "p1",
+            "predicate": "animal",
+            "sha256": "c15b8b5ea138c984ab1ba44d978ccb6b37791666ced031a53ca151c124ed1516",
+            "source": "synthetic:inert !(py-call evil) \u03bb",
+            "subject": "bird"
+          }
+        ],
+        "request_sha256": "e44678c3e19f224d27fe91a1a2a3d6556c0ca26462fa348a274181eabc190ca1",
+        "revision": 1,
+        "task_id": "baseline",
+        "version": 1
+      },
+      "native_returncode": 0,
+      "inputs_unchanged": true,
+      "seconds": 0.06414108800004215,
+      "receipt_sha256": "0469c7e5a1b2691194996f2b74245871fba697571441c584f85b49f448200166"
+    },
+    {
+      "case": "asymmetric",
+      "response": {
+        "authorizes_actions": false,
+        "conclusions": [
+          {
+            "confidence": 0.18,
+            "frequency": 0.4,
+            "predicate": "animal",
+            "premise_ids": [
+              "p0",
+              "p1"
+            ],
+            "rule": "deduction",
+            "status": "uncertain-derived-belief",
+            "subject": "robin"
+          },
+          {
+            "confidence": 0.15254237288135594,
+            "frequency": 1.0,
+            "predicate": "robin",
+            "premise_ids": [
+              "p0",
+              "p1"
+            ],
+            "rule": "exemplification",
+            "status": "uncertain-derived-belief",
+            "subject": "animal"
+          }
+        ],
+        "executed_actions": 0,
+        "full_nars": false,
+        "independent_check": "fixed-point-fraction-oracle",
+        "operation": "nal1-chain",
+        "persistent_state_changed": false,
+        "premises": [
+          {
+            "confidence_milli": 750,
+            "frequency_milli": 500,
+            "id": "p0",
+            "predicate": "bird",
+            "sha256": "ce0fb063b82d0871e2f7c5d655f4c3baabfd7c762cdb74ad4d1b58e3dffd1b16",
+            "source": "synthetic:robin-is-bird",
+            "subject": "robin"
+          },
+          {
+            "confidence_milli": 600,
+            "frequency_milli": 800,
+            "id": "p1",
+            "predicate": "animal",
+            "sha256": "1d6562441647bbcd4f29cf2d6ea49adfc3f8a45602bbb0d9e5d3001efd5b2d54",
+            "source": "synthetic:inert !(py-call evil) \u03bb",
+            "subject": "bird"
+          }
+        ],
+        "request_sha256": "69abfeb0b963ffacd8dc9468d9cdb2c8cedd094e61a533e13866f82e083f4381",
+        "revision": 1,
+        "task_id": "asymmetric",
+        "version": 1
+      },
+      "native_returncode": 0,
+      "inputs_unchanged": true,
+      "seconds": 0.0640777920000346,
+      "receipt_sha256": "0853a5f8bf27dba4883af9bf69fb07f38bd199dbb22aef28f371e1e9499acb44"
+    },
+    {
+      "case": "zero_confidence",
+      "response": {
+        "authorizes_actions": false,
+        "conclusions": [
+          {
+            "confidence": 0.0,
+            "frequency": 1.0,
+            "predicate": "animal",
+            "premise_ids": [
+              "p0",
+              "p1"
+            ],
+            "rule": "deduction",
+            "status": "uncertain-derived-belief",
+            "subject": "robin"
+          },
+          {
+            "confidence": 0.0,
+            "frequency": 1.0,
+            "predicate": "robin",
+            "premise_ids": [
+              "p0",
+              "p1"
+            ],
+            "rule": "exemplification",
+            "status": "uncertain-derived-belief",
+            "subject": "animal"
+          }
+        ],
+        "executed_actions": 0,
+        "full_nars": false,
+        "independent_check": "fixed-point-fraction-oracle",
+        "operation": "nal1-chain",
+        "persistent_state_changed": false,
+        "premises": [
+          {
+            "confidence_milli": 0,
+            "frequency_milli": 1000,
+            "id": "p0",
+            "predicate": "bird",
+            "sha256": "015ef96e7dfb6e3c4380bd9e6409e1876d4296e6eb15532edfd1afc6ea821b0a",
+            "source": "synthetic:robin-is-bird",
+            "subject": "robin"
+          },
+          {
+            "confidence_milli": 999,
+            "frequency_milli": 1000,
+            "id": "p1",
+            "predicate": "animal",
+            "sha256": "56e59a55e358f41a06d7a1516d6a5c006a3c5cca46d3964886c6effcc33d54bb",
+            "source": "synthetic:inert !(py-call evil) \u03bb",
+            "subject": "bird"
+          }
+        ],
+        "request_sha256": "9b183ee67abf2761b1c6ad5754b020b87074db98eb70bc18f514887853386d91",
+        "revision": 1,
+        "task_id": "zero_confidence",
+        "version": 1
+      },
+      "native_returncode": 0,
+      "inputs_unchanged": true,
+      "seconds": 0.06411130299989054,
+      "receipt_sha256": "0089b13b9901252e95e66b4e846e2b2b91058b63e8f5b2d9ad8296d64f8b9706"
+    },
+    {
+      "case": "zero_frequency",
+      "response": {
+        "authorizes_actions": false,
+        "conclusions": [
+          {
+            "confidence": 0.0,
+            "frequency": 0.0,
+            "predicate": "animal",
+            "premise_ids": [
+              "p0",
+              "p1"
+            ],
+            "rule": "deduction",
+            "status": "uncertain-derived-belief",
+            "subject": "robin"
+          },
+          {
+            "confidence": 0.0,
+            "frequency": 1.0,
+            "predicate": "robin",
+            "premise_ids": [
+              "p0",
+              "p1"
+            ],
+            "rule": "exemplification",
+            "status": "uncertain-derived-belief",
+            "subject": "animal"
+          }
+        ],
+        "executed_actions": 0,
+        "full_nars": false,
+        "independent_check": "fixed-point-fraction-oracle",
+        "operation": "nal1-chain",
+        "persistent_state_changed": false,
+        "premises": [
+          {
+            "confidence_milli": 900,
+            "frequency_milli": 0,
+            "id": "p0",
+            "predicate": "bird",
+            "sha256": "f8e382010450d2ae039d25ecf745b6982cc94e25f3a4da17d0540635c97ed124",
+            "source": "synthetic:robin-is-bird",
+            "subject": "robin"
+          },
+          {
+            "confidence_milli": 900,
+            "frequency_milli": 1000,
+            "id": "p1",
+            "predicate": "animal",
+            "sha256": "c15b8b5ea138c984ab1ba44d978ccb6b37791666ced031a53ca151c124ed1516",
+            "source": "synthetic:inert !(py-call evil) \u03bb",
+            "subject": "bird"
+          }
+        ],
+        "request_sha256": "2a28325a7aed17c78f97021587c08d907947185d6a26bf8161c6f1fbf3e0f5c4",
+        "revision": 1,
+        "task_id": "zero_frequency",
+        "version": 1
+      },
+      "native_returncode": 0,
+      "inputs_unchanged": true,
+      "seconds": 0.0639402770000288,
+      "receipt_sha256": "41ea869e4855d9e2ce5c40e2081ac7f32eb5923f6bf8a5fb9e37341a59678a62"
+    },
+    {
+      "case": "upper_boundary",
+      "response": {
+        "authorizes_actions": false,
+        "conclusions": [
+          {
+            "confidence": 0.998001,
+            "frequency": 1.0,
+            "predicate": "animal",
+            "premise_ids": [
+              "p0",
+              "p1"
+            ],
+            "rule": "deduction",
+            "status": "uncertain-derived-belief",
+            "subject": "robin"
+          },
+          {
+            "confidence": 0.49949975000012514,
+            "frequency": 1.0,
+            "predicate": "robin",
+            "premise_ids": [
+              "p0",
+              "p1"
+            ],
+            "rule": "exemplification",
+            "status": "uncertain-derived-belief",
+            "subject": "animal"
+          }
+        ],
+        "executed_actions": 0,
+        "full_nars": false,
+        "independent_check": "fixed-point-fraction-oracle",
+        "operation": "nal1-chain",
+        "persistent_state_changed": false,
+        "premises": [
+          {
+            "confidence_milli": 999,
+            "frequency_milli": 1000,
+            "id": "p0",
+            "predicate": "bird",
+            "sha256": "1b3f074a33946cda50a684463a96c1f81f7a1df2ad9584cdc9b58acf292343ef",
+            "source": "synthetic:robin-is-bird",
+            "subject": "robin"
+          },
+          {
+            "confidence_milli": 999,
+            "frequency_milli": 1000,
+            "id": "p1",
+            "predicate": "animal",
+            "sha256": "56e59a55e358f41a06d7a1516d6a5c006a3c5cca46d3964886c6effcc33d54bb",
+            "source": "synthetic:inert !(py-call evil) \u03bb",
+            "subject": "bird"
+          }
+        ],
+        "request_sha256": "aa3707e91fc10e3c5a2e811c07c72babae7545b67c40cf1046f604c4f6e59fff",
+        "revision": 1,
+        "task_id": "upper_boundary",
+        "version": 1
+      },
+      "native_returncode": 0,
+      "inputs_unchanged": true,
+      "seconds": 0.06398139899988564,
+      "receipt_sha256": "d7c95d4252392df9b5b9e4512ce9c2882ee5acfe6825ffa79ea8651a2f620c54"
+    },
+    {
+      "case": "reset_repeat",
+      "response": {
+        "authorizes_actions": false,
+        "conclusions": [
+          {
+            "confidence": 0.81,
+            "frequency": 1.0,
+            "predicate": "animal",
+            "premise_ids": [
+              "p0",
+              "p1"
+            ],
+            "rule": "deduction",
+            "status": "uncertain-derived-belief",
+            "subject": "robin"
+          },
+          {
+            "confidence": 0.44751381215469616,
+            "frequency": 1.0,
+            "predicate": "robin",
+            "premise_ids": [
+              "p0",
+              "p1"
+            ],
+            "rule": "exemplification",
+            "status": "uncertain-derived-belief",
+            "subject": "animal"
+          }
+        ],
+        "executed_actions": 0,
+        "full_nars": false,
+        "independent_check": "fixed-point-fraction-oracle",
+        "operation": "nal1-chain",
+        "persistent_state_changed": false,
+        "premises": [
+          {
+            "confidence_milli": 900,
+            "frequency_milli": 1000,
+            "id": "p0",
+            "predicate": "bird",
+            "sha256": "8b227602aacd3f0d5ed24571c099a79b5eb54440a7e7785ecb7c3141f91e24d0",
+            "source": "synthetic:robin-is-bird",
+            "subject": "robin"
+          },
+          {
+            "confidence_milli": 900,
+            "frequency_milli": 1000,
+            "id": "p1",
+            "predicate": "animal",
+            "sha256": "c15b8b5ea138c984ab1ba44d978ccb6b37791666ced031a53ca151c124ed1516",
+            "source": "synthetic:inert !(py-call evil) \u03bb",
+            "subject": "bird"
+          }
+        ],
+        "request_sha256": "53f645b719ef8c1d490e11c21549345f7e828b9944dd6d1bd7e5645d16a9196e",
+        "revision": 1,
+        "task_id": "reset_repeat",
+        "version": 1
+      },
+      "native_returncode": 0,
+      "inputs_unchanged": true,
+      "seconds": 0.0643189639999946,
+      "receipt_sha256": "bfcb81a76a688209f6316dcc9c103743b06e4a067c6a062b3767791a1a08e8d5"
+    }
+  ]
+}

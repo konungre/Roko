@@ -4,6 +4,11 @@ import json
 from pathlib import Path
 import sys
 sys.path.insert(0,str(Path(__file__).resolve().parent))
+from parent_guard import bind_parent
+if len(sys.argv)==3 and sys.argv[1]=='--parent-pid':
+    bind_parent(int(sys.argv[2]))
+elif sys.argv[1:]!=['--probe']:
+    raise ValueError('A live controller parent binding is required')
 from contract import canonical,parse_request,input_values,response_from_rows,MAX_REQUEST
 from hyperon import MeTTa,Environment,E,S,ValueAtom,ExpressionAtom,SymbolAtom,GroundedAtom
 import hyperon
@@ -49,7 +54,7 @@ def main():
     if sys.argv[1:]==['--probe']:
         print(json.dumps({'runtime_maps':executable_maps(),'hyperon_version':hyperon.__version__}))
         return
-    if sys.argv[1:]:raise ValueError('No worker options accepted')
+    if len(sys.argv)!=3 or sys.argv[1]!='--parent-pid':raise ValueError('Fixed worker options required')
     request=parse_request(sys.stdin.buffer.read(MAX_REQUEST+1))
     for name,expected in PINS.items():
         raw=(UPSTREAM/name).read_bytes()
@@ -73,6 +78,7 @@ def main():
         'upstream_commit':'945e2f83711b143e3f6e2eb112cc40c4f531c6f2',
         'hyperon_version':hyperon.__version__,'strict_imports':list(PINS),
         'runtime_maps':executable_maps(),
+        'parent_lifetime_bound':True,
         'executed_actions':0,'full_nars':False}
     raw=canonical(packet)
     if len(raw)>16384:raise ValueError('Native packet cap')

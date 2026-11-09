@@ -8,8 +8,10 @@ checked independently against the existing fixed-point Fraction contract.
 Six fresh-process host cases passed: baseline, asymmetric truth, zero confidence,
 zero frequency, upper confidence boundary, and baseline reset. The first closure
 passed in 2.086 seconds. The package-import successor passed in 1.933 seconds.
-Both attempts are preserved privately; the current successor manifest SHA-256 is
-`24ef034f15af0640df589869206bd7e541368fb625571afd48eba8581a55b5cf`.
+Both attempts are preserved privately. The final parent-lifetime successor passed
+the same six cases in 1.849 seconds; its manifest SHA-256 is
+`281644bff711d21d0c011842abe522b7bd4949fbc4c645e593f3d0cbc3a296cf`.
+See [current native summary](proof/native-host-003-summary.json).
 
 ## Boundary and provenance
 
@@ -33,6 +35,10 @@ address-space limit, 64-KiB per-file output limit, 64 descriptors, one-process
 limit, and disabled core dumps. These are configured limits, not measured peak
 memory. Failure never returns reference-oracle output as native output.
 Output, errors, and receipts remain in exclusive per-call evidence directories.
+Before importing Hyperon, the worker binds its lifetime to the synchronous
+calling process with Linux parent-death SIGKILL and checks parent identity on
+both sides of that binding. Four tests include a real harmless child whose
+calling parent is killed; no native child remained live after that test.
 
 Only deduction and exemplification over a distinct-symbol inheritance chain
 are admitted. Output retains original premises and uncertain-derived-belief

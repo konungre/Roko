@@ -70,5 +70,28 @@ class CognitionTests(unittest.TestCase):
         self.assertEqual(extract(TEXT,3)['revision'],3)
         self.assertEqual(extract(TEXT,3)['task_id'],'turn_3')
 
+    def test_failed_model_turn_does_not_commit_staged_cognitive_memory(self):
+        class Provider:
+            def chat(self,messages):return 'Synthetic reply.'
+        observations=iter([[{'id':'old','text':'Synthetic committed observation'}],
+                           [{'id':'new','text':'Synthetic uncommitted observation'}],[]])
+        provider=Provider();session=Session(provider,None,reasoner=lambda *_:next(observations))
+        session.prepare({'text':'First','context':[]})
+        messages=[session.user_message()];messages.append(session.infer(messages));session.commit(messages)
+        committed=list(session.cognitive_history)
+        session.prepare({'text':'Second','context':[]})
+        def fail(_):raise TimeoutError('synthetic model failure')
+        provider.chat=fail
+        with self.assertRaises(TimeoutError):session.infer(session.history+[session.user_message()])
+        self.assertEqual(session.cognitive_history,committed)
+        session.prepare({'text':'Replacement','context':[]})
+        self.assertEqual(session.cognitive_context,committed)
+        self.assertEqual(len(session.history),2)
+
+    def test_malformed_observation_is_not_staged(self):
+        session=Session(None,None,reasoner=lambda *_:[{'text':'Missing identity'}])
+        with self.assertRaises(ValueError):session.prepare({'text':'Hello','context':[]})
+        self.assertIsNone(session.pending);self.assertEqual(session.cognitive_history,[])
+
 
 if __name__=='__main__':unittest.main()

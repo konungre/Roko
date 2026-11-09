@@ -1,0 +1,100 @@
+{
+  "checks": {
+    "actual_nars_rows": true,
+    "complete_sentences": true,
+    "followup_native_history": true,
+    "nars_provenance": true,
+    "native_prompt_contains_nars": true,
+    "response_schema": true,
+    "robin_recall": true,
+    "session_history": true,
+    "snapshot_binding": true,
+    "two_model_calls": true
+  },
+  "executed_actions": 0,
+  "full_autonomous_omega": false,
+  "full_nars": false,
+  "guest_tested": false,
+  "native_call_seconds": [
+    17.25,
+    21.115
+  ],
+  "profile_sha256": "0a53d23811f48390d676f9e4db917798d11a8f11bf6f9c703784da6135969d12",
+  "replies": [
+    {
+      "context_ids": [],
+      "executed_actions": 0,
+      "text": "A robin is an animal.\n"
+    },
+    {
+      "context_ids": [],
+      "executed_actions": 0,
+      "text": "You mentioned a robin, which belongs to the kinds of bird and animal.\n"
+    }
+  ],
+  "returncode": 0,
+  "seconds": 51.86005042600027,
+  "status": "passed",
+  "cognitive_calls": 1,
+  "native_diagnostics_sha256": "e98ce61a1c20e45d687c994757b2b405a477e9abefee978324fd7a97fc089bb4",
+  "raw_result_sha256": "bb5d26e726d2d1c5d08ffbfccfe86cde569a012b74bb572317cb2f99df901c0a",
+  "nars_response": {
+    "authorizes_actions": false,
+    "conclusions": [
+      {
+        "confidence": 0.81,
+        "frequency": 1.0,
+        "predicate": "animal",
+        "premise_ids": [
+          "assertion_0",
+          "assertion_1"
+        ],
+        "rule": "deduction",
+        "status": "uncertain-derived-belief",
+        "subject": "robin"
+      },
+      {
+        "confidence": 0.44751381215469616,
+        "frequency": 1.0,
+        "predicate": "robin",
+        "premise_ids": [
+          "assertion_0",
+          "assertion_1"
+        ],
+        "rule": "exemplification",
+        "status": "uncertain-derived-belief",
+        "subject": "animal"
+      }
+    ],
+    "executed_actions": 0,
+    "full_nars": false,
+    "independent_check": "fixed-point-fraction-oracle",
+    "operation": "nal1-chain",
+    "persistent_state_changed": false,
+    "premises": [
+      {
+        "confidence_milli": 900,
+        "frequency_milli": 1000,
+        "id": "assertion_0",
+        "predicate": "bird",
+        "sha256": "ac6234d2896e1c879125e423fa9872fc4a4a0e6ca7f9f5f8420b5d7f0b0c01e1",
+        "source": "user-assertion:sha256:4637de597d6d5442ce4cd96cb70080011f380c58ea8c8b5311a3d8a12a875587:span:0:18;policy:f=1,c=0.9",
+        "subject": "robin"
+      },
+      {
+        "confidence_milli": 900,
+        "frequency_milli": 1000,
+        "id": "assertion_1",
+        "predicate": "animal",
+        "sha256": "8d231c73148f472b9fe7bb1327dff74b24bf765cc11ad0d117042b928172b334",
+        "source": "user-assertion:sha256:4637de597d6d5442ce4cd96cb70080011f380c58ea8c8b5311a3d8a12a875587:span:18:39;policy:f=1,c=0.9",
+        "subject": "bird"
+      }
+    ],
+    "request_sha256": "421b35a67bf769a84bb25b6a9fab10457801d2f9dca6606786cb3f8a7ec14005",
+    "revision": 1,
+    "task_id": "turn_1",
+    "version": 1
+  },
+  "scope": "Bounded native MeTTa-NARS to Omega/PeTTa/Granite conversation; no full autonomous loop"
+}

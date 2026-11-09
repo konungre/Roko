@@ -77,7 +77,8 @@ def run_native(request,*,manifest,admission,evidence_directory):
     start=time.monotonic();proc=None;streams=[];failure=None;errors=[]
     try:
         streams.append(output.open('xb'));streams.append(diagnostic.open('xb'))
-        command=[manifest['prlimit'],*LIMITS,'--',manifest['python'],'-I','-B',manifest['worker']]
+        command=[manifest['prlimit'],*LIMITS,'--',manifest['python'],'-I','-B',manifest['worker'],
+                 '--parent-pid',str(os.getpid())]
         proc=subprocess.Popen(command,stdin=subprocess.PIPE,stdout=streams[0],stderr=streams[1],
             cwd=directory,env={'PATH':'/usr/bin:/bin','LANG':'C.UTF-8'},
             close_fds=True,start_new_session=True)
@@ -107,7 +108,7 @@ def run_native(request,*,manifest,admission,evidence_directory):
         if errors or proc is None or proc.returncode!=0 or err:raise ValueError('Native process/finalization failed')
         packet=decode(raw,16385)
         if set(packet)!={'schema','request','native_rows','response','upstream_commit','hyperon_version',
-                         'strict_imports','runtime_maps','executed_actions','full_nars'}:
+                         'strict_imports','runtime_maps','executed_actions','full_nars','parent_lifetime_bound'}:
             raise ValueError('Native packet schema')
         if packet['schema']!='roko.nars.hyperon-observation.v1' or canonical(packet['request'])!=canonical(request):
             raise ValueError('Native request identity')
@@ -116,6 +117,7 @@ def run_native(request,*,manifest,admission,evidence_directory):
         if packet['strict_imports']!=['truthfunctions.metta','nal1.metta'] or packet['full_nars'] is not False:
             raise ValueError('Native scope')
         if type(packet['executed_actions']) is not int or packet['executed_actions']!=0:raise ValueError('Native authority')
+        if packet['parent_lifetime_bound'] is not True:raise ValueError('Native parent lifetime not bound')
         if packet['runtime_maps']!=manifest['runtime_maps']:raise ValueError('Native executable maps changed')
         response=response_from_rows(request,packet['native_rows'])
         if canonical(response)!=canonical(packet['response']):raise ValueError('Native response substitution')
