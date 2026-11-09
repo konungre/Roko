@@ -68,3 +68,23 @@ These observations do not qualify a consumer 32 GB Intel iGPU computer.
 
 The minimal rescue and its tests are a build/security checkpoint, not a
 production-ready OS or evidence that the desktop has been made non-root.
+
+## Reconciliation update
+
+The prior foundation was subsequently recovered from the authorized private
+Library transfer. All 60 entries in its checksum manifest passed; its complete
+Git bundle verified at `209ec3cab14b13a2bc06764dfa170614ed26fc80` and merged at
+`ac33690e1fddc23b27876c17f78ef1ab0ed6d1c4`. Both histories and published artwork
+remain intact. The earlier transfer blocker above is resolved. The recovered
+61-test distro suite passed in this fresh executor. Its historical COSMIC and
+state results remain documented separately in `distro/session/SESSION_VALIDATION.json`.
+
+The exact ISO004 parts were found in Library, but the current download helper
+failed with HTTP 401 before downloading them. No ISO reconstruction or new VM
+boot has occurred. The restored external QEMU closure remains unavailable.
+The source-only merge does not recreate those external dependencies or qualify
+the Python3.12 conversation closure inside the Python3.13 desktop.
+
+Further work added [signed offline release admission](../distro/SIGNED_RELEASES.md)
+with real Ed25519 tests. This authenticates bytes and checks an externally trusted
+rollback floor; it does not implement installation or boot recovery.
