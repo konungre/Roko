@@ -70,3 +70,39 @@ with the actual native model receipt. Its user background text is a fixture;
 the imported Nix receipts came from the OS owner's measured profile operations.
 Local Nix execution, system activation and authenticated current-host state are
 outside this qualification.
+
+## Optional receipt-status explanations (explain_v1)
+
+Strict receipt admission remains the default. A separately qualified profile may
+select `--receipt-policy explain_v1 --max-admission-age-seconds SECONDS` with
+`qualify_package_awareness.py`. This admits explanations when receipt *data* is
+unavailable, changed, invalid, or outside the explicit local admission window.
+Executable controls, runtime closure, and any cached query proof remain mandatory;
+their integrity failures stop the request. Data paths cannot alias controls or
+remove a source already mandatory in the base capability.
+
+| Status | Meaning |
+| --- | --- |
+| `available_freshness_unknown` | Exact qualified bytes are available and local admission is valid at the recorded check. Observation age is unknown. |
+| `source_missing`, `source_inaccessible`, `source_unreadable` | Receipt data cannot currently be obtained; this says nothing about package absence. |
+| `source_changed`, `source_invalid` | Data cannot be admitted as the qualified supported receipt. |
+| `admission_expired` | The configured local admission window elapsed; this does not establish the source observation age. |
+| `admission_clock_unverifiable` | The local check predates qualification; no source is admitted. |
+
+`package_state.evidence_checked_at_ns` makes the status an as-of check, not a live
+subscription. The source v1 format has no observation timestamp; file mtime,
+qualification time, and cache age cannot supply one. When data is not admitted,
+`source` and `query_receipt_sha256` are null. A previously queried record may be
+retained only as `last_known_source` with `last_known_query_receipt_sha256`;
+it is historical and is excluded from the current source context. Full transcript
+history remains authoritative and ordinary context policy is unchanged. Saved
+replay returns its original historical status without rechecking availability.
+No status grants mutation authority or establishes current-host, running-system,
+system activation, health, or authenticated producer state.
+
+`tests/probe_package_status_native.py` exercises missing/restored/missing receipt
+data, expired admission, full history, and exact restart replay with actual
+PeTTa/Omega, Motto and Granite. It mutates only a marked disposable copy of the
+imported OS-owner receipts. The expired timestamp is a test fixture; no local
+Nix operation or real old observation is inferred from it. Model prose is advisory;
+these bounded examples do not establish general language grounding.

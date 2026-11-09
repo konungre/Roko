@@ -98,6 +98,7 @@ class PackageAwareness:
                           query_receipt_sha256=cache['receipt_sha256'],context_sha256=state['context_sha256'])
         except BaseException as error:
             failure=error;record['error']=repr(error)
+            record['finalization_errors'].extend(getattr(error,'source_finalization_errors',[]))
         self.receipts.append(record)
         try:write_record(directory/'receipt.json',record)
         except BaseException as error:

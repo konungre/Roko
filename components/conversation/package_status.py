@@ -22,15 +22,35 @@ def validate_status_profile(profile):
             or sha(config['manifest'])!=config['sha256']):
         raise ValueError('Pinned status manifest/private evidence root required')
     manifest=json.loads(Path(config['manifest']).read_bytes())
+    data_paths={manifest['facts_path'],manifest['receipts_path']}
+    if any(path in profile['files'] for path in data_paths):
+        raise ValueError('Optional source data is also mandatory in base profile')
+    conversation=Path(__file__).resolve().parent
+    os_root=conversation.parent/'os_atomspace'
+    controls=list(os_root.glob('*.py'))+list(os_root.glob('*.pl'))
+    controls += [conversation/name for name in ('package_status.py','package_awareness.py',
+                 'fresh_supervise.py','learning.py','cognition.py','assertions.py')]
+    controls += [conversation.parent.parent/'omega-baseline/scripts/no-network.py']
+    runtime=manifest['runtime']
+    controls += [Path(runtime[name]) for name in ('python','swipl')]
+    controls += [Path(runtime['petta'])/'src/metta.pl']
+    controls += [Path(runtime['omega'])/'src'/name for name in ('utils.py','loop.metta','providers.metta','providers.py')]
+    if data_paths & {str(path) for path in controls}:
+        raise ValueError('Optional source aliases mandatory control')
+    # Verify executable control bytes before importing the gateway. Optional
+    # data must never remove a control from either independently pinned closure.
+    for path in controls:
+        digest=sha(path)
+        if profile['files'].get(str(path))!=digest:
+            raise ValueError('Unpinned package status controller/runtime')
+        if path.parent==os_root and manifest['files'].get(str(path))!=digest:
+            raise ValueError('Unpinned OS status controller')
+    for path,digest in manifest['files'].items():
+        if path not in data_paths and profile['files'].get(path)!=digest:
+            raise ValueError('Missing status runtime closure')
     from components.os_atomspace.conversation_gateway import verify_runtime
     verify_runtime(manifest)
-    data_paths={manifest['facts_path'],manifest['receipts_path']}
-    for path,digest in manifest['files'].items():
-        if path in data_paths:
-            if path in profile['files']:raise ValueError('Optional source data is also mandatory in base profile')
-        elif profile['files'].get(path)!=digest:raise ValueError('Missing status runtime closure')
-    for path in (Path(__file__).resolve(),Path(__file__).resolve().with_name('package_awareness.py')):
-        if profile['files'].get(str(path))!=sha(path):raise ValueError('Unpinned package status controller')
+
 
 
 class ReceiptStatusAwareness(PackageAwareness):
@@ -119,7 +139,9 @@ class ReceiptStatusAwareness(PackageAwareness):
             stage={'context':context,'state':state}
             record.update(status='passed',evidence_status=status['evidence_status'],data_admitted=admitted,
                           context_sha256=state['context_sha256'],query_receipt_sha256=state['query_receipt_sha256'])
-        except BaseException as error:failure=error;record['error']=repr(error)
+        except BaseException as error:
+            failure=error;record['error']=repr(error)
+            record['finalization_errors'].extend(getattr(error,'source_finalization_errors',[]))
         self.receipts.append(record)
         try:write_record(directory/'receipt.json',record)
         except BaseException as error:

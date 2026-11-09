@@ -89,5 +89,34 @@ class StatusTests(base.ReceiptCacheTests):
             str(self.manifest):awareness.sha(self.manifest),str(self.data):awareness.sha(self.data)}}
         with self.assertRaisesRegex(ValueError,'also mandatory'):status.validate_status_profile(profile)
 
+    def test_optional_data_cannot_alias_control_before_gateway_verification(self):
+        control=Path(gateway.__file__).resolve()
+        manifest=dict(self.observer.manifest)
+        manifest.update(facts_path=str(control),runtime={name:'/unused' for name in ('python','swipl','petta','omega')})
+        self.manifest.write_text(json.dumps(manifest))
+        config=dict(self.observer.config,sha256=awareness.sha(self.manifest))
+        profile={'package_awareness':config,'files':{str(self.manifest):config['sha256']}}
+        with patch.object(gateway,'verify_runtime') as verify,self.assertRaisesRegex(ValueError,'aliases mandatory control'):
+            status.validate_status_profile(profile)
+        verify.assert_not_called()
+
+    def test_read_cancellation_survives_close_failure_with_receipt_evidence(self):
+        primary=KeyboardInterrupt('cancel read')
+        real_close=os.close
+        def close_then_fail(fd):
+            real_close(fd)
+            raise OSError('close diagnostic')
+        real_read_source=gateway.read_source
+        def interrupted_source(path,limit):
+            with patch.object(gateway.os,'read',side_effect=primary),patch.object(gateway.os,'close',side_effect=close_then_fail):
+                return real_read_source(path,limit)
+        with patch.object(gateway,'read_source',side_effect=interrupted_source),self.assertRaises(KeyboardInterrupt) as caught:
+            self.stage()
+        self.assertIs(caught.exception,primary)
+        receipt=primary.package_evidence_status_receipt
+        self.assertEqual(receipt['status'],'failed')
+        self.assertEqual(receipt['finalization_errors'][0]['stage'],'source-close')
+        self.assertEqual(receipt['finalization_errors'][0]['type'],'OSError')
+
 
 if __name__=='__main__':unittest.main()

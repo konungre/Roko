@@ -24,6 +24,7 @@ def read_source(path,limit):
     # Optional data can disappear or become a special file. Never block on a
     # FIFO or follow a replacement symlink while checking availability.
     fd=os.open(path,os.O_RDONLY|os.O_NONBLOCK|os.O_NOFOLLOW)
+    primary=None
     try:
         before=os.fstat(fd)
         if not stat.S_ISREG(before.st_mode):raise OSError('Receipt source is not a regular file')
@@ -38,7 +39,15 @@ def read_source(path,limit):
         if (before.st_size,before.st_mtime_ns,before.st_ctime_ns)!=(after.st_size,after.st_mtime_ns,after.st_ctime_ns):
             raise OSError('Receipt source changed during read')
         return raw
-    finally:os.close(fd)
+    except BaseException as error:
+        primary=error;raise
+    finally:
+        try:os.close(fd)
+        except BaseException as error:
+            if primary is None:raise
+            errors=getattr(primary,'source_finalization_errors',[])
+            errors.append({'stage':'source-close','type':type(error).__name__,'error':str(error)})
+            primary.source_finalization_errors=errors
 
 
 def parse_source(profile,facts_raw,receipts_raw):
