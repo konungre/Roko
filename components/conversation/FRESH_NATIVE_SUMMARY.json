@@ -1,0 +1,115 @@
+{
+  "scope": "Fresh cloud host JSON-lines conversation through native Omega/PeTTa/Granite; no graphical or guest claim",
+  "base_commit": "b017853706687928c5d2db81f87976ed0be7167f",
+  "configured_repo_commit": "75486634b950afa7c1493e913f230113fe15a094",
+  "source_tests": 26,
+  "native_probe": {
+    "returncode": 0,
+    "seconds": 134.801,
+    "schema_ok": true,
+    "native_ok": true,
+    "parse_error": null,
+    "lighthouse_recall": true,
+    "graphical_ui_tested": false,
+    "ecan_qualified": false,
+    "source_sha256": {
+      "run.py": "d093f4255156601c1b8a16ef565f60370b8387ee0ed9d3474742c3a19620128b",
+      "worker.pl": "a214a0513018bb026f83ce743710369e3f33b4076b7373e4a77b9803557bbd1a",
+      "qualify_fresh.py": "e025cac5310453f04cd5dde672cd7e04d234e09c9624e6d8808ed967c4ff2f84",
+      "fresh_server.py": "50eac0421e01c67a83ac31a2b06a03cc184c3713e12e8a3be04c6af601e0cdc3",
+      "probe_recovered.py": "9ee07911bdbd64d83318da390cac1d19f833d47204e3680a690b735f50a6cf1c",
+      "step.metta": "02ebb8576425403f9c04872c1609396171b8090e9efc098ebfb6492177b1e9b9",
+      "fresh_supervise.py": "b599c4c61b5c225e11a43e1415fb0596b9987c76b5724f31e32cfbfd32dacf79",
+      "fresh.py": "3882915e599ac80bf82977a5bdf90abdb2a5775fb469c4b460604d936367339b",
+      "ecan_hook.py": "5067af7e1fab9b22b45bcf6647cc8d43aa091444cca74f28191e53bb6bf17fdd",
+      "recovered_server.py": "086701ab350f6aced36fbb5af00efc20167920621fb90e7db84cd61ff9f6dc1a",
+      "fresh_exec.py": "3d048d7401b9f04c8a2f929d01a97cd0434a76b6b58a007b044d116d18dda2fa",
+      "fresh-infer.cpp": "af0f8af92c78a83e0f1cb255b5dedd42d32b58b1fa2e6e4c2ba3bc61955631ef",
+      "recovered_exec.py": "b5b25355431c72a13d409c5373cd2222cf7c77632a51d2117a3542ac34d35b5b",
+      "recovered.py": "d4be1e536959fbb7382e6d9401c8395c78ecec453f9633d15f677fee26546583",
+      "conversation.py": "8204f19a39a511713c2d2a63b21c61acf72cbb4d23396f0b27261c8a3117ef0e",
+      "probe_fresh.py": "3976489299eefea3dac9c9ca0f09684a0549c655a66439a5939b24974df4a4bc"
+    },
+    "profile_sha256": "5612bf6d285b63bb4ba090268a7bf47ae757a8c599e6a155da080ecb2a1bce8e",
+    "passed": true
+  },
+  "native_seconds": [
+    46.317,
+    60.926
+  ],
+  "replies": [
+    {
+      "text": "Here's a short opening sentence for your lighthouse story:\n\nThe lighthouse stood tall and unwavering on the rocky cliff, its beacon piercing the darkness like a guiding hand in the stormy night.\n",
+      "context_ids": [],
+      "executed_actions": 0
+    },
+    {
+      "text": "You mentioned a lighthouse.\n",
+      "context_ids": [],
+      "executed_actions": 0
+    }
+  ],
+  "model_sha256": "5a38b08c441ae1adbafb1d2b8a7167e0d48734d83af68b268cefea1eec553dcd",
+  "native_cleanup_confirmed": true,
+  "cancellation": {
+    "sigterm": {
+      "signal": "sigterm",
+      "returncode": 1,
+      "supervisor": 7360,
+      "native_group_before": [
+        {
+          "pid": 7360,
+          "state": "S",
+          "start": "86936"
+        },
+        {
+          "pid": 7361,
+          "state": "R",
+          "start": "86941"
+        }
+      ],
+      "native_group_after": [],
+      "answer_bytes": 0,
+      "passed": true,
+      "fatal_diagnostics": false
+    },
+    "sigkill": {
+      "signal": "sigkill",
+      "returncode": -9,
+      "supervisor": 7366,
+      "native_group_before": [
+        {
+          "pid": 7366,
+          "state": "S",
+          "start": "88259"
+        },
+        {
+          "pid": 7367,
+          "state": "R",
+          "start": "88263"
+        }
+      ],
+      "native_group_after": [],
+      "answer_bytes": 0,
+      "passed": true,
+      "fatal_diagnostics": false
+    }
+  },
+  "prior_attempt": "Cancellation001 cleaned live native groups but SIGTERM caused Janus Py_FinalizeEx SIGSEGV. Preserved; launcher now kills worker directly. Cancellation002 passed without fatal diagnostics.",
+  "limits": {
+    "max_exchanges": 4,
+    "input_tokens": 512,
+    "output_tokens": 64,
+    "context_tokens": 1024,
+    "threads": 4,
+    "native_deadline_seconds": 150
+  },
+  "limitations": [
+    "Empty symbolic context only; ECAN not qualified",
+    "In-memory history only; no MORK/learning or durable CAS",
+    "No graphical desktop or guest test",
+    "Not full autonomous Omega",
+    "Model text unverified; output cap can truncate"
+  ],
+  "executed_actions": 0
+}

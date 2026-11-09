@@ -1,0 +1,260 @@
+{
+  "status": "passed",
+  "checks": {
+    "01-combined_model_verification": true,
+    "02-restart-replay-cas_model_verification": true,
+    "03-output-limit_model_verification": true,
+    "08-expanded-language_model_verification": true,
+    "09-unicode-limit_model_verification": true,
+    "cancel_explicit_turn_binding": true,
+    "cancel_nars_completed_before_model": true,
+    "cancel_no_ledger_commit": true,
+    "cancel_resident_model_cleanup": true,
+    "context_rejected_without_commit": true,
+    "durable_ledger_restored": true,
+    "expanded_native_binding_0": true,
+    "expanded_native_binding_1": true,
+    "expanded_plural_hypothetical": true,
+    "expanded_reordered_multiword": true,
+    "expanded_two_real_turns": true,
+    "explicit_recovery": true,
+    "explicit_truncation": true,
+    "first_actual_nars": true,
+    "first_completed": true,
+    "first_ecan_selection": true,
+    "first_explicit_turn_binding": true,
+    "first_mork": true,
+    "first_nars_snapshot": true,
+    "first_native_components": true,
+    "first_native_request_binding": true,
+    "first_pre_execution_record": true,
+    "first_prompt_binding": true,
+    "followup_mork": true,
+    "followup_no_nars_rerun": true,
+    "followup_prompt_binding": true,
+    "followup_recall": true,
+    "ledger_atomic_commit": true,
+    "overflow_no_cognitive_ledger": true,
+    "partial_replay_no_native": true,
+    "pending_not_reexecuted": true,
+    "recovery_preserves_ledger": true,
+    "restart_history": true,
+    "saved_replay": true,
+    "stale_cas": true,
+    "unicode_limit_and_replay": true,
+    "unicode_raw_evidence": true
+  },
+  "seconds": 337.783,
+  "source_base": "0493700c4e16e91f720218ae6e9dacb8915f2aba",
+  "cognitive_parent": "f07e16d3e23863b319a8f837dd7e26ed65164909",
+  "mork_input_library": "libfile_733cc5535858819186c15fd41a8dceb5",
+  "unit_tests": {
+    "conversation": 114,
+    "nars_parent_guard": 4,
+    "skipped": 0
+  },
+  "native_calls": [
+    {
+      "phase": "01-combined",
+      "returncode": 0,
+      "seconds": 18.857,
+      "prompt_sha256": "24defb25e84557636e4ad6ec2c65308231ad7ec90ffe1e64e9e56eaed7857394",
+      "generation": {
+        "input_tokens": 261,
+        "output_tokens": 6,
+        "finish_reason": "eos"
+      },
+      "stdout_encoding": {
+        "encoding": "utf-8",
+        "status": "valid"
+      }
+    },
+    {
+      "phase": "02-restart-replay-cas",
+      "returncode": 0,
+      "seconds": 18.906,
+      "prompt_sha256": "9703296da57bfa3509e713a7757d69e042e4f6d20851b68f7a07c2e254d46a17",
+      "generation": {
+        "input_tokens": 236,
+        "output_tokens": 15,
+        "finish_reason": "eos"
+      },
+      "stdout_encoding": {
+        "encoding": "utf-8",
+        "status": "valid"
+      }
+    },
+    {
+      "phase": "03-output-limit",
+      "returncode": 0,
+      "seconds": 3.074,
+      "prompt_sha256": "a970ea2dcdd4fae7a9f08b4d327eda6f313d0d0e505cfed84009df385df8da62",
+      "generation": {
+        "input_tokens": 62,
+        "output_tokens": 4,
+        "finish_reason": "length"
+      },
+      "stdout_encoding": {
+        "encoding": "utf-8",
+        "status": "valid"
+      }
+    },
+    {
+      "phase": "05-input-limit",
+      "returncode": 2,
+      "seconds": 0.28,
+      "prompt_sha256": "a18a8b6f6e5274a716387f11dbbb5a17b0093e8b5baacc20ceadcdccf0b1ae81",
+      "generation": null,
+      "stdout_encoding": null
+    },
+    {
+      "phase": "08-expanded-language",
+      "returncode": 0,
+      "seconds": 18.109,
+      "prompt_sha256": "67f21e641e95ebd553b03b01d9e9e6e9b00db82b31f09a90bc6a571479e6410d",
+      "generation": {
+        "input_tokens": 214,
+        "output_tokens": 7,
+        "finish_reason": "eos"
+      },
+      "stdout_encoding": {
+        "encoding": "utf-8",
+        "status": "valid"
+      }
+    },
+    {
+      "phase": "08-expanded-language",
+      "returncode": 0,
+      "seconds": 23.365,
+      "prompt_sha256": "9c0efee250542422bbef5435d822e354d087404d4f1cee7aa1fd2c0bf107950f",
+      "generation": {
+        "input_tokens": 357,
+        "output_tokens": 5,
+        "finish_reason": "eos"
+      },
+      "stdout_encoding": {
+        "encoding": "utf-8",
+        "status": "valid"
+      }
+    },
+    {
+      "phase": "09-unicode-limit",
+      "returncode": 0,
+      "seconds": 5.944,
+      "prompt_sha256": "bc67d0fb23c681a1d3d1319352a764683624ed141ba824a1d8beaa6fcddbd711",
+      "generation": {
+        "input_tokens": 64,
+        "output_tokens": 1,
+        "finish_reason": "length"
+      },
+      "stdout_encoding": {
+        "encoding": "utf-8",
+        "status": "incomplete_suffix_replaced",
+        "replacement": "U+FFFD",
+        "byte_offset": 0,
+        "byte_count": 2,
+        "suffix_hex": "f09f",
+        "native_newline_preserved": true
+      }
+    }
+  ],
+  "profile_sha256": "ceb7b41a2990138504b5e260c74915409e668dd105bbc76e6c948cb3041278d2",
+  "native_probe_result_sha256": "1985c4bdb3b451171a845354d799b7891167e987a62679ee52f1378ee8fcc619",
+  "example_replies": [
+    "A robin is an animal.\n",
+    "You mentioned a robin, which belongs to the kinds of bird and animal.\n"
+  ],
+  "cancellation": {
+    "resident_model_bytes": 4301107200,
+    "answer_bytes": 0,
+    "descendants_remaining": 0,
+    "new_nars_completed": true
+  },
+  "initial_attempt": {
+    "status": "failed",
+    "cause": "CPU_REPACK allocation exceeded existing memory cap",
+    "history_committed": false,
+    "preserved": true
+  },
+  "executed_actions": 0,
+  "graphical_ui_tested": false,
+  "full_autonomous_omega": false,
+  "limitations": [
+    "Two controlled-language premises only; no general semantic modifier, morphology or synonym resolution",
+    "MORK four-exchange bound; pinned PathMap predates zipper fix",
+    "512 input tokens; partial outputs explicitly marked",
+    "consumer Cargo lock newly resolved; no producer binary identity claim",
+    "public v2 schema unchanged; basilisk adoption remains separate"
+  ],
+  "turn_binding": {
+    "fields": [
+      "session_id",
+      "request_id",
+      "revision"
+    ],
+    "revision": "pre-turn CAS revision",
+    "observation_id": "nars_ plus SHA-256 of canonical binding",
+    "attempt_directory": "binding hash plus random unique suffix",
+    "sidecar": "turn-binding.json binds conversation snapshot and native request/response hashes",
+    "pre_execution_record": "private fsynced turn-start.json before native execution",
+    "native_provenance": "full binding hash in premise source and bounded task ID prefix"
+  },
+  "preserved_rejected_attempt": {
+    "probe": "integrated-native-003",
+    "cause": "review test generated bytecode in frozen NARS tree",
+    "native_model_calls": 0,
+    "resolution": "removed only generated cache; source pins and manifest unchanged"
+  },
+  "selected_port": {
+    "published_source": "5367d32f62ea2ed1a416aa696d0e0f4cc457b3cf",
+    "f5ee004_available": false,
+    "wholesale_merge": false,
+    "new_capabilities": [
+      "expanded controlled grammar",
+      "pre-execution fsynced records",
+      "request-level native provenance",
+      "duplicate observation ID rejection",
+      "UTF-8-safe token-limit output"
+    ]
+  },
+  "native_unicode_boundary": {
+    "actual_model_reproduced": true,
+    "stdout_hex": "f09f0a",
+    "stdout_encoding": {
+      "encoding": "utf-8",
+      "status": "incomplete_suffix_replaced",
+      "replacement": "U+FFFD",
+      "byte_offset": 0,
+      "byte_count": 2,
+      "suffix_hex": "f09f",
+      "native_newline_preserved": true
+    },
+    "generation": {
+      "input_tokens": 64,
+      "output_tokens": 1,
+      "finish_reason": "length"
+    },
+    "reply": {
+      "api_version": 2,
+      "context_ids": [],
+      "executed_actions": 0,
+      "generation": {
+        "finish_reason": "length",
+        "input_tokens": 64,
+        "output_tokens": 1
+      },
+      "history_policy": "complete_no_omission",
+      "request_id": "unicode",
+      "revision": 1,
+      "session_id": "unicode",
+      "status": "truncated",
+      "text": "\ufffd\n"
+    },
+    "saved_replay_equal": true
+  },
+  "expanded_example_replies": [
+    "A red fox is an animal.\n",
+    "Robins are animals.\n"
+  ],
+  "all_successful_native_calls_individually_verified": 6
+}

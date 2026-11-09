@@ -35,16 +35,32 @@ This document describes project status across the preserved local work. It is no
   on PeTTa: four cases, eight actual native result rows. Recorded source checks
   were 46 owner and 10 independent tests. This is not full NARS, Omega-controller
   integration, or guest integration.
-- **MetaMo:** `metamo-core-v3` implements a bounded scoring/DecisionMonad bridge
-  to five externally pinned modules, with seven authored numeric compatibility
-  helpers. 69 source/contract/mock/reference checks were recorded. The first native compatibility child failed on `positivePart` before any scoring case was accepted (0/8). Native MetaMo qualification remains failed/pending; no native score or winner is claimed.
+- **MetaMo:** `metamo-core-v4` passed one separately reviewed host gate: eight
+  fresh processes, eight scoring/selection cases, 21 actual scores and 128
+  helper/consumer checks. v3 failed before scoring because of helper import
+  order; that failure remains preserved. Five upstream modules remain exact-pin
+  external sources, with seven authored numeric compatibility helpers. The new
+  `metamo-controller-adapter-v2` passed two fresh native controller cases: a
+  wrong high-score answer was rejected and a correct one accepted only on a
+  detached clone. Original tasks and evidence stayed unchanged. It also has
+  53 pure tests. No full MetaMo state cycle or guest integration is claimed.
+- **NACE:** `components/nace` contains seven byte-preserved MIT-licensed function
+  blocks and a bounded predictive adaptation adapter. The source checkpoint
+  passed 70 pure tests. The portable copy has 70 passing tests and two explicit
+  full-upstream provenance skips. No upstream runtime, planner, ONA/eval bridge,
+  environment action, full NACE cycle or guest integration has run.
 - **MORK:** `mork-recovery-v1` restores source provenance and hardens the existing
   bounded fact adapter. 46 current pure/authored-helper tests pass. The real
   read/write/match/remove/rewrite/error fixture is authored but not run. Native
   libraries, the historical Cargo lock, toolchain/registry closure and complete
   runtime admission remain missing. Historical native pass statements elsewhere
   are not current MORK qualification.
-- **MeTTa-Motto, NACE, MOSES, AI-DSL and AIRIS:** requested components with
+- **AIRIS:** `components/airis` retains the authored bounded scalar-learning
+  wrapper. Its separately admitted v3 host gate passed four workers, learned
+  relative-outcome rules, and passed held-out step/hold prediction, empty-memory
+  ablation and snapshot restoration. This is synthetic scalar transition
+  learning, not general causal discovery or Omega conversation integration.
+- **MeTTa-Motto, MOSES and AI-DSL:** requested components with
   research/source mapping underway; no complete native/controller integration
   is claimed by this publication.
 - **PRIMUS, Predictive and Causal Coding, and TransWeave:** architectural goals

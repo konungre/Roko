@@ -1,0 +1,81 @@
+{
+  "scope": "Fresh bounded host conversation, not guest or full autonomous Omega",
+  "source_tests": 16,
+  "attempts": [
+    {
+      "attempt": "conversation-native-recovery-002",
+      "exit_code": 0,
+      "native_calls": 2,
+      "native_seconds": [
+        43.72,
+        60.024
+      ],
+      "ecan_calls": 0,
+      "model_identity_unchanged": true,
+      "all_native_cleanup_confirmed": true,
+      "all_ecan_groups_empty": true,
+      "stdout_sha256": "28a2f2f714a816594df90c5167a81d04961409bcef44ddedfba16c5cab080dd1",
+      "result_sha256": "5ea4a965deea5a141552f1e0611ff0007a3cc887e8a5c2ed75da187d851be213"
+    },
+    {
+      "attempt": "conversation-native-recovery-003",
+      "exit_code": 0,
+      "native_calls": 1,
+      "native_seconds": [
+        41.044
+      ],
+      "ecan_calls": 1,
+      "model_identity_unchanged": true,
+      "all_native_cleanup_confirmed": true,
+      "all_ecan_groups_empty": true,
+      "stdout_sha256": "6b53ebe9b9414670968ef84a54ec33605abdde7ee7c0cda5239dc1a7bd6b10c4",
+      "result_sha256": "72546c49321d2bb4666bad478bdc10423a94d579555d52beba4c23bdb11ee41d"
+    },
+    {
+      "attempt": "conversation-native-recovery-004",
+      "exit_code": 0,
+      "native_calls": 1,
+      "native_seconds": [
+        62.299
+      ],
+      "ecan_calls": 1,
+      "model_identity_unchanged": true,
+      "all_native_cleanup_confirmed": true,
+      "all_ecan_groups_empty": true,
+      "stdout_sha256": "8d6bd7acb8b22ab849eb12888cd27635111984a7d6421cc5c5d1567a4f4bdcc8",
+      "result_sha256": "9c01c23a5fa26379275159f814b059223c13e4cd6baf77bcb6d7fb8a713103aa"
+    }
+  ],
+  "executed_actions": 0,
+  "limitations": [
+    "64 output tokens can truncate responses",
+    "session history is not durable",
+    "graphical UI untested"
+  ],
+  "desktop_transport": {
+    "turns": 2,
+    "errors": 0,
+    "gui_tested": false,
+    "receipt_sha256": "d6caa0e17878f1694e0119c36d9d7613c8002bb1f735ce3f2c08d3c179a8a8e3"
+  },
+  "desktop_cancellation": {
+    "answer": null,
+    "error": "Turn cancelled; session ended",
+    "callback_completed": true,
+    "native_group_before": [
+      {
+        "pid": 13,
+        "state": "S"
+      },
+      {
+        "pid": 14,
+        "state": "R"
+      }
+    ],
+    "native_group_after": [],
+    "no_live_native_descendants": true,
+    "gui_tested": false,
+    "scope": "Observed cancellation during native inference through desktop transport; session discarded, not transactional rollback",
+    "receipt_sha256": "911b27995a9ea48745fc6c1f6e6099cbf444ff39eb4fc5c1e8665f787bd17ae4"
+  }
+}

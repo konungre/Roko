@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "checks": {
+    "revision_two_loaded": true,
+    "third_turn_committed": true,
+    "native_mork_complete_history": true,
+    "both_observations_restored": true,
+    "native_model_prompt_binding": true,
+    "native_model_verified": true,
+    "no_new_nars_inference": true,
+    "recall_both_creatures": true,
+    "exact_restart_replay": true,
+    "replay_no_native_work": true
+  },
+  "reply": {
+    "api_version": 2,
+    "session_id": "language",
+    "request_id": "language-3",
+    "status": "completed",
+    "text": "We discussed red foxes and robins.\n",
+    "context_ids": [],
+    "executed_actions": 0,
+    "generation": {
+      "input_tokens": 385,
+      "output_tokens": 9,
+      "finish_reason": "eos"
+    },
+    "history_policy": "complete_no_omission",
+    "revision": 3
+  },
+  "native_seconds": 25.338,
+  "executed_actions": 0
+}

@@ -1,0 +1,9 @@
+{
+  "expected_failure": true,
+  "exit_code": 101,
+  "stdout": "fork_at=xya expected=[[98], [98, 99]] actual=[[120], [120, 121], [120, 121, 98], [120, 121, 98, 99]]\n",
+  "stderr": "\nthread 'main' (28306) panicked at /workspace/native-mork-build/pathmap-qualification/fork_probe.rs:17:5:\nassertion `left == right` failed: fork must start at current focus\n  left: [[120], [120, 121], [120, 121, 98], [120, 121, 98, 99]]\n right: [[98], [98, 99]]\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n",
+  "probe_sha256": "71df5e41264d4dd12903f1bad18096327a2c13ac9557f12b33fafe942ed51e01",
+  "pathmap_revision": "5f2118c1d61d782a7590bac8874dcb3c94c1e0fb",
+  "runtime_modified": false
+}
