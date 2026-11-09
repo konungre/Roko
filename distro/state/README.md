@@ -1,3 +1,39 @@
+# Current package-state implementation
+
+The unresolved imported prototype source, tests and packaging have been removed
+from the current tree. Only its provenance/hash audit remains under provenance/.
+Earlier Git history and backups still contain the import: this removal is not a
+retroactive license grant or a legal determination. Do not claim that history's
+licensing is resolved. No history was rewritten.
+
+`declarative.py` is newly written for the narrower contract below, without copying
+or importing the prototype implementation. This is not a formal clean-room
+process: the agent had previously inspected that prototype. Review the diff and
+provenance separately; no legal clearance is asserted.
+
+Active interface: validated JSON `roko-private-intent-v1`, backend nix, exact
+already-built outputs in a configured canonical store root, and a digest of
+trusted lock bytes. Unknown fields, executable expressions, aliases and unbounded
+package sets are rejected. The caller owns source-lock acquisition/verification;
+a digest match alone does not audit a closure or authorize a change. Prepare
+collects native closure availability and binds the current monotonic profile
+revision. Apply freezes the plan, checks its checksum/scope/provenance, requests
+trusted external review, then uses the locked actual-action CAS. A checksum is
+not authorization. Empty profiles and arbitrary package expression builds remain
+unsupported. MeTTa interaction uses actual PeTTa fact projection, not a replacement
+text parser claiming to be a MeTTa evaluator.
+
+Native replacement test passed on a fresh private profile: prepare, denied apply
+without pointer changes, reviewed apply, stale replay rejection, and review-time
+state mutation rejection. Nine state tests pass. Receipt:
+`evidence/declarative-native-001.json`. This is still disposable user-profile
+scope, not OS activation or source-hermetic system build.
+
+Public CLI behavior reference: [Nix2.26 profile install](https://nix.dev/manual/nix/2.26/command-ref/new-cli/nix3-profile-install).
+The native fixtures validate the installed CLI independently of documentation.
+
+# Historical development evidence (superseded where noted above)
+
 # Declarative OS state foundation
 
 Nix/Guix-backed generations tied to AtomSpace are a core OS requirement.
