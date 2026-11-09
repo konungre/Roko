@@ -30,6 +30,16 @@ def describe_transport_failure():
         'exact_original_request_after_snapshot', outcome='unknown')
 
 
+def describe_reply_stream_end():
+    """A whole packet arrived; stream end establishes no current service state."""
+    return _result('reply_stream_ended',
+        'A complete reply packet was received before this stream ended. '
+        'Generated text may still be truncated as labeled. The captured reply is historical; '
+        'the stream ending does not refresh evidence or establish service health or host state. '
+        'Inspect a fresh session snapshot before further request decisions; no automatic retry is performed.',
+        'exact_original_request_after_snapshot', outcome='not_established')
+
+
 def describe_error(response):
     """Return bounded plain-language guidance for an actual v2 error packet."""
     if (type(response) is not dict or type(response.get('api_version')) is not int

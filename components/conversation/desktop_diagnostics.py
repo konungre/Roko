@@ -7,9 +7,9 @@ remains responsible for verifying claim owner death on any recovery request.
 import json
 import re
 if __package__:
-    from .client_diagnostics import describe_error,describe_transport_failure
+    from .client_diagnostics import describe_error,describe_transport_failure,describe_reply_stream_end
 else:
-    from client_diagnostics import describe_error,describe_transport_failure
+    from client_diagnostics import describe_error,describe_transport_failure,describe_reply_stream_end
 
 def _copy(value):
     return json.loads(json.dumps(value,ensure_ascii=False,allow_nan=False))
@@ -26,6 +26,7 @@ class DesktopDiagnostics:
         self._original=json.dumps(request,ensure_ascii=False,allow_nan=False)
         self._snapshot=None;self._guidance=None
     def transport_lost(self):self._guidance=describe_transport_failure()
+    def reply_stream_ended(self):self._guidance=describe_reply_stream_end()
     def receive_error(self,response):
         if type(response) is not dict:raise ValueError('Expected error packet')
         if response.get('session_id',self.original()['session_id'])!=self.original()['session_id']:
