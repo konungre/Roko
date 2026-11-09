@@ -1,9 +1,7 @@
 # Independent minimal guest qualification
 
 This path does not use or replace the inaccessible ISO. It uses a freshly acquired
-Debian kernel and QEMU/SeaBIOS in a workspace directory. No package installation,
-maintainer script, host disk, network adapter, KVM or firmware-variable write is
-performed. The historical ISO runtime lock stays unchanged.
+Debian kernel and QEMU/SeaBIOS in a workspace directory. No package installation, maintainer script, host disk, network adapter or KVM is used. The firmware test below writes only its private virtual NVRAM file. The historical ISO runtime lock stays unchanged.
 
 Official package URLs, versions, sizes and SHA256 values are recorded in
 `TEST_RUNTIME_PACKAGES.json`. APT verified the Debian InRelease/package metadata
@@ -76,3 +74,48 @@ outer deadline. This small guest is not a memory qualification for model inferen
 See `VM_VALIDATION.json` and the checkpoint archive for hashes and raw receipts.
 No inference, full conversation exchange, COSMIC session or production firmware
 recovery is claimed by these minimal tests. Those integrations remain open.
+
+
+## Virtual UEFI fallback
+
+`distro/update/firmware_trials.py TOOLS RUNTIME LOCK GOOD BAD NEW_OUTPUT`
+creates a disposable GPT/FAT32 ESP and private OVMF variable store. QEMU boots
+OVMF and systemd-boot from those images, without direct kernel injection.
+The trial entry starts with three attempts. Three deliberately unhealthy boots
+rename it to `+2-1`, `+1-2`, then `+0-3`; the fourth boot actually executes the
+known-good entry. The executed test passed all four boots and left the firmware
+code image unchanged. This follows [systemd boot assessment](https://systemd.io/AUTOMATIC_BOOT_ASSESSMENT/).
+The GPT test verifies both header CRCs, table CRC, bounds, private file mode and
+refusal to overwrite an existing image. Firmware package pins accompany the
+checkpoint. Secure Boot, production installation, successful trial blessing and
+physical power loss remain untested.
+
+## Bounded real model guest
+
+The new `build_conversation_guest.py` and `run_conversation_guest.py` are explicit
+integration tools. They require conversation checkpoint
+`55bebd8d79454c765b258b27471ad54a971700e5` and the separately rebuilt symbolic and
+inference runtime. No component source or weights are vendored by this branch.
+
+The guest runs one empty-context request as UID/GID1000 through the existing
+network-denial wrapper and conversation endpoint. A pinned Granite Q4 model and
+source/profile are attached on separate read-only virtual disks, mounted with
+`nodev,nosuid,noexec`; the executable runtime remains in the initramfs. Root
+regain is denied. UUID and ext4 magic checks precede mounts. The builder includes
+CRC32C's crypto driver explicitly because ext4 requests it dynamically and it is
+absent from ext4's static module dependency list.
+
+The runner admits 10 GiB guest RAM only with 12 GiB host availability, limits
+QEMU RSS and output, uses a 600-second outer deadline, and reaps the VM. Existing
+conversation/inference limits remain unchanged. A pass requires the actual native
+receipt, zero action execution, unchanged model identity and normal guest shutdown;
+booting alone cannot pass. No COSMIC session or conversational UI is exercised. The ext4 fixtures are measured local test images; their filesystem timestamps mean byte-for-byte disk reproduction is not yet qualified.
+See `MODEL_GUEST_VALIDATION.json` for the actual result and retained failed attempts.
+
+Actual model attempt002 mounted both read-only disks and reached UID/GID1000.
+The genuine native inference supervisor started, but no completed conversation
+receipt arrived before the driver's 480-second deadline. The guest reported
+child failure; the outer runner reaped QEMU. The gate failed, and no model
+conversation success is claimed. Attempt001's missing-CRC32C failure is retained.
+The TCG-only environment does not establish consumer CPU performance; this test
+needs repetition on an authorized accelerated guest before desktop integration.
