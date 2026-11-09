@@ -41,7 +41,10 @@ included. Upstream MORK/FFI and private ECAN source remain excluded because
 redistribution permission has not been established. Other upstream runtimes are
 referenced through source pins rather than copied wholesale.
 
-Avatar artwork and backgrounds are also omitted while redistribution rights are
-unresolved. The source alone therefore cannot reproduce the identical artwork or
-the delivered desktop image. Exact acquisition pins and preserved build recipes
-are useful provenance, not a guarantee of a complete reproducible build.
+The confirmed original Roko sprite, delivered showcase sprites and emerald/gold
+background are included. See [artwork provenance](docs/ARTWORK_PROVENANCE.json)
+for byte hashes and origin. The assets were not edited for publication.
+
+The repository still does not reproduce the complete delivered desktop image.
+Exact acquisition pins and preserved build recipes are useful provenance, not a
+guarantee of a complete reproducible build.

@@ -1,0 +1,58 @@
+{
+  "schema": "roko-public-artwork-v1",
+  "scope": "Confirmed user-owned existing Roko sprite and generated Roko showcase assets. No runtime inventories or private service identifiers.",
+  "authorization": "Published at the project owner's request as part of the Roko project. No new project-wide reuse license is granted here.",
+  "assets": [
+    {
+      "path": "roko-showcase-stage-v4/usr/share/roko/showcase/assets/character.png",
+      "bytes": 432125,
+      "sha256": "d8320efed515b1d11088c1b2b0c62be05d71e724c6b48597e123f889ed0eddf0",
+      "git_blob_sha": "9db22cb034bb6227b68f6fc9c0256a6559546993",
+      "dimensions": [
+        768,
+        416
+      ],
+      "modified_for_publication": false
+    },
+    {
+      "path": "roko-showcase-stage-v4/usr/share/roko/showcase/assets/corner.png",
+      "bytes": 43507,
+      "sha256": "c2152989ef82ccf5ebd49f8fc57393d79e045815d0679d7e55223ac8b244db7f",
+      "git_blob_sha": "a5f7aad82c927add6edc782b162e705230880a42",
+      "dimensions": [
+        192,
+        208
+      ],
+      "modified_for_publication": false
+    },
+    {
+      "path": "roko-showcase-stage-v4/usr/share/backgrounds/roko/roko-emerald.png",
+      "bytes": 1534899,
+      "sha256": "87c01cdd1d5efccb4b5a17e8c9174bb5718397fade92c7394efaa5b463583c02",
+      "git_blob_sha": "1e504d7fd4f6c94efa5b7206bc129ab93b2c6ac7",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "modified_for_publication": false
+    },
+    {
+      "path": "omega-baseline/desktop/basilisk/assets/roko.png",
+      "bytes": 3477190,
+      "sha256": "8e2f01b673c60b9fd683754a4278c9ca3de8ceb88e46d8b22944b6da1aa82e23",
+      "git_blob_sha": "1b6b9d4c5a36968d616d93b47b673ccb38c3876d",
+      "dimensions": [
+        1536,
+        2288
+      ],
+      "modified_for_publication": false
+    }
+  ],
+  "generation": {
+    "showcase_character": "Built-in image generation from the user-selected fused emerald/gold reference, then deterministic crop and common scale. Eight poses including two walking frames; not full skeletal animation.",
+    "corner": "Delivered showcase corner sprite.",
+    "wallpaper": "Authored/generated emerald and gold Roko background.",
+    "original_sprite": "Existing user-owned custom Roko pet sprite sheet, unchanged."
+  },
+  "source_limit": "The selected generated reference and uncropped generation are identified by the showcase manifest but are not included as recovered image files."
+}

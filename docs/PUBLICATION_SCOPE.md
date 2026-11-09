@@ -3,14 +3,14 @@
 The source tree is a separate allowlisted copy. Original workspace files,
 checkpoints and artifacts were not overwritten or deleted.
 
-Included: authored controller/state/CLI/package-manager source, bounded AI
-adapters and tests, selected OS and native-build recipes, delivered showcase
-and avatar source, and clearly labeled experimental diagnostics/integrations.
+Included: selected authored controller/state/package-manager source, bounded AI
+adapters and tests, and selected OS/native-build recipes. The publication
+manifest is authoritative; referenced components are not necessarily complete.
 
 Excluded: vendor runtime/source dumps, private ECAN and unlicensed MORK/FFI
 source, model weights, binaries/shared libraries, archives and disk/VM images,
 private state, screenshots/runtime capture logs, credentials, internal notes,
-private artifact identities, upstream artwork/background pixels, and unfinished
+private artifact identities, unverified third-party artwork, and unfinished
 native-context successor qualification. Very large file inventories are omitted.
 
 Three source/document or binding files contain public placeholder
@@ -33,3 +33,12 @@ Detailed development runtime path/hash inventories and old artifact locks were r
 ## Final initial subset
 
 The initial public tree was finalized from the safely uploaded authored-source batches. Additional experimental unprivileged runtime/cleanup sources were withheld after publication review, and unconfirmed batches were not counted as published. Detailed runtime inventories are also withheld. The manifest lists exactly the files included, not every locally developed component. Original source remains preserved privately.
+
+## Confirmed artwork addition
+
+Four unchanged original/generated Roko images are now included: the original
+custom sprite sheet, delivered eight-pose character sheet, corner sprite, and
+emerald/gold wallpaper. Their asset hashes and origin are recorded in
+`ARTWORK_PROVENANCE.json`, with animation geometry in the showcase manifest.
+The earlier blanket artwork omission was corrected after checking provenance.
+This addition does not restore omitted runtime source or make the image build complete.

@@ -25,4 +25,6 @@ This source checkpoint integrates with, references, or adapts interfaces from:
 
 Build recipes are not a determination that a future assembled binary/image
 fulfills all applicable source-delivery, relinking, notice or license obligations.
-Artwork rights and newly authored project-wide distribution terms remain open.
+Confirmed project-owned/generated artwork is included at the owner's request;
+see `docs/ARTWORK_PROVENANCE.json`. No new artwork or project-wide reuse
+license has been selected. Third-party artwork with unverified origin is not included.
