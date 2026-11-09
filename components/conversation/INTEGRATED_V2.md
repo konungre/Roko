@@ -173,3 +173,34 @@ The sixth turn used 460 input tokens and retained twelve messages. Native MORK
 used two queries for its ten-message input; no new NARS inference was claimed.
 See `SIX_TURN_NATIVE_SUMMARY.json`, `tests/probe_six_turns.py` and
 `tests/audit_cognitive_prompts.py`. The PathMap pre-fix limitation is preserved.
+
+## Experimental exact-token context projection
+
+`context_summary.py` is an internal experiment, separate from public v2 turns.
+It preserves the full authoritative history, recent complete pairs and current
+request, while replacing older model-context messages with source-linked user
+prefix quotations. Older assistant text is excluded. Each excerpt records its
+original message index, SHA-256, exact character span and truncation. The plan
+explicitly reports `model_context_complete:false`; it is a lossy projection,
+not an information-preserving semantic summary or a new source of facts.
+
+The native inference executable's optional `--count-tokens` mode uses the same
+pinned tokenizer and flags as generation, loads vocabulary only, and returns
+`{"input_tokens":N}` before context allocation or generation. Its original
+16,384-byte prompt bound remains. Normal generation behavior is preserved.
+The planner tries deterministic excerpt bounds and requires exact counts; if
+no candidate fits, it raises `SummaryBudgetError` without generation or storage.
+
+All 142 source tests and nine supervised native tokenizer checks passed. The
+combined experimental probe used real native MORK and ECAN, retained two prior
+NARS observations, and opened the synthetic conversation database read-only.
+A full 531-token prompt was rejected; a 508-token projection generated “Red foxes
+and robins,” with the generation receipt matching that exact count. All ten
+native checks passed, including unchanged database contents. A previous trial
+refused a 514-token minimum candidate, preserving its failed evidence. See
+`SUMMARY_NATIVE_EXPERIMENT.json` and `tests/probe_summary_native.py`.
+
+Public v2 remains complete-history conversation with explicit token admission.
+Activating projection in that endpoint requires an agreed explicit model-context
+policy and response metadata; this experiment does not silently change
+`history_policy:complete_no_omission`. No database turns or actions are committed.

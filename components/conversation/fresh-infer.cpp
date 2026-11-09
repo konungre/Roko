@@ -36,6 +36,7 @@ int main(int argc, char ** argv) {
     int ngl = 0;
     // number of tokens to predict
     int n_predict = 32;
+    bool count_tokens = false;
 
     // parse command line arguments
 
@@ -49,6 +50,9 @@ int main(int argc, char ** argv) {
                     print_usage(argc, argv);
                     return 1;
                 }
+            } else if (strcmp(argv[i], "--count-tokens") == 0) {
+                if (count_tokens) return 2;
+                count_tokens = true;
             } else if (strcmp(argv[i], "--grammar") == 0) {
                 if (i + 1 >= argc) return 2;
                 grammar = argv[++i];
@@ -77,6 +81,7 @@ int main(int argc, char ** argv) {
                     return 1;
                 }
             } else {
+                if (count_tokens && argv[i][0] == '-') return 2;
                 // prompt starts here
                 break;
             }
@@ -111,6 +116,7 @@ int main(int argc, char ** argv) {
     // Keep weights mmap-backed within the fixed 6 GiB native address-space cap.
     // CPU_REPACK would allocate a second multi-GiB copy on optimized builds.
     model_params.use_extra_bufts = false;
+    model_params.vocab_only = count_tokens;
 
     llama_model * model = llama_model_load_from_file(model_path.c_str(), model_params);
 
@@ -130,6 +136,13 @@ int main(int argc, char ** argv) {
     if (llama_tokenize(vocab, prompt.c_str(), prompt.size(), prompt_tokens.data(), prompt_tokens.size(), true, true) < 0) {
         fprintf(stderr, "%s: error: failed to tokenize the prompt\n", __func__);
         return 1;
+    }
+
+    if (count_tokens) {
+        printf("{\"input_tokens\":%d}\n", n_prompt);
+        llama_model_free(model);
+        llama_backend_free();
+        return 0;
     }
 
     // initialize the context
