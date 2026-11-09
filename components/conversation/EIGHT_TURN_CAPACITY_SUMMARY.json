@@ -2,6 +2,8 @@
   "passed": true,
   "checks": {
     "request_contract": true,
+    "restart_request_contract": true,
+    "native_attempt_contract": true,
     "protocol": true,
     "default_context_refused": true,
     "default_failure_preserves_history": true,
@@ -45,9 +47,10 @@
   ],
   "executed_actions": 0,
   "tested_base_main": "70c57dbaeee71c6cdb5a2da06dcfbcf326ac42b4",
-  "suite_run": 220,
-  "suite_passed": 219,
+  "suite_run": 223,
+  "suite_passed": 222,
   "suite_skipped": 1,
   "tampered_restart_replay_rejected": true,
-  "probe_sha256": "4c77592478a88165e504e22fe4590b2a0d1faa2769d57623c66e2e1fec5c1eae"
+  "probe_sha256": "b72323d6f2b1c0cfc610cc1be98cb828fb560fa67e2984fc97757bab2bcc83bb",
+  "audit_tamper_regressions_passed": 3
 }

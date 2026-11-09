@@ -55,7 +55,8 @@ def audit(root):
     before,after,restarted=map(load,('before.json','after.json','restart-after.json'))
     r,t=outputs(root,''),outputs(root,'restart-');n,nt=receipt(root,''),receipt(root,'restart-')
     original=requests();captured=[json.loads(x) for x in (root/'requests.jsonl').read_text().splitlines()]
-    checks=dict(request_contract=captured==original,protocol=load('returncodes.json')=={'initial':0,'restart-':0} and len(r)==10 and len(t)==4,
+    restart_captured=[json.loads(x) for x in (root/'restart-requests.jsonl').read_text().splitlines()]
+    checks=dict(request_contract=captured==original,restart_request_contract=restart_captured==[original[7],original[5],original[6],original[8]],native_attempt_contract=len(n['native_calls'])==4 and [x['returncode'] for x in n['native_calls']]==[2,0,2,0],protocol=load('returncodes.json')=={'initial':0,'restart-':0} and len(r)==10 and len(t)==4,
         default_context_refused=r[0].get('code')=='context_limit',default_failure_preserves_history=r[1]['history']==before['history'] and r[1]['revision']==6 and r[1]['pending'] is None,
         optin_seven_committed=r[2].get('status')=='completed' and r[2].get('revision')==7,
         loss_visible=all(x.get('model_context',{}).get('model_context_complete') is False and x['model_context']['authoritative_history_changed'] is False for x in (r[2],r[5])),

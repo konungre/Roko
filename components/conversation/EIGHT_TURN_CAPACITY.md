@@ -55,8 +55,14 @@ or binaries. No graphical desktop integration is claimed.
 
 ## Local qualification
 
-On merged main `70c57dba`, the probe and audit passed 31 checks. New native
+On merged main `70c57dba`, the probe and audit passed 33 checks. New native
 exchanges seven/eight used 508/504 input tokens and both recalled red foxes and
 robins. A tampered restart reply was rejected by the audit. The full suite ran
-220 tests: 219 passed and one optional native fixture skipped. See
+223 tests: 222 passed and one optional native fixture skipped. See
 `EIGHT_TURN_CAPACITY_SUMMARY.json` for the qualified limits and provenance.
+
+Audit hardening also verifies the exact restart request sequence and exactly
+four native attempts in order (rejected, generated, rejected, generated). Captured
+fixture tests reject a changed restart revision and an extra unsuccessful native
+attempt. Set `ROKO_CAPACITY_AUDIT_FIXTURE` to the captured evidence directory to
+run `test_capacity_probe_audit.py`; these tests execute no native process.
