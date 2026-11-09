@@ -40,3 +40,45 @@ proposed ownership split are documented in
 `../../docs/PACKAGE_ATOMSPACE_INTERFACE_REVIEW.md`. Neither Nix nor Guix is
 installed in this executor. Real declarative builds, selected and running
 generations, rollback and crash recovery remain the OS integration blocker.
+
+## OS-owner v1 build receipt reader
+
+`os_fact_v1.py` reads the exact `roko-os-fact-v1` built-fact schema published by
+the OS owner at `e428821335abda7c58b0caa165ea6922bc73e161`. It requires the
+original Nix JSON receipt bytes to match `evidence_sha256`, checks the output's
+generation basename and receipt shape, and preserves original fact bytes,
+revision, predecessor and source commit inside the claim's evidence. It accepts
+only built facts; that receipt cannot establish activated, running or health
+state. The original source fact remains available in the returned value.
+
+To ingest that source through actual PeTTa/Omega, add `--os-fact FILE
+--os-receipt FILE --os-source-commit COMMIT` to the qualification command. The
+native reader/import test uses the OS owner's actual offline Nix 2.26.3 build
+receipt, rather than a simulated package-manager output. Nix execution itself
+occurred on the OS owner's executor and is not rerun by this reader. It was a
+tiny fixed-output workspace-store build, not a system generation or activation.
+Receipt correspondence is verified; producer authentication, freshness, current
+host truth and system status remain unverified. No executor capability is
+constructed from the imported fact.
+
+## Durable representation ledger
+
+`ledger.py` stores content-bound built facts in a private owner-controlled SQLite
+database. Ingestion requires the expected current revision, a consecutive source
+revision, and a predecessor hash matching the prior source fact. Exact raw fact,
+receipt and source-commit replay is idempotent; rebinding a revision conflicts.
+`BEGIN IMMEDIATE` serializes competing writers. WAL and synchronous FULL preserve
+commits. Each snapshot uses one read transaction and revalidates all stored
+receipts, fact identities and predecessor links before publishing the latest
+built claim. Old revisions remain immutable history; selected and running system
+generations are not inferred from this ledger.
+
+The qualifier's `--os-ledger FILE --os-machine MACHINE --os-backend nix` options
+read a restarted ledger and ingest its snapshot into actual PeTTa/Omega. The
+native test persists the OS owner's real build receipt, closes/reopens the
+database, replays the exact record, and queries only its built phase. Unit tests
+use explicitly synthetic receipts for competing-writer, predecessor and
+corruption cases, including two concurrent SQLite connections and abrupt process
+exit immediately after the actual ingestion API commits. The ledger still marks state unverified, does not authenticate
+the producer or inspect the remote output's bytes, and supplies no activation
+or rollback authority. Native OS generation lifecycle remains with the OS owner.

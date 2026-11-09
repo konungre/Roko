@@ -80,3 +80,21 @@ the OS owner's native receipt schema is still pending. This is an inspected
 baseline and proposed interface, not a claim that those
 build, switch, boot or conversation paths already exist. No host package-manager
 installation, system-generation switch or OS mutation was performed here.
+
+## OS-owner native v1 handoff consumed
+
+The OS branch subsequently published `roko-os-fact-v1` at
+`e428821335abda7c58b0caa165ea6922bc73e161`, with a built fact from an actual
+Nix 2.26.3 offline fixed-output build. Its exact stdout receipt has SHA-256
+`1d160f61fdd3bf2398a386a7b9fda0ec5d2879bdb1f17b4686b67343d288e511`.
+The cognitive reader now checks that raw-byte binding, Nix result shape and
+generation identity, preserving the original fact, predecessor and source
+commit. Actual local PeTTa/Omega queries publish only the built phase; activation,
+running and health remain unestablished. This executor did not rerun Nix.
+The cognitive boundary now persists built facts with SQLite revision CAS,
+predecessor checks and exact replay, then revalidates the chain before querying
+its replacement snapshot in PeTTa/Omega after database restart. This is durable
+representation only. Producer authentication, freshness, output artifact bytes
+and native system-generation lifecycle still require OS/cognitive owner
+integration. The native reader never turns this built receipt into activation,
+running or health evidence.
