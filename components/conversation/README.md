@@ -1,5 +1,8 @@
 # Local conversation through a bounded native Omega step
 
+For the separately rebuilt cloud computer, see [Fresh host profile](FRESH_HOST.md).
+It uses a new native provenance profile and the same three-field JSON-lines API.
+
 The recovered-host endpoint has completed real free-form Granite turns, a follow-up
 that recalled the prior lighthouse setting, and native ECAN context selection.
 The actual desktop `chat-bubble-v3` transport has completed a two-turn session.
