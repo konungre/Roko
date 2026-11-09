@@ -29,6 +29,8 @@ class Session:
         self.context = []
         if type(request) is not dict or set(request) != {'text', 'context'}:
             raise ValueError('Expected text and context')
+        if len(self.history) >= MAX_HISTORY:
+            raise ValueError('Conversation history limit reached; start a new session')
         text = bounded_text(request['text'])
         facts = request['context']
         if type(facts) is not list or len(facts) > 16:
@@ -81,7 +83,7 @@ class Session:
         expected = self.history + [self.user_message(), {'role': 'assistant', 'content': self.reply}]
         if self.reply is None or omega_messages != expected:
             raise ValueError('Incomplete Omega turn')
-        self.history = expected[-MAX_HISTORY:]
+        self.history = expected
         self.pending = None
         return json.dumps({'text': self.reply, 'context_ids': [f['id'] for f in self.context],
                            'executed_actions': 0}, ensure_ascii=False)
@@ -159,4 +161,11 @@ def initialize():
 def prepare_json(line):
     if len(line) > 20000:
         raise ValueError('Request cap exceeded')
-    return prepare(json.loads(line))
+    def unique(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError('Duplicate JSON key')
+            result[key] = value
+        return result
+    return prepare(json.loads(line, object_pairs_hook=unique))

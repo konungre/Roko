@@ -1,67 +1,87 @@
-# Bounded conversational Omega extension (not native-qualified)
+# Local conversation through a bounded native Omega step
 
-This component replaces neither Omega nor its message state with a Python loop.
-`worker.pl` loads the externally supplied Omega `src/loop.metta` and `src/utils.py`.
-`step.metta` schedules one receive/infer/commit step using Omega's actual
-`messagesAppend` and `messagesGet` state operations. Python provides data validation,
-local Granite inference and the existing native ECAN adapter. This is a new bounded
-Omega loop extension, **not execution of upstream's unbounded `(omega)` loop**.
-Upstream's tool-execution loop is intentionally not invoked by this conversational
-entry point. No generated text is parsed as MeTTa or executed as a command.
+The recovered-host endpoint has completed real free-form Granite turns, a follow-up
+that recalled the prior lighthouse setting, and native ECAN context selection.
+The actual desktop `chat-bubble-v3` transport has completed a two-turn session.
+This is a development host qualification, not a guest/COSMIC installation or a
+complete autonomous Omega system. See `VALIDATION.md` and `PARENT_HANDOFF.md`.
 
-Input is JSON lines: `{"text":"What should we talk about?","context":[]}`.
-Optional symbolic records have exactly `id`, `text`, `sti`, `lti`, `stimulus`.
-The native ECAN adapter ranks up to 16 records and its attentional focus selects up
-to four for the advisory system context. Empty context skips ECAN; it does not
-claim an ECAN result. Missing ECAN fails a contextual turn rather than silently
-substituting Python ranking. Native ECAN still uses its existing ephemeral bank;
-long-lived attention economics are not implemented here.
+## Desktop-compatible endpoint
 
-History retains four complete exchanges in memory. Failed turns do not commit.
-Token overflow fails explicitly rather than silently losing conversational history.
-The existing native inference executable imposes 1024 input / 128 output tokens.
-There is no action execution, HTTP provider, automatic dependency installation,
-or automatic source acquisition. The bounded input/output and timeout are not an
-OS sandbox. Offline tokenizer loading is enforced; process-level network denial
-must be provided by the live-system launcher.
+Run `recovered_server.py` with an explicit trusted `ROKO_WORKSPACE_ROOT` environment
+variable pointing to the existing development workspace. It verifies the pinned
+symbolic closure, binds the matched SWI/Janus/Python runtime, installs inherited
+child-only network denial, and keeps one worker alive for multiple turns.
 
-## Run
+Request JSON line:
+```
+{"text":"What could I write next?","context":[]}
+```
+Reply JSON line (exactly these three fields):
+```
+{"text":"A model-generated reply","context_ids":[],"executed_actions":0}
+```
 
-Set `PETTA_PATH`, `OMEGA_PATH`, and `ROKO_RUNTIME_ROOT` to separately reviewed local
-runtime roots. `ROKO_SWIPL` optionally selects the Janus-enabled SWI executable.
-The runtime root uses the existing baseline model/tokenizer lock and native ECAN
-source lock layout. Configure SWI/Python shared-library paths for that runtime.
+Replies are **unverified model text**. Diagnostics go to stderr. No request may
+choose executables, providers, paths, roles or tools. Startup/runtime errors end
+the process with diagnostics; the desktop marks the session unavailable and
+requires explicit New conversation. It never silently replays a turn. This is
+the existing desktop schema, not the older planned versioned/CAS API.
+
+History is session-local, with a four-exchange limit. Overflow errors explicitly;
+no earlier turns are silently removed. There is no durable history or retry
+idempotency. Cancellation discards the session and is not rollback. The desktop
+process watcher uses PID start identity, rather than a parent-thread death signal:
+GUI transports may create the worker in a thread that exits after the first turn.
+The native inference supervisor independently owns cleanup of its separate session.
+
+## Actual cognitive path
+
+1. The native worker imports unchanged Omega `src/loop.metta`, `src/utils.py`, and
+   `src/providers.metta`; provider definitions must precede compilation of the step.
+2. Optional symbolic records are validated and sent to the pinned actual ECAN
+   gateway. Its worker completes and is cleaned up before model inference.
+3. `rokoRecoveredStep` uses Omega's actual message state, constructs an actual
+   Omega `LLMRequest`, dispatches through `llmProviderChat` and the real registry,
+   admits a single inert `reply(text)` value, then commits the user/assistant pair.
+4. The provider renders plain Granite conversation roles, runs the verified local
+   generic CPU runtime, and verifies the model before promoting history.
+
+The model generates free text: it is not asked to fill record_answer/contact/invoice
+forms. The adapter wraps that text in Omega's required response carrier; the carrier
+is never evaluated. Neither model text nor user text enters `sread`/`eval`. Upstream
+`omega(1)` initialization, external-provider defaults, plugins, tool dispatch,
+autonomous wakeups and recursive tail are not invoked. This is an explicit bounded
+native derivative/extension of the turn, not execution of the unchanged full loop.
+
+Optional context records contain exactly `id`, `text`, `sti`, `lti`, `stimulus`.
+At most 16 records are accepted; native ECAN selects a focus of at most four.
+The original user message and history remain intact regardless of that selection.
+ECAN is ephemeral and advisory; this is not its full scheduler/diffusion system.
+Empty context skips ECAN without claiming an ECAN result.
+
+## Bounds and remaining work
+
+The reused native binary enforces 512 actual input tokens, 64 output tokens,
+1024-token context, four threads, a supervised 120-second deadline, 5GiB process
+RSS limit and 6GiB address-space limit. Startup requires 7GiB available memory and
+4GiB free disk; the supervisor retains the 4GiB available-memory abort floor.
+Some replies can end at the 64-token cap; one qualification reply visibly did.
+No output repair, retry, or claim of complete answer quality is made.
+
+Remaining integrations: durable authoritative history/CAS and idempotency; MORK
+memory projection; MetaMo/learning hooks; versioned product API; guest deployment;
+native graphical interaction tests; broader conversation quality and output budgets.
+The ordinary baseline `run.py` profile still requires its original runtime layout
+and is not the qualified recovered-host entry point.
+
+## Source tests and reusable development probe
 
 ```
-python3 -B components/conversation/run.py --check
-python3 -B components/conversation/run.py --probe
-python3 -B components/conversation/run.py
 python3 -B -m unittest discover -s components/conversation/tests -v
 ```
 
-The probe sends two open-ended writing-project turns through the real worker.
-A successful transport still requires reading the answers to assess relevance,
-continuity and factual grounding. There is no mock fallback in the native runner.
-The source unit tests use test doubles and are not end-to-end native evidence.
-
-## Coordination and current blockers
-
-Branch: `dev/ai-openai`, isolated from `main` at `7548663`.
-- ai-symbolic: supply bounded, attributed symbolic records through the above input
-  contract; do not provide executable source. Scores currently come from caller
-  evidence, not an automatic salience estimator.
-- ai-mork: durable conversation history is a follow-up integration; current history
-  is session-local and must not be represented as persisted MORK memory.
-- ai-learning: future learning records can use the same symbolic record contract;
-  this component neither mutates learned policy nor claims learning results.
-- desktop-avatar: consume reply JSON `text`, `context_ids`, `executed_actions`.
-- live-system: restore the pinned local tokenizer, inference executable, compatible
-  Python/Janus and native ECAN closure, then run `--probe` under network denial.
-
-Current local inspection found recovered Granite GGUF weights but no
-`omega-granite-infer` executable or baseline tokenizer closure at the expected
-runtime root. The first recovered SWI invocation failed loading `libswipl.so.10`;
-setting its restored library paths allowed `swipl --version` to report 10.0.2.
-Janus/PeTTa execution in that relocated environment still needs qualification. Native conversational
-turns, native ECAN-in-conversation, and MeTTa worker behavior remain unqualified.
-No upstream/private runtime source or model bytes are added to this component.
+`probe_recovered.py --workspace ABSOLUTE_ROOT --output NEW_DIRECTORY` is the finite
+recovered-runtime probe. Run it under the baseline `scripts/no-network.py` wrapper.
+It refuses an existing output directory and preserves requests, source hashes,
+stdout/stderr and results. Private runtime/source bytes are not copied into Git.

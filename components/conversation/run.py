@@ -58,7 +58,7 @@ def main():
         print(json.dumps({'status': 'paths-present', 'native_qualified': False}))
         return 0
     command = [env.get('ROKO_SWIPL', 'swipl'), '--stack_limit=512m', '--table-space=512m',
-               '-q', '-s', str(HERE / 'worker.pl')]
+               '-q', '-s', str(HERE / 'worker.pl'), '--', 'silent']
     if not args.probe:
         return subprocess.call(command, env=env)
     context = [dict(id='project', text='The user is writing a short story about a lighthouse.',

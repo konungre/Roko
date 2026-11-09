@@ -51,7 +51,8 @@ class ConversationTests(unittest.TestCase):
         self.session.ranker = fail
         self.turn('Hello')
     def test_history_is_bounded_in_pairs(self):
-        for i in range(9): self.turn(str(i))
+        for i in range(4): self.turn(str(i))
+        with self.assertRaises(ValueError): self.turn('overflow')
         self.assertEqual(len(self.session.history), 8)
         self.assertEqual(self.session.history[0]['role'], 'user')
     def test_invalid_inputs(self):
