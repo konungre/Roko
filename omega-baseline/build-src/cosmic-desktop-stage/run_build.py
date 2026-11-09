@@ -1,0 +1,7 @@
+#!/usr/bin/env python3
+import datetime,hashlib,json,pathlib,subprocess,sys
+S=pathlib.Path(__file__).resolve().parent;R=S.parents[1];name=sys.argv[1];args=sys.argv[2:];log=S/'logs'/f'{name}-build.log';start=datetime.datetime.now(datetime.timezone.utc);print('Building',name,args,flush=True)
+command=['timeout','3600',sys.executable,str(R/'scripts/no-internet.py'),'sh',str(S/'build_component.sh'),name,*args]
+with log.open('w') as output:r=subprocess.run(command,stdout=output,stderr=subprocess.STDOUT)
+receipt={'component':name,'args':args,'started_utc':start.isoformat(),'finished_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'exit_code':r.returncode,'log':str(log.relative_to(R)),'source_commit':subprocess.check_output(['git','-C',str(S/'sources'/name),'rev-parse','HEAD'],text=True).strip(),'cargo_lock_sha256':hashlib.sha256((S/'sources'/name/'Cargo.lock').read_bytes()).hexdigest(),'jobs':1,'offline':True,'network_sockets_denied':True,'generic_x86_64':True,'log_sha256':hashlib.sha256(log.read_bytes()).hexdigest(),'environment_sha256':hashlib.sha256((S/'env.sh').read_bytes()).hexdigest(),'native_package_lock_sha256':hashlib.sha256((S/'debian-packages.lock.json').read_bytes()).hexdigest(),'toolchain_lock_sha256':hashlib.sha256((R/'build-src/cosmic-comp-stage/rust-toolchain.lock.json').read_bytes()).hexdigest()}
+(S/'logs'/f'{name}-build.json').write_text(json.dumps(receipt,indent=2)+'\n');print('Build exit',name,r.returncode,flush=True);raise SystemExit(r.returncode)

@@ -1,0 +1,62 @@
+{
+  "name": "Roko",
+  "architecture": "x86_64",
+  "desktop_target": "COSMIC",
+  "base_image": null,
+  "base_image_sha256": null,
+  "state": "Focused actual avatar-to-terminal CLI acceptance passed; combined desktop/private ext4 clean two-boot automation passed with exact revision-5 recovery; visible read-output screenshot remains unverified",
+  "runtime_root": "/opt/roko",
+  "state_root": "XDG_STATE_HOME/roko",
+  "entrypoint": "roko-console",
+  "autostart": false,
+  "network_listener": false,
+  "action_dispatch": false,
+  "required_image_gates": [
+    "Capture and review visible recovered task output in a separate authorized guest run",
+    "Finish and validate Files/portal integration",
+    "Validate bounded low-memory Granite inference with truthful fallback",
+    "Evaluate the new avatar v3 separately from the tested original artwork",
+    "Validate full desktop services, login/lock isolation and installation/update behavior",
+    "Complete authored/native licensing, corresponding-source delivery and cross-host rebuild evidence"
+  ],
+  "base_distribution_candidate": "Pop!_OS 24.04, based on pinned official COSMIC README; ISO not selected or acquired",
+  "basilisk_companion": {
+    "staged": true,
+    "installed": true,
+    "gui_tested": true,
+    "runtime_packages": [
+      "python3-gi",
+      "gir1.2-gtk-3.0"
+    ],
+    "autostart": false,
+    "cli_events_unit_tested": true,
+    "cli_events_in_preserved_guest": true,
+    "installation_scope": "Disposable test guest only; no host installation",
+    "gui_scope": "Focused Console-button CLI gate; earlier movement/event subgates remain separate",
+    "test_fixture_direct_launch": true,
+    "v3_gui_tested": false
+  },
+  "boot_validation": "boot/artifacts/persistence-userland-validation.json",
+  "base_build": "Own initramfs from pinned official Debian kernel/BusyBox/runtime components; no distribution ISO selected",
+  "persistence_validation": [
+    "boot/artifacts/persistence-save-validation.json",
+    "boot/artifacts/persistence-load-validation.json"
+  ],
+  "graphics_validation": "boot/artifacts/graphics-probe-0.17-validation.json",
+  "renderer_validation": "results/egl-probe/validation.json",
+  "compositor_validation": "boot/artifacts/cosmic-compositor-0.18-validation.json",
+  "milestone": "0.20.0",
+  "session_validation": "boot/artifacts/cosmic-session-0.19-validation.json",
+  "session_ui_review": "boot/artifacts/cosmic-session-0.19-ui-review.json",
+  "cognitive_filesystem_validation": "boot/artifacts/cognitive-filesystem-0.19-validation.json",
+  "cognitive_and_desktop_integrated": true,
+  "full_desktop": false,
+  "runs_as_root": true,
+  "integration_scope": "Real foreground CLI and StateStore in reduced desktop; no inference or autonomous dispatch",
+  "persistent_desktop_validation": "boot/artifacts/cosmic-persistent-0.20-validation.json",
+  "persistent_desktop_ui_limits": "boot/artifacts/cosmic-persistent-0.20-ui-review-limitations.json",
+  "avatar_focused_validation": "boot/artifacts/avatar-controller-0.20-focused-acceptance.json",
+  "persistent_desktop_automated_passed": true,
+  "persistent_desktop_overall_passed": false,
+  "visible_recovered_output_verified": false
+}

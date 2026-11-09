@@ -1,0 +1,16 @@
+; Load genuine upstream Omega, then initialize selected inert components only.
+; Never invoke (omega), initKnowledge, initPlugins, initChannels or tool execution.
+!(import! &self (library lib_import))
+!(git-import! "https://github.com/singnet/Omega.git")
+!(import! &self (library Omega lib_omega))
+!(initConfig)
+!(initLoop)
+!(initLogger)
+!(test (provider) Test)
+!(test (maxNewInputLoops) 0)
+!(test (get-state &loops) 0)
+!(test (py-call (builtins.len (messagesGet))) 0)
+!(test (maxWakeLoops) 0)
+!(test (let $id (py-call (lib_chromadb.remember "baseline" (1.0 0.0 0.0) "t0"))
+            (py-call (lib_chromadb.query (1.0 0.0 0.0) 1)))
+       ((t0 baseline)))

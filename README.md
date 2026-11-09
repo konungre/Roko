@@ -1,9 +1,7 @@
 # Roko
 
 Roko is an experimental local AI desktop and operating-system integration project.
-This repository publishes the source work completed so far: task/state controllers,
-CLI, bounded model and symbolic adapters, a COSMIC/Wayland desktop showcase,
-animated avatar UI, boot/build recipes, isolated process supervisors, and tests.
+This repository publishes a substantial authored source checkpoint: task/state adapters, bounded symbolic bridges, selected COSMIC/Wayland and OS boot/build recipes, isolation helpers, and tests. Some separately developed showcase/avatar, controller and operational integration files remain excluded or pending; the publication manifest is the exact file list.
 
 **This is a source checkpoint, not a production-ready OS or a complete autonomous
 AI.** Historical host/guest milestones were qualified separately. They must not be

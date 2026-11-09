@@ -3,22 +3,32 @@
   "passed": {
     "working_state": 22,
     "state_store": 30,
-    "avatar_events": 18,
     "mork_authored_helper": 46
   },
   "cli": {
     "run": 13,
-    "passed": 12,
-    "failed": 1,
-    "reason": "Native ECAN source deliberately excluded because redistribution rights are unknown"
+    "passed": 11,
+    "failed": 2,
+    "reason": "Native ECAN source and source-inventory metadata deliberately omitted"
   },
   "historical_native_results": "See STATUS.md; not rerun during publication",
   "scan": {
-    "files_scanned": 774,
+    "files_scanned": 450,
     "high_confidence_credential_findings": 0,
     "private_artifact_id_findings": 0,
     "native_runs_for_publication": 0,
     "limitations": "Allowlist and pattern scan, not proof against every possible secret. No binaries/models/private source/raw runtime logs included."
   },
-  "metadata_exclusion": "Further removal of development runtime inventories prevents source-provenance/native gates from replaying; selected authored checks were run before that metadata-only pruning."
+  "metadata_exclusion": "Post-pruning authored tests rerun. Missing external source/runtime metadata intentionally blocks affected integration fixtures.",
+  "avatar_events": {
+    "run": 18,
+    "passed": 18,
+    "failed": 0
+  },
+  "python_ast_parse": {
+    "files": 477,
+    "syntax_errors": 0
+  },
+  "publication_source_change": "CLI status now reports model absent when optional model lock is omitted; no inference/runtime validation is bypassed.",
+  "publication_coverage": "Counts describe selected checks against the locally staged authored source. Not every staged baseline test/recipe file is included in this first safe public subset."
 }

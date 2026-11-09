@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Roko Basilisk
+Comment=Local animated companion prototype
+Exec=roko-basilisk
+Terminal=false
+Categories=Utility;
+StartupNotify=true

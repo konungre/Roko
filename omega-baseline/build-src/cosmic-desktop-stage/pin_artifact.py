@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+import hashlib,json,pathlib,re,shutil,subprocess,sys
+S=pathlib.Path(__file__).resolve().parent;R=S.parents[1];C=R/'build-src/cosmic-comp-stage';name=sys.argv[1];bins=sys.argv[2:];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();receipt=json.loads((S/'logs'/f'{name}-build.json').read_text());assert receipt['exit_code']==0;dest=S/'artifacts/bin';dest.mkdir(parents=True,exist_ok=True);records=[]
+for binary in bins:
+ src=C/'target/debug'/binary;dst=dest/binary;shutil.copy2(src,dst);elf=subprocess.check_output(['readelf','-d',str(dst)],text=True);program=subprocess.check_output(['readelf','-l',str(dst)],text=True);record={'binary':binary,'path':str(dst.relative_to(R)),'bytes':dst.stat().st_size,'sha256':sha(dst),'needed':re.findall(r'\(NEEDED\).*\[([^]]+)\]',elf),'rpath_or_runpath':bool(re.search(r'\((RPATH|RUNPATH)\)',elf)),'interpreter':re.findall(r'Requesting program interpreter: ([^]]+)',program)};assert not record['rpath_or_runpath'];records.append(record)
+receipt['artifacts']=records;receipt['source_license_files']=[{'path':str(p.relative_to(R)),'sha256':sha(p)} for p in (S/'sources'/name).iterdir() if p.is_file() and p.name.upper().startswith(('LICENSE','COPYING'))];receipt['guest_tested']=False;(S/'artifacts'/f'{name}.json').write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps(records,indent=2))

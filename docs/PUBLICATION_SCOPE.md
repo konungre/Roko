@@ -29,3 +29,7 @@ license/notice text retains its existing terms. No relicensing is intended.
 ## Additional metadata exclusion
 
 Detailed development runtime path/hash inventories and old artifact locks were removed before final publication. Original development documentation was replaced with concise public scope summaries. Source development-root literals use a generic public placeholder where necessary; real native admission is intentionally unavailable without fresh reviewed provisioning.
+
+## Final initial subset
+
+The initial public tree was finalized from the safely uploaded authored-source batches. Additional experimental unprivileged runtime/cleanup sources were withheld after publication review, and unconfirmed batches were not counted as published. Detailed runtime inventories are also withheld. The manifest lists exactly the files included, not every locally developed component. Original source remains preserved privately.

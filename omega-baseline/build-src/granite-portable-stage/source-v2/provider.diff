@@ -1,0 +1,61 @@
+--- measured-provider-unchanged
++++ portable-supervised-variant
+@@ -15,6 +15,7 @@
+ import time
+ 
+ import providers
++from runtime_select import start_runtime, supervised_prefix, stop_supervisor
+ 
+ ALLOWED = {'record_answer': ['text'], 'record_contact': ['name', 'city'],
+            'record_invoice': ['invoice', 'total']}
+@@ -149,29 +150,7 @@
+         self.last = {}
+ 
+     def start(self):
+-        self.ready = False
+-        deadline = time.monotonic() + 120
+-        manifest = json.loads((self.root / 'granite-guest-runtime.lock.json').read_text())
+-        if manifest['status'] != 'built-and-verified':
+-            raise ValueError('Guest runtime has not passed binary admission')
+-        lock = json.loads((self.root / 'granite-model.lock.json').read_text())
+-        self.model = Path(lock['path'])
+-        if (str(self.model) != '/models/granite-4.0-h-tiny-Q4_K_M.gguf'
+-                or self.model.stat().st_size != lock['bytes']):
+-            raise ValueError('Unexpected model mount or size')
+-        mounts = [line.split() for line in Path('/proc/self/mountinfo').read_text().splitlines()]
+-        if not any(len(row) > 5 and row[4] == '/models' and 'ro' in row[5].split(',') for row in mounts):
+-            raise ValueError('Model disk must be mounted read-only at /models')
+-        for relative, expected in manifest['files'].items():
+-            path = Path(relative)
+-            if path.is_absolute() or '..' in path.parts:
+-                raise ValueError('Invalid runtime lock path')
+-            verified_file(self.root / path, expected, deadline)
+-        self.executable = self.root / 'runtime/granite/omega-granite-guest'
+-        if 'runtime/granite/omega-granite-guest' not in manifest['files']:
+-            raise ValueError('Unpinned guest helper')
+-        verified_file(self.model, lock['sha256'], deadline)
+-        self.ready = True
++        start_runtime(self, verified_file)
+ 
+     def stop(self):
+         self.ready = False
+@@ -189,7 +168,7 @@
+                 raise ValueError('Provider not started')
+             names = validate_request(request)
+             prompt = self._render_prompt(request).encode('utf-8')
+-            args = [str(self.executable), '--model', str(self.model),
++            args = [*supervised_prefix(self.root, self.command_prefix), '--model', str(self.model),
+                     '--max-tokens', str(request.max_tokens), '--grammar', tool_grammar(names)]
+             started = time.monotonic()
+             output = {'stdout': bytearray(), 'stderr': bytearray()}
+@@ -224,9 +203,7 @@
+                                 pass
+                     proc.wait(timeout=max(.1, 310 - (time.monotonic() - started)))
+                 finally:
+-                    if proc.poll() is None:
+-                        os.killpg(proc.pid, signal.SIGKILL)
+-                        proc.wait(timeout=5)
++                    stop_supervisor(proc)
+             stdout = output['stdout'].decode('utf-8', errors='strict')
+             self.last = {'raw_output': stdout, 'stderr': output['stderr'].decode('utf-8', errors='replace'),
+                          'returncode': proc.returncode, 'elapsed_seconds': round(time.monotonic() - started, 3),

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Roko
+Comment=Foreground cognitive task console with evidence checks
+Exec=/usr/local/bin/roko-console
+TryExec=/usr/local/bin/roko-console
+Icon=utilities-terminal
+Terminal=true
+Categories=Utility;Science;
+StartupNotify=false

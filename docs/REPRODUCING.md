@@ -6,12 +6,12 @@ native compilation, VM boot, privileged action, or model download is automatic.
 Python 3.12 was used for the publication's selected authored tests. The CLI expects a local virtual environment; creating one below uses the installed Python and downloads nothing. The virtual environment is not published. From the root:
 
 ```sh
-python3 -m venv --without-pip omega-baseline/.venv
-python3 -B -m unittest discover -s omega-baseline/tests -p test_working_state.py -v
-python3 -B -m unittest discover -s omega-baseline/tests -p test_state_store.py -v
-python3 -B -m unittest discover -s omega-baseline/tests -p test_roko_cli.py -v
 python3 -B -m unittest discover -s mork-recovery-v1/tests -v
 ```
+
+Other staged checks referenced in the validation summary were run locally before
+publication, but not every baseline test file is included in the initial public
+subset. The exact manifest controls file availability.
 
 The MORK tests exercise validation, fail-closed behavior and authored helper
 processes, not the native engine. The audit itself needs separately restored

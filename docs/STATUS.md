@@ -3,6 +3,8 @@
 This publication was prepared on 2026-11-09. It separates actual recorded runtime
 gates from source-only preparation. Native checks were not rerun for publication.
 
+This document describes project status across the preserved local work. It is not an assertion that every referenced directory is included in the first public tree; consult PUBLICATION_MANIFEST.json.
+
 ## Desktop and controller
 
 - The delivered showcase source is `omega-baseline/desktop/live-request-media`,
