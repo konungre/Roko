@@ -162,6 +162,7 @@ for name,key,value in [('not_passed','status','failed'),('wrong_manifest','manif
     ('native_false','native_tested',False),('group_remaining','group_empty',False),('authority','authorizes_actions',True),
     ('action_count','executed_actions',1),('boolean_exit','returncode',False),('nonzero_exit','returncode',1),
     ('temp_files','temporary_files',['file']),('cleanup_error','temporary_cleanup_error','mock failure'),('time_cap','seconds',21),
+    ('finalization_error','finalization_errors',[{'stage':'selector-close','error':'OSError'}]),
     ('rss_cap','peak_rss_bytes',256*1024**2+1),('memory_floor','minimum_available_bytes',1),('stderr_error','stderr','ERROR: mock'),
     ('no_reap','cleanup',{'reaped':False,'ownership':'lost','returncode':0}),('missing_stdout','stdout','')]:
     reject_receipt(name,key,value)

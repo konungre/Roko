@@ -28,3 +28,8 @@ From repository root:
 `python3 -B -m unittest discover -s components/airis/source -p test_pure.py`
 
 The suite has 84 tests: 83 pass locally; one check explicitly skips until the exact external upstream source is materialized. Source tests use clearly synthetic native-shaped data and never import original AIRIS or run a native worker. All 84 tests passed in the historical reviewed scratch candidate where the upstream source was available.
+# Development cleanup update
+
+The gateway now retains finalization failures and child receipts. This changed
+source requires a new native admission; historical results remain historical.
+See [cleanup successor](../../docs/COGNITIVE_CLEANUP_SUCCESSOR.md).

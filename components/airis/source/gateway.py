@@ -167,6 +167,57 @@ def temporary_work(receipt_state):
             raise primary from error
         raise
 
+
+def finalize_native(process, selector, outer_deadline, primary):
+    """Best-effort bounded finalization; return evidence instead of escaping.
+
+    Every stage is attempted independently. Preserve the first primary failure,
+    except that cancellation takes precedence over an ordinary exception.
+    This function does not certify cleanup when any stage fails.
+    """
+    failures=[]; saved={}; pending=[]; cleanup=None; empty=False
+    error=primary
+    def record(stage, exc):
+        nonlocal error
+        failures.append({'stage':stage,'error':type(exc).__name__+': '+str(exc)})
+        if error is None or (isinstance(error, Exception) and
+                             (not isinstance(exc, Exception) or stage=='deferred-signal')):
+            error=exc
+    def defer(number, frame):
+        if not pending:pending.append(number)
+    for sig in (signal.SIGTERM,signal.SIGINT,signal.SIGALRM):
+        try:
+            saved[sig]=signal.getsignal(sig)
+            signal.signal(sig,defer)
+        except BaseException as exc:record('signal-defer:'+str(sig),exc)
+    try:
+        if process is not None:
+            try:
+                cleanup=stop_owned(process,min(outer_deadline-1,time.monotonic()+2))
+                if not cleanup['reaped']:
+                    raise RuntimeError('Worker ownership/reap failed: '+cleanup['ownership'])
+            except BaseException as exc:record('owned-child',exc)
+            try:
+                empty=group_empty(process.pid)
+                if not empty:raise RuntimeError('Observed worker process group remains')
+            except BaseException as exc:record('process-group',exc)
+        try:selector.close()
+        except BaseException as exc:record('selector-close',exc)
+        if process is not None:
+            for name in ('stdin','stdout','stderr'):
+                try:
+                    stream=getattr(process,name)
+                    if stream is not None and not stream.closed:stream.close()
+                except BaseException as exc:record('stream-close:'+name,exc)
+    finally:
+        for sig,handler in saved.items():
+            try:signal.signal(sig,handler)
+            except BaseException as exc:record('signal-restore:'+str(sig),exc)
+    try:replay_deferred_signal(saved,pending)
+    except BaseException as exc:record('deferred-signal',exc)
+    return error,cleanup,empty,failures
+
+
 def run_native(kind,request,admission,*,outer_deadline):
     if kind!='airis':raise ValueError('Only fixed AIRIS transition worker')
     raw=canonical(request)
@@ -221,34 +272,16 @@ def run_native(kind,request,admission,*,outer_deadline):
                 time.sleep(0.005)
         except BaseException as exc:error=exc
         finally:
-            # Defer signals during bounded owned cleanup, then deliver the first.
-            # Even a first cancellation arriving in this window must not be lost.
-            saved={sig:signal.getsignal(sig) for sig in (signal.SIGTERM,signal.SIGINT,signal.SIGALRM)}
-            pending=[]
-            def defer(number,frame):
-                if not pending:pending.append(number)
-            for sig in saved:signal.signal(sig,defer)
-            try:
-                if process is not None:
-                    cleanup=stop_owned(process,min(outer_deadline-1,time.monotonic()+2))
-                    if not cleanup['reaped']:error=RuntimeError('Worker ownership/reap failed: '+cleanup['ownership'])
-                    empty=group_empty(process.pid)
-                    if not empty:error=RuntimeError('Observed worker process group remains')
-            except BaseException as cleanup_error:error=cleanup_error
-            finally:
-                try:selector.close()
-                finally:
-                    if process is not None:
-                        for stream in (process.stdin,process.stdout,process.stderr):
-                            if not stream.closed:stream.close()
-                    for sig,handler in saved.items():signal.signal(sig,handler)
-            try:replay_deferred_signal(saved,pending)
-            except BaseException as deferred:error=deferred
+            execution_error=error
+            error,cleanup,empty,finalization_errors=finalize_native(process,selector,outer_deadline,error)
         if error is None and process.returncode!=0:error=ValueError('Native worker returned '+str(process.returncode))
         receipt={'kind':kind,'launcher_python':str(launcher),'seconds':time.monotonic()-started,'returncode':None if process is None else process.returncode,
             'stdout':bytes(out).decode('utf-8',errors='replace'),'stderr':bytes(err).decode('utf-8',errors='replace'),
             'peak_rss_bytes':peak,'minimum_available_bytes':minimum,'group_empty':empty,'work_filesystem':work_filesystem,
             'manifest_sha256':admission,'authorizes_actions':False,'executed_actions':0,'cleanup':cleanup,'posthash_status':'not-completed'}
+        receipt['finalization_errors']=finalization_errors
+        if execution_error is not None:
+            receipt['execution_error']=type(execution_error).__name__+': '+str(execution_error)
         receipt_state['receipt']=receipt
         try:receipt['temporary_files']=audit_work_files(work)
         except BaseException as output_error:

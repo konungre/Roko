@@ -1,5 +1,9 @@
 # Roko MetaMo MAGUS core integration
 
+Development update: the gateway has a source-tested cleanup successor. Its
+changed source is not covered by the historical native admission. See
+[cleanup successor](../docs/COGNITIVE_CLEANUP_SUCCESSOR.md).
+
 This derivative prepares a real bounded integration of MetaMo's MAGUS candidate
 scoring and DecisionMonad selection code. It is not a replacement scoring mock.
 Five upstream MeTTa files are byte-identical at MetaMo commit

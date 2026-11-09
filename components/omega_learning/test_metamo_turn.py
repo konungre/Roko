@@ -83,6 +83,12 @@ class TurnTests(unittest.TestCase):
     def test_unfinished_cleanup(self):
         self.receipt['cleanup']['reaped']=False
         with self.assertRaises(ValueError):self.rank()
+    def test_finalization_failure_rejected_even_with_pass_status(self):
+        self.receipt['finalization_errors']=[{'stage':'selector-close','error':'OSError: close'}]
+        with self.assertRaises(ValueError):self.rank()
+    def test_clean_successor_finalization_field(self):
+        self.receipt['finalization_errors']=[]
+        self.assertEqual(self.rank()['response_text'],self.offers[0]['text'])
     def test_missing_posthash(self):
         self.receipt['posthash_status']='not-completed'
         with self.assertRaises(ValueError):self.rank()

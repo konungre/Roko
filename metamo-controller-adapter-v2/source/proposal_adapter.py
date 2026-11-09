@@ -108,6 +108,7 @@ def validate_observation(plan,response,receipt):
     require(type(receipt.get('executed_actions')) is int and receipt['executed_actions']==0,'Native action count')
     require(type(receipt.get('returncode')) is int and receipt['returncode']==0,'Native exit status')
     require(receipt.get('temporary_files')==[] and 'temporary_cleanup_error' not in receipt,'Temporary work not clean')
+    require(receipt.get('finalization_errors',[])==[],'Native finalization incomplete')
     cleanup=receipt.get('cleanup');require(type(cleanup) is dict,'Cleanup record')
     require(cleanup.get('reaped') is True and cleanup.get('ownership')=='owned-through-final-signal','Owned cleanup incomplete')
     require(type(cleanup.get('returncode')) is int and cleanup['returncode']==0,'Cleanup exit status')

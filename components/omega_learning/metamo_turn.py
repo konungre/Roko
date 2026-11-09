@@ -100,6 +100,7 @@ def validate_native(plan,response,receipt,binding):
     require(receipt.get('authorizes_actions') is False and type(receipt.get('executed_actions')) is int and receipt['executed_actions']==0,'No native action authority')
     require(type(receipt.get('returncode')) is int and receipt['returncode']==0,'Native exit status')
     require(receipt.get('temporary_files')==[] and 'temporary_cleanup_error' not in receipt,'Temporary work incomplete')
+    require(receipt.get('finalization_errors',[])==[],'Native finalization incomplete')
     cleanup=receipt.get('cleanup',{})
     require(type(cleanup) is dict,'Cleanup object')
     require(cleanup.get('reaped') is True and cleanup.get('ownership')=='owned-through-final-signal' and type(cleanup.get('returncode')) is int and cleanup['returncode']==0,'Owned cleanup incomplete')
