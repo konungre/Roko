@@ -179,6 +179,21 @@ class FreshProvider:
                    'stdout_bytes':len(out), 'stderr':err.decode('utf-8',errors='replace'),
                    'network_denied':True, 'executed_actions':0}
         self.receipts.append(receipt)
+        # Supervisor termination precedes generation finalization. Preserve the
+        # actual resource failure instead of reporting missing model metadata.
+        terminal = [line for line in receipt['stderr'].splitlines()
+                    if line.startswith('ROKO_SUPERVISOR ')]
+        reasons = {
+            'ROKO_SUPERVISOR reason=native-deadline descendants_cleaned=1':(124,'native_timeout'),
+            'ROKO_SUPERVISOR reason=native-tree-rss-cap descendants_cleaned=1':(125,'resource_limit'),
+            'ROKO_SUPERVISOR reason=host-available-reserve descendants_cleaned=1':(125,'resource_limit'),
+            'ROKO_SUPERVISOR reason=caller-cancelled-or-exited descendants_cleaned=1':(125,'native_cancelled')}
+        if len(terminal)==1 and terminal[0] in reasons:
+            expected, code = reasons[terminal[0]]
+            if proc.returncode == expected:
+                self.last_error = code
+                receipt['terminal_error'] = code
+                raise GenerationError(code)
         try:
             generation = generation_metadata(receipt['stderr'], self.max_tokens)
             receipt['generation'] = generation
