@@ -28,9 +28,23 @@ def verify_profile(profile):
     if (type(profile) is not dict or set(profile)!={'schema','runtime','facts_path','receipts_path','source_commit','files'}
             or profile['schema']!='roko.os-atomspace.conversation-profile.v1'):
         raise ValueError('OS observation profile schema')
+    runtime=profile['runtime']
+    if (type(runtime) is not dict or set(runtime)!={'swipl','python','petta','omega','runtime_env'}
+            or type(runtime['runtime_env']) is not dict):
+        raise ValueError('OS observation runtime schema')
+    for name in ('swipl','python','petta','omega'):
+        if type(runtime[name]) is not str or not Path(runtime[name]).is_absolute():
+            raise ValueError('Absolute OS observation runtime selector required')
+    if any(type(key) is not str or type(value) is not str for key,value in runtime['runtime_env'].items()):
+        raise ValueError('OS observation runtime environment schema')
     for path,expected in profile['files'].items():
         if not Path(path).is_absolute() or sha(path)!=expected:
             raise ValueError('OS observation source/runtime changed')
+    entrypoints=[Path(runtime['python']),Path(runtime['swipl']),Path(runtime['petta'])/'src/metta.pl']
+    entrypoints += [Path(runtime['omega'])/'src'/name for name in ('utils.py','loop.metta','providers.metta','providers.py')]
+    for path in entrypoints:
+        if str(path) not in profile['files'] or profile['files'][str(path)]!=sha(path):
+            raise ValueError('Unpinned OS observation runtime entrypoint')
     paths=list(ROOT.glob('*.py'))+list(ROOT.glob('*.pl'))
     paths += [Path(profile[name]) for name in ('facts_path','receipts_path')]
     paths += [Path(profile['runtime'][name]) for name in ('swipl','python')]

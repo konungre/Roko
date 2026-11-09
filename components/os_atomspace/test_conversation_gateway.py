@@ -13,6 +13,16 @@ from components.os_atomspace.qualify import fixture
 
 
 class ConversationGatewayTests(unittest.TestCase):
+    def test_runtime_selector_cannot_point_outside_qualified_source_pins(self):
+        profile={'schema':'roko.os-atomspace.conversation-profile.v1',
+            'runtime':{'python':'/runtime/python','swipl':'/runtime/swipl','petta':'/unqualified/petta',
+                       'omega':'/runtime/omega','runtime_env':{}},
+            'facts_path':'/source/facts.json','receipts_path':'/source/receipts.json','source_commit':'a'*40,
+            'files':{path:'f'*64 for path in ('/runtime/python','/runtime/swipl','/runtime/old-petta/src/metta.pl')}}
+        with patch.object(gateway,'sha',return_value='f'*64),patch.object(gateway,'source_packet') as source:
+            with self.assertRaisesRegex(ValueError,'runtime entrypoint'):gateway.verify_profile(profile)
+            source.assert_not_called()
+
     def test_no_request_can_supply_a_path_or_mutation(self):
         self.assertEqual(validate({'version':1,'operation':'query_imported_profile'}),
                          {'version':1,'operation':'query_imported_profile'})
