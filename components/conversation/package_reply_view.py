@@ -5,6 +5,7 @@ rerun a model, authenticate a producer, or establish current host state.
 """
 import datetime
 import json
+import math
 import re
 import sys
 
@@ -145,7 +146,11 @@ def load_packet(line):
             result[key]=value
         return result
     def nonfinite(value):raise ValueError('Nonfinite response number')
-    return json.loads(line,object_pairs_hook=unique,parse_constant=nonfinite)
+    def finite_float(value):
+        number=float(value)
+        if not math.isfinite(number):raise ValueError('Nonfinite response number')
+        return number
+    return json.loads(line,object_pairs_hook=unique,parse_constant=nonfinite,parse_float=finite_float)
 
 
 def main():

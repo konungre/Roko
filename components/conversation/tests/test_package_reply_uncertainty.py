@@ -81,12 +81,13 @@ class ReceiptUncertaintyTests(unittest.TestCase):
         cli=Path(__file__).resolve().parents[1]/'package_reply_view.py'
         raw=json.dumps(reply())
         rows=[raw[:-1]+',"package_state":null}',raw.replace('"source_revision": 3','"source_revision": 3, "source_revision": 9'),
-              raw.replace('"qualified_at_ns": 1700000000000000000','"qualified_at_ns": NaN'), ' '*131073+'\n']
+              raw.replace('"qualified_at_ns": 1700000000000000000','"qualified_at_ns": NaN'),
+              raw.replace('"qualified_at_ns": 1700000000000000000','"qualified_at_ns": 1e999'), ' '*131073+'\n']
         for row in rows:
             with self.subTest(prefix=row[:50]):
                 proc=subprocess.run([sys.executable,'-B',str(cli)],input=row+'\n',text=True,capture_output=True)
                 self.assertNotEqual(proc.returncode,0);self.assertEqual(proc.stdout,'')
-        for raw in ('{"x":Infinity}','{"x":-Infinity}','{"x":NaN}','{"x":1,"x":2}'):
+        for raw in ('{"x":Infinity}','{"x":-Infinity}','{"x":NaN}','{"x":1e999}','{"x":-1e999}','{"x":[1e999]}','{"x":1,"x":2}'):
             with self.assertRaises(ValueError):load_packet(raw)
 
 
