@@ -146,7 +146,9 @@ class Store:
             self.db.execute('ROLLBACK')
             raise
 
-    def start(self, session_id, request_id, expected_revision, payload):
+    def start(self, session_id, request_id, expected_revision, payload, *, admission_error=None):
+        if admission_error is not None and not isinstance(admission_error,StoreError):
+            raise TypeError('Admission error must be a StoreError')
         session_id, request_id = _identifier(session_id), _identifier(request_id)
         _revision(expected_revision)
         if type(payload) is not dict:
@@ -165,6 +167,8 @@ class Store:
                     return {'status':'replayed', 'response':json.loads(prior['response']),
                             'revision':prior['expected_revision']+1}
                 raise StoreError(prior['status'], 'Request is '+prior['status']+'; never automatically rerun')
+            if admission_error is not None:
+                raise admission_error
             session = self.db.execute('SELECT * FROM sessions WHERE id=?', (session_id,)).fetchone()
             if session is None:
                 if expected_revision != 0:

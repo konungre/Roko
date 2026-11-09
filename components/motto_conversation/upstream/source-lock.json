@@ -1,0 +1,18 @@
+{
+  "repository": "https://github.com/zarqa-ai/metta-motto",
+  "commit": "8a9225dee23780ad0be836161e1afcfadc75980a",
+  "files": {
+    "agent.py": {
+      "path": "motto/agents/agent.py",
+      "bytes": 15186,
+      "sha256": "71fce2192be6fee7c34cdf31d9a70a2f4ec360f87da5f64ec9f6973e90e0d98d",
+      "git_blob": "2a85813bc1427345d2584c55bdcfeba301fb9971"
+    },
+    "LICENSE": {
+      "path": "LICENSE",
+      "bytes": 1067,
+      "sha256": "148fea26f8409afb71fcef1f3d96f421d1e10c0bfd9375ac0c7a16ebc9d9b403",
+      "git_blob": "b16814ae661e3b5b1e0bf68786d2e29d039b7ddf"
+    }
+  }
+}

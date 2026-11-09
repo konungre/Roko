@@ -32,7 +32,7 @@ MORK indexes generated turn IDs and roles. Every expected native row must return
 before the adapter hydrates the original transcript text, in order. It does not
 index raw user text as executable expressions. It uses a separate SWI 9.3.34
 process, not the Janus-loaded symbolic process. Its PathMap pin predates the
-zipper fix; this is only the bounded adapter workload. It admits four exchanges,
+zipper fix; this is only the bounded adapter workload. It now admits eight exchanges through at most two native retrieval batches,
 with no silent history windowing. The existing model token budget may reject
 sooner.
 
@@ -141,7 +141,7 @@ synthetic resource failures with real SQLite rollback/restart. A separate real
 supervisor test killed a harmless sleeping process at a 0.1-second deadline and
 reported cleanup; it did not run a model or induce memory exhaustion.
 
-The native fourth-turn boundary probe passed eight checks: MORK retrieved six
+The historical four-exchange profile's boundary probe passed eight checks: MORK retrieved six
 prior messages, both NARS observations remained committed, and Granite answered
 “Red foxes and robins” using 412 input tokens. The fifth exchange returned
 `history_limit` without another model or MORK call. Snapshot retained all eight
@@ -154,3 +154,92 @@ request at the same revision then completed as the fourth exchange. Native MORK
 retrieved all six prior messages for both claims, both NARS observations remained
 intact, and the final snapshot retained eight messages. All nine checks passed.
 See `CAPACITY_RECOVERY_SUMMARY.json` and `tests/probe_capacity_recovery.py`.
+
+## Eight-exchange batched successor
+
+The v2 transcript ceiling is now sixteen messages. Native retrieval is split
+into independently validated batches of at most eight typed facts, preserving
+global IDs and complete transcript order. Any batch failure prevents model
+inference and commit. No history is omitted; the 512-token model admission and
+all native memory/deadline caps remain in force. Older four-exchange summaries
+above remain historical checkpoint evidence.
+
+All 134 conversation tests passed, including real native retrieval of ten and
+sixteen messages through 8+2 and 8+8 queries. A copied native four-turn checkpoint
+continued through turns five and six with correct creature recall, complete
+MORK retrieval, retained cognition and exact saved replay. All eleven probe
+checks and both independent full-history/cognitive prompt-hash audits passed.
+The sixth turn used 460 input tokens and retained twelve messages. Native MORK
+used two queries for its ten-message input; no new NARS inference was claimed.
+See `SIX_TURN_NATIVE_SUMMARY.json`, `tests/probe_six_turns.py` and
+`tests/audit_cognitive_prompts.py`. The PathMap pre-fix limitation is preserved.
+
+## Experimental exact-token context projection
+
+`context_summary.py` is an internal experiment, separate from public v2 turns.
+It preserves the full authoritative history, recent complete pairs and current
+request, while replacing older model-context messages with source-linked user
+prefix quotations. Older assistant text is excluded. Each excerpt records its
+original message index, SHA-256, exact character span and truncation. The plan
+explicitly reports `model_context_complete:false`; it is a lossy projection,
+not an information-preserving semantic summary or a new source of facts.
+
+The native inference executable's optional `--count-tokens` mode uses the same
+pinned tokenizer and flags as generation, loads vocabulary only, and returns
+`{"input_tokens":N}` before context allocation or generation. Its original
+16,384-byte prompt bound remains. Normal generation behavior is preserved.
+The planner tries deterministic excerpt bounds and requires exact counts; if
+no candidate fits, it raises `SummaryBudgetError` without generation or storage.
+
+All 142 source tests and nine supervised native tokenizer checks passed. The
+combined experimental probe used real native MORK and ECAN, retained two prior
+NARS observations, and opened the synthetic conversation database read-only.
+A full 531-token prompt was rejected; a 508-token projection generated “Red foxes
+and robins,” with the generation receipt matching that exact count. All ten
+native checks passed, including unchanged database contents. A previous trial
+refused a 514-token minimum candidate, preserving its failed evidence. See
+`SUMMARY_NATIVE_EXPERIMENT.json` and `tests/probe_summary_native.py`.
+
+Default public v2 remains complete-history conversation with explicit token admission.
+The subsequent explicit opt-in contract is documented in DURABLE_API.md;
+the default behavior does not silently change
+`history_policy:complete_no_omission`. No database turns or actions are committed.
+
+## Qualified explicit opt-in contract
+
+`context_policy:"extractive_v1"` is now an optional per-turn v2 request, gated
+by a separately qualified profile capability. It defaults to `complete` for
+every request. Successful opt-in responses expose `model_context`, including
+exact token count, full-history/prompt digests, completeness and any excerpt
+source spans/omissions. Durable history remains complete and atomic. Old
+canonical default request payloads and saved replay remain compatible; saved
+opt-in responses also replay when projection capability is later disabled.
+
+Reconciliation with main `721d402` preserves cognitive task/results, learning
+and Motto hooks. The reconciled suite ran 185 tests: 184 passed and one optional
+native fixture skipped. Eighteen real v2 checks passed through Omega/PeTTa with
+native MORK, ECAN, retained NARS observations and Granite. A default 531-token
+request failed without commit; explicit opt-in succeeded at 508 tokens and
+committed the full original message. Replay was identical; changed policy was
+a conflict, later default behavior remained complete, small opt-in prompts
+retained full context, and no extra NARS inference or actions were claimed.
+See `OPTIN_NATIVE_SUMMARY.json` and `tests/probe_optin_context.py`.
+
+## Repeatable staged-belief recovery regression
+
+`tests/probe_projection_recovery.py` copies the verified synthetic six-turn
+checkpoint, runs native NARS on a new assertion chain, verifies exact-token
+planning failure before generation, restarts for a shorter successful request
+and exact replay, then restarts again to check the failed ID remains terminal.
+The source database is opened read-only and is compared afterward. Its
+`--audit-only` mode uses captured JSON and logs, invokes no native components,
+and writes `audit-result.json` while preserving the original `result.json`.
+
+A local rerun against main `5a8e3a4` passed all fourteen checks: the minimum
+candidate was 582 tokens; no failed belief/history committed; recovery used
+487 tokens with full model context, correct recall and exact replay. The failed
+request ID caused no native work on retry. Full prior history, the original
+checkpoint and both original observations remained intact. The 185-test suite
+passed 184 tests with one optional native fixture skipped. This is local native
+evidence, not an independently reproduced result. See
+`RECOVERY_REGRESSION_SUMMARY.json`. Runtime and public API are unchanged.

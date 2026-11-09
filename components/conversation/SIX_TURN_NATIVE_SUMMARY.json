@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "checks": {
+    "protocol": true,
+    "fifth_complete": true,
+    "sixth_complete": true,
+    "recall": true,
+    "exact_replay": true,
+    "complete_history": true,
+    "capacity_two_left": true,
+    "native_mork_complete": true,
+    "native_batch_counts": true,
+    "native_calls": true,
+    "cognition_preserved": true
+  },
+  "replies": [
+    {
+      "api_version": 2,
+      "session_id": "language",
+      "request_id": "fifth-expanded",
+      "status": "completed",
+      "text": "Red foxes and robins.\n",
+      "context_ids": [],
+      "executed_actions": 0,
+      "generation": {
+        "input_tokens": 436,
+        "output_tokens": 7,
+        "finish_reason": "eos"
+      },
+      "history_policy": "complete_no_omission",
+      "revision": 5
+    },
+    {
+      "api_version": 2,
+      "session_id": "language",
+      "request_id": "sixth-expanded",
+      "status": "completed",
+      "text": "Red foxes and robins.\n",
+      "context_ids": [],
+      "executed_actions": 0,
+      "generation": {
+        "input_tokens": 460,
+        "output_tokens": 7,
+        "finish_reason": "eos"
+      },
+      "history_policy": "complete_no_omission",
+      "revision": 6
+    }
+  ],
+  "executed_actions": 0,
+  "prompt_audit": {
+    "passed": true,
+    "checks": {
+      "prompt_5": true,
+      "prompt_6": true
+    },
+    "observations": 2
+  }
+}
