@@ -18,7 +18,7 @@ in import ./system-eval.nix {
   liveMedia = true;
   extraModules = [
     (pinned + "/nixos/modules/installer/cd-dvd/iso-image.nix")
-    ({ lib, ... }: {
+    ({ lib, pkgs, ... }: {
       system.autoUpgrade.enable = lib.mkForce false;
       nix.gc.automatic = lib.mkForce false;
       nix.optimise.automatic = lib.mkForce false;
@@ -31,6 +31,43 @@ in import ./system-eval.nix {
         modelReady = false;
         durableHistoryReady = false;
         credentialProvisioningRequired = adminAccess == "locked";
+      };
+      systemd.services.roko-startup-report = {
+        description = "Roko boot-local policy diagnostics (not runtime readiness)";
+        wantedBy = [ "multi-user.target" ];
+        after = [ "local-fs.target" ];
+        before = [ "multi-user.target" "display-manager.service" ];
+        unitConfig.OnFailure = [ "roko-startup-report-failure.service" ];
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          ExecStart = "${pkgs.python3}/bin/python3 ${./startup_report.py} --policy /etc/roko/first-boot.json --output /run/roko-startup/status.json";
+          DynamicUser = true;
+          RuntimeDirectory = "roko-startup";
+          RuntimeDirectoryMode = "0750";
+          RuntimeDirectoryPreserve = "yes";
+          UMask = "0027";
+          TimeoutStartSec = "15s";
+          NoNewPrivileges = true;
+          ProtectSystem = "strict";
+          ProtectHome = true;
+          PrivateTmp = true;
+          PrivateNetwork = true;
+          RestrictAddressFamilies = [ "AF_UNIX" ];
+          CapabilityBoundingSet = "";
+        };
+      };
+      systemd.services.roko-startup-report-failure = {
+        description = "Report Roko startup diagnostic failure";
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.coreutils}/bin/echo Roko startup diagnostics failed; runtime readiness is unknown. Inspect journalctl -u roko-startup-report.";
+          DynamicUser = true;
+          NoNewPrivileges = true;
+          ProtectSystem = "strict";
+          ProtectHome = true;
+          PrivateNetwork = true;
+        };
       };
       networking.networkmanager.enable = lib.mkForce (networkPolicy == "managed");
       networking.useDHCP = lib.mkForce false;
