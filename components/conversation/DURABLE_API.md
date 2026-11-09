@@ -8,7 +8,7 @@ contract. `fresh_server.py` continues to speak v1; `durable_server.py` speaks v2
 Set trusted environment variables `ROKO_FRESH_PROFILE` to this machine's newly
 qualified profile and `ROKO_HISTORY_DB` to an absolute local SQLite path. The
 request cannot select programs, model paths or database paths. Launch
-`durable_server.py` with the profile's Python interpreter. Keep a 180-second
+`durable_server.py` with the profile's Python interpreter. Keep a 240-second
 per-turn client budget plus initial verification. Native inference retains its
 150-second deadline. Only one request is processed at a time in each worker.
 
@@ -107,8 +107,8 @@ The model receives complete history; no messages are silently dropped or summari
 Native admission remains 512 input tokens, 1,024 context tokens, a 16 KiB rendered
 prompt, and at most 128 generated tokens. Reaching input limits fails without a
 commit. Without MORK, the v2 session has a 128-exchange admission ceiling. With the
-qualified MORK profile, it admits four complete exchanges (eight messages),
-4,096 UTF-8 bytes per message and 65,536 serialized history bytes. A fifth
+qualified MORK profile, it admits eight complete exchanges (sixteen messages),
+4,096 UTF-8 bytes per message and 65,536 serialized history bytes. A ninth
 exchange returns `history_limit` without dropping prior messages. Native token
 limits will usually be reached first. To continue beyond admission, explicitly create a
 new session and supply a user-approved summary; no automatic summary is substituted.
@@ -204,8 +204,54 @@ limits`, the current `revision`, `history_messages`, `max_history_messages`,
 `history_policy:complete_no_omission`, and `executed_actions:0`.
 
 This query creates no session or claim and performs no inference or retrieval.
-With MORK enabled, four exchanges are admitted; the fifth is refused. The
+With MORK enabled, eight exchanges are admitted; the ninth is refused. The
 history flag also accounts for a pending claim. It does not predict rendered
 prompt token count or reserve capacity: the subsequent turn must still supply
 `expected_revision` and pass native token admission. Existing clients can
 continue using the existing turn and snapshot operations.
+
+## Bounded native history batches
+
+Complete committed history is retrieved in at most two native queries, each
+limited to eight typed turn facts. Global turn IDs preserve transcript position.
+Every batch must independently return exactly its expected rows and a verified
+runtime/cleanup receipt; missing, extra, duplicate or substituted rows fail the
+entire turn before generation. No Python matching fallback or history window is
+used. Receipts include `batch_size` and `batch_count`; multi-batch receipts retain
+each original native receipt. The pre-fix PathMap qualification remains scoped
+to these bounded queries, not general MORK workloads. The total transcript
+ceiling is sixteen messages; native token admission may reject a turn earlier.
+
+## Explicit per-turn model-context projection
+
+`context_policy` is an optional turn field. Omitted or `complete` preserves the
+historical request normalization and full model history. `extractive_v1` is
+accepted only with a profile explicitly prepared using
+`--context-projection extractive_v1`; qualification tests native token counting.
+Other policy values are invalid. Unsupported new requests create no session or
+claim. A saved successful response can replay even after capability is disabled.
+
+Opt-in turns still claim the revision before retrieval/planning and atomically
+commit the full original user/assistant transcript and cognitive ledger. The
+model receives full history when its exact count fits; otherwise it receives
+source-linked older-user prefixes, recent complete pairs and the unchanged
+current request/advisory context. Each candidate must fit an exact 512-token
+count. The shared planning deadline is 30 seconds; individual counters have at
+most 10 seconds. No candidate fit, invalid counter evidence, timeout or count
+mismatch fails without a commit or implicit fallback.
+
+Only successful opt-in responses add `model_context`, containing `policy`,
+`model_context_complete`, exact `token_count`/`budget`, `prompt_sha256`,
+`full_history_sha256`, and omission counts. Lossy plans additionally expose
+excerpt source indices/hashes/spans/truncation and retained recent indices.
+`authoritative_history_changed:false` describes projection; the subsequent
+successful commit appends the normal full turn. `history_policy` continues to
+describe complete durable storage. The projected context is explicitly lossy;
+it is not a general semantic summary or a verified source of facts. Complete
+history is always available via `snapshot`.
+
+The policy is not sticky: every new request defaults to `complete`. Request-ID
+binding includes a non-default policy, so changing policy on an existing ID is
+a conflict. Unknown policy errors precede claims; actual failed planned turns
+remain terminal and need a new request ID. Default responses gain no projection
+field. Existing `cognitive_tasks`/`cognitive_results` remain compatible.

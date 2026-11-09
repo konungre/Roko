@@ -27,6 +27,8 @@ def load_profile(path):
     profile = json.loads(Path(path).read_text())
     if profile.get('kind') != 'roko-fresh-host-v1':
         raise ValueError('Require explicit fresh-build profile')
+    if 'context_projection' in profile and profile['context_projection'] != 'extractive_v1':
+        raise ValueError('Unsupported context projection capability')
     for name, expected in profile['files'].items():
         if not Path(name).is_absolute() or digest(name) != expected:
             raise ValueError('Fresh closure mismatch: ' + name)
@@ -130,6 +132,9 @@ class FreshProvider:
         self.receipts = []
         self.ecan_receipts = []
         self.mork_receipts = []
+        self.context_policy = 'complete'
+        self.model_context = None
+        self.token_counter_receipts = []
         self.max_tokens = 64
         self.allow_partial = False
         self.last_generation = None
@@ -152,9 +157,134 @@ class FreshProvider:
         if offset != 4230976352 or digest.hexdigest() != recovered.MODEL_SHA or identity(os.fstat(self.fd)) != identity(self.identity):
             raise ValueError('Model bytes or identity changed')
 
+    def _count_tokens(self, prompt, deadline):
+        started = time.monotonic()
+        call_deadline = min(deadline, started + 10)
+        budget = call_deadline - started
+        if budget <= 0.5:
+            raise GenerationError('context_projection_limit')
+        raw_prompt = prompt.encode('utf-8')
+        receipt = {'prompt_sha256':hashlib.sha256(raw_prompt).hexdigest(),
+                   'prompt_bytes':len(raw_prompt), 'network_denied':True,
+                   'executed_actions':0, 'mode':'count_tokens'}
+        self.token_counter_receipts.append(receipt)
+        source = Path(__file__).resolve().parent
+        parent_start = Path(f'/proc/{os.getpid()}/stat').read_text().rsplit(')', 1)[1].split()[19]
+        command = [self.profile['python'], '-B', str(source/'fresh_supervise.py'),
+                   '--parent-pid', str(os.getpid()), '--parent-start', parent_start,
+                   '--seconds', str(budget - 0.5), '--', self.profile['infer'],
+                   '--model', f'/proc/{os.getpid()}/fd/{self.fd}', '--count-tokens']
+        proc = None
+        out, err = b'', b''
+        try:
+            proc = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE, start_new_session=True,
+                env={'PATH':'/usr/bin:/bin','LANG':'C.UTF-8',
+                     'OMP_NUM_THREADS':'4','PYTHONDONTWRITEBYTECODE':'1'})
+            try:
+                out, err = proc.communicate(raw_prompt,
+                    timeout=max(0.001, call_deadline - time.monotonic() - 0.25))
+            except BaseException as error:
+                if isinstance(error, subprocess.TimeoutExpired):
+                    out, err = error.output or b'', error.stderr or b''
+                proc.terminate()
+                try:
+                    out, err = proc.communicate(timeout=max(0.001,
+                        min(0.25, call_deadline - time.monotonic())))
+                except subprocess.TimeoutExpired as cleanup:
+                    out, err = cleanup.output or out, cleanup.stderr or err
+                    os.killpg(proc.pid, signal.SIGKILL)
+                    proc.wait(timeout=max(0.001, call_deadline - time.monotonic()))
+                    receipt['cleanup'] = 'process_group_killed'
+                else:
+                    receipt['cleanup'] = 'terminated_and_reaped'
+                if isinstance(error, subprocess.TimeoutExpired):
+                    raise GenerationError('context_projection_limit') from error
+                raise
+            if time.monotonic() > deadline:
+                raise GenerationError('context_projection_limit')
+            if (proc.returncode or len(out)>4096 or len(err)>1024**2
+                    or b'ROKO_SUPERVISOR reason=native-exit descendants_cleaned=1' not in err):
+                raise GenerationError('context_projection_failed')
+            def unique(pairs):
+                result = {}
+                for key, value in pairs:
+                    if key in result:
+                        raise ValueError('Duplicate tokenizer receipt key')
+                    result[key] = value
+                return result
+            try:
+                packet = json.loads(out.decode('utf-8'), object_pairs_hook=unique)
+            except (ValueError, UnicodeDecodeError) as error:
+                raise GenerationError('invalid_token_count_receipt') from error
+            if (type(packet) is not dict or set(packet) != {'input_tokens'}
+                    or type(packet['input_tokens']) is not int or packet['input_tokens'] <= 0):
+                raise GenerationError('invalid_token_count_receipt')
+            receipt['input_tokens'] = packet['input_tokens']
+            return packet['input_tokens']
+        except BaseException as error:
+            receipt['error'] = getattr(error, 'code', type(error).__name__)
+            raise
+        finally:
+            receipt.update(returncode=proc.returncode if proc is not None else None,
+                seconds=round(time.monotonic()-started,3),
+                stdout_base64=base64.b64encode(out).decode('ascii'),
+                stdout_sha256=hashlib.sha256(out).hexdigest(),
+                stderr_base64=base64.b64encode(err).decode('ascii'),
+                stderr=err.decode('utf-8',errors='replace'))
+
+    def _project_context(self, messages):
+        from context_summary import build_summary, SummaryBudgetError
+        deadline = time.monotonic() + 30
+        def counter(prompt):
+            return self._count_tokens(prompt, deadline)
+        try:
+            try:
+                full_prompt = recovered.render(messages)
+            except ValueError as error:
+                if str(error)!='Prompt byte cap':
+                    raise
+                full_prompt = None
+            full_count = counter(full_prompt) if full_prompt is not None else None
+            if full_count is not None and full_count <= 512:
+                history = json.dumps(messages[1:-1], sort_keys=True,
+                    separators=(',', ':'), ensure_ascii=False)
+                metadata = {'policy':'extractive_v1', 'model_context_complete':True,
+                    'token_count':full_count, 'budget':512,
+                    'prompt_sha256':hashlib.sha256(full_prompt.encode()).hexdigest(),
+                    'full_history_sha256':hashlib.sha256(history.encode()).hexdigest(),
+                    'omitted_count':0, 'omitted_assistant_count':0,
+                    'authoritative_history_changed':False}
+                return messages, metadata
+            session = conversation.session
+            projected, metadata = build_summary(messages[1:-1], messages[-1]['content'],
+                count_tokens=counter, budget=512, recent_pairs=1,
+                context=session.context, cognitive_context=session.cognitive_context)
+            if time.monotonic() > deadline:
+                raise GenerationError('context_projection_limit')
+            return projected, dict(metadata, policy='extractive_v1',
+                full_input_tokens=full_count,
+                full_count_unavailable_reason='renderer_byte_cap' if full_count is None else None)
+        except SummaryBudgetError as error:
+            raise GenerationError('context_projection_limit') from error
+
     def chat(self, messages):
         self.last_generation = None
         self.last_error = None
+        self.model_context = None
+        if not hasattr(self, 'token_counter_receipts'):
+            self.token_counter_receipts = []
+        model_context = None
+        policy = getattr(self, 'context_policy', 'complete')
+        if policy != 'complete':
+            if policy != 'extractive_v1' or self.profile.get('context_projection') != policy:
+                self.last_error = 'unsupported_context_policy'
+                raise GenerationError(self.last_error)
+            try:
+                messages, model_context = self._project_context(messages)
+            except GenerationError as error:
+                self.last_error = error.code
+                raise
         prompt = recovered.render(messages)
         source = Path(__file__).resolve().parent
         parent_start = Path(f'/proc/{os.getpid()}/stat').read_text().rsplit(')', 1)[1].split()[19]
@@ -209,6 +339,9 @@ class FreshProvider:
             raise
         if proc.returncode or len(out)>32768 or len(err)>1024**2 or b'descendants_cleaned=1' not in err:
             raise RuntimeError('Fresh native inference failed: '+str(proc.returncode))
+        if model_context is not None and generation['input_tokens'] != model_context['token_count']:
+            self.last_error = 'context_projection_failed'
+            raise GenerationError(self.last_error)
         self.verify_model()
         receipt['model_verified_before_history_commit'] = True
         try:
@@ -219,7 +352,11 @@ class FreshProvider:
         if generation['finish_reason'] == 'length' and not self.allow_partial:
             self.last_error = 'output_limit'
             raise GenerationError('output_limit')
-        return conversation.bounded_text(receipt['stdout'])
+        text = conversation.bounded_text(receipt['stdout'])
+        self.model_context = model_context
+        if model_context is not None:
+            receipt['model_context'] = model_context
+        return text
 
     def close(self):
         if self.fd is not None:
@@ -289,7 +426,8 @@ def finish():
               'cognitive_history':conversation.session.cognitive_history,
               'learning_receipts':getattr(provider.learning,'receipts',[]),
               'motto_receipts':getattr(provider.motto,'receipts',[]),
-              'mork_receipts':provider.mork_receipts}), file=sys.stderr)
+              'mork_receipts':provider.mork_receipts,
+              'token_counter_calls':provider.token_counter_receipts}), file=sys.stderr)
     finally:
         provider.close()
     return True

@@ -87,10 +87,64 @@ class MorkV2ContractTests(unittest.TestCase):
         self.assertEqual(SyntheticBackend.calls,[])
 
     def test_exact_complete_utf8_bounded_history(self):
-        for h in (HISTORY[:1],HISTORY*5,[HISTORY[1],HISTORY[0]],
+        for h in (HISTORY[:1],HISTORY*9,[HISTORY[1],HISTORY[0]],
                   [{'role':'user','content':'λ'*2049},HISTORY[1]]):
             with self.assertRaises(ValueError):mork_v2.retrieve_history(h,binding(h),PROFILE)
         self.assertEqual(SyntheticBackend.calls,[])
+
+    def test_ten_and_sixteen_messages_have_independent_bounded_batches(self):
+        for count in (10,16):
+            with self.subTest(count=count):
+                SyntheticBackend.calls=[]
+                history=[{'role':'user' if i%2==0 else 'assistant',
+                          'content':'Message '+str(i)} for i in range(count)]
+                SyntheticBackend.transform=staticmethod(lambda facts:list(reversed(facts)))
+                selected,receipt=mork_v2.retrieve_history(history,binding(history),PROFILE)
+                self.assertEqual(selected,history)
+                self.assertEqual([len(c['facts']) for c in SyntheticBackend.calls],[8,count-8])
+                self.assertEqual([row['args'][0] for c in SyntheticBackend.calls for row in c['facts']],
+                                 ['turn_'+str(i) for i in range(count)])
+                self.assertEqual(receipt['batch_count'],2)
+                self.assertEqual(receipt['batch_size'],8)
+                self.assertEqual(receipt['history_sha256'],binding(history)['history_sha256'])
+                self.assertEqual(len(receipt['native']['batches']),2)
+                self.assertEqual(receipt['native']['runtime_manifest_sha256'],'synthetic-test-only')
+                self.assertEqual(receipt['evidence'][-1]['id'],'turn_'+str(count-1))
+
+    def test_second_batch_failure_or_wrong_rows_cannot_fall_back(self):
+        history=HISTORY*5
+        def failure(facts):
+            if facts[0]['args'][0]=='turn_8':raise RuntimeError('second batch failed')
+            return facts
+        SyntheticBackend.transform=staticmethod(failure)
+        with self.assertRaisesRegex(RuntimeError,'second batch failed'):
+            mork_v2.retrieve_history(history,binding(history),PROFILE)
+        for replacement in ([],[{'relation':'chat_turn','args':['turn_0','user']},
+                               {'relation':'chat_turn','args':['turn_1','assistant']}]):
+            SyntheticBackend.transform=staticmethod(lambda facts:replacement if facts[0]['args'][0]=='turn_8' else facts)
+            with self.assertRaises(ValueError):
+                mork_v2.retrieve_history(history,binding(history),PROFILE)
+
+    def test_cross_batch_swaps_rejected_before_second_query(self):
+        history=HISTORY*8
+        def swap(facts):
+            result=copy.deepcopy(facts)
+            result[0]['args'][0]='turn_8'
+            return result
+        SyntheticBackend.transform=staticmethod(swap)
+        with self.assertRaises(ValueError):
+            mork_v2.retrieve_history(history,binding(history),PROFILE)
+        self.assertEqual(len(SyntheticBackend.calls),1)
+
+    def test_second_batch_receipt_failure_is_rejected(self):
+        original=SyntheticBackend.query_facts
+        def changed(backend,*args,**kwargs):
+            result=original(backend,*args,**kwargs)
+            if len(backend.calls)==2:result['runtime_manifest_sha256']='wrong'
+            return result
+        with patch.object(SyntheticBackend,'query_facts',changed):
+            with self.assertRaisesRegex(ValueError,'receipt mismatch'):
+                mork_v2.retrieve_history(HISTORY*8,binding(HISTORY*8),PROFILE)
 
     def test_mutation_during_retrieval_is_rejected(self):
         h=copy.deepcopy(HISTORY)
@@ -106,7 +160,7 @@ class MorkV2ContractTests(unittest.TestCase):
 class MorkV2NativeTests(unittest.TestCase):
     def test_real_empty_and_complete_history(self):
         profile=json.loads(Path(os.environ['ROKO_MORK_V2_TEST_PROFILE']).read_text())
-        for history in ([],HISTORY):
+        for history in ([],HISTORY,HISTORY*5,HISTORY*8):
             selected,receipt=mork_v2.retrieve_history(history,binding(history),profile)
             self.assertEqual(selected,history)
             self.assertTrue(receipt['native']['network_denied'])

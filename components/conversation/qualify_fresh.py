@@ -62,6 +62,7 @@ def main():
     parser.add_argument('--nars-evidence-root', type=Path)
     parser.add_argument('--mork-manifest', type=Path)
     parser.add_argument('--mork-manifest-sha256')
+    parser.add_argument('--context-projection',choices=['extractive_v1'])
     args = parser.parse_args()
     if args.output.exists():
         raise ValueError('Refuse to replace a qualification profile')
@@ -79,6 +80,21 @@ def main():
     profile.update(kind='roko-fresh-host-v1', infer=str(args.infer.resolve(strict=True)),
                    model=str(args.model.resolve(strict=True)),
                    qualification='Prepared; requires actual native conversation probe')
+    if args.context_projection:
+        import os
+        source=Path(__file__).resolve().parent
+        stamp=Path(f'/proc/{os.getpid()}/stat').read_text().rsplit(')',1)[1].split()[19]
+        command=[profile['python'],'-B',str(source/'fresh_supervise.py'),
+            '--parent-pid',str(os.getpid()),'--parent-start',stamp,'--seconds','10','--',
+            profile['infer'],'--model',profile['model'],'--count-tokens']
+        result=subprocess.run(command,input=b'Qualification tokenizer probe',capture_output=True,
+            start_new_session=True,timeout=20,check=True)
+        counted=json.loads(result.stdout)
+        if (type(counted) is not dict or set(counted)!={'input_tokens'} or
+                type(counted['input_tokens']) is not int or counted['input_tokens']<1 or
+                b'descendants_cleaned=1' not in result.stderr or b'ROKO_GENERATION ' in result.stderr):
+            raise ValueError('Native token counting capability not qualified')
+        profile['context_projection']=args.context_projection
     paths = [args.infer.resolve(),args.model.resolve()]
     # Resolve dynamic libraries for this newly built trusted executable.
     listing = subprocess.run(['ldd',profile['infer']],check=True,text=True,capture_output=True)
