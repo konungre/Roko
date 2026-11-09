@@ -80,6 +80,35 @@ class DurableApiTests(unittest.TestCase):
         self.assertEqual(result,json.loads(api.completed_json()))
         return result
 
+    def test_limits_query_is_read_only_and_never_infers(self):
+        request=json.dumps({'api_version':2,'op':'limits','session_id':'session'})
+        before=api.store.db.total_changes
+        self.assertFalse(api.prepare_line(request))
+        result=self.immediate()
+        self.assertEqual(result['remaining_exchanges'],128)
+        self.assertTrue(result['history_admits_turn'])
+        self.assertEqual(result['token_admission'],'checked_during_native_inference')
+        self.assertEqual(api.store.db.total_changes,before)
+        self.assertEqual(self.provider.calls,0)
+        self.assertTrue(self.prepare());self.fake_complete()
+        self.assertFalse(api.prepare_line(request))
+        self.assertEqual(self.immediate()['remaining_exchanges'],127)
+        self.assertEqual(self.immediate()['revision'],1)
+
+    def test_limits_respects_full_history_and_pending_claim(self):
+        request=json.dumps({'api_version':2,'op':'limits','session_id':'session'})
+        conversation.session.max_history=2
+        claim=api.store.start('session','held',0,{'text':'held'})
+        self.assertFalse(api.prepare_line(request))
+        self.assertEqual(self.immediate()['pending'],'held')
+        self.assertFalse(self.immediate()['history_admits_turn'])
+        api.store.fail(claim['token'],{'code':'synthetic_test'})
+        self.assertTrue(self.prepare());self.fake_complete()
+        self.assertFalse(api.prepare_line(request))
+        self.assertEqual(self.immediate()['remaining_exchanges'],0)
+        self.assertFalse(self.immediate()['history_admits_turn'])
+        self.assertEqual(self.provider.calls,1)
+
     def test_replay_does_not_repeat_provider_and_stale_cas_does_not_infer(self):
         self.assertTrue(self.prepare())
         saved=self.fake_complete()
