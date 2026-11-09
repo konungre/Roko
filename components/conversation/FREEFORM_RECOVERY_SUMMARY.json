@@ -1,0 +1,129 @@
+{
+  "passed": true,
+  "checks": {
+    "protocol": true,
+    "first_complete": true,
+    "real_ecan": true,
+    "overflow_explicit": true,
+    "same_revision_continues": true,
+    "recall": true,
+    "third_complete": true,
+    "exact_replay": true,
+    "no_failed_message_committed": true,
+    "ordinary_prose_no_nars": true,
+    "native_mork_each_claim": true,
+    "native_calls": true,
+    "successful_models_verified": true
+  },
+  "replies": [
+    {
+      "api_version": 2,
+      "session_id": "garden",
+      "request_id": "first",
+      "status": "completed",
+      "text": "Based on your balcony garden preferences, consider growing oregano and thyme, as they thrive in morning sun and require minimal watering.\n",
+      "context_ids": [
+        "tone"
+      ],
+      "executed_actions": 0,
+      "generation": {
+        "input_tokens": 99,
+        "output_tokens": 27,
+        "finish_reason": "eos"
+      },
+      "history_policy": "complete_no_omission",
+      "revision": 1
+    },
+    {
+      "api_version": 2,
+      "status": "error",
+      "code": "context_limit",
+      "executed_actions": 0,
+      "session_id": "garden",
+      "request_id": "overflow"
+    },
+    {
+      "api_version": 2,
+      "session_id": "garden",
+      "request_id": "second",
+      "status": "completed",
+      "text": "You mentioned morning sun and watering twice a week for your herbs.\n",
+      "context_ids": [],
+      "executed_actions": 0,
+      "generation": {
+        "input_tokens": 128,
+        "output_tokens": 13,
+        "finish_reason": "eos"
+      },
+      "history_policy": "complete_no_omission",
+      "revision": 2
+    },
+    {
+      "api_version": 2,
+      "session_id": "garden",
+      "request_id": "third",
+      "status": "completed",
+      "text": "Next, select pots with good drainage and fill them with a well-draining potting mix suitable for herbs.\n",
+      "context_ids": [],
+      "executed_actions": 0,
+      "generation": {
+        "input_tokens": 161,
+        "output_tokens": 22,
+        "finish_reason": "eos"
+      },
+      "history_policy": "complete_no_omission",
+      "revision": 3
+    },
+    {
+      "api_version": 2,
+      "context_ids": [],
+      "executed_actions": 0,
+      "generation": {
+        "finish_reason": "eos",
+        "input_tokens": 161,
+        "output_tokens": 22
+      },
+      "history_policy": "complete_no_omission",
+      "request_id": "third",
+      "revision": 3,
+      "session_id": "garden",
+      "status": "completed",
+      "text": "Next, select pots with good drainage and fill them with a well-draining potting mix suitable for herbs.\n"
+    },
+    {
+      "api_version": 2,
+      "status": "snapshot",
+      "session_id": "garden",
+      "executed_actions": 0,
+      "revision": 3,
+      "history": [
+        {
+          "content": "I am planning a small balcony garden. I prefer herbs, have morning sun, and can water twice a week. Suggest two plants in one sentence.",
+          "role": "user"
+        },
+        {
+          "content": "Based on your balcony garden preferences, consider growing oregano and thyme, as they thrive in morning sun and require minimal watering.\n",
+          "role": "assistant"
+        },
+        {
+          "content": "What watering schedule and sunlight did I mention?",
+          "role": "user"
+        },
+        {
+          "content": "You mentioned morning sun and watering twice a week for your herbs.\n",
+          "role": "assistant"
+        },
+        {
+          "content": "Give one short next step based on my preferences.",
+          "role": "user"
+        },
+        {
+          "content": "Next, select pots with good drainage and fill them with a well-draining potting mix suitable for herbs.\n",
+          "role": "assistant"
+        }
+      ],
+      "pending": null
+    }
+  ],
+  "executed_actions": 0
+}

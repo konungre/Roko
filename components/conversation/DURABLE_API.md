@@ -72,7 +72,8 @@ requires a new ID. A cancelled worker may leave a pending claim; this is intenti
 Errors return `api_version: 2`, `status: error`, `code`, `executed_actions: 0`, and
 valid request/session IDs when available. Important codes are `stale_revision`,
 `request_conflict`, `busy`, `pending`, `failed`, `interrupted`, `context_limit`,
-`history_limit`, `invalid_request`, `invalid_output_encoding`, and `native_turn_failed`. No text is committed on failed native
+`history_limit`, `invalid_request`, `invalid_output_encoding`, `native_timeout`,
+`resource_limit`, `native_cancelled`, and `native_turn_failed`. No text is committed on failed native
 inference or input-limit admission. An oversized transport line ends the process.
 
 ## Durability and concurrency
@@ -157,3 +158,15 @@ limits, input-limit rejection, active cancellation and explicit recovery. It cre
 synthetic story history in a private database under its new output directory.
 Source tests include real SQLite competing writers and process-crash cases; API
 callback tests explicitly use a fake provider and are not model evidence.
+
+## Resource failure diagnostics
+
+A recognized supervisor deadline produces `native_timeout`; its native RSS or
+host-reserve stop produces `resource_limit`. A recognized supervisor cancellation
+can produce `native_cancelled` when the worker remains alive to report it. These
+codes require both the exact supervisor completion marker and matching exit code.
+Raw evidence remains retained. No generation metadata or successful history is
+invented after a resource stop. Failed request IDs remain terminal; a new request
+may continue from the unchanged revision. Killing the worker itself still uses
+the existing pending-claim and explicit recovery contract. Resource caps are
+unchanged.
