@@ -122,7 +122,15 @@ def initialize():
                 .with_id('roko-reply').with_arguments({'text':text}))
     providers.registerLLMProvider('RokoFreshText', Adapter())
     providers.llmProviderStart('RokoFreshText')
-    conversation.session = conversation.Session(provider, no_context)
+    if 'durable_memory' in profile:
+        from durable_session import open_session
+        try:
+            conversation.session = open_session(provider, no_context, profile)
+        except BaseException:
+            provider.close()
+            raise
+    else:
+        conversation.session = conversation.Session(provider, no_context)
     return True
 
 
@@ -132,7 +140,11 @@ def finish():
         provider.verify_model()
         print('ROKO_FRESH_CONVERSATION '+json.dumps({'native_calls':provider.receipts,
               'history':conversation.session.history, 'model_identity_unchanged':True,
-              'model_sha256':recovered.MODEL_SHA, 'ecan_qualified':False}), file=sys.stderr)
+              'model_sha256':recovered.MODEL_SHA, 'ecan_qualified':False,
+              'mork_receipts':getattr(conversation.session,'memory_receipts',[]),
+              'durable_history':hasattr(conversation.session,'store')}), file=sys.stderr)
     finally:
-        provider.close()
+        try: provider.close()
+        finally:
+            if hasattr(conversation.session,'close'):conversation.session.close()
     return True

@@ -1,5 +1,10 @@
 # Fresh cloud host profile
 
+An optional `durable_memory` profile binding adds tested native MORK retrieval
+and atomic SQLite history. See [Durable MORK](DURABLE_MORK.md) for its restart,
+cancellation, provenance and host-lease contract. The in-memory behavior below
+continues to describe profiles without that explicit binding.
+
 This profile rebuilds the runtime on a separate cloud computer. It does not
 substitute new binaries for the historical recovered-host hashes. The original
 `recovered_server.py` admission and handoff remain available unchanged.

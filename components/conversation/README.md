@@ -1,5 +1,9 @@
 # Local conversation through a bounded native Omega step
 
+The optional [durable native MORK profile](DURABLE_MORK.md) now passes actual
+restart/recall and cancellation tests. It preserves the three-field transport
+and inert-text boundary. The in-memory profiles below remain available.
+
 For the separately rebuilt cloud computer, see [Fresh host profile](FRESH_HOST.md).
 It uses a new native provenance profile and the same three-field JSON-lines API.
 

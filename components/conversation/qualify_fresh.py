@@ -22,6 +22,10 @@ def main():
     parser.add_argument('--infer', type=Path, required=True)
     parser.add_argument('--model', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--mork-manifest', type=Path)
+    parser.add_argument('--mork-manifest-sha256')
+    parser.add_argument('--history-database', type=Path)
+    parser.add_argument('--session-id')
     args = parser.parse_args()
     if args.output.exists():
         raise ValueError('Refuse to replace a qualification profile')
@@ -42,6 +46,20 @@ def main():
             if word.startswith('/'):
                 paths.append(Path(word))
     source = Path(__file__).resolve().parent
+    memory_args = (args.mork_manifest, args.mork_manifest_sha256, args.history_database, args.session_id)
+    if any(memory_args):
+        if not all(memory_args):
+            raise ValueError('All explicit durable-memory bindings are required')
+        if sha(args.mork_manifest) != args.mork_manifest_sha256:
+            raise ValueError('MORK manifest digest mismatch')
+        manifest = json.loads(args.mork_manifest.read_text())
+        for path, expected in manifest['files'].items():
+            if sha(path) != expected:raise ValueError('Changed MORK runtime file: '+path)
+        profile['durable_memory'] = {'manifest':str(args.mork_manifest.resolve(strict=True)),
+            'manifest_sha256':args.mork_manifest_sha256,
+            'database':str(args.history_database.absolute()), 'session':args.session_id}
+        paths.append(args.mork_manifest.resolve())
+        paths += list((source.parents[1]/'mork-recovery-v1/source').glob('*.py'))
     paths += [p for p in source.iterdir() if p.suffix in ('.py','.pl','.metta','.cpp')]
     paths += [source.parents[1]/'omega-baseline/scripts/no-network.py']
     profile['files'].update({str(p):sha(p) for p in paths})
