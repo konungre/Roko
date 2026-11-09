@@ -1,0 +1,97 @@
+{
+  "nix_version": "nix (Nix) 2.26.3",
+  "nix_executable_sha256": "1795adb32a21c0aeef19e19530e96b933b603465a99dc6cf3ceed5b96948de58",
+  "observer_sha256": "072766edfa50774046606017794843077791f9bd99140a06e77320daf736d493",
+  "passed": true,
+  "native_hyperon_tested": true,
+  "native_nix_profile_observed": true,
+  "successful_profile": "real retained empty disposable profile",
+  "nonempty_workspace_profile": "rejected without rewriting",
+  "fresh_processes": 2,
+  "results": [
+    {
+      "native_receipt": {
+        "schema": "roko.native-profile-observation.v2",
+        "profile": "/workspace/scratch/nix-live-001/profile-2-link",
+        "target": {
+          "link": "/workspace/scratch/nix-live-001/direct-store/8al5jrl15ap3j8ck6zvkd9xf859w48cw-profile",
+          "resolved": "/workspace/scratch/nix-live-001/direct-store/8al5jrl15ap3j8ck6zvkd9xf859w48cw-profile",
+          "manifest_sha256": "aa1677c55dbc05ce7db1281e09269535f64128def6dff329e59bd51524884b65"
+        },
+        "native": {
+          "elements": {},
+          "version": 3
+        },
+        "native_stdout_sha256": "712b11070ffada765902c93e8c5a36f9b71b723c94bfb072f048479ab343f910",
+        "source": "nix-profile-observation-v2:/workspace/scratch/nix-live-001/profile-2-link",
+        "scope": "point-in-time-read-only-profile",
+        "authorizes_actions": false,
+        "revision": "581ef7b3a59c89c46701c027865511c9367287b6495026993218a77b7418d09b"
+      },
+      "unsupported_populated_receipt": {
+        "schema": "roko.native-profile-observation.v2",
+        "profile": "/workspace/scratch/nix-live-001/atomic-profiles-001/generation-36080ac55c4a4cc8bf655e470bdd3fc9/profile",
+        "target": {
+          "link": "profile-1-link",
+          "resolved": "/workspace/scratch/nix-live-001/direct-store/4jfm1bbyg864qmrabwsxqcdman0hc5qd-profile",
+          "manifest_sha256": "191fff4c5b11882c4e501db2f0cbb03bfdade4c93348174d8dd1ffcdcd30572d"
+        },
+        "native": {
+          "elements": {
+            "roko-profile": {
+              "active": true,
+              "priority": 5,
+              "storePaths": [
+                "/workspace/scratch/nix-live-001/direct-store/mk439cr63i5hjg1hvsy0yrzbsvamv54y-roko-profile-2"
+              ]
+            }
+          },
+          "version": 3
+        },
+        "native_stdout_sha256": "285556d586d9b9930f7cc14190de5f28fb2fd62386667df7b10ad869720f6aca",
+        "source": "nix-profile-observation-v2:/workspace/scratch/nix-live-001/atomic-profiles-001/generation-36080ac55c4a4cc8bf655e470bdd3fc9/profile",
+        "scope": "point-in-time-read-only-profile",
+        "authorizes_actions": false,
+        "revision": "54ee1b688eff818911f22b249a274564c6a14600e171abd734759855c3d69bfe"
+      },
+      "populated_rejected_without_rewrite": true,
+      "missing_profile_preserved_current": true,
+      "version": 1,
+      "profiles_unchanged": true,
+      "legacy_imported": false,
+      "authorizes_actions": false
+    },
+    {
+      "restored_origin": "restored-historical-checkpoint",
+      "restore_backend_calls": 0,
+      "new_backend_calls": 1,
+      "new_version": 2,
+      "native_revision_unchanged": true,
+      "native_receipt": {
+        "schema": "roko.native-profile-observation.v2",
+        "profile": "/workspace/scratch/nix-live-001/profile-2-link",
+        "target": {
+          "link": "/workspace/scratch/nix-live-001/direct-store/8al5jrl15ap3j8ck6zvkd9xf859w48cw-profile",
+          "resolved": "/workspace/scratch/nix-live-001/direct-store/8al5jrl15ap3j8ck6zvkd9xf859w48cw-profile",
+          "manifest_sha256": "aa1677c55dbc05ce7db1281e09269535f64128def6dff329e59bd51524884b65"
+        },
+        "native": {
+          "elements": {},
+          "version": 3
+        },
+        "native_stdout_sha256": "712b11070ffada765902c93e8c5a36f9b71b723c94bfb072f048479ab343f910",
+        "source": "nix-profile-observation-v2:/workspace/scratch/nix-live-001/profile-2-link",
+        "scope": "point-in-time-read-only-profile",
+        "authorizes_actions": false,
+        "revision": "581ef7b3a59c89c46701c027865511c9367287b6495026993218a77b7418d09b"
+      },
+      "profiles_unchanged": true,
+      "legacy_imported": false,
+      "authorizes_actions": false
+    }
+  ],
+  "profile_mutations": 0,
+  "host_activation": false,
+  "license_clearance": false,
+  "source_sha256": "edb60de4b05c72c7fb657b73e522b5e49e2ec2bfa0b1eb773f5c769e704a2fb8"
+}
