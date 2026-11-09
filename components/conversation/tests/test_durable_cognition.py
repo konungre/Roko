@@ -4,6 +4,7 @@ No test here claims native NARS, Omega, or Granite inference. Actual request
 extraction and SQLite transactions run; the supplied runner is explicitly synthetic.
 """
 import json
+import hashlib
 import os
 from pathlib import Path
 import sys
@@ -17,7 +18,7 @@ import conversation
 import durable_api as api
 from cognition import NarsCognition
 from recovered import system_message
-from components.nars_hyperon.source.contract import independent_expected,response_from_rows
+from components.nars_hyperon.source.contract import canonical,independent_expected,response_from_rows
 
 TEXT='A robin is a bird. A bird is an animal. What follows?'
 CAT='A cat is a mammal. A mammal is an animal. What follows?'
@@ -107,6 +108,33 @@ class DurableCognitionTests(unittest.TestCase):
         self.assertEqual(len(self.runner.calls),1);self.assertEqual(self.provider.calls,1)
         self.assertEqual(self.snapshot(),old)
 
+    def test_native_evidence_binds_session_request_and_claimed_revision(self):
+        self.assertTrue(self.prepare())
+        receipt=conversation.session.reasoner.receipts[-1]
+        binding={'session_id':'one','request_id':'r1','revision':0}
+        digest=hashlib.sha256(canonical(binding)).hexdigest()
+        self.assertEqual(receipt['turn_binding'],binding)
+        self.assertEqual(receipt['binding_sha256'],digest)
+        self.assertEqual(receipt['prompt_context']['id'],'nars_'+digest)
+        sidecar=json.loads((self.runner.directories[-1]/'turn-binding.json').read_text())
+        self.assertEqual(sidecar['turn_binding'],binding)
+        self.assertEqual(sidecar['native_request_sha256'],hashlib.sha256(canonical(self.runner.calls[-1])).hexdigest())
+        self.complete()
+        self.assertTrue(self.prepare(session_id='two'))
+        self.assertNotEqual(conversation.session.reasoner.receipts[-1]['binding_sha256'],digest)
+        self.complete()
+
+    def test_failed_request_successor_has_distinct_evidence_identity(self):
+        self.assertTrue(self.prepare())
+        first=conversation.session.reasoner.receipts[-1]['binding_sha256']
+        api.abort()
+        self.assertTrue(self.prepare(request_id='retry-new-id'))
+        receipt=conversation.session.reasoner.receipts[-1]
+        self.assertNotEqual(receipt['binding_sha256'],first)
+        self.assertEqual(receipt['turn_binding']['revision'],0)
+        self.assertEqual(receipt['turn_binding']['request_id'],'retry-new-id')
+        self.complete()
+
     def test_failed_model_preserves_prior_cognitive_ledger_and_history(self):
         self.assertTrue(self.prepare());self.complete();old=self.snapshot()
         self.provider.fail=True
@@ -128,7 +156,8 @@ class DurableCognitionTests(unittest.TestCase):
         self.assertTrue(self.prepare(session_id='two',text=CAT));self.complete()
         self.assertEqual([r['revision'] for r in self.runner.calls],[1,1])
         self.assertEqual(len(set(self.runner.directories)),2)
-        self.assertTrue(all(p.name.startswith('turn_1-') for p in self.runner.directories))
+        self.assertTrue(all(p.name.startswith(r['binding_sha256']+'-')
+            for p,r in zip(self.runner.directories,conversation.session.reasoner.receipts)))
         one=self.snapshot('one');two=self.snapshot('two')
         self.assertIn('robin -> animal',one['cognitive_history'][0]['text'])
         self.assertNotIn('robin -> animal',two['cognitive_history'][0]['text'])

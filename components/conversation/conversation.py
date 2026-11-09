@@ -30,6 +30,7 @@ class Session:
         self.cognitive_context = []
         self.cognitive_history = []
         self.pending_cognition = []
+        self.cognitive_binding = None
 
     def prepare(self, request):
         """Stage one turn. Failed inference must leave committed history intact."""
@@ -77,7 +78,11 @@ class Session:
                             for index, fact in enumerate(facts) if f'ctx_{index}' in focus]
         if self.reasoner is not None:
             try:
-                observations = self.reasoner(text, [dict(message) for message in self.history])
+                history = [dict(message) for message in self.history]
+                if self.cognitive_binding is not None and hasattr(self.reasoner,'reason_turn'):
+                    observations = self.reasoner.reason_turn(text,history,self.cognitive_binding)
+                else:
+                    observations = self.reasoner(text,history)
             except Exception as error:
                 raise NativePreparationError(str(error)) from error
             if type(observations) is not list or len(observations)>2:

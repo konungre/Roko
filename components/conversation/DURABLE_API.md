@@ -124,6 +124,11 @@ NARS. Actual native NAL-1 deductions enter the model prompt as uncertain beliefs
 with premise values explicitly labeled controller policy. The internal ledger
 is restored across worker restarts and commits with history; failed or cancelled
 turns do not commit new observations. It is separate from ECAN `context_ids`.
+NARS evidence is bound to the claimed `{session_id, request_id, revision}`;
+`revision` is the pre-turn CAS revision. The internal observation ID is `nars_`
+plus the SHA-256 of that canonical binding. A unique suffix isolates evidence
+attempt directories. A `turn-binding.json` sidecar links the binding, conversation
+snapshot, and native request/response hashes. Saved replay performs no inference.
 No public v2 fields changed for either integration.
 No full autonomous Omega loop, model-generated command execution, guest deployment,
 or graphical desktop qualification is implied.

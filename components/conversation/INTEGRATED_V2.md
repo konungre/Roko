@@ -11,11 +11,11 @@ The basilisk client must explicitly adopt v2 before switching launchers.
 
 ## Qualification
 
-The integrated native probe passed all 29 checks in 165.042 seconds. Both real
+The integrated native probe passed all 31 checks in 192.635 seconds. Both real
 conversation turns completed across a worker restart; replay, CAS rejection,
 partial-output replay, input rejection, resident-model cancellation and explicit
-recovery passed. The first two native model calls took 5.458 and 7.116 seconds.
-These are this host's measured cases, not a latency guarantee. All 92 conversation
+recovery passed. The first two native model calls took 6.448 and 8.319 seconds.
+These are this host's measured cases, not a latency guarantee. All 94 conversation
 tests and four NARS parent-lifetime tests passed. See
 [the native summary](INTEGRATED_NATIVE_SUMMARY.json) for exact checks.
 
@@ -40,7 +40,10 @@ NARS recognizes only two leading explicit inheritance assertions forming one
 three-symbol chain. Unsupported prose remains ordinary conversation. Native
 truth functions derive an uncertain belief; premise confidence is labeled
 controller policy, not independent evidence. Committed observations survive
-restart. ECAN's selected context IDs remain separate from these observations.
+restart. Each v2 observation is keyed by the claimed session, request and CAS
+revision; its evidence sidecar links native request/response and snapshot hashes.
+A unique attempt suffix prevents directory collisions. ECAN's selected context
+IDs remain separate from these observations.
 All generated model prose is unverified. The endpoint has no action executor.
 
 ## Requalification

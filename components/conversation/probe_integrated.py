@@ -120,6 +120,10 @@ def main():
         check('first_ecan_selection',one.get('context_ids')==['brief','exact','safe','uncertain'])
         check('first_mork',good_mork(record['mork_receipts'][0],0,0))
         cognitive=record['cognitive_receipts'][0];native=cognitive['receipt'];packet=json.loads(native['stdout'])
+        binding={'session_id':'main','request_id':'first','revision':0}
+        check('first_explicit_turn_binding',cognitive.get('turn_binding')==binding
+              and cognitive.get('binding_sha256')==hashlib.sha256(canonical(binding)).hexdigest()
+              and cognitive['prompt_context']['id']=='nars_'+cognitive['binding_sha256'])
         check('first_actual_nars',native['status']=='passed' and native['returncode']==0
               and response_from_rows(cognitive['request'],packet['native_rows'])==cognitive['response'])
         check('first_nars_snapshot',cognitive['snapshot_sha256']==hashlib.sha256(canonical({'text':FIRST,'history':[]})).hexdigest())
@@ -188,6 +192,11 @@ def main():
         check('cancel_resident_model_cleanup',any(r['comm']=='infer' and r['rss']>3*1024**3 and r['cpu_ticks']>50 for r in before)
               and not after and cancel_receipt['answer_bytes']==0)
         check('cancel_nars_completed_before_model',len(nars_evidence)==1 and nars_evidence[0]['receipt']['status']=='passed')
+        cancelled_binding={'session_id':'main','request_id':'cancelled','revision':2}
+        sidecars=[json.loads((Path(item['path']).parent/'turn-binding.json').read_text()) for item in nars_evidence]
+        check('cancel_explicit_turn_binding',len(sidecars)==1
+              and sidecars[0]['turn_binding']==cancelled_binding
+              and sidecars[0]['binding_sha256']==hashlib.sha256(canonical(cancelled_binding)).hexdigest())
         pending=read_state(database,'main')
         check('cancel_no_ledger_commit',pending['revision']==2 and pending['history']==baseline['history']
               and pending['cognitive_history']==ledger and pending['pending']=='cancelled')

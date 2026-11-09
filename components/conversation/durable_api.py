@@ -122,6 +122,8 @@ def prepare_line(line):
         session = conversation.session
         session.history = claim['history']
         session.cognitive_history = claim['cognitive_history']
+        session.cognitive_binding = {'session_id':data['session_id'],
+            'request_id':data['request_id'],'revision':claim['revision']}
         session.max_output_tokens = maximum
         session.provider.max_tokens = maximum
         session.provider.last_error = None

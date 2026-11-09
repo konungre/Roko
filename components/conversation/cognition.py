@@ -50,21 +50,45 @@ class NarsCognition:
         self.run=run;self.receipts=[]
 
     def __call__(self,text,history):
+        return self._reason(text,history,None)
+
+    def reason_turn(self,text,history,binding):
+        """Bind v2 evidence to the already claimed durable request identity."""
+        if type(binding) is not dict or set(binding)!={'session_id','request_id','revision'}:
+            raise ValueError('Cognitive turn binding schema')
+        for key in ('session_id','request_id'):
+            if type(binding[key]) is not str or re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}',binding[key]) is None:
+                raise ValueError('Cognitive turn binding identifier')
+        if type(binding['revision']) is not int or binding['revision']!=len(history)//2:
+            raise ValueError('Cognitive turn binding revision')
+        return self._reason(text,history,dict(binding))
+
+    def _reason(self,text,history,binding):
         snapshot=canonical({'text':text,'history':history})
         request=extract(text,len(history)//2+1)
         if request is None:return []
+        identity=hashlib.sha256(canonical(binding)).hexdigest() if binding is not None else request['task_id']
+        directory=self.evidence_root/(identity+'-'+uuid.uuid4().hex)
         response,receipt=self.run(request,manifest=self.manifest,admission=self.admission,
-            evidence_directory=self.evidence_root/(request['task_id']+'-'+uuid.uuid4().hex))
+            evidence_directory=directory)
         if canonical({'text':text,'history':history})!=snapshot:raise ValueError('Conversation changed during inference')
         # Runtime verifies the native rows independently. Keep their full evidence
         # while giving the LLM a compact, explicitly uncertain prompt projection.
         conclusion=next(c for c in response['conclusions'] if c['rule']=='deduction')
         self.receipts.append({'snapshot_sha256':hashlib.sha256(snapshot).hexdigest(),
             'request':request,'response':response,'receipt':receipt})
+        if binding is not None:
+            provenance={'turn_binding':binding,'binding_sha256':identity,
+                'snapshot_sha256':hashlib.sha256(snapshot).hexdigest(),
+                'native_request_sha256':hashlib.sha256(canonical(request)).hexdigest(),
+                'native_response_sha256':hashlib.sha256(canonical(response)).hexdigest()}
+            with (directory/'turn-binding.json').open('xb') as stream:
+                stream.write(canonical(provenance)+b'\n')
+            self.receipts[-1].update(provenance)
         text=(f"MeTTa-NARS NAL-1 derived {conclusion['subject']} -> {conclusion['predicate']} "
               f"from the two user assertions (frequency={conclusion['frequency']:.6g}, "
               f"confidence={conclusion['confidence']:.6g}). Uncertain derived belief. "
               "Premise values f=1,c=0.9 are controller policy, not measured probabilities "
               "or verified facts. No action is authorized.")
-        self.receipts[-1]['prompt_context']={'id':'nars_'+request['task_id'],'text':text}
-        return [{'id':'nars_'+request['task_id'],'text':text}]
+        self.receipts[-1]['prompt_context']={'id':'nars_'+identity,'text':text}
+        return [{'id':'nars_'+identity,'text':text}]
