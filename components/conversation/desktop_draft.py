@@ -28,6 +28,21 @@ class DesktopDraft:
     def receive_reply(self, packet):
         self._require_active()
         self._reply.receive(packet)
+    def create_reply_receiver(self):
+        active=self._require_active()
+        if __package__:
+            from .reply_framing import ReplyIngress
+        else:
+            from reply_framing import ReplyIngress
+        def deliver(line):
+            if self._active is not active:raise ValueError('Reply receiver belongs to an old attempt')
+            self.receive_reply_line(line)
+        def lost():
+            if self._active is active:
+                self._needs_snapshot=True
+                if self._reply.view() is None:self._active.transport_lost()
+                else:self._active.reply_stream_ended()
+        return ReplyIngress(deliver,lost)
     def receive_reply_line(self, line):
         self._require_active()
         self._reply.receive_line(line)
