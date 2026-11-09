@@ -135,8 +135,8 @@
     },
     {
       "path": "docs/media/roko-autonomous-demo-v2-still.png",
-      "bytes": 1181255,
-      "sha256": "df7f4e2f80464eff17bbe8bfbdaca2bef98c80f06611e830efa872ff2816068a",
+      "bytes": 1182733,
+      "sha256": "378e4f168db8fb1a527611128a9b1a50a1ab57181ad865691e6e71da71e49415",
       "dimensions": [
         1672,
         941
@@ -145,8 +145,8 @@
     },
     {
       "path": "docs/media/roko-autonomous-demo-v2.gif",
-      "bytes": 1284089,
-      "sha256": "c1b8645f666db2e0908cd004012c9a0529e97805bb76d66b298c405c8192e450",
+      "bytes": 1270706,
+      "sha256": "f4d448837b78ddf34857b8e5493c6f975d820d36cce5aef833b6fa993f0dd4a7",
       "dimensions": [
         1254,
         706
@@ -168,8 +168,8 @@
     },
     {
       "path": "docs/media/roko-research-concept-v2.png",
-      "bytes": 1187122,
-      "sha256": "d9096931fe41d5f6085881cc61e5c915512aea9e229c2909d055b2843a94de8b",
+      "bytes": 1170649,
+      "sha256": "c1188c468ad5f7aeb0c8cd98e5918546922281eaadb42ee95c6e9bda6bc9582f",
       "dimensions": [
         1672,
         941
