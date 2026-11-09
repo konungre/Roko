@@ -100,3 +100,21 @@ Evidence: planner-observed-parity-002/result.json. This establishes observation
 boundary/parity behavior, not a live canonical /nix/store package installation,
 closure integrity, production readiness or license clearance. Legacy bindings
 remain untouched and the draft licensing block remains.
+
+## Native missing/corrupt rollback observation gate
+
+`qualify_profile_failures.py NIX_BASE NEW_OUTPUT` builds fresh private profiles,
+retains the first, and activates the second. It temporarily moves only the old
+private symlink to simulate a missing target, then points it at a disposable copy
+with malformed JSON, and finally a valid manifest from the wrong generation.
+All three native rollback observations are rejected with the active token
+unchanged. Restoring the old private symlink permits reviewed rollback at the
+next revision, restoring payload1. The original native manifest digest remains
+unchanged. No Nix store object is deliberately corrupted; only a private copy is
+written, and symlink manifests are refused before writing.
+
+The final receipt is profile-observation-failures-002/result.json. Twelve state
+tests pass. These are process-level private fixtures, not installed OS recovery,
+physical power loss, guest health or licensing clearance. Legacy consumers and
+the repository-wide unresolved-source issue remain unchanged. Keep PR22 draft
+until independent review and provenance/rights decisions are complete.
