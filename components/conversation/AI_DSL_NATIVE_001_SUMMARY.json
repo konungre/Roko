@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "checks": {
+    "completed": true,
+    "native_search_results": true,
+    "no_services_executed": true,
+    "one_component_one_model_one_motto": true,
+    "structured_matches_native_receipt": true,
+    "changed_request_conflict": true,
+    "atomic_observation": true,
+    "restart_replay_no_execution": true
+  },
+  "seconds": 48.215109896000286,
+  "executed_actions": 0,
+  "result_sha256": "a8b70cdc77fd10fff2c9a6ce03922f6a2602401fd1909f65bdec63e1564876ae",
+  "model_text": "The speech/emotion AI-DSL search found one accepted plan and one rejected plan. No speech or emotion recognition service actually ran.\n",
+  "suite": {
+    "tests": 151,
+    "passed": 147,
+    "skipped": 4
+  },
+  "executed_services": 0,
+  "scope": "Actual AI-DSL composition search -> Omega/PeTTa -> MeTTa-Motto -> native Granite, durable atomic results and restart replay"
+}

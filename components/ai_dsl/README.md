@@ -15,6 +15,11 @@ pipelines are search results, not completed service calls; responses explicitly
 report `executed_services: 0`, `executed_actions: 0` and `service_results: null`.
 No conversation integration is claimed for this standalone gateway.
 
+The optional `ai_dsl` cognitive task is integrated separately in
+`components/conversation`: actual search results are staged as bounded advisory
+context and exact `cognitive_results`, committed with durable history and replayed
+without recomputation. See `../conversation/AI_DSL_V2.md` for the qualified path.
+
 ## Why the independent capability check is needed
 
 The upstream depth-four speech/emotion query returns two type-correct proofs.

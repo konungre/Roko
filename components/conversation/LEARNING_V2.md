@@ -12,10 +12,11 @@ synthetic examples in `tests/learning_fixtures.json`.
 | MetaMo | Five pinned upstream modules; MAGUS proposal scores, selection and proposed goal delta. Independent oracle checks the actual scores and choice. |
 | AIRIS | Original pinned Airis class; four recorded scalar transitions, rule creation/update, held-out prediction, empty-knowledge ablation and snapshot restoration. |
 | NACE | The exact seven-function upstream-derived slice; bounded 3×3 board/rules, evidence revision and hypothetical prediction checked against an independent oracle. |
+| AI-DSL (optional) | Actual upstream type-composition search on Hyperon, with independent type/depth/capability checks. No synthesized service is executed. See `AI_DSL_V2.md`. |
 
 ## Durable behavior
 
-The optional list has at most one task per component and a 10,000-byte cap.
+The optional list has at most three tasks, one per component, and a 10,000-byte cap.
 Existing typed contracts bound all states, candidates, transitions and rules.
 Pure validation happens before the durable claim. The complete task list enters
 the request fingerprint; altered tasks cannot reuse an existing request ID.

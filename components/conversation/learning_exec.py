@@ -17,17 +17,21 @@ def main():
     sys.path.insert(0,str(ROOT))
     from components.nars_hyperon.source.runtime import verify
     guard=json.loads(Path(guard_path).read_bytes());verify(guard,guard_admission)
-    if name not in ('metamo','airis','nace'):raise ValueError('Unknown component')
+    if name not in ('metamo','airis','nace','ai_dsl'):raise ValueError('Unknown component')
     raw=Path(manifest_path).read_bytes()
     if hashlib.sha256(raw).hexdigest()!=admission:raise ValueError('Component manifest digest')
     manifest=json.loads(raw)
     request_raw=sys.stdin.buffer.read(16385)
     if not 0<len(request_raw)<=16384:raise ValueError('Request cap')
     request=json.loads(request_raw)
-    path=(ROOT/'components/nace/qualification/run_host_slice.py' if name=='nace' else ROOT/('components/'+name+'_host/qualify.py'))
+    path=(ROOT/'components/ai_dsl/gateway.py' if name=='ai_dsl' else
+          ROOT/'components/nace/qualification/run_host_slice.py' if name=='nace' else ROOT/('components/'+name+'_host/qualify.py'))
     spec=importlib.util.spec_from_file_location('fixed_component_gate',path)
     gate=importlib.util.module_from_spec(spec);spec.loader.exec_module(gate)
-    if name=='metamo':
+    if name=='ai_dsl':
+        manifest=dict(manifest,evidence_root=str(directory))
+        response,receipt=gate.run(request,manifest)
+    elif name=='metamo':
         from contract import parse_request
         request=parse_request(request_raw)
         scores=[gate.score(request['state'],c) for c in request['candidates']]
