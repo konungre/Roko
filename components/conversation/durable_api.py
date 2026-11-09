@@ -43,6 +43,8 @@ class DurableSession(conversation.Session):
                     'history_policy':'complete_no_omission'}
         if self.pending_component_results:
             response['cognitive_results']=self.pending_component_results
+        if self.pending_package_state is not None:
+            response['package_state']=self.pending_package_state
         if getattr(self.provider,'context_policy','complete') == 'extractive_v1':
             metadata = getattr(self.provider,'model_context',None)
             if type(metadata) is not dict:
@@ -54,6 +56,7 @@ class DurableSession(conversation.Session):
         self.cognitive_history = [dict(item) for item in self.cognitive_context]
         self.pending_cognition = []
         self.pending_component_results = []
+        self.pending_package_state = None
         self.pending = None
         current = None
         completed = json.dumps(saved,ensure_ascii=False)
@@ -219,5 +222,7 @@ def abort():
     conversation.session.reply = None
     conversation.session.pending_cognition = []
     conversation.session.pending_component_results = []
+    conversation.session.pending_package_state = None
+    conversation.session.package_context = []
     conversation.session.cognitive_context = [dict(item) for item in conversation.session.cognitive_history]
     return json.dumps(error_response(code,data),ensure_ascii=False)

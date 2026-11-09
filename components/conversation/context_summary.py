@@ -25,7 +25,7 @@ def _canonical(value):
 
 
 def build_summary(history, current_text, *, count_tokens, budget=512,
-                  recent_pairs=1, cognitive_context=None, context=None):
+                  recent_pairs=1, cognitive_context=None, context=None, package_context=None):
     """Return (model_messages, provenance), or fail closed without a prompt.
 
     Spans are half-open Unicode codepoint offsets into original message content.
@@ -50,7 +50,8 @@ def build_summary(history, current_text, *, count_tokens, budget=512,
     cut = max(0, len(original) - recent_pairs * 2)
     system = system_message(SimpleNamespace(
         context=copy.deepcopy(context if context is not None else []),
-        cognitive_context=copy.deepcopy(cognitive_context if cognitive_context is not None else [])))
+        cognitive_context=copy.deepcopy(cognitive_context if cognitive_context is not None else []),
+        package_context=copy.deepcopy(package_context if package_context is not None else [])))
     for limit in (128, 64, 32, 16):
         excerpts = []
         quotations = []
