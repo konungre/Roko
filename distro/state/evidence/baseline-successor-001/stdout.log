@@ -1,0 +1,10 @@
+[33m--> metta runnable  -->
+[36m!(import! &self "/workspace/roko-foundation-review/omega-baseline/integration/package_bridge_v2.py")
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           'import!'('&self',
+                     "/workspace/roko-foundation-review/omega-baseline/integration/package_bridge_v2.py",
+                     A),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m
