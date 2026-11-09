@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "tested_base_main": "720ce746a90e65be91f01856a67594f08a25eb8d",
+  "groups": {
+    "live_cancel_recovery": {
+      "passed": true,
+      "checks": {
+        "actual_resident_inference": true,
+        "redraw_has_no_effect": true,
+        "proposal_is_not_execution": true,
+        "cleanup_observed": true,
+        "real_snapshot_pending": true,
+        "actual_recovery_succeeded": true,
+        "early_reconcile_blocked": true,
+        "blocked_action_has_no_request": true,
+        "reconciled_no_pending": true,
+        "late_control_callback_ignored": true,
+        "draft_preserved_after_recovery": true,
+        "history_still_visible_after_release": true,
+        "real_native_reply": true,
+        "stop_after_reply_blocked": true,
+        "full_history_visible": true,
+        "stale_actual_snapshot_ignored": true,
+        "final_draft_retained": true,
+        "ready_with_saved_history": true,
+        "exact_one_completed_native_generation": true,
+        "ledger_and_store_preserved": true
+      },
+      "provenance": "Console harness with real endpoint snapshot/recovery/native replies and one real owned-worker stop. Control reply deliberately withheld, not a network-fault emulator. First history is the verified six-turn fixture; one subsequent native reply is newly generated. No GUI integration or production activation."
+    },
+    "live_context_limit": {
+      "passed": true,
+      "checks": {
+        "real_context_limit": true,
+        "readable_limit_message": true,
+        "draft_retained": true,
+        "unknown_history_not_empty": true,
+        "stop_unavailable_after_finished_error": true,
+        "real_history_unchanged": true,
+        "ready_keeps_draft_and_history": true,
+        "no_successful_generation_on_error": true,
+        "failed_id_terminal": true
+      },
+      "provenance": "Real endpoint context_limit against a copy of the prior live run database. Seeded six-turn fixture plus one earlier live native reply; no fresh successful generation in this error case. No GUI integration."
+    }
+  },
+  "live_checks_passed": 29,
+  "console_unit_tests_passed": 16,
+  "synthetic_walkthroughs_passed": 2,
+  "suite_run": 346,
+  "suite_passed": 345,
+  "suite_skipped": 1,
+  "fixture_exchanges": 6,
+  "fresh_completed_native_replies": 1,
+  "cancelled_native_prefills": 1,
+  "limit_case_successful_generations": 0,
+  "gui_integrated": false,
+  "production_activated": false,
+  "raw_evidence": "Local checkpoint; failed transfer was not retried through another route.",
+  "probe_sha256": {
+    "probe_waiting_console.py": "1fb5e8ebc4ed19616d2a93345c1d60508055e1ca8d7df65af08e42c3de6ae069",
+    "probe_waiting_console_limit.py": "5980134add569bbaed884eafcc81753aa261febe67eab9f4d19b9402c55ea68e"
+  }
+}
