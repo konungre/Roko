@@ -14,6 +14,18 @@ from probe_gate import serial_evidence
 def sha(p):
  with Path(p).open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
 
+def check_filesystem(disk,tools):
+ """Read-only offline check after every guest has exited."""
+ fd=os.open(disk,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK)
+ try:
+  info=os.fstat(fd)
+  if not stat.S_ISREG(info.st_mode) or info.st_nlink!=1 or info.st_uid!=os.getuid():raise ValueError('Private regular state disk required')
+  before=sha(disk)
+  result=subprocess.run([str(tools/'usr/sbin/e2fsck'),'-f','-n',f'/proc/self/fd/{fd}'],pass_fds=(fd,),capture_output=True,text=True,timeout=60,env={'PATH':'/usr/bin:/bin','LC_ALL':'C','LD_LIBRARY_PATH':str(tools/'usr/lib/x86_64-linux-gnu')})
+  after=sha(disk)
+  return {'passed':result.returncode==0 and before==after,'returncode':result.returncode,'image_unchanged':before==after,'image_sha256':after,'output':result.stdout+result.stderr,'tool_sha256':sha(tools/'usr/sbin/e2fsck')}
+ finally:os.close(fd)
+
 def run(capsule,runtime,lock,tools,out,crash_recovery=False):
  capsule,runtime,lock,tools,out=map(Path,(capsule,runtime,lock,tools,out))
  verify_runtime(runtime,lock)
@@ -104,6 +116,8 @@ print('ROKO_STATE_PASSED '+json.dumps({'phase':phase,'uid':os.getuid()}),flush=T
   rows.append({'phase':phase,'passed':passed,'returncode':proc.returncode,'crash_injected':injected,'child_reaped':True,'serial_sha256':sha(path)})
   if not passed:break
  report={'schema':'roko-private-state-coldboot-v1','passed':len(rows)==len(phases) and all(r['passed'] for r in rows),'boots':rows,'initramfs_sha256':sha(initrd),'state_sha256':sha(disk),'cosmic_tested':False,'model_tested':False,'network':False,'crash_recovery':crash_recovery}
+ report['offline_filesystem']=check_filesystem(disk,tools)
+ report['passed']=report['passed'] and report['offline_filesystem']['passed']
  (out/'result.json').write_text(json.dumps(report,indent=2)+'\n');return report
 if __name__=='__main__':
  p=argparse.ArgumentParser(description=__doc__)
