@@ -1,0 +1,9 @@
+{
+  "source": "user-supplied omega-metta-pm-0.2.0.zip",
+  "sha256": "c4fec119e9f37eb94a2dab4ff01131ec4bb2b49145e5e7378b64765bdd34096f",
+  "tests_passed": 30,
+  "tests_skipped": 1,
+  "live_nix": false,
+  "live_guix": false,
+  "live_atomspace": false
+}
