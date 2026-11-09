@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "checks": {
+    "actual_native_generation_before_lost_delivery": true,
+    "committed_response_recovered": true,
+    "complete_history": true,
+    "zero_native_replay_work": true,
+    "replay_no_database_change": true,
+    "unknown_delivery_outcome_guidance": true,
+    "original_revision_preserved": true,
+    "recall": true
+  },
+  "reply": {
+    "api_version": 2,
+    "context_ids": [],
+    "executed_actions": 0,
+    "generation": {
+      "finish_reason": "eos",
+      "input_tokens": 487,
+      "output_tokens": 7
+    },
+    "history_policy": "complete_no_omission",
+    "model_context": {
+      "authoritative_history_changed": false,
+      "budget": 512,
+      "full_history_sha256": "17cd25fb27dbb8a3b7e52f3534085989ab0d21dbda27063af6a2bf758174f395",
+      "model_context_complete": true,
+      "omitted_assistant_count": 0,
+      "omitted_count": 0,
+      "policy": "extractive_v1",
+      "prompt_sha256": "f1f8eac264314657079ca1911c3539798e77c44f392e1175221a19c7d7cbe5a1",
+      "token_count": 487
+    },
+    "request_id": "lost-delivery",
+    "revision": 7,
+    "session_id": "language",
+    "status": "completed",
+    "text": "Red foxes and robins.\n"
+  },
+  "guidance": {
+    "code": "transport_failure",
+    "message": "Delivery stopped before a complete response. Inspect the session, then resubmit the exact original request, including request_id, expected_revision, and payload, to retrieve any saved response. A pending claim must be resolved explicitly; no automatic retry is performed.",
+    "next_operation": "snapshot",
+    "retry_mode": "exact_original_request_after_snapshot",
+    "automatic_retry": false,
+    "requires_user_decision": true,
+    "requires_verified_dead_owner": false,
+    "outcome": "unknown"
+  },
+  "evidence_provenance": "local controlled lost-delivery simulation; not independent reproduction",
+  "executed_actions": 0,
+  "diagnostics_tests_passed": 8
+}
