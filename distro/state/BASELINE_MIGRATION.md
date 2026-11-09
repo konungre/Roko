@@ -118,3 +118,26 @@ tests pass. These are process-level private fixtures, not installed OS recovery,
 physical power loss, guest health or licensing clearance. Legacy consumers and
 the repository-wide unresolved-source issue remain unchanged. Keep PR22 draft
 until independent review and provenance/rights decisions are complete.
+
+## Reconciled opt-in for existing bridge consumers
+
+The branch merged current main0f3117c without conflicts (merge a861b46), preserving
+all upstream work. Existing `package_bridge.py` now reads a trusted launch-time
+ROKO_PACKAGE_PLANNER selector. Unset/legacy retains the old import and behavior;
+successor-v2 imports only the independent scalar adapter; unknown values fail
+instead of silently choosing a backend. Request/snapshot data cannot set it.
+The existing native test runner forwards this one launch selection and records
+it. Existing code importing package_planning directly is not migrated.
+
+Adoption/rollback: restart the bridge-owning process with successor-v2 after
+consumer schema2 acceptance; to restore the default, restart with legacy or unset
+the selector. No profile/package or user database migration is performed. Keep
+legacy source while any default/direct consumer depends on it, and obtain rights
+proof or replace remaining consumers before claiming repository-wide clearance.
+
+Fourteen state/bridge tests pass after reconciliation. Fresh subprocess tests
+prove default legacy, complete inner-plan equality, no omega_pm import in successor
+mode, and unknown-mode rejection. Both launch selections also passed the SAME
+actual PeTTa/Janus bridge fixture (count, desired path, no authority), with native
+logs retained in bridge-opt-in-native-001. The reconciled 101-test OS suite passed.
+This is opt-in behavior only; no production consumer or host state was activated.
