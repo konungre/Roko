@@ -51,3 +51,17 @@ are authored integration code, not a claim of full upstream execution.
 commit `db19ad4e2cea33e6129c8bf03e85797da8cf7625`, Apache-2.0. Original
 LICENSE and NOTICE are retained under `components/airis/upstream/`. Original
 `airis.py` and runtime binaries are not included.
+
+## Conversation Hyperon release audit
+
+Hyperon v0.2.10 resolves to `3f76dc460da6961f57f69f6c3e550c59c74ada83`.
+Its exact source LICENSE is MIT, copyright SingularityNET Foundation (2021),
+retained at `components/nars_hyperon/licenses/hyperon-0.2.10-LICENSE`.
+The observed wheel metadata independently declares MIT. No LICENSE/NOTICE files
+were embedded in that wheel, which also bundles native libraries. Root NOTICE
+and Cargo.lock returned HTTP404 at the inspected release commit. These are
+observations, not proof that no component-specific notices or lockfiles exist.
+See `components/nars_hyperon/LICENSE_AUDIT.json` for the wheel digest and native
+library inventory. Their individual redistribution obligations remain unaudited;
+the wheel/native closure remains external. Existing exact MIT MeTTa-NARS source
+and license are reused. No universal Apache-2.0 attribution is applied.
