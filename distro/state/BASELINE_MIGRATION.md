@@ -79,3 +79,24 @@ planner-complete-parity-002. This supersedes the earlier unordered-only parity
 finding, not its historical evidence. No legacy binding was modified.
 General MeTTa text parser parity and external caller compatibility remain outside
 this scalar bridge gate. Licensing/provenance remains unresolved repository-wide.
+
+## Real read-only observation fixtures
+
+`qualify_observed_parity.py REPOSITORY NIX_BASE NEW_OUTPUT` reads native Nix JSON
+for two retained nonempty private profiles and a retained empty generation.
+No profile/package write command is invoked. Actual workspace store paths are
+not rewritten to /nix/store: both bridges correctly reject those noncanonical
+paths, including when desired intent is canonical but observed paths are not.
+Duplicate provenance rejection is also compared. A real empty native generation
+plus explicitly labelled fixture intent produces equal complete plans in both
+bridges. The desired canonical fixture path is not claimed installed or real.
+
+Seven comparisons passed across three native observations. A missing-path native
+read failed as expected. Active pointer and journal hash stayed unchanged; all
+retained rollback profiles remained present. These retained fixtures predate the
+monotonic pointer journal and are read-only here, not candidates for automatic
+migration or mutation under the new adapter. Twelve state tests pass.
+Evidence: planner-observed-parity-002/result.json. This establishes observation
+boundary/parity behavior, not a live canonical /nix/store package installation,
+closure integrity, production readiness or license clearance. Legacy bindings
+remain untouched and the draft licensing block remains.
