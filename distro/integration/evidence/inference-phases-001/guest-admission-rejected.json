@@ -1,0 +1,12 @@
+{
+  "memory": {
+    "host_available_bytes": 17940246528,
+    "visible_cgroup_limit_bytes": 17179869184,
+    "visible_cgroup_current_bytes": 16730918912,
+    "visible_cgroup_remaining_bytes": 448950272,
+    "observed_headroom_bytes": 448950272,
+    "scope": "visible host/cgroup snapshot only; no reclaim or hidden-ancestor guarantee"
+  },
+  "host_activation": false,
+  "guest_started": false
+}
