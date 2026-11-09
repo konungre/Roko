@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "checks": {
+    "native_nars_executed_before_failure": true,
+    "exact_budget_refusal": true,
+    "no_model_on_failed_plan": true,
+    "failed_snapshot_unchanged": true,
+    "failed_ledger_preserved": true,
+    "restart_recovery": true,
+    "complete_recovery_context": true,
+    "recall": true,
+    "exact_replay": true,
+    "full_prior_history_retained": true,
+    "new_failed_belief_not_committed": true,
+    "terminal_failed_id": true,
+    "terminal_no_native_work": true,
+    "original_checkpoint_unchanged": true
+  },
+  "failed_minimum_input_tokens": 582,
+  "recovery_reply": {
+    "api_version": 2,
+    "session_id": "language",
+    "request_id": "short-recovery",
+    "status": "completed",
+    "text": "Red foxes and robins.\n",
+    "context_ids": [],
+    "executed_actions": 0,
+    "generation": {
+      "input_tokens": 487,
+      "output_tokens": 7,
+      "finish_reason": "eos"
+    },
+    "history_policy": "complete_no_omission",
+    "model_context": {
+      "policy": "extractive_v1",
+      "model_context_complete": true,
+      "token_count": 487,
+      "budget": 512,
+      "prompt_sha256": "f1f8eac264314657079ca1911c3539798e77c44f392e1175221a19c7d7cbe5a1",
+      "full_history_sha256": "17cd25fb27dbb8a3b7e52f3534085989ab0d21dbda27063af6a2bf758174f395",
+      "omitted_count": 0,
+      "omitted_assistant_count": 0,
+      "authoritative_history_changed": false
+    },
+    "revision": 7
+  },
+  "evidence_provenance": "local execution; not independent reproduction",
+  "executed_actions": 0,
+  "tested_main": "5a8e3a42286d9c086fb2d2bca1884295f9c01eed",
+  "tests_run": 185,
+  "tests_passed": 184,
+  "tests_skipped": 1,
+  "native_result_sha256": "f6b4b64b4c80d4c1b69cb9f02050a980c91f248790449e29e28be0ef50f2f6a0"
+}
