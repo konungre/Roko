@@ -118,6 +118,8 @@ in import ./system-eval.nix {
         productionReady = false;
       };
     })
-    ({ lib, ... }: lib.mkIf (networkPolicy == "offline") (import ./offline-startup.nix { inherit lib; }))
+    ({ lib, ... }: import ./session-network-policy.nix {
+      inherit lib; offline = networkPolicy == "offline";
+    })
   ];
 }

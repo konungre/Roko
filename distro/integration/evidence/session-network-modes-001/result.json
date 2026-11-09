@@ -1,0 +1,222 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "case": "offline",
+      "returncode": 0,
+      "passed": true,
+      "evaluation": {
+        "nix": {
+          "channel": {
+            "enable": false
+          },
+          "nixPath": [],
+          "registry": {},
+          "settings": {
+            "flake-registry": "",
+            "substituters": []
+          }
+        },
+        "security": {
+          "polkit": {
+            "enable": true
+          }
+        },
+        "services": {
+          "accounts-daemon": {
+            "enable": true
+          },
+          "avahi": {
+            "enable": false
+          },
+          "dbus": {
+            "enable": true
+          },
+          "geoclue2": {
+            "enable": false
+          },
+          "pipewire": {
+            "enable": true
+          }
+        },
+        "systemd": {
+          "network": {
+            "wait-online": {
+              "enable": false
+            }
+          },
+          "services": {
+            "NetworkManager-wait-online": {
+              "enable": false
+            }
+          }
+        }
+      }
+    },
+    {
+      "case": "managed",
+      "returncode": 0,
+      "passed": true,
+      "evaluation": {
+        "nix": {
+          "channel": {
+            "enable": true
+          },
+          "nixPath": [
+            "fixture"
+          ],
+          "registry": {
+            "fixture": {}
+          },
+          "settings": {
+            "flake-registry": "fixture",
+            "substituters": [
+              "normal-trusted-cache-fixture"
+            ]
+          }
+        },
+        "security": {
+          "polkit": {
+            "enable": true
+          }
+        },
+        "services": {
+          "accounts-daemon": {
+            "enable": true
+          },
+          "avahi": {
+            "enable": true
+          },
+          "dbus": {
+            "enable": true
+          },
+          "geoclue2": {
+            "enable": true
+          },
+          "pipewire": {
+            "enable": true
+          }
+        },
+        "systemd": {
+          "network": {
+            "wait-online": {
+              "enable": true
+            }
+          },
+          "services": {
+            "NetworkManager-wait-online": {
+              "enable": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "case": "managed-user-disables-discovery",
+      "returncode": 0,
+      "passed": true,
+      "evaluation": {
+        "nix": {
+          "channel": {
+            "enable": true
+          },
+          "nixPath": [
+            "fixture"
+          ],
+          "registry": {
+            "fixture": {}
+          },
+          "settings": {
+            "flake-registry": "fixture",
+            "substituters": [
+              "normal-trusted-cache-fixture"
+            ]
+          }
+        },
+        "security": {
+          "polkit": {
+            "enable": true
+          }
+        },
+        "services": {
+          "accounts-daemon": {
+            "enable": true
+          },
+          "avahi": {
+            "enable": false
+          },
+          "dbus": {
+            "enable": true
+          },
+          "geoclue2": {
+            "enable": false
+          },
+          "pipewire": {
+            "enable": true
+          }
+        },
+        "systemd": {
+          "network": {
+            "wait-online": {
+              "enable": true
+            }
+          },
+          "services": {
+            "NetworkManager-wait-online": {
+              "enable": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "case": "offline-conflicting-force",
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    }
+  ],
+  "preflight": {
+    "memory": {
+      "sampled_monotonic_ns": 25673298768164,
+      "host_available_bytes": 17978646528,
+      "visible_cgroup_limit_bytes": 17179869184,
+      "visible_cgroup_current_bytes": 16961286144,
+      "visible_cgroup_remaining_bytes": 218583040,
+      "observed_headroom_bytes": 218583040,
+      "scope": "visible host/cgroup snapshot only; no reclaim or hidden-ancestor guarantee"
+    },
+    "full_evaluation_required_headroom_bytes": 335544320,
+    "full_evaluation_attempted": false,
+    "full_evaluation_admitted": false,
+    "fixture_required_headroom_bytes": 167772160,
+    "guest_started": false
+  },
+  "nixpkgs_pin": {
+    "repository": "https://github.com/NixOS/nixpkgs",
+    "revision": "f4a03c008967841f2a0b3cb7c436fc6fc31671f6",
+    "archive_url": "https://codeload.github.com/NixOS/nixpkgs/tar.gz/f4a03c008967841f2a0b3cb7c436fc6fc31671f6",
+    "archive_sha256": "20d36c656575bc07a2348396d31ae5a80187764b4cb401cedca11ee98ac4ea49",
+    "archive_bytes": 54695912,
+    "source_nar_hash": "sha256-ziZn2PvCJE5JEEpqTdxXwJpPB+L3YqoCpTAMCzyaP3U="
+  },
+  "pin_reverified_this_run": false,
+  "selected_library_hashes": {
+    "default.nix": "1e2b77b8a220b2684ee49817045794b06a30027c5a62e0ee32ab981fc0d14914",
+    "modules.nix": "9a1b38c6072ec6f80cdb1d1383ca8dc71d6a0ffff2122851fbbbbe222b1b411c"
+  },
+  "source_hashes": {
+    "session-network-policy.nix": "2e07f6eeac6498fbc028c26fdac6aab38a7e9d56095171f8430cae4e060a7fc0",
+    "offline-startup.nix": "fc6c424efcd0915deaa270f9f929d5dcdc84dcced8e26e2446fb8acf57022ffe"
+  },
+  "limits": {
+    "address_space_mib": 96,
+    "cpu_seconds": 3,
+    "wall_seconds": 5
+  },
+  "full_nixos_evaluated": false,
+  "image_built": false,
+  "guest_started": false,
+  "host_activation": false,
+  "scope": "small actual Nix module merger with synthetic option defaults; not complete connected/offline runtime behavior"
+}

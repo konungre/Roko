@@ -105,3 +105,59 @@ COSMIC login/teardown, namespace protection and image realization remain future
 gates. Passive admission still rejects a VM and no VM was launched. Guest model
 inference and the full Nix/COSMIC image remain unqualified. Preserve legacy defaults,
 unresolved licensing/notice gates, draft PR #22 and the metadata approval hold.
+
+## Offline versus connected users: bounded follow-up
+
+The build-time branch now lives in `session-network-policy.nix`, so the actual
+selection used by the live candidate can be evaluated separately without loading
+the full NixOS graph. The offline override contents are unchanged. Four small
+native Nix module-merger cases passed under a 96MiB address-space cap, 3 CPU
+seconds and 5 wall seconds, using the existing local workspace store and no
+network acquisition:
+
+| Fixture composition | Observed override behavior |
+| --- | --- |
+| Offline | Avahi/GeoClue off; empty channel-path/registry/substituter inputs and disabled waiters |
+| Managed | Existing synthetic upstream defaults preserved, including discovery/location and cache/registry/waiter settings |
+| Managed plus explicit user disables | User can turn discovery/location off without the offline policy re-enabling them |
+| Offline plus conflicting forced Avahi enable | Rejected as a conflicting definition rather than silently weakening the offline declaration |
+
+Local accounts/D-Bus/PipeWire/polkit fixture values remained enabled. These use the
+real pinned Nix library and actual policy fragment, but a synthetic option schema:
+**they are not full NixOS or live-network results**. In particular a true waiter
+value in the managed fixture only proves the policy did not override its default;
+it does not claim the complete managed image must wait for network-online.
+Library/file hashes and the previously qualified source pin are recorded; that
+whole source pin was not reverified in this follow-up.
+
+For users who connect online, select `networkPolicy = "managed"` in the reviewed
+image/generation inputs. That enables the existing NetworkManager path and avoids
+applying the offline-only discovery/geolocation and Nix source restrictions. The
+optional Avahi/GeoClue settings may still be disabled through reviewed Nix module
+composition if discovery/location is unwanted. The mini-schema proves that merge
+behavior, not a new runtime settings UI or activation path. This live evaluator
+still has its existing limited parameter interface; broader composition and
+full-image evaluation require a reviewed builder configuration.
+
+Offline mode is appropriate when automatic connection, LAN discovery and
+network-based geolocation are unwanted. It is deliberately not a convenient
+connected-desktop preset: services such as LAN discovery may be unavailable.
+Neither mode establishes packet isolation, unlocks the user/root account, enables
+SSH, changes firmware permissions or starts/downloads a model. Automatic upgrade,
+generation deletion and optimisation remain disabled independently of networking,
+so choosing managed mode does not silently change recovery/update policy.
+
+Fresh preflight observed only ~198MB under the visible 16GiB cgroup limit despite
+much larger host MemAvailable. A full evaluation with a 192MiB process cap plus
+128MiB reserve was therefore not attempted; no VM was launched. The small fixture
+requires 160MiB observed headroom and rechecks before each bounded native process.
+There is no automatic retry, cache dropping, cgroup adjustment or increased limit.
+The full system evaluators remain future gates when adequate resources are
+available. Existing generated unit/static-graph evidence is not relabelled as full
+configuration evaluation.
+
+All **138 OS tests passed**, as did live-image syntax parsing against the explicit
+workspace store. Receipts: `../integration/evidence/session-network-modes-001/`.
+Full COSMIC session startup, connected behavior, package closure/image build and
+guest inference remain unqualified. No host activation or metadata retry occurred;
+legacy defaults, licensing/notice limitations and draft/approval holds persist.
