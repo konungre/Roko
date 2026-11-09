@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "checks": {
+    "old_connection_replies_rejected": true,
+    "out_of_order_replies_rejected": true,
+    "cross_session_replies_rejected": true,
+    "service_health_not_assumed": true,
+    "real_endpoint": true,
+    "same_request_id_isolated": true,
+    "live_owner_rejected": true,
+    "dead_owner_explicitly_recovered": true,
+    "confirmation_required": true,
+    "original_replay": true,
+    "all_drafts_preserved": true,
+    "full_history_unchanged": true,
+    "no_automatic_requests": true,
+    "empty_failed_session_histories": true,
+    "zero_native_work": true
+  },
+  "provenance": "Local real v2 endpoint processes; replay/recovery only, no new model inference, no graphical UI",
+  "base": "19a253c81e0182c1d7745a7cdcb41a0d190d293b",
+  "source_hashes": {
+    "reconnect_state.py": "eee674cdc9cb37d0749a38e06473b94db06aef52cbe572b292e888bab95aedaf",
+    "desktop_draft.py": "0b0f2520cb317fdd4d07fd8e9939351df39968aa100af8229a59cd9fdc89a7e8",
+    "desktop_diagnostics.py": "3e5941c48a9987f32997a004b7ebcdcc75817bdd03e750f597f485c6cd930309",
+    "durable_server.py": "63d0d13848c40a18439090a23fc38976b9215b68256645ebe9d4455c0c8679ee"
+  }
+}
