@@ -1,0 +1,10 @@
+[Unit]
+Description=Optional AI lifecycle sentinel fixture
+DefaultDependencies=no
+After=roko-fixture-desktop.service
+BindsTo=roko-fixture-desktop.service
+[Service]
+Type=simple
+ExecStart=/usr/bin/true
+Restart=no
+KillMode=control-group

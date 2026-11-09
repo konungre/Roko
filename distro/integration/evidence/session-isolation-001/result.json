@@ -1,0 +1,67 @@
+{
+  "passed": true,
+  "policy": {
+    "fixture_policy_passed": true,
+    "desktop_waits_for_ai": false,
+    "automatic_ai_restart": false,
+    "scope": "two literal fixture units only; no drop-ins/aliases/generated graph or live-manager proof"
+  },
+  "native_static_verify_passed": true,
+  "systemd_units_executed": false,
+  "cases": [
+    {
+      "case": "explicit-ai-crash-1",
+      "ai_returncode": 17,
+      "desktop_pid": 24802,
+      "desktop_alive": true,
+      "automatic_restarts": 0
+    },
+    {
+      "case": "explicit-ai-crash-2",
+      "ai_returncode": 17,
+      "desktop_pid": 24802,
+      "desktop_alive": true,
+      "automatic_restarts": 0
+    },
+    {
+      "case": "explicit-ai-recovery",
+      "ai_pid": 24805,
+      "desktop_pid": 24802,
+      "desktop_alive": true
+    },
+    {
+      "case": "desktop-restart",
+      "new_desktop_pid": 24806,
+      "old_ai_reaped": true,
+      "ai_automatically_restarted": false
+    },
+    {
+      "case": "explicit-new-ai-session",
+      "ai_pid": 24807,
+      "desktop_pid": 24806,
+      "request_replay_attempted": false
+    }
+  ],
+  "all_children_reaped": true,
+  "children_started": 6,
+  "limits": {
+    "address_space_mib_per_child": 64,
+    "cpu_seconds_per_child": 2,
+    "output_bytes_per_sentinel": 16384,
+    "per_event_wall_seconds": 2
+  },
+  "unit_hashes": {
+    "roko-fixture-desktop.service": "62503f4c683b3d0683ecdc6400e40da21540ea3b59526a867cc3a6bf933ce2fc",
+    "roko-fixture-ai.service": "693a1ebac5e910868c27a5bc8f9329a0c2d3b6d645671801dcf31d9fcbacc076"
+  },
+  "source_hashes": {
+    "qualify_session_isolation.py": "649f066ec7aee6f6cfa543cb895287d7c576fdb0e9549f2fd5f1f7113204998e",
+    "session_isolation_policy.py": "cff1a29ebf62d14e80c2b20dd4026bce565f8e8e3014a88a86f310f09d7f5e4a",
+    "session_isolation_worker.py": "8e05e39082d85b1ea4afdeb33a71ca34161c726c9539c83fbc7f1709ff33dc61"
+  },
+  "systemd_analyze_sha256": "d89a879c2c87c4465e3a09588e18f27a14dd9228898679bbdbbc978802f64dce",
+  "guest_started": false,
+  "host_services_activated": false,
+  "desktop_or_model_executed": false,
+  "scope": "actual owned heartbeat processes plus static systemd unit checks; not COSMIC, inference, live systemd lifecycle or no-request-replay proof"
+}

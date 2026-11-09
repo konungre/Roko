@@ -1,0 +1,5 @@
+{"event": "ready", "role": "desktop-sentinel", "pid": 24802, "monotonic_ns": 24455831104527}
+{"event": "heartbeat", "role": "desktop-sentinel", "pid": 24802, "sequence": 1, "monotonic_ns": 24455831198088}
+{"event": "heartbeat", "role": "desktop-sentinel", "pid": 24802, "sequence": 2, "monotonic_ns": 24455881348106}
+{"event": "heartbeat", "role": "desktop-sentinel", "pid": 24802, "sequence": 3, "monotonic_ns": 24455931559963}
+{"event": "heartbeat", "role": "desktop-sentinel", "pid": 24802, "sequence": 4, "monotonic_ns": 24455981768325}

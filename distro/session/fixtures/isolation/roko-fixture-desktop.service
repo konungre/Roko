@@ -1,0 +1,8 @@
+[Unit]
+Description=Desktop lifecycle sentinel fixture
+DefaultDependencies=no
+[Service]
+Type=simple
+ExecStart=/usr/bin/true
+Restart=no
+KillMode=control-group
