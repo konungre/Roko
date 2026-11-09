@@ -1,0 +1,30 @@
+{
+  "repository": "https://github.com/singnet/ai-dsl",
+  "commit": "1f7b1cacd4daa5915b79061075a10d150fe40a44",
+  "files": {
+    "rse-combinator-xp.metta": {
+      "path": "experimental/ai-service-composition/recognize-speech-emotion/rse-combinator-xp.metta",
+      "bytes": 9676,
+      "sha256": "7457494cc853aeab00188c794bc41810728bba8aab7fe33199f0b19cb9ba86e9",
+      "git_blob": "a92c65a03b534043be37347cb754ec2a373becfb"
+    },
+    "LICENSE": {
+      "path": "LICENSE",
+      "bytes": 11373,
+      "sha256": "66c21d9bc47c8f2615f6cb73a51070f32818f8e34404215bdb544d92b8ba8c5b",
+      "git_blob": "b082854d570eb675436bf1e09c2400f6f86fc9f9"
+    },
+    "NOTICE": {
+      "path": "NOTICE",
+      "bytes": 314,
+      "sha256": "5ecf6af63c019d8d3da051f9b73f125590a1662a9dbb2c6d11d5d936a4705b74",
+      "git_blob": "5d625cd77a84d8e61005ac5325a4d7f3b93afed2"
+    },
+    "README.md": {
+      "path": "experimental/ai-service-composition/recognize-speech-emotion/README.md",
+      "bytes": 1017,
+      "sha256": "8ef790378814e07bc67c74f712034ec37f3f2130dd4d1a72ab13e5f7f4612d97",
+      "git_blob": "99d5793fe1e25bc78058835f25a6921e8960333e"
+    }
+  }
+}
