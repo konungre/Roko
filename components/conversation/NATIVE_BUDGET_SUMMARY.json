@@ -1,0 +1,91 @@
+{
+  "passed": true,
+  "tested_base_main": "21bdf382e7d144bb3f57234957fa87739f8327f6",
+  "default_input_tokens": 512,
+  "experimental_input_tokens": 768,
+  "context_tokens": 1024,
+  "max_output_tokens": 128,
+  "history_max_messages": 16,
+  "production_activated": false,
+  "groups": {
+    "budget768-main-e2e-001": {
+      "passed": true,
+      "checks": {
+        "profile_reports768": true,
+        "default_real_over512": true,
+        "seventh_exact_replay": true,
+        "default_over768_refused": true,
+        "failed_history_unchanged": true,
+        "optin_eighth": true,
+        "optin_budget_reported": true,
+        "optin_loss_visible": true,
+        "token_metadata_bound": true,
+        "eighth_exact_replay": true,
+        "history_cap_unchanged": true,
+        "complete_history": true,
+        "cognition_preserved": true,
+        "no_pending": true,
+        "legacy_reports512": true,
+        "legacy_replays_saved768": true,
+        "legacy_failed_id_terminal": true,
+        "legacy_snapshot_same": true,
+        "legacy_zero_native": true,
+        "real_two_generations": true,
+        "no_autonomous_actions": true,
+        "source_unchanged": true
+      },
+      "scope": "Isolated actual Omega/PeTTa/Granite durable endpoint; two native exchanges resumed six-turn checkpoint. Collector used only to calibrate default prompt token count, never to supply a conversation answer. No production activation or desktop qualification."
+    },
+    "budget768-main-load-001": {
+      "passed": true,
+      "checks": {
+        "resident_real_inference": true,
+        "same_request_pending": true,
+        "different_request_busy": true,
+        "live_recovery_refused": true,
+        "native_descendants_gone": true,
+        "no_turn_reply_before_cancel": true,
+        "dead_claim_visible": true,
+        "explicit_recovery": true,
+        "recovery_preserves_history": true,
+        "cancelled_id_terminal": true,
+        "explicit_new_id_recovers": true,
+        "recovered_replay_exact": true,
+        "same_id_other_session_admitted": true,
+        "real_multi_turn_recall": true,
+        "secondary_replay_exact": true,
+        "stale_cas_refused": true,
+        "language_history_and_cognition": true,
+        "sessions_isolated": true,
+        "no_pending": true,
+        "exact_three_generations": true,
+        "native_memory_caps_unchanged": true
+      },
+      "scope": "Two warm real endpoint clients, serial successful native generation plus cancellation during resident inference; no synthetic conversation replies and no production activation"
+    },
+    "budget768-main-rss-001": {
+      "passed": true,
+      "checks": {
+        "real_resource_error": true,
+        "lowered_guard_proved": true,
+        "no_partial_generation": true,
+        "failed_history_unchanged": true,
+        "failed_id_terminal": true,
+        "explicit_new_id_success": true,
+        "replay_exact": true,
+        "recovery_one_native_call": true,
+        "full_history_and_cognition": true,
+        "no_pending": true,
+        "normal_guard_unchanged": true
+      },
+      "scope": "Actual provider resource_limit with isolated RSS threshold tightened to3GiB; normal5GiB supervisor untouched. Explicit recovery uses a new request ID under the normal experimental profile. No production activation or deliberate host exhaustion."
+    }
+  },
+  "suite_run": 258,
+  "suite_passed": 257,
+  "suite_skipped": 1,
+  "focused_budget_tests": 8,
+  "earlier_negative_startup_profiles": 3,
+  "earlier_standalone_scope": "Cloud-only 20-case qualification includes exact768 input/128 length output; not target desktop qualification",
+  "raw_evidence_transfer": "Local checkpoint; prior Library upload failed401 and was not retried via another route"
+}
