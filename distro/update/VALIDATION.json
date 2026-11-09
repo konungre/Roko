@@ -1,0 +1,13 @@
+{
+  "schema": "roko-update-journal-validation-v1",
+  "distro_tests": 98,
+  "failures": 0,
+  "test_log_sha256": "c4bdd5d7bd876cd3505f96a3d9bea45c281dbae57f956f1a4e98ca05a5b1568f",
+  "actual_subprocess_death_tested": true,
+  "actual_ed25519_admission_tested": true,
+  "slot_written": false,
+  "boot_executed": false,
+  "firmware_updated": false,
+  "power_loss_tested": false,
+  "scope": "Private userspace journal and staging tests only"
+}

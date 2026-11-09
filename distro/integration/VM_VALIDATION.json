@@ -1,0 +1,69 @@
+{
+  "schema": "roko-foundation-fresh-vm-validation-v1",
+  "scope": "Actual independent minimal guest boots; no historical ISO, COSMIC or inference",
+  "actual_vm_boots": 9,
+  "baseline_passed": true,
+  "trial_fallback_gate_passed": true,
+  "trial_gate_boots": 5,
+  "symbolic_guest_successes": 2,
+  "symbolic_guest_failures": 1,
+  "symbolic_build_failures": 1,
+  "uid": 1000,
+  "gid": 1000,
+  "network_adapter": false,
+  "host_disks": false,
+  "iso_used": false,
+  "model_inference_tested": false,
+  "firmware_ab_tested": false,
+  "distro_tests_passed": 100,
+  "evidence": {
+    "packages.json": {
+      "bytes": 7161,
+      "sha256": "7c3250f378607ae14f6322f6ab4349dccfc5e0d947caac53f7ccbaed59c707d8"
+    },
+    "minimal-runtime.lock.json": {
+      "bytes": 22803,
+      "sha256": "4b86230ec43ae4326f196dc136e2c5ac364910eadc39f6fcfcde364be8145cab"
+    },
+    "minimal-runtime-provenance.json": {
+      "bytes": 9752,
+      "sha256": "8bad961ae97fff563e35dc70fc5696fe75a94c25422f86eff6ec6bd8d0a12b97"
+    },
+    "apt-update.log": {
+      "bytes": 528,
+      "sha256": "2f04f244ad5a7372f601447118e289d4ddfb0503a28c03ba00571205f4906c13"
+    },
+    "download.log": {
+      "bytes": 4314,
+      "sha256": "9c3b75032b4b1dc31ca54aea87d3274524d5f094e1e3365c11aa4e678acf6a14"
+    },
+    "baseline-boot/result.json": {
+      "bytes": 1946,
+      "sha256": "b7c60edecd3fa3d1446c7c18713865e147f84328cd2928f6f6f5801dcdda14da"
+    },
+    "trials-001/result.json": {
+      "bytes": 15113,
+      "sha256": "9eed8740cdc2f7eb21c7863995ec6df593c90b4bcd6d911208d8e66aac118097"
+    },
+    "symbolic-build-001.log": {
+      "bytes": 1456,
+      "sha256": "acbe57aa3945eee1d5d6f72c8eefd62ac2a6e2ef8a1ba8eb5fa5f9e32757d392"
+    },
+    "symbolic-boot-002/result.json": {
+      "bytes": 1986,
+      "sha256": "c8f878d7d3c4a16397533d14db4a6c397480b89d1702423275de06a0f2d7335f"
+    },
+    "symbolic-boot-003/result.json": {
+      "bytes": 1983,
+      "sha256": "41b4a8d7e62fdb6e775ddb2198ccba68f1da1131f179e3f66e0289578b8ea7e3"
+    },
+    "symbolic-boot-004/result.json": {
+      "bytes": 2045,
+      "sha256": "aff60603a22471c4fbf167c66b667d5d291bdf9a10aad1587907a88e6adb62bf"
+    },
+    "distro-tests-final.log": {
+      "bytes": 10328,
+      "sha256": "8e42acafee557e6f3c6102584dcf9c91702df21f4f95a7a8d844c6213b5ef504"
+    }
+  }
+}

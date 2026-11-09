@@ -1,0 +1,71 @@
+{
+  "date": "2026-11-09",
+  "base_commit": "9990714",
+  "python": "3.12.14",
+  "systemd": "257 (257.13-1~deb13u1)",
+  "release_tests": {
+    "command": "python3 -B -m unittest discover -s distro/tests -v",
+    "passed": 17,
+    "fixtures": "Synthetic byte assets; no real boot/model inputs"
+  },
+  "inherited_native_context_tests": {
+    "passed": 71,
+    "suites": [
+      "cleanup",
+      "drop",
+      "transport",
+      "owner",
+      "copy_guard",
+      "semantics",
+      "main_failure"
+    ],
+    "scope": "Portable doubles, no native runtime/VM"
+  },
+  "systemd_verify": {
+    "real_unit": "Fails because /opt/roko/bin/roko-model-worker is absent; no remaining unknown-key diagnostic",
+    "syntax_fixture": "Exit 0 after replacing only ExecStart with /usr/bin/true; no service launched"
+  },
+  "not_tested": [
+    "COSMIC login or lock",
+    "real model inference",
+    "systemd runtime isolation",
+    "persistent cold boots",
+    "power-loss recovery",
+    "signed updates or rollback",
+    "Intel hardware compatibility",
+    "upstream reproducible builds",
+    "production/rootfs boot; only minimal initramfs probe booted"
+  ],
+  "instructions": "No AGENTS.md or .agents/skills SKILL.md found in repository or applicable checked ancestors",
+  "workspace_coordination": "Based on live-system 9990714; inspected existing XDG/native-context contracts, documented proposed interfaces; no other worktree modified or owner acceptance claimed",
+  "network_downloads": false,
+  "host_installation": false,
+  "push": false,
+  "foundation_tests": {
+    "passed": 37,
+    "command": "python3 -B -m unittest discover -s distro/tests -v",
+    "scope": "17 release, 11 compiled probe/serial, 9 runtime inventory tests"
+  },
+  "minimal_vm": {
+    "schema": "roko-foundation-vm-v1",
+    "runtime": {
+      "entries_verified": 7759,
+      "lock_sha256": "fe48b5a9d308be97501d0833a63cc86175958e1b066cf5785e2d2ce4aba3a230"
+    },
+    "kernel_sha256": "96758c40859c94163e5cf81399a107d679e984e251cb4e13aba4e7d92f5d14f2",
+    "initramfs_sha256": "68a364a8ac3dba3221bddbb418b66ec863744de71c8c07f5f068907a15281036",
+    "build_id": "6e83b2b89dff94d6aaaece9bf300503a2e9c5535b0c3f6f37b1e8f2d3d29c6db",
+    "boot_tested": true,
+    "boot_passed": true,
+    "network": false,
+    "host_disks": false,
+    "scope": "Minimal PID1/non-root probe only; no COSMIC, model or persistence",
+    "serial_contract_passed": true,
+    "native_execution_independently_established": true,
+    "returncode": 0,
+    "stop_reason": "eof",
+    "elapsed_seconds": 3.446035537002899,
+    "serial_sha256": "38f2212fe68c3f60ffb8d9a5596f085cac97de04656a6d1d02e2f199b2b9f800",
+    "child_reaped": true
+  }
+}

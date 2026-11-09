@@ -1,0 +1,64 @@
+{
+  "schema": "roko-foundation-local-symbolic-v1",
+  "conversation_commit": "55bebd8d79454c765b258b27471ad54a971700e5",
+  "consumer_root": "/workspace/scratch/roko-symbolic-local-001",
+  "uid": 1000,
+  "gid": 1000,
+  "source_files_verified": 538,
+  "runtime_inventory_files_verified": 1140,
+  "normal_native_import_passed": true,
+  "network_denied_native_import_passed": true,
+  "network_socket_denial_checked": true,
+  "conversation_tests": 26,
+  "conversation_tests_skipped": 0,
+  "swipl_version": "10.0.2",
+  "embedded_python_version": "3.12.14",
+  "model_inference_tested": false,
+  "guest_integration_tested": false,
+  "evidence": {
+    "source-verification.json": {
+      "bytes": 84435,
+      "sha256": "b4af8982f0e4e6d72aa5202879dd2af0fb25bd23246f5e67004f0655a5f30314"
+    },
+    "symbolic-profile.json": {
+      "bytes": 180059,
+      "sha256": "074b48c247bf5bd5ed1082c516e4eb4ddf61db361395836f6f7761e961bcba93"
+    },
+    "probe.pl": {
+      "bytes": 716,
+      "sha256": "344108b58713d929fd769510ad0a663988ed18c8583beff3d7783bae9b740e64"
+    },
+    "runtime-env.sh": {
+      "bytes": 510,
+      "sha256": "dcaae54adc2902a9643ffd9c1c11d75cc319091d5ad1337a2072f7c1351dca11"
+    },
+    "configure.log": {
+      "bytes": 17929,
+      "sha256": "06933af321d7bea89380880a24c2de738e9d7a72a623478ce5c1229ce207b1da"
+    },
+    "build.log": {
+      "bytes": 31632,
+      "sha256": "090d2f5b1dbfe57a11311dacb6c745d7a160f5d6d1ade2e1f549e998bba99103"
+    },
+    "install.log": {
+      "bytes": 1049,
+      "sha256": "b4e9d86fe891c6ba9cf7617bc61b107103a3f3a0fe9c957743346901f8d6a24e"
+    },
+    "probe.stdout": {
+      "bytes": 21793,
+      "sha256": "52f485aa357feba11ddc5dce92dc9cb38ba57e26abd4a4049d4df2290609cb78"
+    },
+    "probe.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "probe-offline.stdout": {
+      "bytes": 21793,
+      "sha256": "ab5dd05ec74c495fe1d3e86866822de46450c687accd274f52836080467335da"
+    },
+    "probe-offline.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+}

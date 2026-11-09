@@ -1,0 +1,155 @@
+{
+  "schema": "roko-uefi-bootcount-v1",
+  "passed": true,
+  "boots": [
+    {
+      "attempt": 1,
+      "passed": true,
+      "returncode": 0,
+      "seconds": 12.885083935000239,
+      "entries": "::/loader/entries/roko-1.conf\n::/loader/entries/roko-2+2-1.conf\n",
+      "serial_sha256": "4d62d103241341926270180627b6ceb130254c67be04a7c765a32d556b552921",
+      "child_reaped": true
+    },
+    {
+      "attempt": 2,
+      "passed": true,
+      "returncode": 0,
+      "seconds": 11.984869475999858,
+      "entries": "::/loader/entries/roko-1.conf\n::/loader/entries/roko-2+1-2.conf\n",
+      "serial_sha256": "efd7f1578efc71c100aff1c5cf5ee3858f6fe1bfe1317b92eec51e24dc313abb",
+      "child_reaped": true
+    },
+    {
+      "attempt": 3,
+      "passed": true,
+      "returncode": 0,
+      "seconds": 11.197867877000135,
+      "entries": "::/loader/entries/roko-1.conf\n::/loader/entries/roko-2+0-3.conf\n",
+      "serial_sha256": "d98453a63aa5bccb2f794e09ae1d31fec672cb5dec6e8a325274f98300e5765c",
+      "child_reaped": true
+    },
+    {
+      "attempt": 4,
+      "passed": true,
+      "returncode": 0,
+      "seconds": 14.452964205000171,
+      "entries": "::/loader/entries/roko-1.conf\n::/loader/entries/roko-2+0-3.conf\n",
+      "serial_sha256": "01c519ecd507ea94de6fee08f7341f023c239d7aa5a4482d33b175c7eedb798e",
+      "child_reaped": true
+    }
+  ],
+  "firmware_unchanged": true,
+  "admission": {
+    "firmware_sha256": "624e06de18b4fa535e90db7160d00d3d07d206422b89999bf1e27d920264e4e0",
+    "bootloader_sha256": "5adb30d5e8f56313a0c6a333d2b5512c167f8102e011ff028f468564f77f668d",
+    "runtime_lock_sha256": "4b86230ec43ae4326f196dc136e2c5ac364910eadc39f6fcfcde364be8145cab",
+    "esp_before_sha256": "94566feb6ad6a70622c596328eef59a9a5530bfd316f2e8c9ba40f6120eb008b",
+    "vars_before_sha256": "5d2ac383371b408398accee7ec27c8c09ea5b74a0de0ceea6513388b15be5d1e",
+    "good_initramfs_sha256": "18773587013494478cc156e55954f99d28a8cb1064d7b02765ce717cdb70e62c",
+    "trial_initramfs_sha256": "b2d11d22bc545dfc28d94ad40291e2370c985400d516cebe0e196bb27ce173e2"
+  },
+  "esp_after_sha256": "15d797daabe93938e6ad63bfe4ea93d4e8c5d1e53bf0418e529c2f34eea4b6c9",
+  "vars_after_sha256": "617494be02252c713d5ff9e85645c907338f202cbc4939cced1120320a7063f5",
+  "network": false,
+  "host_block_devices": false,
+  "iso_used": false,
+  "secure_boot_tested": false,
+  "production_update_tested": false,
+  "scope": "Actual virtual UEFI/systemd-boot fallback on disposable GPT/FAT disk",
+  "packages": [
+    {
+      "package": "dosfstools",
+      "file": "dosfstools_4.2-1.2_amd64.deb",
+      "sha256": "628551496a02e80eee83054b9c696b06ba8177159bf0afe9a5b4ab2fb94b1b41"
+    },
+    {
+      "package": "e2fsprogs",
+      "file": "e2fsprogs_1.47.2-3+b12_amd64.deb",
+      "sha256": "e9e638eb3e22b5f14d01ce0b28aa512a5a22fcc0e70d1c733444579b67ea236b"
+    },
+    {
+      "package": "libext2fs2t64",
+      "file": "libext2fs2t64_1.47.2-3+b12_amd64.deb",
+      "sha256": "9f5783fa48239e42260d41846fbc6c8b19c233251063524456096195660eaa09"
+    },
+    {
+      "package": "libss2",
+      "file": "libss2_1.47.2-3+b12_amd64.deb",
+      "sha256": "c5d38d71984c1bf774c1254238636e605fc4e0dc24d853f709921eb740327f4a"
+    },
+    {
+      "package": "mtools",
+      "file": "mtools_4.0.48-1_amd64.deb",
+      "sha256": "e7069109ce49f5a450caeca681e454f24dc412f9fdb289cde54e115162203760"
+    },
+    {
+      "package": "ovmf",
+      "file": "ovmf_2025.02-8+deb13u1_all.deb",
+      "sha256": "78e0d54df11fc77406cb7a0bc9a39e5bca6d1cbe06556b91d9a73491c52decdf"
+    },
+    {
+      "package": "systemd-boot-efi",
+      "file": "systemd-boot-efi_257.13-1~deb13u1_amd64.deb",
+      "sha256": "390ecdcef9bbb753f51bb6d8f696bdae2f1dbedde7239c49ccb2512f137a8933"
+    }
+  ],
+  "evidence": {
+    "boot-3.serial": {
+      "bytes": 26623,
+      "sha256": "d98453a63aa5bccb2f794e09ae1d31fec672cb5dec6e8a325274f98300e5765c"
+    },
+    "boot-3.json": {
+      "bytes": 283,
+      "sha256": "4a9fed633b24bc5467ad8ef419c5c8022d6554078218fb8e255d6c1c36ed4329"
+    },
+    "admission.json": {
+      "bytes": 650,
+      "sha256": "f099ca33fbfe0e8dadbe097f619c66f24a75001454e63bb4925331217871741f"
+    },
+    "entries-2.txt": {
+      "bytes": 64,
+      "sha256": "c96412abf2e9f3895fc3a6efa6444b133692e4460400dae4e79139a8c066d906"
+    },
+    "boot-2.serial": {
+      "bytes": 26518,
+      "sha256": "efd7f1578efc71c100aff1c5cf5ee3858f6fe1bfe1317b92eec51e24dc313abb"
+    },
+    "entries-3.txt": {
+      "bytes": 64,
+      "sha256": "d4ae54557a91556c3d9199c023aa1aabdcc294a76ea2838fdb832c7bd3023a6d"
+    },
+    "entries-1.txt": {
+      "bytes": 64,
+      "sha256": "3f1be8b9bf0bf18025fbdfed6f93f0bf20764d16e51a6d4235b30b259ed34edb"
+    },
+    "boot-2.json": {
+      "bytes": 283,
+      "sha256": "7fdb79a7a997def1c8d4ad253a63f628539deb6145051a88ac2ddaf443a765b8"
+    },
+    "boot-1.serial": {
+      "bytes": 26623,
+      "sha256": "4d62d103241341926270180627b6ceb130254c67be04a7c765a32d556b552921"
+    },
+    "result.json": {
+      "bytes": 2472,
+      "sha256": "da1c78dfc1ac485eed4b3e9dd4ece9cc80698371a71387eab299e0965ff022cc"
+    },
+    "entries-4.txt": {
+      "bytes": 64,
+      "sha256": "d4ae54557a91556c3d9199c023aa1aabdcc294a76ea2838fdb832c7bd3023a6d"
+    },
+    "boot-1.json": {
+      "bytes": 283,
+      "sha256": "b340bdf31e1c5faa0c7c623ce8cb3b79b68447b81bd723c6dffc1d0a207ae3bd"
+    },
+    "boot-4.json": {
+      "bytes": 283,
+      "sha256": "b64e4b52728d81425f76c4f837c7d7cd72e38e1b3d7e203cec55ee78ecdb554c"
+    },
+    "boot-4.serial": {
+      "bytes": 26617,
+      "sha256": "01c519ecd507ea94de6fee08f7341f023c239d7aa5a4482d33b175c7eedb798e"
+    }
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "date": "2026-11-09",
+  "source_checkpoint_before_handoff": "87471fc",
+  "development_stopped_for_transfer": true,
+  "tests": {
+    "foundation_suite_passed": 61,
+    "scope": "Portable release, actual compiler, native host-refusal, runtime inventory, persistence, session evidence and PipeWire readiness tests"
+  },
+  "attempts": {
+    "write-003": {
+      "schema": "roko-foundation-session-v1",
+      "phase": "write",
+      "runtime": {
+        "entries_verified": 7759,
+        "lock_sha256": "fe48b5a9d308be97501d0833a63cc86175958e1b066cf5785e2d2ce4aba3a230"
+      },
+      "guest_memory_mib": 3072,
+      "passed": true,
+      "model_inference_tested": false,
+      "host_disks": false,
+      "private_state_disk": true,
+      "network": false,
+      "stop_mode": "controlled host stop after durable user checkpoint; no guest clean-unmount claim",
+      "iso_sha256": "a3cc3cb741f50b2bd1846080bb1995067f22a27fc79091fc3e63ef4162c31253",
+      "initrd_sha256": "1162282dd0afc7e4679e8e4548c8e9d57c3139868fbb89ce1d73ab75e15a1680",
+      "state_before_sha256": "f1126e00308c02cd5280a2d1240987276978d4b984d8308ec10bbb62a6c9f2af",
+      "stop_reason": "desktop_and_state_ready",
+      "returncode": 0,
+      "child_reaped": true,
+      "state_after_sha256": "cbaccc407716ca1c9061e99ccd426c1924dd3f5dfcc5aadc595eaf3b7bded976",
+      "elapsed_seconds": 105.8021804470045,
+      "result_sha256": "e36fd973ceeccdccd125b8f7b163890db4334828c93ca7136d6daf65c0998bb5",
+      "serial_sha256": "e8d46adc9aaa47fed9794d5f9fbdb07453a0bdaacfc6659d07e6bb9c17c921c3"
+    },
+    "read-003": {
+      "schema": "roko-foundation-session-v1",
+      "phase": "read",
+      "runtime": {
+        "entries_verified": 7759,
+        "lock_sha256": "fe48b5a9d308be97501d0833a63cc86175958e1b066cf5785e2d2ce4aba3a230"
+      },
+      "guest_memory_mib": 3072,
+      "passed": false,
+      "visual_review_required": true,
+      "model_inference_tested": false,
+      "host_disks": false,
+      "private_state_disk": true,
+      "network": false,
+      "stop_mode": "controlled host stop after durable user checkpoint; no guest clean-unmount claim",
+      "iso_sha256": "a3cc3cb741f50b2bd1846080bb1995067f22a27fc79091fc3e63ef4162c31253",
+      "initrd_sha256": "1162282dd0afc7e4679e8e4548c8e9d57c3139868fbb89ce1d73ab75e15a1680",
+      "state_before_sha256": "cbaccc407716ca1c9061e99ccd426c1924dd3f5dfcc5aadc595eaf3b7bded976",
+      "stop_reason": "guest_failure",
+      "returncode": 0,
+      "child_reaped": true,
+      "state_after_sha256": "04c5ba470da5b6f8d9ebbfdefa98b6f862a4213e09ead1bb82680ac8698b8366",
+      "elapsed_seconds": 99.30527130900009,
+      "result_sha256": "0aa71a4568e9696ec34c89f41c3747feff1be4f8673d2a449657c6a75845a108",
+      "serial_sha256": "e0d2a5aba1874fcc0f9c26e84674698ca373a6aeccc9078701dc7842892e8806"
+    },
+    "read-004": {
+      "schema": "roko-foundation-session-v1",
+      "phase": "read",
+      "runtime": {
+        "entries_verified": 7759,
+        "lock_sha256": "fe48b5a9d308be97501d0833a63cc86175958e1b066cf5785e2d2ce4aba3a230"
+      },
+      "guest_memory_mib": 3072,
+      "passed": true,
+      "visual_review_required": true,
+      "model_inference_tested": false,
+      "host_disks": false,
+      "private_state_disk": true,
+      "network": false,
+      "stop_mode": "controlled host stop after durable user checkpoint; no guest clean-unmount claim",
+      "iso_sha256": "a3cc3cb741f50b2bd1846080bb1995067f22a27fc79091fc3e63ef4162c31253",
+      "initrd_sha256": "5c4da31227f5fc5aab49c150791951bdfe8b4527bf20d2eabf2761b78fffee07",
+      "state_before_sha256": "cbaccc407716ca1c9061e99ccd426c1924dd3f5dfcc5aadc595eaf3b7bded976",
+      "startup_identity_passed": true,
+      "persistent_checkpoint_passed": true,
+      "observed_nonroot_processes": 8,
+      "visible_desktop_verified": false,
+      "stop_reason": "desktop_and_state_ready",
+      "returncode": 0,
+      "child_reaped": true,
+      "state_after_sha256": "55924c55d51c7e72ba30d388e37fc383a2503f8c479ad3028321a963bc5aaf18",
+      "elapsed_seconds": 127.3459454019976,
+      "result_sha256": "72e87f21bee6bb0075342169f73b4e1fe6ef22e80ad91d4724ec2d69198a338e",
+      "serial_sha256": "c5e2ca0b1f956208dfef94b48787914b6a6fd1a6f2c8d76857855b51d359b9dd"
+    },
+    "read-005": {
+      "schema": "roko-foundation-session-v1",
+      "phase": "read",
+      "runtime": {
+        "entries_verified": 7759,
+        "lock_sha256": "fe48b5a9d308be97501d0833a63cc86175958e1b066cf5785e2d2ce4aba3a230"
+      },
+      "guest_memory_mib": 3072,
+      "passed": false,
+      "visual_review_required": true,
+      "model_inference_tested": false,
+      "host_disks": false,
+      "private_state_disk": true,
+      "network": false,
+      "stop_mode": "controlled host stop after durable user checkpoint; no guest clean-unmount claim",
+      "iso_sha256": "a3cc3cb741f50b2bd1846080bb1995067f22a27fc79091fc3e63ef4162c31253",
+      "initrd_sha256": "5c4da31227f5fc5aab49c150791951bdfe8b4527bf20d2eabf2761b78fffee07",
+      "state_before_sha256": "cbaccc407716ca1c9061e99ccd426c1924dd3f5dfcc5aadc595eaf3b7bded976",
+      "stop_reason": "guest_failure",
+      "returncode": 0,
+      "child_reaped": true,
+      "state_after_sha256": "170e50337b079946ed72ecfc7004e46ce8eed9fd9e12fe66d6c5ab59c115a2b0",
+      "elapsed_seconds": 87.73208188699937,
+      "result_sha256": "7d0478cc2b951b451ffbc3ce3a531a173672eeb946e71b15607a9c7c3fc8ce17",
+      "serial_sha256": "8ab1312d78bf85855f6e635ba9db6ecb83245341649dd2924eb9ef4672f78b2e"
+    },
+    "read-006": {
+      "schema": "roko-foundation-session-v1",
+      "phase": "read",
+      "runtime": {
+        "entries_verified": 7759,
+        "lock_sha256": "fe48b5a9d308be97501d0833a63cc86175958e1b066cf5785e2d2ce4aba3a230"
+      },
+      "guest_memory_mib": 3072,
+      "passed": true,
+      "visual_review_required": true,
+      "model_inference_tested": false,
+      "host_disks": false,
+      "private_state_disk": true,
+      "network": false,
+      "stop_mode": "controlled host stop after durable user checkpoint; no guest clean-unmount claim",
+      "iso_sha256": "a3cc3cb741f50b2bd1846080bb1995067f22a27fc79091fc3e63ef4162c31253",
+      "initrd_sha256": "45cf5a527c032b0fe114079ca0c1c47e5256a071c08e741e6db636a360b48293",
+      "state_before_sha256": "cbaccc407716ca1c9061e99ccd426c1924dd3f5dfcc5aadc595eaf3b7bded976",
+      "startup_identity_passed": true,
+      "persistent_checkpoint_passed": true,
+      "observed_nonroot_processes": 8,
+      "visible_desktop_verified": false,
+      "capture_seconds_after_ready": [
+        30,
+        60,
+        90,
+        120
+      ],
+      "stop_reason": "desktop_and_state_ready",
+      "returncode": 0,
+      "child_reaped": true,
+      "state_after_sha256": "54e7fe7209935f56c0195e8af88201f37f982be03b351c481cd07d87d7b33520",
+      "elapsed_seconds": 222.51949519099435,
+      "result_sha256": "55503cf44578344af99424e55a6e62e588ed671f2db701e877da4ccf427223a7",
+      "serial_sha256": "4814f5eaa0a9efcdc87ea9799c9d72c788990f211531cd95532832582b765955"
+    }
+  },
+  "visual_review_read006": {
+    "frames_reviewed": {
+      "desktop-090.ppm": "COSMIC panel, dock, background, cursor and companion visible",
+      "desktop-120.ppm": "COSMIC panel, background and cursor visible; dock and companion not visible in this frame"
+    },
+    "visible_cosmic_and_companion_observed": true,
+    "continuous_companion_presence_verified": false,
+    "interactive_input_tested": false,
+    "model_inference_tested": false,
+    "sha256": {
+      "desktop-090.ppm": "2c25d594094121c6ad81b8c002167f92edd61ffcb243f5b5d4fe3f7163c2d6d6",
+      "desktop-120.ppm": "2c25d594094121c6ad81b8c002167f92edd61ffcb243f5b5d4fe3f7163c2d6d6"
+    }
+  },
+  "persistence_chain": {
+    "write_post_image_sha256": "cbaccc407716ca1c9061e99ccd426c1924dd3f5dfcc5aadc595eaf3b7bded976",
+    "read006_pre_image_sha256": "cbaccc407716ca1c9061e99ccd426c1924dd3f5dfcc5aadc595eaf3b7bded976",
+    "restored_snapshot_booted": true,
+    "checkpoint_bytes": 84,
+    "owner_uid_gid": [
+      1000,
+      1000
+    ],
+    "mode": "0600",
+    "links": 1,
+    "read_only_debugfs_inspection": "read003 exact fixture bytes/ownership/mode verified after journal recovery"
+  },
+  "preflight_failure": {
+    "vm_started": false,
+    "reason": "7 GiB headroom unavailable for initial 4 GiB plan; separate 3 GiB desktop-only plan retained 3 GiB startup headroom and 2 GiB running floor"
+  },
+  "runtime_inventory_entries": 7759,
+  "formatter_inventory_entries": 403,
+  "resolved_observation": "WirePlumber exit69 reproduced with Failed to connect to PipeWire; readiness fix validated once in read006",
+  "remaining": [
+    "Model inference and matched conversation guest ABI/closure not qualified",
+    "Repeated-start reliability and complete desktop interaction not established",
+    "No clean guest unmount or exhaustive power-loss proof",
+    "Production installer, signed updater/rollback and physical Intel compatibility remain unqualified"
+  ],
+  "no_push": true,
+  "no_existing_artifact_deleted": true,
+  "all_owned_vm_children_reaped": true
+}
