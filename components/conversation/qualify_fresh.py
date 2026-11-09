@@ -22,6 +22,9 @@ def main():
     parser.add_argument('--infer', type=Path, required=True)
     parser.add_argument('--model', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--nars-manifest', type=Path)
+    parser.add_argument('--nars-admission')
+    parser.add_argument('--nars-evidence-root', type=Path)
     args = parser.parse_args()
     if args.output.exists():
         raise ValueError('Refuse to replace a qualification profile')
@@ -45,6 +48,20 @@ def main():
     paths += [p for p in source.iterdir() if p.suffix in ('.py','.pl','.metta','.cpp')]
     paths += [source.parents[1]/'omega-baseline/scripts/no-network.py']
     profile['files'].update({str(p):sha(p) for p in paths})
+    if any((args.nars_manifest,args.nars_admission,args.nars_evidence_root)):
+        if not all((args.nars_manifest,args.nars_admission,args.nars_evidence_root)):
+            raise ValueError('All three NARS qualification options are required')
+        import cognition  # installs the fixed repository namespace for this script
+        from components.nars_hyperon.source.runtime import verify
+        manifest_path=args.nars_manifest.resolve(strict=True)
+        manifest=json.loads(manifest_path.read_bytes())
+        verify(manifest,args.nars_admission)
+        if sha(manifest_path)!=args.nars_admission:
+            raise ValueError('NARS manifest must use canonical bytes')
+        profile['files'].update(manifest['files'])
+        profile['files'][str(manifest_path)]=sha(manifest_path)
+        profile['nars_cognition']={'manifest':str(manifest_path),'admission':args.nars_admission,
+            'evidence_root':str(args.nars_evidence_root.absolute())}
     from fresh import load_profile
     # Write once; verification errors remain explicit evidence, not rewritten locks.
     with args.output.open('x') as stream:

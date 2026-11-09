@@ -34,6 +34,13 @@ def load_profile(path):
             raise ValueError('Unpinned executable or model: ' + key)
     if profile['files'][profile['model']] != recovered.MODEL_SHA:
         raise ValueError('Unexpected Granite model identity')
+    if 'nars_cognition' in profile:
+        config=profile['nars_cognition']
+        if type(config) is not dict or set(config)!={'manifest','admission','evidence_root'}:
+            raise ValueError('NARS cognition configuration schema')
+        if config['manifest'] not in profile['files'] or profile['files'][config['manifest']]!=config['admission']:
+            raise ValueError('NARS manifest must be pinned in fresh closure')
+        if not Path(config['evidence_root']).is_absolute():raise ValueError('Absolute NARS evidence root required')
     return profile
 
 
@@ -95,6 +102,7 @@ class FreshProvider:
                 proc.wait()
             raise
         receipt = {'returncode':proc.returncode, 'seconds':round(time.monotonic()-started,3),
+                   'prompt_sha256':hashlib.sha256(prompt.encode()).hexdigest(),
                    'stdout':out.decode('utf-8'), 'stderr':err.decode('utf-8',errors='replace'),
                    'network_denied':True, 'executed_actions':0}
         self.receipts.append(receipt)
@@ -122,7 +130,16 @@ def initialize():
                 .with_id('roko-reply').with_arguments({'text':text}))
     providers.registerLLMProvider('RokoFreshText', Adapter())
     providers.llmProviderStart('RokoFreshText')
-    conversation.session = conversation.Session(provider, no_context)
+    reasoner = None
+    try:
+        if 'nars_cognition' in profile:
+            from cognition import NarsCognition
+            config = profile['nars_cognition']
+            reasoner = NarsCognition(config['manifest'],config['admission'],config['evidence_root'])
+    except BaseException:
+        provider.close()
+        raise
+    conversation.session = conversation.Session(provider, no_context, reasoner=reasoner)
     return True
 
 
@@ -132,7 +149,8 @@ def finish():
         provider.verify_model()
         print('ROKO_FRESH_CONVERSATION '+json.dumps({'native_calls':provider.receipts,
               'history':conversation.session.history, 'model_identity_unchanged':True,
-              'model_sha256':recovered.MODEL_SHA, 'ecan_qualified':False}), file=sys.stderr)
+              'model_sha256':recovered.MODEL_SHA, 'ecan_qualified':False,
+              'cognitive_receipts':getattr(conversation.session.reasoner,'receipts',[])}), file=sys.stderr)
     finally:
         provider.close()
     return True

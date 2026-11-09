@@ -11,7 +11,13 @@ This source checkpoint integrates with, references, or adapts interfaces from:
 - [MetaMo](https://github.com/iCog-Labs-Dev/MetaMo), MIT at
   `bf97e50a68aa5059457092dfbe70699b7dd1dbe2`. Original scoring modules are external.
 - [MeTTa-NARS](https://github.com/patham9/metta-nars), MIT at
-  `945e2f83711b143e3f6e2eb112cc40c4f531c6f2`. Original NAL-1 modules are external.
+  `945e2f83711b143e3f6e2eb112cc40c4f531c6f2`. The historical PeTTa adapter's
+  modules are external. The development `components/nars_hyperon/upstream`
+  directory retains exact `nal1.metta`, `truthfunctions.metta`, and the original
+  MIT license, copyright Patrick Hammer (2023).
+- [Hyperon](https://github.com/trueagi-io/hyperon-experimental), MIT, version
+  0.2.10, is an external runtime dependency for the development NAL-1 adapter.
+  Its wheel and native libraries are not redistributed in this repository.
 - [MORK](https://github.com/trueagi-io/MORK) and
   [mork_ffi](https://github.com/patham9/mork_ffi). No redistribution license was
   found at the inspected source pins. Their source and binaries are excluded.
