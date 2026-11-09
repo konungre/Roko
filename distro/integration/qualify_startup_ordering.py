@@ -16,7 +16,7 @@ def qualify(repository,base,source,output):
    (output/(name+'.stderr')).write_text(result.stderr);(output/(name+'.stdout')).write_text(result.stdout)
    if result.returncode:rows.append({'case':name,'passed':False,'returncode':result.returncode});continue
    value=json.loads(result.stdout);service=value['service']
-   passed=value['after']==['local-fs.target'] and set(value['before'])=={'multi-user.target','display-manager.service'} and value['wantedBy']==['multi-user.target'] and not value['requires'] and not value['wants'] and value['failure']==['roko-startup-report-failure.service']
+   passed=value['after']==['local-fs.target'] and set(value['before'])=={'multi-user.target','display-manager.service','greetd.service'} and value['wantedBy']==['multi-user.target'] and not value['requires'] and not value['wants'] and value['failure']==['roko-startup-report-failure.service']
    passed=passed and service['Type']=='oneshot' and service['DynamicUser'] and service['PrivateNetwork'] and service['ProtectSystem']=='strict' and service['NoNewPrivileges'] and service['TimeoutStartSec']=='15s' and service['RuntimeDirectoryPreserve']=='yes' and service['RuntimeDirectoryMode']=='0750' and service['MemoryAccounting'] is True and service['MemoryHigh']=='64M' and service['MemoryMax']=='96M' and service['OOMPolicy']=='stop' and service['Restart']=='no'
    passed=passed and value['cosmic']==cosmic and value['networkManager']==(network=='managed') and value['firstBoot']['modelReady'] is False and value['firstBoot']['durableHistoryReady'] is False
    if network=='offline':passed=passed and not value['waitOnline'] and value['nmWait'] is False

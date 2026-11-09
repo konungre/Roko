@@ -1,0 +1,80 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "case": "owned-fixture-sockets",
+      "report": {
+        "schema": "roko-cosmic-session-inputs-v1",
+        "status": "inputs-observed-unqualified",
+        "sampled_monotonic_ns": 25248298108835,
+        "checks": {
+          "non_root": true,
+          "desktop_env_cosmic": true,
+          "wayland_session": true,
+          "private_runtime": true,
+          "owned_wayland_socket": true,
+          "owned_session_bus_socket": true
+        },
+        "issues": [],
+        "cosmic_session_qualified": false,
+        "interactive_ready": false,
+        "inference_qualified": false,
+        "execution_authorized": false,
+        "scope": "environment labels and local socket metadata only; no compositor, bus, portal, audio or model health proof"
+      }
+    },
+    {
+      "case": "missing-display-socket",
+      "report": {
+        "schema": "roko-cosmic-session-inputs-v1",
+        "status": "incomplete",
+        "sampled_monotonic_ns": 25248298232097,
+        "checks": {
+          "non_root": true,
+          "desktop_env_cosmic": true,
+          "wayland_session": true,
+          "private_runtime": true,
+          "owned_wayland_socket": false,
+          "owned_session_bus_socket": true
+        },
+        "issues": [
+          "owned_wayland_socket-not-observed"
+        ],
+        "cosmic_session_qualified": false,
+        "interactive_ready": false,
+        "inference_qualified": false,
+        "execution_authorized": false,
+        "scope": "environment labels and local socket metadata only; no compositor, bus, portal, audio or model health proof"
+      }
+    },
+    {
+      "case": "unsupported-bus",
+      "report": {
+        "schema": "roko-cosmic-session-inputs-v1",
+        "status": "incomplete",
+        "sampled_monotonic_ns": 25248298273970,
+        "checks": {
+          "non_root": true,
+          "desktop_env_cosmic": true,
+          "wayland_session": true,
+          "private_runtime": true,
+          "owned_wayland_socket": false,
+          "owned_session_bus_socket": false
+        },
+        "issues": [
+          "owned_wayland_socket-not-observed",
+          "owned_session_bus_socket-not-observed"
+        ],
+        "cosmic_session_qualified": false,
+        "interactive_ready": false,
+        "inference_qualified": false,
+        "execution_authorized": false,
+        "scope": "environment labels and local socket metadata only; no compositor, bus, portal, audio or model health proof"
+      }
+    }
+  ],
+  "ipc_connections_attempted": false,
+  "scope": "owned Unix socket metadata fixtures only; no compositor, bus or real COSMIC session",
+  "host_activation": false,
+  "guest_started": false
+}

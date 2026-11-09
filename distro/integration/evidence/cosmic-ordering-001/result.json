@@ -1,0 +1,112 @@
+{
+  "passed": true,
+  "static_graph_cases": [
+    {
+      "case": "valid-no-gating",
+      "returncode": 0,
+      "passed": true
+    },
+    {
+      "case": "ordering-cycle",
+      "returncode": 1,
+      "passed": true
+    }
+  ],
+  "session_fragment": {
+    "after": [
+      "cosmic-session.target"
+    ],
+    "description": "Roko COSMIC session input diagnostics (unqualified)",
+    "partOf": [
+      "cosmic-session.target"
+    ],
+    "serviceConfig": {
+      "ExecStart": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /workspace/roko-foundation-review/distro/nix/cosmic_session_report.py --output %t/roko-cosmic-diagnostic/status.json",
+      "KillMode": "control-group",
+      "MemoryAccounting": true,
+      "MemoryHigh": "64M",
+      "MemoryMax": "96M",
+      "NoNewPrivileges": true,
+      "OOMPolicy": "stop",
+      "PrivateNetwork": true,
+      "ProtectHome": "read-only",
+      "ProtectSystem": "strict",
+      "RemainAfterExit": true,
+      "Restart": "no",
+      "RestrictAddressFamilies": [
+        "AF_UNIX"
+      ],
+      "RuntimeDirectory": "roko-cosmic-diagnostic",
+      "RuntimeDirectoryMode": "0700",
+      "RuntimeDirectoryPreserve": "yes",
+      "StandardError": "journal",
+      "StandardOutput": "journal",
+      "SyslogIdentifier": "roko-cosmic-diagnostic",
+      "TimeoutStartSec": "10s",
+      "Type": "oneshot",
+      "UMask": "0077"
+    },
+    "unitConfig": {
+      "DefaultDependencies": false
+    },
+    "wantedBy": [
+      "cosmic-session.target"
+    ]
+  },
+  "offline_mini_schema": {
+    "nix": {
+      "channel": {
+        "enable": false
+      },
+      "nixPath": [],
+      "registry": {},
+      "settings": {
+        "flake-registry": "",
+        "substituters": []
+      }
+    },
+    "security": {
+      "polkit": {
+        "enable": true
+      }
+    },
+    "services": {
+      "accounts-daemon": {
+        "enable": true
+      },
+      "avahi": {
+        "enable": false
+      },
+      "dbus": {
+        "enable": true
+      },
+      "geoclue2": {
+        "enable": false
+      },
+      "pipewire": {
+        "enable": true
+      }
+    },
+    "systemd": {
+      "network": {
+        "wait-online": {
+          "enable": false
+        }
+      },
+      "services": {
+        "NetworkManager-wait-online": {
+          "enable": false
+        }
+      }
+    }
+  },
+  "upstream_target_sha256": "2d579d8650b6476f83de9ed61739578f5b75707210dc52e67aee233c4cec39bb",
+  "source_hashes": {
+    "offline-startup.nix": "fc6c424efcd0915deaa270f9f929d5dcdc84dcced8e26e2446fb8acf57022ffe",
+    "cosmic-session-ordering.nix": "678cc882f4043bf7e66d54495f8b01e2f2bac8c3dc46629d2bbc5789adfc1b7b",
+    "cosmic_session_report.py": "0d3198fa8b03b4d31adb8a1e0b5458af8366b513776b205d1db07ffe1d30ba65"
+  },
+  "scope": "bounded real Nix fragments/mini schema and static graph; not full NixOS evaluation, instantiated image or user manager execution",
+  "host_activation": false,
+  "guest_started": false
+}

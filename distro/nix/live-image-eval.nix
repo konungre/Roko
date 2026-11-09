@@ -23,6 +23,7 @@ in import ./system-eval.nix {
         mkdir -p $out
         cp ${./startup_report.py} $out/startup_report.py
         cp ${./memory_budget.py} $out/memory_budget.py
+        cp ${./cosmic_session_report.py} $out/cosmic_session_report.py
       '';
     in {
       system.autoUpgrade.enable = lib.mkForce false;
@@ -42,7 +43,7 @@ in import ./system-eval.nix {
         description = "Roko boot-local policy diagnostics (not runtime readiness)";
         wantedBy = [ "multi-user.target" ];
         after = [ "local-fs.target" ];
-        before = [ "multi-user.target" "display-manager.service" ];
+        before = [ "multi-user.target" "display-manager.service" "greetd.service" ];
         unitConfig.OnFailure = [ "roko-startup-report-failure.service" ];
         serviceConfig = {
           Type = "oneshot";
@@ -80,6 +81,9 @@ in import ./system-eval.nix {
           PrivateNetwork = true;
         };
       };
+      systemd.user.services.roko-cosmic-session-report = lib.mkIf enableCosmic (import ./cosmic-session-ordering.nix {
+        inherit pkgs; program = startupProgram;
+      });
       networking.networkmanager.enable = lib.mkForce (networkPolicy == "managed");
       networking.useDHCP = lib.mkForce false;
       hardware.enableAllFirmware = lib.mkForce false;
@@ -114,14 +118,6 @@ in import ./system-eval.nix {
         productionReady = false;
       };
     })
-    ({ lib, ... }: lib.mkIf (networkPolicy == "offline") {
-      nix.channel.enable = lib.mkForce false;
-      nix.nixPath = lib.mkForce [];
-      nix.registry = lib.mkForce {};
-      nix.settings.substituters = lib.mkForce [];
-      nix.settings.flake-registry = lib.mkForce "";
-      systemd.network.wait-online.enable = lib.mkForce false;
-      systemd.services.NetworkManager-wait-online.enable = lib.mkForce false;
-    })
+    ({ lib, ... }: lib.mkIf (networkPolicy == "offline") (import ./offline-startup.nix { inherit lib; }))
   ];
 }

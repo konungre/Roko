@@ -1,0 +1,64 @@
+{
+  "nixpkgs_revision": "f4a03c008967841f2a0b3cb7c436fc6fc31671f6",
+  "selected_nixpkgs_file_hashes": {
+    "nixos/modules/services/desktop-managers/cosmic.nix": "d3941f80414045720e5f44f142a08321c143c60bbcb05206be425d8fc3f28b8f",
+    "nixos/modules/services/display-managers/cosmic-greeter.nix": "6367f86b897f32344ae18059ee0fc65b0dd17e4ffbc12f8bdf4df0bb5ddfffe4",
+    "nixos/modules/services/display-managers/greetd.nix": "d65e9c7121646df775d43e36fd6983d955a4e7589908a5c2ff393234ef30d19e",
+    "nixos/modules/services/misc/graphical-desktop.nix": "449f118c9b49885fe5b488bc7a2d3f7aa0c282b90f62f27ee90891590249b301",
+    "pkgs/by-name/co/cosmic-session/package.nix": "747d4e1317736aa7ae4ee61badea64c7d0b2a6a376ef75bf956e20ce5719ca07"
+  },
+  "cosmic_session_tag": "epoch-1.11.0",
+  "tag_object": "788f40522d0fefa1164edaee5ede91798510558e",
+  "resolved_commit": "4b0a0a24e98b9e755b6a7146e4cb29539cacda0a",
+  "selected_upstream_files": {
+    "start-cosmic": {
+      "sha256": "28ef361ab164d02174da281fa7da1885bae500293e3d8a51f277e73900fad779",
+      "url": "https://raw.githubusercontent.com/pop-os/cosmic-session/4b0a0a24e98b9e755b6a7146e4cb29539cacda0a/data/start-cosmic"
+    },
+    "cosmic-session.target": {
+      "sha256": "2d579d8650b6476f83de9ed61739578f5b75707210dc52e67aee233c4cec39bb",
+      "url": "https://raw.githubusercontent.com/pop-os/cosmic-session/4b0a0a24e98b9e755b6a7146e4cb29539cacda0a/data/cosmic-session.target"
+    },
+    "main.rs": {
+      "sha256": "05854d26976ceacbdd31b14fbfaf21d2f4a1bc4a4b21529d1f5ea9cb70b8be1b",
+      "url": "https://raw.githubusercontent.com/pop-os/cosmic-session/4b0a0a24e98b9e755b6a7146e4cb29539cacda0a/src/main.rs"
+    },
+    "systemd.rs": {
+      "sha256": "f5393cf1ecf5b12bd0ae7fcbd2914af909fd25656cd727588c218f8c8b0ef0e8",
+      "url": "https://raw.githubusercontent.com/pop-os/cosmic-session/4b0a0a24e98b9e755b6a7146e4cb29539cacda0a/src/systemd.rs"
+    },
+    "comp.rs": {
+      "sha256": "b9bdc2233d5c649059c0cec31b886ccfac5d464de26f5a2b1ae090515015e0fb",
+      "url": "https://raw.githubusercontent.com/pop-os/cosmic-session/4b0a0a24e98b9e755b6a7146e4cb29539cacda0a/src/comp.rs"
+    },
+    "service.rs": {
+      "sha256": "9cf051684717be9486822d8bbfc63488526ca1a442b98bc659274d5cc4a526d8",
+      "url": "https://raw.githubusercontent.com/pop-os/cosmic-session/4b0a0a24e98b9e755b6a7146e4cb29539cacda0a/src/service.rs"
+    }
+  },
+  "full_cosmic_source_nar_verified_this_turn": false,
+  "raw_upstream_source_redistributed": false,
+  "findings": {
+    "greetd_alias": "display-manager.service",
+    "session_package_default_systemd_feature": true,
+    "session_target_requested_after_compositor_and_settings_daemon": "source-level contract; not observed runtime health",
+    "target_start_nonblocking": true,
+    "upstream_optional_network_defaults": [
+      "avahi",
+      "geoclue2",
+      "networkmanager"
+    ],
+    "local_required_services_retained": [
+      "dbus",
+      "dconf",
+      "accounts-daemon",
+      "polkit",
+      "rtkit",
+      "pipewire",
+      "portals",
+      "PAM"
+    ],
+    "manager_environment_completeness": "Not assumed; diagnostic reports incomplete rather than importing, guessing or connecting to sockets."
+  },
+  "scope": "selected pinned Nix module and immutable upstream source inspection only"
+}

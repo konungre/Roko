@@ -13,12 +13,12 @@ def inspect(policy,boot_id):
  if policy['offlineRequested'] and not policy['networkIsolationProven']:issues.append('network-isolation-not-proven')
  if policy['automaticUpgrade'] or policy['automaticGenerationDeletion']:issues.append('automatic-state-change-declared')
  return {'schema':'roko-startup-report-v1','boot_id':boot_id,'status':'unqualified','issues':issues,'declared_policy':policy,'runtime_health_observed':False,'system_ready':False,'execution_authorized':False,'scope':'boot-local policy diagnostics; no service/model/persistence probe'}
-def write_report(output,report):
+def write_report(output,report,mode=0o640):
  output=Path(output);temporary=None
  try:
   fd,temporary=tempfile.mkstemp(prefix='.startup-',dir=output.parent)
   with os.fdopen(fd,'w') as stream:
-   os.fchmod(stream.fileno(),0o640);json.dump(report,stream,sort_keys=True);stream.write('\n');stream.flush();os.fsync(stream.fileno())
+   os.fchmod(stream.fileno(),mode);json.dump(report,stream,sort_keys=True);stream.write('\n');stream.flush();os.fsync(stream.fileno())
   os.replace(temporary,output);temporary=None
   fd=os.open(output.parent,os.O_DIRECTORY)
   try:os.fsync(fd)
