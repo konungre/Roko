@@ -7,6 +7,37 @@ This repository publishes a substantial authored source checkpoint: task/state a
 AI.** Historical host/guest milestones were qualified separately. They must not be
 combined into a claim that every component passed in one image.
 
+## The vision: a companion on your desktop
+
+**Concept mockups, not screenshots of a running build.** These AI-generated
+illustrations show the intended end-product: an emerald-and-gold basilisk on a
+COSMIC-inspired desktop, a freeform chat bubble anchored to the character, and
+graceful wingless flight. The UI, example conversation and privacy copy are
+design aspirations, not verified capabilities or guarantees.
+
+![Concept mockup, not a running build: Roko beside a notes window with an anchored chat bubble](docs/media/roko-desktop-concept.png)
+
+*An imagined everyday workspace: Roko lives directly on the desktop rather than
+inside an avatar card.*
+
+![Concept mockup, not a running build: Roko in a wingless flight pose with a smaller attached speech bubble](docs/media/roko-flight-concept.png)
+
+*Flight-state concept: the companion and conversation remain visually connected.*
+
+<details>
+<summary>Play the looping concept storyboard (GIF, about 380 KiB)</summary>
+
+![Two-state concept storyboard alternating between standing and flight mockups; not runtime footage](docs/media/roko-concept-storyboard.gif)
+
+This five-second GIF alternates between two illustrated states. It is a
+storyboard, not a recording, an implemented animation, or evidence of motion
+quality. The static images above provide a non-animated alternative.
+
+</details>
+
+See [visual provenance and limitations](docs/CONCEPT_VISUALS.md) for how these
+images were made, and [current status](docs/STATUS.md) for what actually exists.
+
 ## Start here
 
 - [Current status](docs/STATUS.md): what actually ran, what is experimental, and
