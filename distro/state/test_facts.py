@@ -6,12 +6,27 @@ class FactsTests(unittest.TestCase):
   self.assertIn(' built ',f.atom());self.assertNotIn('running',f.atom())
  def test_injection_rejected(self):
   with self.assertRaises(ValueError):Fact('machine) (activate','nix',1,Stage.BUILT,'g','a'*64,'0'*64)
- def test_review_and_revision(self):
-  calls=[];p=Proposal('activate',2,'g','a'*64)
-  e=Executor(lambda p:False,{'activate':lambda p:calls.append(p)})
-  with self.assertRaises(PermissionError):e.execute(p,2)
-  with self.assertRaises(ValueError):e.execute(p,3)
-  self.assertEqual(calls,[])
-  Executor(lambda p:True,{'activate':lambda p:calls.append(p)}).execute(p,2)
-  self.assertEqual(calls,[p])
-if __name__=='__main__':unittest.main()
+ def test_review_time_change_and_replay(self):
+  import tempfile
+  from pathlib import Path
+  from revisions import RevisionGate
+  with tempfile.TemporaryDirectory() as d:
+   gate=RevisionGate(Path(d)/'gate');calls=[];p=Proposal('activate',0,'g','a'*64)
+   def review(proposal):
+    with gate.reserve(0):pass
+    return True
+   e=Executor(review,{'activate':lambda p:calls.append(p)},gate)
+   with self.assertRaises(ValueError):e.execute(p)
+   self.assertEqual(calls,[])
+   approved=Executor(lambda p:True,{'activate':lambda p:calls.append(p)},gate)
+   q=Proposal('activate',1,'g','a'*64);approved.execute(q)
+   with self.assertRaises(ValueError):approved.execute(q)
+   self.assertEqual(calls,[q])
+ def test_unreviewed_does_not_reserve(self):
+  import tempfile
+  from pathlib import Path
+  from revisions import RevisionGate
+  with tempfile.TemporaryDirectory() as d:
+   gate=RevisionGate(Path(d)/'gate')
+   with self.assertRaises(PermissionError):Executor(lambda p:False,{},gate).execute(Proposal('activate',0,'g','a'*64))
+   with gate.reserve(0):pass

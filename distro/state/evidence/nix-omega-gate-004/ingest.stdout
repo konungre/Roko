@@ -1,0 +1,229 @@
+[33m--> metta runnable  -->
+[36m!(import! &self src/utils.py)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'import!'('&self', 'src/utils.py', A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(import! &self src/providers.metta)
+[33m-->  prolog goal  -->[35m 
+:- findall(A, 'import!'('&self', 'src/providers.metta', A), _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (llmProviderStart $provider)
+   (py-call (providers.llmProviderStart $provider)))
+[33m--> prolog clause -->
+[32mllmProviderStart(A, B) :-
+    'py-call'(['providers.llmProviderStart', A], B).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (llmProviderChat $request)
+     (py-call (providers.llmProviderChat $request)))
+[33m--> prolog clause -->
+[32mllmProviderChat(A, B) :-
+    'py-call'(['providers.llmProviderChat', A], B).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (llmRequestMessage role $role content $content)
+   (py-call (providers.llmRequestMessage $role $content)))
+[33m--> prolog clause -->
+[32mllmRequestMessage(role, A, content, B, C) :-
+    'py-call'(['providers.llmRequestMessage', A, B], C).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (llmToolCallResponseMessage role $role callid $callid content $content)
+   (py-call (providers.llmToolCallResponseMessage $role $callid $content)))
+[33m--> prolog clause -->
+[32mllmToolCallResponseMessage(role,
+                                A,
+                                callid,
+                                B,
+                                content,
+                                C,
+                                D) :-
+    'py-call'(['providers.llmToolCallResponseMessage', A, B, C],
+              D).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (llmToolCallMessage role $role calls $calls content $content)
+   (py-call (providers.llmToolCallMessage $role $calls $content)))
+[33m--> prolog clause -->
+[32mllmToolCallMessage(role, A, calls, B, content, C, D) :-
+    'py-call'(['providers.llmToolCallMessage', A, B, C], D).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (llmRequest $prompt $episodes $max_tokens $reasoning_mode $tools)
+   (py-call (providers.llmRequest $prompt $episodes $max_tokens $reasoning_mode $tools)))
+[33m--> prolog clause -->
+[32mllmRequest(A, B, C, D, E, F) :-
+    'py-call'(['providers.llmRequest', A, B, C, D, E],
+              F).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (llmResponseIsEmpty $response)
+   (py-call (providers.llmResponseIsEmpty $response)))
+[33m--> prolog clause -->
+[32mllmResponseIsEmpty(A, B) :-
+    'py-call'(['providers.llmResponseIsEmpty', A], B).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (llmResponseCalls $response)
+   (py-call (providers.llmResponseCalls $response)))
+[33m--> prolog clause -->
+[32mllmResponseCalls(A, B) :-
+    'py-call'(['providers.llmResponseCalls', A], B).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (llmToolCallGetName $call)
+   (py-call (providers.llmToolCallGetName $call)))
+[33m--> prolog clause -->
+[32mllmToolCallGetName(A, B) :-
+    'py-call'(['providers.llmToolCallGetName', A], B).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (llmToolCallGetId $call)
+   (py-call (providers.llmToolCallGetId $call)))
+[33m--> prolog clause -->
+[32mllmToolCallGetId(A, B) :-
+    'py-call'(['providers.llmToolCallGetId', A], B).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (llmToolCallGetArguments $call)
+   (py-str ((py-call (providers.llmToolCallGetArguments $call)))))
+[33m--> prolog clause -->
+[32mllmToolCallGetArguments(A, ['py-str', B]) :-
+    'py-call'(['providers.llmToolCallGetArguments', A], C),
+    reduce([C], B).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (llmToolCallIsError $call)
+   (py-call (providers.llmToolCallIsError $call)))
+[33m--> prolog clause -->
+[32mllmToolCallIsError(A, B) :-
+    'py-call'(['providers.llmToolCallIsError', A], B).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (llmToolCallGetError $call)
+   (py-call (providers.llmToolCallGetError $call)))
+[33m--> prolog clause -->
+[32mllmToolCallGetError(A, B) :-
+    'py-call'(['providers.llmToolCallGetError', A], B).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta function -->
+[36m(= (llmResponseToSExpr $call)
+   (py-call (providers.llmResponseToSExpr $call)))
+[33m--> prolog clause -->
+[32mllmResponseToSExpr(A, B) :-
+    'py-call'(['providers.llmResponseToSExpr', A], B).
+[33m^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(add-atom &self (roko-os-fact v1 private-profile-gate nix 1 observed profile-operation-1 h52d780458935c03fa7f313f0889a9a738ae0fd95c0263f8533e46986e48d83e7 h0000000000000000000000000000000000000000000000000000000000000000))
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           'add-atom'('&self',
+                      [ 'roko-os-fact',
+                        v1,
+                        'private-profile-gate',
+                        nix,
+                        1,
+                        observed,
+                        'profile-operation-1',
+                        h52d780458935c03fa7f313f0889a9a738ae0fd95c0263f8533e46986e48d83e7,
+                        h0000000000000000000000000000000000000000000000000000000000000000
+                      ],
+                      A),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(match &self (roko-os-fact v1 private-profile-gate nix 1 observed profile-operation-1 h52d780458935c03fa7f313f0889a9a738ae0fd95c0263f8533e46986e48d83e7 h0000000000000000000000000000000000000000000000000000000000000000) ok)
+[33m-->  prolog goal  -->[35m 
+:- findall(ok,
+           match('&self',
+                 [ 'roko-os-fact',
+                   v1,
+                   'private-profile-gate',
+                   nix,
+                   1,
+                   observed,
+                   'profile-operation-1',
+                   h52d780458935c03fa7f313f0889a9a738ae0fd95c0263f8533e46986e48d83e7,
+                   h0000000000000000000000000000000000000000000000000000000000000000
+                 ],
+                 ok,
+                 ok),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(add-atom &self (roko-os-fact v1 private-profile-gate nix 2 observed profile-operation-2 h7d286edd5e4b8dd079a7940f16d2535c466a507cc01075d45aa78f599737a4a9 he3d2239472b2e53179a1ab7a22fbe17ecac10e0f2ecb562593b5972ff50e8a66))
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           'add-atom'('&self',
+                      [ 'roko-os-fact',
+                        v1,
+                        'private-profile-gate',
+                        nix,
+                        2,
+                        observed,
+                        'profile-operation-2',
+                        h7d286edd5e4b8dd079a7940f16d2535c466a507cc01075d45aa78f599737a4a9,
+                        he3d2239472b2e53179a1ab7a22fbe17ecac10e0f2ecb562593b5972ff50e8a66
+                      ],
+                      A),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(match &self (roko-os-fact v1 private-profile-gate nix 2 observed profile-operation-2 h7d286edd5e4b8dd079a7940f16d2535c466a507cc01075d45aa78f599737a4a9 he3d2239472b2e53179a1ab7a22fbe17ecac10e0f2ecb562593b5972ff50e8a66) ok)
+[33m-->  prolog goal  -->[35m 
+:- findall(ok,
+           match('&self',
+                 [ 'roko-os-fact',
+                   v1,
+                   'private-profile-gate',
+                   nix,
+                   2,
+                   observed,
+                   'profile-operation-2',
+                   h7d286edd5e4b8dd079a7940f16d2535c466a507cc01075d45aa78f599737a4a9,
+                   he3d2239472b2e53179a1ab7a22fbe17ecac10e0f2ecb562593b5972ff50e8a66
+                 ],
+                 ok,
+                 ok),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(add-atom &self (roko-os-fact v1 private-profile-gate nix 3 observed profile-operation-3 h5d7c9f5e72c5a0f934e513f0aaf7b922161f18e1742cdfeb0be05437cc100536 h24cfcc3a4cfcf68d311e8ca7af7b797c0bf24eb3ec00020e0662774c96c8caf0))
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           'add-atom'('&self',
+                      [ 'roko-os-fact',
+                        v1,
+                        'private-profile-gate',
+                        nix,
+                        3,
+                        observed,
+                        'profile-operation-3',
+                        h5d7c9f5e72c5a0f934e513f0aaf7b922161f18e1742cdfeb0be05437cc100536,
+                        h24cfcc3a4cfcf68d311e8ca7af7b797c0bf24eb3ec00020e0662774c96c8caf0
+                      ],
+                      A),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(match &self (roko-os-fact v1 private-profile-gate nix 3 observed profile-operation-3 h5d7c9f5e72c5a0f934e513f0aaf7b922161f18e1742cdfeb0be05437cc100536 h24cfcc3a4cfcf68d311e8ca7af7b797c0bf24eb3ec00020e0662774c96c8caf0) ok)
+[33m-->  prolog goal  -->[35m 
+:- findall(ok,
+           match('&self',
+                 [ 'roko-os-fact',
+                   v1,
+                   'private-profile-gate',
+                   nix,
+                   3,
+                   observed,
+                   'profile-operation-3',
+                   h5d7c9f5e72c5a0f934e513f0aaf7b922161f18e1742cdfeb0be05437cc100536,
+                   h24cfcc3a4cfcf68d311e8ca7af7b797c0bf24eb3ec00020e0662774c96c8caf0
+                 ],
+                 ok,
+                 ok),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0mROKO_NATIVE_PROFILE_OMEGA_PASS

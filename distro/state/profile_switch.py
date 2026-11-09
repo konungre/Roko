@@ -3,6 +3,7 @@
 No host profile/system activation. Failed candidates are retained, never adopted.
 """
 import fcntl,json,os,re,subprocess,uuid
+from revisions import save
 from pathlib import Path
 class Profiles:
  def __init__(self,root,nix,store,env):
@@ -15,9 +16,20 @@ class Profiles:
   if r.returncode:raise RuntimeError(r.stderr)
   return r.stdout
  def current(self):
-  p=self.root/'active'
+  p=self.root/'active';journal=self.root/'pointer.json'
   if os.path.lexists(p) and not p.is_symlink():raise ValueError('foreign active pointer')
-  return os.readlink(p) if p.is_symlink() else None
+  target=os.readlink(p) if p.is_symlink() else None
+  state=json.loads(journal.read_text()) if journal.exists() else {'revision':0,'target':None,'pending':False}
+  if state['pending'] or state['target']!=target:raise ValueError('incomplete switch or external drift; explicit recovery required')
+  return {'revision':state['revision'],'target':target}
+ def publish(self,target,expected):
+  if self.current()!=expected:raise ValueError('stale action boundary')
+  state={'revision':expected['revision']+1,'target':target,'pending':True}
+  save(self.root/'pointer.json',state) # reserve before any visible switch
+  temporary=self.root/('pointer-'+uuid.uuid4().hex)
+  os.symlink(target,temporary);os.replace(temporary,self.root/'active')
+  fd=os.open(self.root,os.O_DIRECTORY);os.fsync(fd);os.close(fd)
+  state['pending']=False;save(self.root/'pointer.json',state)
  def switch(self,packages,expected,review):
   if review is not True:raise PermissionError('external review required')
   if not packages:raise ValueError('empty profile not supported yet')
@@ -37,9 +49,7 @@ class Profiles:
    with (candidate/'receipt.json').open('x') as f:json.dump(receipt,f);f.flush();os.fsync(f.fileno())
    fd=os.open(candidate,os.O_DIRECTORY);os.fsync(fd);os.close(fd)
    if self.current()!=expected:raise ValueError('concurrent drift')
-   temporary=self.root/('pointer-'+uuid.uuid4().hex)
-   os.symlink(str(profile),temporary);os.replace(temporary,self.root/'active')
-   fd=os.open(self.root,os.O_DIRECTORY);os.fsync(fd);os.close(fd)
+   self.publish(str(profile),expected)
    return {'before':expected,'after':self.current(),'receipt':receipt}
  def rollback(self,target,expected,review):
   if review is not True:raise PermissionError('external review required')
@@ -52,7 +62,5 @@ class Profiles:
    receipt=json.loads((target.parent/'receipt.json').read_text())
    observed=json.loads(self.run('profile','list','--profile',str(target),'--json'))
    if observed!=receipt['native']:raise ValueError('retained profile changed')
-   temporary=self.root/('pointer-'+uuid.uuid4().hex)
-   os.symlink(str(target),temporary);os.replace(temporary,self.root/'active')
-   fd=os.open(self.root,os.O_DIRECTORY);os.fsync(fd);os.close(fd)
+   self.publish(str(target),expected)
    return {'before':expected,'after':self.current(),'native':observed,'scope':'private-user-profile-rollback'}

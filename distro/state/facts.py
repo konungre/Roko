@@ -34,11 +34,12 @@ class Proposal:
  evidence_sha256:str
 class Executor:
  """A trusted caller supplies review policy outside AtomSpace/serialized facts."""
- def __init__(self,review,handlers):self.review=review;self.handlers=handlers
- def execute(self,proposal,current_revision):
+ def __init__(self,review,handlers,gate):self.review=review;self.handlers=handlers;self.gate=gate
+ def execute(self,proposal):
   if not isinstance(proposal,Proposal):raise ValueError('typed proposal required')
   if proposal.operation not in ('build','stage','activate','rollback'):raise ValueError('operation')
-  if type(proposal.expected_revision)!=int or proposal.expected_revision!=current_revision:raise ValueError('stale revision')
+  if type(proposal.expected_revision)!=int:raise ValueError('stale revision')
   if not re.fullmatch('[a-zA-Z0-9._-]{1,128}',proposal.generation) or not re.fullmatch('[0-9a-f]{64}',proposal.evidence_sha256):raise ValueError('identity')
   if self.review(proposal) is not True:raise PermissionError('explicit external review required')
-  return self.handlers[proposal.operation](proposal)
+  with self.gate.reserve(proposal.expected_revision):
+   return self.handlers[proposal.operation](proposal)

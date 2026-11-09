@@ -20,7 +20,7 @@ def qualify(base,symbolic,output):
   if (Path(path)/'share/roko-generation').read_text()!=str(revision):raise ValueError('build payload')
   before=p.current();switch=p.switch({'roko':path},before,True)
   receipts.append({'operation':'build-and-profile-switch','build':build,'switch':switch,'payload':str(revision)})
- old=receipts[0]['switch']['after'];current=p.current();failures={}
+ old=receipts[0]['switch']['after']['target'];current=p.current();failures={}
  for kind in ('unauthorized','stale'):
   try:p.rollback(old,current if kind=='unauthorized' else 'stale',kind!='unauthorized')
   except (PermissionError,ValueError):failures[kind]=p.current()==current
@@ -29,6 +29,9 @@ def qualify(base,symbolic,output):
  rollback=p.rollback(old,current,True)
  if (p.root/'active/share/roko-generation').read_text()!='1':raise ValueError('rollback payload')
  receipts.append({'operation':'rollback','receipt':rollback})
+ try:p.switch({'roko':receipts[0]['build'][0]['outputs']['out']},receipts[0]['switch']['after'],True)
+ except ValueError:failures['aba_replay']=True
+ else:failures['aba_replay']=False
  (output/'native-receipts.json').write_text(json.dumps(receipts,indent=2)+'\n')
  ledger=Ledger(output/'facts.sqlite');previous='0'*64;facts=[]
  for i,r in enumerate(receipts,1):

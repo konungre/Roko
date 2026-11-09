@@ -1,0 +1,32 @@
+[
+  {
+    "machine": "private-profile-gate",
+    "backend": "nix",
+    "revision": 1,
+    "stage": "observed",
+    "generation": "profile-operation-1",
+    "evidence_sha256": "52d780458935c03fa7f313f0889a9a738ae0fd95c0263f8533e46986e48d83e7",
+    "predecessor": "0000000000000000000000000000000000000000000000000000000000000000",
+    "schema": "roko-os-fact-v1"
+  },
+  {
+    "machine": "private-profile-gate",
+    "backend": "nix",
+    "revision": 2,
+    "stage": "observed",
+    "generation": "profile-operation-2",
+    "evidence_sha256": "7d286edd5e4b8dd079a7940f16d2535c466a507cc01075d45aa78f599737a4a9",
+    "predecessor": "e3d2239472b2e53179a1ab7a22fbe17ecac10e0f2ecb562593b5972ff50e8a66",
+    "schema": "roko-os-fact-v1"
+  },
+  {
+    "machine": "private-profile-gate",
+    "backend": "nix",
+    "revision": 3,
+    "stage": "observed",
+    "generation": "profile-operation-3",
+    "evidence_sha256": "5d7c9f5e72c5a0f934e513f0aaf7b922161f18e1742cdfeb0be05437cc100536",
+    "predecessor": "24cfcc3a4cfcf68d311e8ca7af7b797c0bf24eb3ec00020e0662774c96c8caf0",
+    "schema": "roko-os-fact-v1"
+  }
+]

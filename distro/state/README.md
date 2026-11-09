@@ -130,3 +130,28 @@ inconsistency/corruption, not malicious rewriting by a database owner able to
 recompute hashes. Five state tests and the repeated real Nix/PeTTa/Omega gate003
 pass. Durable cognitive-owner subscription and independently observed running
 health remain open.
+
+## Review fixes: monotonic decisions and fail-closed reservations
+
+Private profile decisions now bind `{revision,target}`, not the target alone.
+Every switch/rollback durably reserves revision+1 before changing the pointer,
+under the same lock used for the final compare-and-swap. A pending journal or
+mismatched pointer refuses further operation; interrupted work needs explicit
+recovery rather than adoption/replay. Existing roots without a journal and an
+active pointer also refuse automatic migration. No recovery tool is supplied yet.
+
+The executor no longer accepts a caller-supplied current revision. After external
+review it locks a trusted RevisionGate, rechecks the expected revision, durably
+consumes it, and invokes the handler while holding the lock. Failed or interrupted
+handlers consume the reservation; their external effects are uncertain until
+independently inspected. This is cooperative at-most-once dispatch per revision,
+not an atomic transaction spanning Nix/SQLite/host effects. All writers must use
+the same trusted private gate; an owner capable of editing journals is outside
+this consistency contract. It provides no privileged/system activation service.
+
+Six state tests pass, including state changing during review and replay after
+consumption. The real native gate004 additionally proves A->B->rollback A rejects
+the old A decision, while native Nix and exact PeTTa/Omega fact matching pass.
+The imported prototype's license is explicitly unresolved; see its LICENSING.md.
+Do not approve release redistribution until the rights-holder grant is established
+or the imported source is replaced. PR22 remains draft pending independent review.

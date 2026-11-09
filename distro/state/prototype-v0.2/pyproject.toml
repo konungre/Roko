@@ -5,6 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "omega-metta-pm"
 version = "0.2.0"
+license = {text = "LicenseRef-Unresolved-User-Supplied; see LICENSING.md; no license grant identified"}
 description = "A declarative MeTTa-data package-management prototype for Omega"
 requires-python = ">=3.10"
 dependencies = []

@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "native_operations": 3,
+  "facts_reopened_and_matched": 3,
+  "failure_gates": {
+    "unauthorized": true,
+    "stale": true,
+    "aba_replay": true,
+    "stale_fact": true
+  },
+  "scope": "disposable Nix private-profile operations ingested into PeTTa with Omega imports",
+  "host_activation": false,
+  "system_generation_tested": false,
+  "runtime_returncode": 0
+}
