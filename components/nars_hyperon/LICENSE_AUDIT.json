@@ -1,0 +1,43 @@
+{
+  "scope": "NARS/Hyperon runtime used by durable conversation",
+  "hyperon": {
+    "version": "0.2.10",
+    "tag": "v0.2.10",
+    "commit": "3f76dc460da6961f57f69f6c3e550c59c74ada83",
+    "license": "MIT",
+    "license_sha256": "caf6b33ecc8724d930ebb048dd0e0f031341838c9ee8cf15d48f550cae893d35",
+    "source_license": "https://github.com/trueagi-io/hyperon-experimental/blob/3f76dc460da6961f57f69f6c3e550c59c74ada83/LICENSE",
+    "root_NOTICE_observation": "HTTP404 at inspected commit",
+    "root_Cargo_lock_observation": "HTTP404 at inspected commit",
+    "wheel_sha256": "12a0479df6afadda7562ffe10e7d63a6701aaec02f7177b91412bc05a09ed419",
+    "wheel_notice_files": [],
+    "bundled_native_libraries": [
+      "hyperon.libs/",
+      "hyperon.libs/libpcre-9513aab5.so.1.2.0",
+      "hyperon.libs/libselinux-0922c95c.so.1",
+      "hyperon.libs/libk5crypto-b1f99d5c.so.3.1",
+      "hyperon.libs/libcrypto-d3570994.so.1.0.2k",
+      "hyperon.libs/libgssapi_krb5-497db0c6.so.2.2",
+      "hyperon.libs/libssl-cd1d6220.so.1.0.2k",
+      "hyperon.libs/libkrb5-fcafa220.so.3.3",
+      "hyperon.libs/libkrb5support-d0bcff84.so.0.1",
+      "hyperon.libs/libcom_err-2abe824b.so.2.1",
+      "hyperon.libs/libkeyutils-dfe70bd6.so.1.5"
+    ]
+  },
+  "metta_nars": {
+    "commit": "945e2f83711b143e3f6e2eb112cc40c4f531c6f2",
+    "license": "MIT",
+    "source_already_vendored": [
+      "nal1.metta",
+      "truthfunctions.metta"
+    ],
+    "license_retained": "upstream/LICENSE"
+  },
+  "decision": "Retain exact Hyperon source license; retain existing NAL1 vendoring; do not duplicate or redistribute wheel/native closure before dependency licenses are audited",
+  "blockers": [
+    "Bundled native-library license/notice closure not established by wheel metadata",
+    "No root Cargo.lock at release tag; reproducible Rust dependency/license inventory still required"
+  ],
+  "runtime_changes": false
+}

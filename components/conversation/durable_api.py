@@ -94,6 +94,22 @@ def prepare_line(line):
             raise RuntimeError('Previous native claim unresolved')
         data = packet(line)
         op = data.get('op')
+        if op == 'limits':
+            if set(data) != {'api_version','op','session_id'}:
+                raise ValueError('Invalid limits fields')
+            state = store.snapshot(data['session_id'])
+            maximum = conversation.session.max_history
+            used = len(state['history'])
+            remaining = max(0,(maximum-used)//2)
+            immediate = {'api_version':2,'status':'limits','session_id':data['session_id'],
+                'revision':state['revision'],'executed_actions':0,
+                'history_messages':used,'max_history_messages':maximum,
+                'remaining_exchanges':remaining,'pending':state['pending'],
+                'history_admits_turn':remaining>0 and state['pending'] is None,
+                'input_token_limit':512,'max_output_tokens':128,
+                'token_admission':'checked_during_native_inference',
+                'history_policy':'complete_no_omission'}
+            return False
         if op == 'snapshot':
             if set(data) != {'api_version','op','session_id'}:
                 raise ValueError('Invalid snapshot fields')

@@ -81,3 +81,9 @@ v2 adapter and SQLite replay tests. All 73 memory/helper tests passed, including
 20 additional real native calls. No new full PeTTa/Omega/Granite qualification
 was performed on this merged checkout, and no CI run is claimed. The independent
 PathMap reproducer and observed failure are in `probes/pathmap-fork`.
+
+Additional qualification: five native equivalence methods passed in 7.253 seconds,
+including 12 deterministic maximum-16-fact workloads (seed 729104), with shared
+symbol prefixes, mixed relations and arities 1–3. Total: 32 native calls in this
+suite. No bounded-contract disagreement was observed; this does not remove the
+separately reproduced PrefixZipper defect or establish its unreachability.
