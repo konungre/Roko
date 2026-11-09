@@ -43,3 +43,11 @@ draft and all authoritative history remained unchanged. Three fresh endpoint
 processes reported zero model, MORK, NARS, ECAN or token-counter work. This tests
 real service replay/recovery, not new Granite inference or graphical integration.
 The full suite passed 212 tests with one optional fixture skipped (213 run).
+
+## Candidate receipt/reply presentation
+
+`receive_reply(packet)` now binds a saved v2 reply to the captured turn and exposes
+`active.reply` without changing the draft, transcript, recovery rules or snapshot
+requirement. See [DESKTOP_REPLY.md](DESKTOP_REPLY.md) for the executable callback
+contract, provenance limits and read-only saved-native evidence qualification.
+This adds no actual GUI or transport implementation.

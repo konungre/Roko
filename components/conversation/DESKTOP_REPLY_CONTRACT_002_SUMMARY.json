@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "checks": {
+    "four_saved_replies": true,
+    "expired/expired/notice_and_no_host_authority": true,
+    "expired/expired/reply_not_snapshot": true,
+    "expired/expired/actual_saved_turn_matches": true,
+    "expired/expired/lost_service_reply_does_not_enable_replay": true,
+    "expired/expired/explicit_replay_proposal_retains_captured_payload": true,
+    "expired/expired/release_not_history_mutation": true,
+    "limits/missing/notice_and_no_host_authority": true,
+    "limits/missing/reply_not_snapshot": true,
+    "limits/missing/actual_saved_turn_matches": true,
+    "limits/missing/lost_service_reply_does_not_enable_replay": true,
+    "limits/missing/explicit_replay_proposal_retains_captured_payload": true,
+    "limits/missing/release_not_history_mutation": true,
+    "limits/restored/notice_and_no_host_authority": true,
+    "limits/restored/reply_not_snapshot": true,
+    "limits/restored/actual_saved_turn_matches": true,
+    "limits/restored/lost_service_reply_does_not_enable_replay": true,
+    "limits/restored/explicit_replay_proposal_retains_captured_payload": true,
+    "limits/restored/release_not_history_mutation": true,
+    "limits/missing-again/notice_and_no_host_authority": true,
+    "limits/missing-again/reply_not_snapshot": true,
+    "limits/missing-again/actual_saved_turn_matches": true,
+    "limits/missing-again/lost_service_reply_does_not_enable_replay": true,
+    "limits/missing-again/explicit_replay_proposal_retains_captured_payload": true,
+    "limits/missing-again/release_not_history_mutation": true,
+    "database_bytes_unchanged": true
+  },
+  "input_database_sha256": "6172f9159cd0381e9aacb1749e9f9dc80b82971acb3d7bd19c731b59f53f2722",
+  "source_hashes": {
+    "/workspace/Roko/components/conversation/desktop_reply.py": "3536012462a56c2b8a36130e0393d05fdc3e89c73a08241b90e959d1ae1f37e8",
+    "/workspace/Roko/components/conversation/desktop_draft.py": "3cd550f782e25aab292ac21784c47b5ff340160cd761c4f613f35c32d63b2249",
+    "/workspace/Roko/components/conversation/desktop_diagnostics.py": "3e5941c48a9987f32997a004b7ebcdcc75817bdd03e750f597f485c6cd930309",
+    "/workspace/Roko/components/conversation/package_reply_view.py": "d9fbdba4705e1d2e6b80ef376d0585696394f2a6ec393391dae9c96dbc4d4f2d",
+    "/workspace/Roko/components/conversation/tests/probe_desktop_reply.py": "b131689ba80f97d1c76185ba6aee974dd20a261fc19b1230a03d5b0b186ad1a2"
+  },
+  "requests_reconstructed_from_saved_normalized_payload": true,
+  "native_runtime_rerun": false,
+  "graphical_ui_tested": false,
+  "transport_executed": false,
+  "executed_actions": 0,
+  "conversation_tests": {
+    "run": 278,
+    "passed": 269,
+    "skipped": 9
+  },
+  "local_desktop_reply_tests": 10,
+  "exponent_overflow_fix_commit": "3cc0a57a7082b276d57e5d78fd118d986be9699f",
+  "desktop_gui_integration": false,
+  "unpublished": true
+}
