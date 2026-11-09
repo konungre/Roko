@@ -34,7 +34,14 @@ replay. Process-double tests separately inject protocol and cleanup failures.
 Scope remains text-only: no tools, arbitrary MeTTa scripts, event agents, remote
 Motto providers, external actions or guest qualification. Literal backslash-n
 input is rejected because upstream Motto normalizes it; actual newline content
-is preserved. Model prose remains unverified. This transport adds no persistent
+is preserved. Model output containing literal backslash-n is likewise rejected
+before commit, because a saved assistant message becomes input on the next turn.
+The failed request remains terminal; a new request can proceed at the unchanged
+revision. `tests/probe_motto_output_native.py` requires actual Granite to emit
+the incompatible sequence, then verifies no commit, successful retry, and
+restart replay without inference. A deterministic SQLite regression exercises
+actual Hyperon/Motto with explicitly synthetic model replies.
+Model prose remains unverified. This transport adds no persistent
 learning state. The standalone smoke experiment and its evidence remain under
 `components/motto_conversation`; v2 qualification supersedes only its earlier
 integration-status limitation.

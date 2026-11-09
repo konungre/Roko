@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "checks": {
+    "actual_model_produced_literal_backslash_n": true,
+    "first_reply_not_committed": true,
+    "next_request_completed": true,
+    "failed_then_passed_motto": true,
+    "history_contains_only_retry": true,
+    "restart_replay_without_inference": true
+  },
+  "seconds": 38.84511107900107,
+  "executed_actions": 0,
+  "evidence_sha256": "c3ddddc2e081795515970b483bc00ee08e60278dfdf6f4ad617b22d94254cb2b",
+  "regression": "Real Granite emitted literal backslash-n; rejected before durable commit. New request succeeds; restart replays without native calls."
+}

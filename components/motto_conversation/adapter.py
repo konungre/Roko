@@ -55,6 +55,11 @@ def chat(messages, model):
             result = model([dict(row) for row in forwarded])
             if type(result) is not str or len(result.encode()) > 32768:
                 raise ValueError('Require bounded model text')
+            # Every committed assistant reply becomes a later input message.
+            # atom2msg replaces literal backslash-n on that later turn; reject
+            # it now rather than persisting history that cannot round-trip.
+            if '\\n' in result:
+                raise ValueError('Model text cannot round-trip through MeTTa-Motto')
             return upstream.Response(result)
 
     operation = Transport.get_agent_atom(metta)[0]

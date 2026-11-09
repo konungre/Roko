@@ -44,6 +44,17 @@ class NativeTransportTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             chat([{'role': 'user', 'content': 'hello'}], lambda _: {'content': 'fixture'})
 
+    def test_incompatible_reply_is_rejected_before_next_turn(self):
+        history = [{'role':'user','content':'first'}]
+        with self.assertRaises(ValueError):
+            reply = chat(history, lambda _: r'line\nnext')
+            history.append({'role':'assistant','content':reply})
+        self.assertEqual(history, [{'role':'user','content':'first'}])
+        seen = []
+        self.assertEqual(chat(history + [{'role':'user','content':'retry'}],
+                              lambda rows: seen.append(rows) or 'safe\ntext'), 'safe\ntext')
+        self.assertEqual(seen, [history + [{'role':'user','content':'retry'}]])
+
 
 if __name__ == '__main__':
     unittest.main()
