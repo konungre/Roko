@@ -20,7 +20,8 @@ SECOND=re.compile(CLAUSE+r'(?=\s*(?:\.|$))',re.I)
 SEPARATOR=re.compile(r'(?:\s*[.;]\s*|\s*,?\s+and\s+)',re.I)
 QUESTION=re.compile(r'(?:what|which|how|does|do|is|are|can)\b[^.!?\n]{0,300}\?',re.I)
 RESERVED=frozenset(('not no never some most few many may might could would should if then unless either or neither and is are a an all every each any the these those they we you i it this that '
-    'maybe perhaps probably possibly allegedly reportedly apparently supposedly sometimes usually often rarely suspected possible likely unlikely non').split())
+    'maybe perhaps probably possibly allegedly reportedly apparently supposedly sometimes usually often rarely suspected possible likely unlikely non '
+    'presumed presumptive apparent potential alleged reported supposed almost nearly arguably presumably generally occasionally seldom').split())
 
 
 @dataclass(frozen=True)
@@ -50,7 +51,9 @@ def parse_assertions(text,revision):
         for name in ('subject','predicate'):
             label=' '.join(match.group(name).lower().split())
             words=re.split(r'[ _-]+',label)
-            if any(word in RESERVED for word in words):return None
+            # Conservative lexical admission, not a semantic English classifier.
+            # Reject adverb-like labels rather than promote common hedges to facts.
+            if any(word in RESERVED or word.endswith('ly') for word in words):return None
             identifier=re.sub(r'[ -]','_',label)
             if not re.fullmatch(r'[a-z][a-z0-9_]{0,31}',identifier):return None
             if identifier in labels and labels[identifier]!=label:return None

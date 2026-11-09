@@ -51,6 +51,12 @@ class AssertionGrammarTests(unittest.TestCase):
         for text in (
             'Maybe robin is a bird. bird is an animal.',
             'Perhaps a robin is a bird. A bird is an animal.',
+            'Presumably robins are birds. Birds are animals.',
+            'Occasionally robins are birds. Birds are animals.',
+            'Generally robins are birds. Birds are animals.',
+            'Seldom robins are birds. Birds are animals.',
+            'All presumably robins are birds. Birds are animals.',
+            'A presumed robin is a bird. A bird is an animal.',
             'A possible robin is a bird. A bird is an animal.',
             'Some robins are birds. Birds are animals.',
             'A robin is not a bird. A bird is an animal.',

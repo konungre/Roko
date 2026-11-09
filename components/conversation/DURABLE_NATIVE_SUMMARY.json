@@ -1,0 +1,153 @@
+{
+  "scope": "Versioned host-local durable JSON-lines API; real bounded Omega/PeTTa/ECAN/Granite, no graphical/guest qualification",
+  "base_commit": "55bebd8d79454c765b258b27471ad54a971700e5",
+  "source_and_native_fixture_tests": 50,
+  "end_to_end_passed": true,
+  "checks": {
+    "native_ecan_and_granite": true,
+    "selected_context": true,
+    "first_complete": true,
+    "durable_restart": true,
+    "exact_replay": true,
+    "stale_cas": true,
+    "recall": true,
+    "explicit_output_limit": true,
+    "partial_replay": true,
+    "context_limit_no_commit": true,
+    "cancel_cleanup": true,
+    "pending_no_replay": true,
+    "explicit_recovery": true
+  },
+  "native_attempts": [
+    {
+      "phase": "01-ecan",
+      "seconds": 123.445,
+      "returncode": 0,
+      "generation": {
+        "input_tokens": 129,
+        "output_tokens": 33,
+        "finish_reason": "eos"
+      },
+      "model_verified_before_history_commit": true,
+      "descendants_cleaned": true
+    },
+    {
+      "phase": "02-restart-replay-cas",
+      "seconds": 75.334,
+      "returncode": 0,
+      "generation": {
+        "input_tokens": 118,
+        "output_tokens": 8,
+        "finish_reason": "eos"
+      },
+      "model_verified_before_history_commit": true,
+      "descendants_cleaned": true
+    },
+    {
+      "phase": "03-output-limit",
+      "seconds": 83.342,
+      "returncode": 0,
+      "generation": {
+        "input_tokens": 147,
+        "output_tokens": 4,
+        "finish_reason": "length"
+      },
+      "model_verified_before_history_commit": true,
+      "descendants_cleaned": true
+    },
+    {
+      "phase": "05-context-limit",
+      "seconds": 0.379,
+      "returncode": 2,
+      "generation": null,
+      "model_verified_before_history_commit": false,
+      "descendants_cleaned": true
+    }
+  ],
+  "resident_model_cancellation": {
+    "resident_native_before": [
+      {
+        "pid": 8730,
+        "rss": 11358208,
+        "cpu_ticks": 6,
+        "comm": "python3.12"
+      },
+      {
+        "pid": 8731,
+        "rss": 4339507200,
+        "cpu_ticks": 54,
+        "comm": "infer"
+      }
+    ],
+    "native_after": [],
+    "cancel_returncode": 1,
+    "answer_bytes": 0,
+    "recovery_returncode": 0,
+    "recovery": [
+      {
+        "api_version": 2,
+        "status": "snapshot",
+        "session_id": "resident",
+        "executed_actions": 0,
+        "revision": 0,
+        "history": [],
+        "pending": "cancelled"
+      },
+      {
+        "api_version": 2,
+        "session_id": "resident",
+        "request_id": "cancelled",
+        "executed_actions": 0,
+        "status": "interrupted",
+        "revision": 0
+      },
+      {
+        "api_version": 2,
+        "status": "snapshot",
+        "session_id": "resident",
+        "executed_actions": 0,
+        "revision": 0,
+        "history": [],
+        "pending": null
+      }
+    ],
+    "passed": true
+  },
+  "profile_sha256": "9a493f8f2839ae78e5a618c6d806be1bbf3652ae50a7cd5a69d7d5d1428cb60b",
+  "source_sha256": {
+    "durable_server.py": "63d0d13848c40a18439090a23fc38976b9215b68256645ebe9d4455c0c8679ee",
+    "run.py": "d093f4255156601c1b8a16ef565f60370b8387ee0ed9d3474742c3a19620128b",
+    "worker.pl": "6705175acda957e3b5ffabda906b85b97f8b71a13c3969133edc390f50e40d95",
+    "durable_api.py": "87f03296a1199c0b6a95dd6868a6e999b537f57bd9fcba57c1120a21ea908b69",
+    "qualify_fresh.py": "77e2f25c55510cc1ed92b8c58b128e958e34bbdef9f13710790012499c8690de",
+    "fresh_server.py": "4fab67c6b0cbb5f6016c2f60a957c8b3ca17e60e226489ae11a898202436db88",
+    "durable_store.py": "4faf14ed8b1cc2b0698a9937f445d3c2a5b2740b3d7d27db8e8514ace182cd89",
+    "probe_recovered.py": "9ee07911bdbd64d83318da390cac1d19f833d47204e3680a690b735f50a6cf1c",
+    "step.metta": "02ebb8576425403f9c04872c1609396171b8090e9efc098ebfb6492177b1e9b9",
+    "fresh_supervise.py": "b599c4c61b5c225e11a43e1415fb0596b9987c76b5724f31e32cfbfd32dacf79",
+    "fresh_ecan.py": "36b92bb0fb0cc9587ed6f2ce3dbd96c6e80f2b8184bd6b0c8397aa1e0161498d",
+    "fresh.py": "ad22ee8f415edf0b2e95641a34c334503d215a0afa965597d88c16eac013d4a7",
+    "ecan_hook.py": "5067af7e1fab9b22b45bcf6647cc8d43aa091444cca74f28191e53bb6bf17fdd",
+    "recovered_server.py": "086701ab350f6aced36fbb5af00efc20167920621fb90e7db84cd61ff9f6dc1a",
+    "fresh_exec.py": "3d048d7401b9f04c8a2f929d01a97cd0434a76b6b58a007b044d116d18dda2fa",
+    "fresh-infer.cpp": "eaa79538b1e162880bdfc1c4ded0b0a2be35eae7b32400db2155b1e8b5a00690",
+    "recovered_exec.py": "b5b25355431c72a13d409c5373cd2222cf7c77632a51d2117a3542ac34d35b5b",
+    "probe_durable.py": "ed9361ce821116ea4ca870524ce0d090df0fa42e407370b652b1fd2114dd0f96",
+    "recovered.py": "ea3636569f4e96e669fd2be91a7a86c9c9fa66bc3f7b75f5cfe726876b9f412f",
+    "conversation.py": "5097722c3236225ddeef9b8bc0efec28ca7b32271e7bc4ebf13c3736c9539cb4",
+    "probe_fresh.py": "3976489299eefea3dac9c9ca0f09684a0549c655a66439a5939b24974df4a4bc"
+  },
+  "model_sha256": "5a38b08c441ae1adbafb1d2b8a7167e0d48734d83af68b268cefea1eec553dcd",
+  "ecan_commit": "d3a3c0e369df052e31992fcdbafdec4a42d1a3ad",
+  "ecan_source_files_verified": 167,
+  "executed_actions": 0,
+  "replay_guarantee": "Same JSON response value; object key ordering is not guaranteed",
+  "limitations": [
+    "Local SQLite durability depends on underlying storage; no distributed exactly-once claim",
+    "All history retained; 512-token input admission rejects rather than silently dropping history",
+    "At most 128 generated tokens; partial replies explicitly tagged, no automatic continuation",
+    "ECAN attention-bank subset only, not full scheduling/diffusion",
+    "No MORK memory projection, learning, graphical UI or guest qualification",
+    "Model text remains unverified; broader conversational quality unqualified"
+  ]
+}

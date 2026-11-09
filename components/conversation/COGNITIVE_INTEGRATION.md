@@ -1,5 +1,9 @@
 # Qualified NAL-1 conversation integration
 
+> Historical producer v1 checkpoint at `f07e16d`. Its measurements and limits
+> below describe that checkpoint. The integrated durable v2 contract is in
+> [DURABLE_API.md](DURABLE_API.md); new qualification is reported separately.
+
 The final local test executed **actual MeTTa-NARS inference, Omega provider
 dispatch through PeTTa, and local Granite inference** in one two-turn session.
 The final attempt passed in 51.860 seconds. It returned:
