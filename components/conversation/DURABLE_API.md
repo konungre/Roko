@@ -262,3 +262,11 @@ See [EIGHT_TURN_CAPACITY.md](EIGHT_TURN_CAPACITY.md) for the reproducible native
 probe and audit-only workflow. The probe resumes six verified exchanges, adds
 two native turns, and checks both context and history exhaustion without
 changing the complete-history default or enabling projection implicitly.
+
+## Experimental profile budget
+
+Profiles without an explicit capability retain512 input tokens. See
+[NATIVE_BUDGET.md](NATIVE_BUDGET.md) for the separately built, pinned experimental
+768-token contract and native recovery probes. The public request schema,
+complete-context default, history ceiling and explicit recovery semantics remain
+unchanged. Saved response replay does not reinterpret its original model budget.

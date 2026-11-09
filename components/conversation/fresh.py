@@ -23,6 +23,37 @@ def digest(path):
         return hashlib.file_digest(stream, 'sha256').hexdigest()
 
 
+def budget_contract(profile):
+    default={'kind':'roko-native-budget-v1','input_tokens':512,'context_tokens':1024,'max_output_tokens':128}
+    if 'native_budget' not in profile:return default
+    value=profile['native_budget']
+    if (type(value) is not dict or set(value)!=set(default) or value.get('kind')!=default['kind']
+            or any(type(value[k]) is not int for k in ('input_tokens','context_tokens','max_output_tokens'))
+            or (value['input_tokens'],value['context_tokens'],value['max_output_tokens']) not in ((512,1024,128),(768,1024,128))):
+        raise ValueError('Unsupported native budget contract')
+    return dict(value)
+
+def verify_budget_capability(profile):
+    expected=budget_contract(profile)
+    if 'native_budget' not in profile:return
+    source=Path(__file__).resolve().parent
+    stamp=Path(f'/proc/{os.getpid()}/stat').read_text().rsplit(')',1)[1].split()[19]
+    command=[profile['python'],'-B',str(source/'fresh_supervise.py'),'--parent-pid',str(os.getpid()),'--parent-start',stamp,'--seconds','4','--',profile['infer'],'--capabilities']
+    proc=subprocess.run(command,capture_output=True,timeout=5,start_new_session=True,
+                        env={'PATH':'/usr/bin:/bin','LANG':'C.UTF-8','PYTHONDONTWRITEBYTECODE':'1'})
+    if proc.returncode or len(proc.stdout)>4096 or len(proc.stderr)>4096 or b'ROKO_SUPERVISOR reason=native-exit descendants_cleaned=1' not in proc.stderr:
+        raise ValueError('Native budget capability probe failed')
+    def unique(pairs):
+        result={}
+        for key,value in pairs:
+            if key in result:raise ValueError('Duplicate budget capability field')
+            result[key]=value
+        return result
+    actual=json.loads(proc.stdout,object_pairs_hook=unique)
+    if (type(actual) is not dict or set(actual)!=set(expected)
+            or any(type(actual[k]) is not type(expected[k]) for k in expected) or actual!=expected):
+        raise ValueError('Native budget capability mismatch')
+
 def load_profile(path):
     profile = json.loads(Path(path).read_text())
     if profile.get('kind') != 'roko-fresh-host-v1':
@@ -37,6 +68,7 @@ def load_profile(path):
             raise ValueError('Unpinned executable or model: ' + key)
     if profile['files'][profile['model']] != recovered.MODEL_SHA:
         raise ValueError('Unexpected Granite model identity')
+    verify_budget_capability(profile)
     if 'nars_cognition' in profile:
         config=profile['nars_cognition']
         if type(config) is not dict or set(config)!={'manifest','admission','evidence_root'}:
@@ -72,7 +104,7 @@ class GenerationError(RuntimeError):
         self.code = code
 
 
-def generation_metadata(stderr, max_tokens):
+def generation_metadata(stderr, max_tokens, input_limit=512):
     try:
         rows = [json.loads(x.split(' ', 1)[1]) for x in stderr.splitlines()
                 if x.startswith('ROKO_GENERATION ')]
@@ -88,7 +120,7 @@ def generation_metadata(stderr, max_tokens):
         raise GenerationError('invalid_generation_receipt')
     if row['finish_reason'] == 'input_limit':
         raise GenerationError('context_limit')
-    if not 1 <= row['input_tokens'] <= 512:
+    if not 1 <= row['input_tokens'] <= input_limit:
         raise GenerationError('invalid_generation_receipt')
     return row
 
@@ -132,6 +164,7 @@ class FreshProvider:
             probe.close()
             raise ValueError('Require inherited child-only network denial')
         self.profile = profile
+        self.input_token_limit = budget_contract(profile)['input_tokens']
         self.receipts = []
         self.ecan_receipts = []
         self.mork_receipts = []
@@ -249,11 +282,11 @@ class FreshProvider:
                     raise
                 full_prompt = None
             full_count = counter(full_prompt) if full_prompt is not None else None
-            if full_count is not None and full_count <= 512:
+            if full_count is not None and full_count <= budget_contract(self.profile)['input_tokens']:
                 history = json.dumps(messages[1:-1], sort_keys=True,
                     separators=(',', ':'), ensure_ascii=False)
                 metadata = {'policy':'extractive_v1', 'model_context_complete':True,
-                    'token_count':full_count, 'budget':512,
+                    'token_count':full_count, 'budget':budget_contract(self.profile)['input_tokens'],
                     'prompt_sha256':hashlib.sha256(full_prompt.encode()).hexdigest(),
                     'full_history_sha256':hashlib.sha256(history.encode()).hexdigest(),
                     'omitted_count':0, 'omitted_assistant_count':0,
@@ -261,7 +294,7 @@ class FreshProvider:
                 return messages, metadata
             session = conversation.session
             projected, metadata = build_summary(messages[1:-1], messages[-1]['content'],
-                count_tokens=counter, budget=512, recent_pairs=1,
+                count_tokens=counter, budget=budget_contract(self.profile)['input_tokens'], recent_pairs=1,
                 context=session.context, cognitive_context=session.cognitive_context,
                 package_context=getattr(session,'package_context',[]))
             if time.monotonic() > deadline:
@@ -335,7 +368,7 @@ class FreshProvider:
                 receipt['terminal_error'] = code
                 raise GenerationError(code)
         try:
-            generation = generation_metadata(receipt['stderr'], self.max_tokens)
+            generation = generation_metadata(receipt['stderr'], self.max_tokens, budget_contract(self.profile)['input_tokens'])
             receipt['generation'] = generation
             self.last_generation = generation
         except GenerationError as error:

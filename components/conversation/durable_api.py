@@ -118,7 +118,7 @@ def prepare_line(line):
                 'history_messages':used,'max_history_messages':maximum,
                 'remaining_exchanges':remaining,'pending':state['pending'],
                 'history_admits_turn':remaining>0 and state['pending'] is None,
-                'input_token_limit':512,'max_output_tokens':128,
+                'input_token_limit':getattr(conversation.session.provider,'input_token_limit',512),'max_output_tokens':128,
                 'token_admission':'checked_during_native_inference',
                 'history_policy':'complete_no_omission'}
             return False
