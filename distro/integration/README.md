@@ -119,3 +119,15 @@ child failure; the outer runner reaped QEMU. The gate failed, and no model
 conversation success is claimed. Attempt001's missing-CRC32C failure is retained.
 The TCG-only environment does not establish consumer CPU performance; this test
 needs repetition on an authorized accelerated guest before desktop integration.
+
+## Private state across cold boots
+
+`persistence_guest.py CAPSULE RUNTIME LOCK TOOLS NEW_OUTPUT` reuses the verified
+model capsule's Python and kernel modules for a storage-only test. It creates a
+new private 64 MiB ext4 image, attaches only that disposable disk, and boots twice.
+The first boot writes and fsyncs a UID1000 mode0600 JSON file; the second verifies
+its exact contents and ownership. Both cleanly unmount before poweroff.
+Attempt001 caught the formatter's root-directory mode0755 after mounting.
+Attempt002 explicitly sets mounted-root ownership and mode0700 and passes both
+boots. Raw receipts are in `persistence-evidence/`. No COSMIC, model response,
+crash consistency or physical power-loss claim follows from this test.
