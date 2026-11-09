@@ -4,4 +4,4 @@ This is the authored immutable evidence/proposal adapter with 53 pure tests. It 
 
 `python3 -B -m unittest discover -s metamo-controller-adapter-v2/source -p test_adapter.py`
 
-These tests use explicitly marked mock receipts. They are not new native results. The separate two-process native adapter gate is pending independent review/admission. No native receipt, runtime inventory, admission manifest or private source is published here. Native scripts are not standalone execution authorization.
+These tests use explicitly marked mock receipts. They are not new native results. The separately reviewed two-process native adapter gate passed once. See NATIVE_RESULT.md for its actual scope and observed result; it was not rerun for this source migration. No native receipt, runtime inventory, admission manifest or private source is published here. Native scripts are not standalone execution authorization.

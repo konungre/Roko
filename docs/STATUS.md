@@ -40,8 +40,10 @@ This document describes project status across the preserved local work. It is no
   helper/consumer checks. v3 failed before scoring because of helper import
   order; that failure remains preserved. Five upstream modules remain exact-pin
   external sources, with seven authored numeric compatibility helpers. The new
-  `metamo-controller-adapter-v2` has 53 pure tests and awaits its separate native
-  controller gate. No full MetaMo state cycle or guest integration is claimed.
+  `metamo-controller-adapter-v2` passed two fresh native controller cases: a
+  wrong high-score answer was rejected and a correct one accepted only on a
+  detached clone. Original tasks and evidence stayed unchanged. It also has
+  53 pure tests. No full MetaMo state cycle or guest integration is claimed.
 - **NACE:** `components/nace` contains seven byte-preserved MIT-licensed function
   blocks and a bounded predictive adaptation adapter. The source checkpoint
   passed 70 pure tests. The portable copy has 70 passing tests and two explicit
