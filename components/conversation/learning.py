@@ -15,7 +15,8 @@ ROOT=SOURCE.parents[1]
 COMPONENTS={'metamo':ROOT/'components/metamo_host/source/contract.py',
             'airis':ROOT/'components/airis_host/source/contract.py',
             'nace':ROOT/'components/nace/source/contract.py',
-            'ai_dsl':ROOT/'components/ai_dsl/contract.py'}
+            'ai_dsl':ROOT/'components/ai_dsl/contract.py',
+            'os_state':ROOT/'components/os_atomspace/conversation_contract.py'}
 _CONTRACTS={}
 
 
@@ -40,7 +41,7 @@ def validate_tasks(tasks):
         name=row['component']
         if type(name) is not str or name not in COMPONENTS or name in seen:raise ValueError('Unknown or duplicate cognitive component')
         seen.add(name);module=contract(name)
-        if name=='ai_dsl':request=module.validate(row['request'])
+        if name in ('ai_dsl','os_state'):request=module.validate(row['request'])
         elif name=='nace':module.parse_request(row['request']);request=json.loads(canonical(row['request']))
         else:request=module.parse_request(canonical(row['request']))
         result.append({'component':name,'request':request})
@@ -63,6 +64,13 @@ def observation(name,response):
             '. Accepted plans were checked for types, depth and required services. '
             'The rejected shortcut may omit a required service. No speech or emotion recognition '
             'service ran; executed_services=0. Full search results are in cognitive_results.')
+    elif name=='os_state':
+        value=response['latest_observation']['value']
+        return ('OS receipt: imported external Nix private-profile '+value['operation']+
+            ' observation, source revision='+str(response['source_revision'])+
+            ', machine='+response['machine']+'. Source receipt chain checked in local PeTTa/Omega. '
+            'This does not establish current-host state, system activation, running system or health. '
+            'Nix was not rerun here. No mutation authorized; executed_actions=0.')
     else:
         value={'selected_rules':response['selected_rules'],'prediction':response['prediction']}
     text=name.upper()+' native bounded result: '+canonical(value).decode()+'. Advisory hypothetical data; no action executed or authorized.'

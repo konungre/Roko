@@ -15,9 +15,10 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('--profile',type=Path,required=True)
     for name in ('metamo','airis','nace','guard'):p.add_argument('--'+name+'-manifest',type=Path,required=True)
     p.add_argument('--ai-dsl-manifest',type=Path)
+    p.add_argument('--os-state-manifest',type=Path)
     p.add_argument('--evidence-root',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
     a=p.parse_args();profile=load_profile(a.profile);components={}
-    names=['metamo','airis','nace','guard']+(['ai_dsl'] if a.ai_dsl_manifest else [])
+    names=['metamo','airis','nace','guard']+(['ai_dsl'] if a.ai_dsl_manifest else [])+(['os_state'] if a.os_state_manifest else [])
     for name in names:
         path=getattr(a,name+'_manifest').resolve(strict=True);m=json.loads(path.read_bytes())
         for file,h in m['files'].items():

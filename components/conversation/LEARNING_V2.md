@@ -13,6 +13,7 @@ synthetic examples in `tests/learning_fixtures.json`.
 | AIRIS | Original pinned Airis class; four recorded scalar transitions, rule creation/update, held-out prediction, empty-knowledge ablation and snapshot restoration. |
 | NACE | The exact seven-function upstream-derived slice; bounded 3×3 board/rules, evidence revision and hypothetical prediction checked against an independent oracle. |
 | AI-DSL (optional) | Actual upstream type-composition search on Hyperon, with independent type/depth/capability checks. No synthesized service is executed. See `AI_DSL_V2.md`. |
+| OS state (optional) | Actual PeTTa/Omega queries over a pinned imported OS-owner Nix private-profile receipt. No local Nix execution or system-state authority. See `OS_STATE_V2.md`. |
 
 ## Durable behavior
 

@@ -163,7 +163,7 @@ callback tests explicitly use a fake provider and are not model evidence.
 
 A v2 turn may include `cognitive_tasks`, a list of zero to three objects with
 exact fields `component` and `request`. Component names are `metamo`, `airis`,
-`nace`, and optionally `ai_dsl`, with no duplicates and at most three tasks.
+`nace`, and optionally `ai_dsl` or `os_state`, with no duplicates and at most three tasks.
 Requests use each component's existing bounded
 typed contract; the text model never supplies their state, features, rules or
 training data. See `tests/learning_fixtures.json` for complete synthetic examples.

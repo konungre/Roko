@@ -103,3 +103,9 @@ native switch/rollback receipts. These are private-profile observations, not
 system built/activated/running/health facts. Producer authentication, current
 machine state and local Nix execution remain unverified. No action authority is
 created from the source's observed label.
+
+The optional conversation gateway exposes this qualified imported snapshot
+through the durable `os_state` task. It runs actual PeTTa/Omega queries and
+returns exact structured results alongside advisory model text. Source files
+remain pinned; this is not a live OS subscription. See
+`../conversation/OS_STATE_V2.md` for request, qualification and scope details.
