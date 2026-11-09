@@ -46,3 +46,33 @@ including unavailable/restored receipts, historical provenance and expired
 admission. It tests presenter execution against measured native packets, not a
 new run of PeTTa/Omega/Motto/Granite. GUI wiring and genuine live OS observation
 remain separate work.
+
+## Malformed, stale, and absent evidence
+
+The renderer checks identity and internal consistency before presenting source
+provenance. Missing session/request identity, partial or unknown status schemas,
+contradictory source commits, orphan proof digests, and positive authority flags
+produce a neutral uncertainty notice. CLI JSON parsing rejects duplicate keys,
+nonfinite numbers, and oversized packets before displaying that packet.
+
+For `explain_v1`, the renderer checks the reported admission classification
+against the reported qualification time, check time, and bounded admission
+window. This is only an internal consistency check of service-reported values;
+it does not authenticate the clock or source. The exact expiry boundary remains
+valid; the following nanosecond is expired. A check preceding qualification is
+clock-unverifiable. Missing source data and expired admission can coexist without
+establishing package absence.
+
+Rendering an old saved reply does not consult the current clock or reclassify
+its historical admission. A reply that was admitted at its recorded check can
+still show that old record, explicitly as-of that check with unknown observation
+age. This does not make it admissible for a new request or refresh its evidence.
+A genuinely expired-admission packet is shown as expired, with any last-known
+source labeled historical. Absent metadata produces no invented provenance;
+null or malformed metadata produces an uncertainty notice.
+
+`tests/probe_package_reply_uncertainty.py` exercises the real CLI with clearly
+marked synthetic metadata and adversarial prose derived from a saved native
+packet. Those mutations are fixtures, not evidence that the OS changed, a receipt
+actually expired, or a model emitted the adversarial text. The presenter neither
+promotes that prose to receipt metadata nor attempts to adjudicate it semantically.

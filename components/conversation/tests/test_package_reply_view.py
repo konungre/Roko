@@ -17,7 +17,8 @@ def reply():
             binding=dict(session_id='s',request_id='r',revision=0),mutation_authority=False,executed_actions=0,
             source=source,query_receipt_sha256='c'*64,last_known_source=None,last_known_query_receipt_sha256=None,
             evidence_status='available_freshness_unknown',availability='available',admission_status='valid',
-            data_admitted=True,source_observation_time_known=False,evidence_checked_at_ns=1700000000123456789))
+            data_admitted=True,source_observation_time_known=False,evidence_checked_at_ns=1700000000123456789,
+            qualified_at_ns=1700000000000000000,max_admission_age_seconds=3600,source_commit='a'*40))
 
 
 class ReplyViewTests(unittest.TestCase):
@@ -34,6 +35,7 @@ class ReplyViewTests(unittest.TestCase):
                 value=reply();s=value['package_state'];s.update(evidence_status=status,availability=availability,
                     admission_status=admission,data_admitted=False,last_known_source=s['source'],
                     last_known_query_receipt_sha256=s['query_receipt_sha256'],source=None,query_receipt_sha256=None)
+                if status=='admission_expired':s['qualified_at_ns']=0
                 notice=receipt_notice(value)
                 self.assertIn('Historical last-known source (not current evidence)',notice)
                 self.assertIn(LIMITS,notice)
@@ -64,7 +66,7 @@ class ReplyViewTests(unittest.TestCase):
         self.assertIn('answer\\u001b[2J',view)
     def test_strict_legacy_receipt_does_not_invent_check_time(self):
         value=reply();state=value['package_state']
-        for key in ('evidence_status','availability','admission_status','data_admitted','source_observation_time_known','evidence_checked_at_ns'):state.pop(key)
+        for key in ('evidence_status','availability','admission_status','data_admitted','source_observation_time_known','evidence_checked_at_ns','qualified_at_ns','max_admission_age_seconds'):state.pop(key)
         notice=receipt_notice(value)
         self.assertIn('check time and observation age unknown',notice)
         self.assertNotIn('Recorded evidence check:',notice)
