@@ -1,0 +1,34 @@
+{
+  "source_commit": "81a1c9705d7a0eb358ab94517da564c38b390179",
+  "status": "passed",
+  "checks": {
+    "ordinary_turns_completed": true,
+    "missing_is_no_admitted_source": true,
+    "restored_source_admitted_without_freshness_claim": true,
+    "last_known_source_is_historical": true,
+    "one_native_query_after_restore": true,
+    "expired_admission_not_observation_age": true,
+    "no_query_for_expired": true,
+    "no_mutation_authority": true,
+    "full_history_preserved": true,
+    "cognitive_ledger_unchanged": true,
+    "restart_replays_while_source_missing": true,
+    "no_implicit_projection": true
+  },
+  "seconds": 145.1486861609992,
+  "result_sha256": "3cc65f844106af0cdc1026074829cb9358377c760c82a2960fdd540309285ac5",
+  "conversation_tests": {
+    "run": 247,
+    "passed": 241,
+    "skipped": 6
+  },
+  "os_tests": {
+    "run": 27,
+    "passed": 27
+  },
+  "executed_actions": 0,
+  "native_nix_reexecuted_here": false,
+  "source_observation_time_known": false,
+  "expired_admission_time_is_test_fixture": true,
+  "published": false
+}
