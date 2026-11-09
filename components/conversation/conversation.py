@@ -161,8 +161,9 @@ class Session:
                   'Symbolic context: ' + json.dumps(self.context, ensure_ascii=False) +
                   ('\nDerived cognitive observations: '+json.dumps(self.cognitive_context,ensure_ascii=False)
                    if self.cognitive_context else ''))
-        from package_awareness import prompt_suffix
-        system += prompt_suffix(self.package_context)
+        if self.package_context:
+            from package_awareness import prompt_suffix
+            system += prompt_suffix(self.package_context)
         self.reply = bounded_text(self.provider.chat(
             [{'role': 'system', 'content': system}] + expected))
         return {'role': 'assistant', 'content': self.reply}

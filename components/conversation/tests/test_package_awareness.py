@@ -1,5 +1,6 @@
 """Ordinary-turn receipt context: real SQLite/files, explicit native-query doubles."""
 import copy
+import builtins
 import hashlib
 import json
 import os
@@ -114,3 +115,14 @@ class OrdinaryTurnTests(unittest.TestCase):
         def too_large(prompt):counted.append(prompt);return 513
         with self.assertRaises(SummaryBudgetError):build_summary(history,'current',count_tokens=too_large,package_context=package)
         self.assertTrue(all('PINNED_IMPORTED_RECEIPT' in prompt for prompt in counted))
+    def test_disabled_prompt_path_does_not_import_package_controller(self):
+        original=builtins.__import__
+        def guarded(name,*args,**kwargs):
+            if name=='package_awareness':raise AssertionError('Unqualified package helper import')
+            return original(name,*args,**kwargs)
+        self.provider.profile={}
+        with patch('builtins.__import__',side_effect=guarded):
+            self.assertTrue(api.prepare_line(self.request()))
+            session=conversation.session;messages=session.history+[session.user_message()]
+            session.infer(messages)
+            system_message(SimpleNamespace(context=[],cognitive_context=[]))
