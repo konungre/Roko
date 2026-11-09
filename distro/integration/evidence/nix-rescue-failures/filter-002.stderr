@@ -1,0 +1,8 @@
+this derivation will be built:
+  /workspace/scratch/nix-live-001/direct-store/b0yc3jzk9sdbb33p2zvqn8r739g28ad0-roko-bootstrap-rescue.drv
+building '/workspace/scratch/nix-live-001/direct-store/b0yc3jzk9sdbb33p2zvqn8r739g28ad0-roko-bootstrap-rescue.drv'...
+error: builder for '/workspace/scratch/nix-live-001/direct-store/b0yc3jzk9sdbb33p2zvqn8r739g28ad0-roko-bootstrap-rescue.drv' failed with exit code 2;
+       last 1 log lines:
+       > python3: can't open file '/workspace/scratch/nix-live-001/direct-store/89fgacs7b06q9rgbg4xbvilsnfilywvh-roko-rescue-sources/boot/build.py': [Errno 2] No such file or directory
+       For full logs, run:
+         nix log /workspace/scratch/nix-live-001/direct-store/b0yc3jzk9sdbb33p2zvqn8r739g28ad0-roko-bootstrap-rescue.drv

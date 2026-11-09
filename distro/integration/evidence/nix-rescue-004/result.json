@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "builds": [
+    {
+      "mode": "build",
+      "returncode": 0,
+      "derivation": "/workspace/scratch/nix-live-001/direct-store/4b3588aw2iz6rqsqw8xylmd6hvka8jy3-roko-bootstrap-rescue.drv",
+      "output": "/workspace/scratch/nix-live-001/direct-store/hm7h0q8yz8s18dq1ds07lvsf8kbnw848-roko-bootstrap-rescue",
+      "assets": {
+        "init": "b9c6f434bbf52ebf19f8e821f34d923c972a66c13a636e91056c3cce0037b648",
+        "roko-initramfs.cpio.gz": "9aaccff87919b03292af2da8b328f5fa7f0d4615726508c477a2812f040dab29",
+        "build-manifest.json": "6837b548771ea560043e57ba1da557dde8fb1fa7e1959af11a3d6dcb54e20bd6"
+      },
+      "matches_first": true
+    },
+    {
+      "mode": "rebuild",
+      "returncode": 0,
+      "derivation": "/workspace/scratch/nix-live-001/direct-store/4b3588aw2iz6rqsqw8xylmd6hvka8jy3-roko-bootstrap-rescue.drv",
+      "output": "/workspace/scratch/nix-live-001/direct-store/hm7h0q8yz8s18dq1ds07lvsf8kbnw848-roko-bootstrap-rescue",
+      "assets": {
+        "init": "b9c6f434bbf52ebf19f8e821f34d923c972a66c13a636e91056c3cce0037b648",
+        "roko-initramfs.cpio.gz": "9aaccff87919b03292af2da8b328f5fa7f0d4615726508c477a2812f040dab29",
+        "build-manifest.json": "6837b548771ea560043e57ba1da557dde8fb1fa7e1959af11a3d6dcb54e20bd6"
+      },
+      "matches_first": true
+    }
+  ],
+  "source_mismatch_rejected": true,
+  "source_hashes": {
+    "init": "9369b8a9612d08862b14381b6c54de8a610d6c4978c7b175494813cf386082a1",
+    "builder": "06c7275cbe1362204d5ad572b7ac3191630b99631955276da41f0bc9ebbdfc0e"
+  },
+  "definition_sha256": "e4336546bf5f6e0eae9c2949bc9bd67cf9f519b9b8cb6f85e509e907c2610c90",
+  "bootstrap_python": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+  "bootstrap_python_sha256": "fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7",
+  "host_gcc_sha256": "a23ecab8ff08f09ad8c80602c2c5df7f49e09c25905cb8975902e101bf72635f",
+  "host_toolchain_closure_pinned": false,
+  "sandbox": false,
+  "host_activation": false,
+  "cosmic_included": false,
+  "model_included": false,
+  "kernel_included": false,
+  "scope": "Nix-managed local bootstrap rescue derivation with forced rebuild; not NixOS or hermetic OS image"
+}

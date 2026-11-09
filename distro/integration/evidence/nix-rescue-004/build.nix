@@ -1,0 +1,1 @@
+import (builtins.toPath "/workspace/roko-foundation-review/distro/nix/rescue.nix") { bootstrapPython="/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3"; bootstrapPath="/usr/bin:/bin"; sourceHashes={ init="9369b8a9612d08862b14381b6c54de8a610d6c4978c7b175494813cf386082a1"; builder="06c7275cbe1362204d5ad572b7ac3191630b99631955276da41f0bc9ebbdfc0e"; }; }

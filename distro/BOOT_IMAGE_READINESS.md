@@ -57,3 +57,8 @@ and bind independent health facts to the exact generation. Exercise retained
 rollback and persistent-history compatibility before provisioning a disposable
 installation target. Physical consumer-device tests need a separate explicit
 hardware target and test evidence. Keep PR22 draft pending review/provenance.
+
+A subsequent [Nix bootstrap rescue definition](nix/README.md) now builds and forces
+rebuild of the minimal rescue artifacts in the disposable store. Gate004 outputs
+match and rejects wrong source hashes. It deliberately uses unpinned host tool
+closure inputs and does not supply a declarative system image, kernel or desktop.
