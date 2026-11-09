@@ -6,6 +6,8 @@ import sys
 import tempfile
 import subprocess
 import threading
+import sqlite3
+import os
 import unittest
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
 from components.os_atomspace.ledger import Ledger,LedgerError
@@ -99,6 +101,17 @@ os._exit(0)
         fact,receipt=fixture();self.ledger.ingest_built(fact,receipt,'a'*40,expected_revision=0)
         self.ledger.db.execute("UPDATE facts SET generation='changed'")
         with self.assertRaises(LedgerError):self.ledger.ingest_built(fact,receipt,'a'*40,expected_revision=0)
+
+    def test_foreign_owner_schema_is_rejected_without_changing_journal_or_permissions(self):
+        other_path=Path(self.temp.name)/'owner.sqlite'
+        owner=sqlite3.connect(other_path)
+        owner.execute('CREATE TABLE facts(machine TEXT,backend TEXT,revision INTEGER,hash TEXT,body TEXT,mode TEXT)')
+        owner.commit();owner.close();os.chmod(other_path,0o640)
+        with self.assertRaises(LedgerError):Ledger(other_path)
+        self.assertEqual(other_path.stat().st_mode & 0o777,0o640)
+        owner=sqlite3.connect(other_path)
+        try:self.assertEqual(owner.execute('PRAGMA journal_mode').fetchone()[0],'delete')
+        finally:owner.close()
 
 
 if __name__=='__main__':unittest.main()

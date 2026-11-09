@@ -98,3 +98,16 @@ representation only. Producer authentication, freshness, output artifact bytes
 and native system-generation lifecycle still require OS/cognitive owner
 integration. The native reader never turns this built receipt into activation,
 running or health evidence.
+
+The OS owner's newer profile gate at
+`1bce6aece867b5b88fdb01f03e541c1c8def5f0d` exports observed private-profile
+switch/rollback receipts and a canonical predecessor chain over
+`{"fact": DOCUMENT, "mode": "observed"}`. The cognitive `owner_profile.py`
+adapter now verifies that chain, binds each canonical receipt digest, replaces
+the projected snapshot with the latest operation, and ingests it into actual
+PeTTa/Omega. The isolated built-fact test ledger has a different predecessor
+scheme and must not be substituted for the OS owner's canonical ledger.
+Use the OS ledger as the state authority source after receipt authentication;
+AtomSpace still supplies representation and no execution authority. Current
+projection is unverified and scoped strictly to external private-profile
+observations, with no system activation, running or health inference.

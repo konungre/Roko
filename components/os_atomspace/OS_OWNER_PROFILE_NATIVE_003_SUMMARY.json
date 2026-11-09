@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "seconds": 0.25430356899960316,
+  "actual_runtime": "PeTTa with upstream Omega modules",
+  "os_receipts": "external OS-owner observed Nix private-profile history with canonical predecessor hashes",
+  "verified_native_nix_guix": false,
+  "executed_actions": 0,
+  "result_sha256": "95b862fd909451d8805993e352fa8a5b10bce7babe731c9bfe826d7e31b3e329",
+  "tests": 24,
+  "source_commit": "1bce6aece867b5b88fdb01f03e541c1c8def5f0d",
+  "source_schema": "roko-os-fact-v1",
+  "source_mode": "observed",
+  "source_revision": 3,
+  "phases_present": [
+    "observed"
+  ],
+  "source_ledger_head_sha256": "c3bbb8fadb524032556fb1cc0182543564d71044b593e2e8d33c1f691512d194",
+  "mutation_authority": false
+}

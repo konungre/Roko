@@ -40,9 +40,11 @@ def main():
     parser.add_argument('--os-fact')
     parser.add_argument('--os-receipt')
     parser.add_argument('--os-source-commit')
-    parser.add_argument('--os-ledger')
+    parser.add_argument('--built-ledger','--os-ledger',dest='os_ledger')
     parser.add_argument('--os-machine')
     parser.add_argument('--os-backend')
+    parser.add_argument('--os-profile-facts')
+    parser.add_argument('--os-profile-receipts')
     args=parser.parse_args();args.output=args.output.resolve();args.output.mkdir(parents=True,exist_ok=False)
     profile=json.loads(Path(args.symbolic_profile).read_bytes());verify(profile)
     files=list(ROOT.glob('*.py'))+list(ROOT.glob('*.pl'))+[ROOT.parent/'conversation'/p for p in
@@ -50,10 +52,17 @@ def main():
     profile['files'].update({str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in files})
     write_record(args.output/'profile.json',profile)
     rows=[];started=time.monotonic()
-    native_import=any((args.os_fact,args.os_receipt,args.os_source_commit))
+    native_import=any((args.os_fact,args.os_receipt))
     ledger_import=any((args.os_ledger,args.os_machine,args.os_backend))
-    if native_import and ledger_import:raise ValueError('Choose raw OS-owner receipt or durable ledger')
-    if ledger_import:
+    profile_import=any((args.os_profile_facts,args.os_profile_receipts))
+    if sum((native_import,ledger_import,profile_import))>1:
+        raise ValueError('Choose one OS-owner evidence source')
+    if profile_import:
+        if not all((args.os_profile_facts,args.os_profile_receipts,args.os_source_commit)):
+            raise ValueError('All OS-owner profile source options required')
+        from components.os_atomspace.owner_profile import import_profile_history
+        packets=[import_profile_history(Path(args.os_profile_facts).read_bytes(),Path(args.os_profile_receipts).read_bytes(),args.os_source_commit)]
+    elif ledger_import:
         if not all((args.os_ledger,args.os_machine,args.os_backend)):
             raise ValueError('All OS ledger query options required')
         if not Path(args.os_ledger).is_file():
@@ -111,7 +120,8 @@ def main():
             failure.receipt=receipt;raise failure
         rows.append(response)
     result={'status':'passed','cases':rows,'seconds':time.monotonic()-started,'actual_runtime':'PeTTa with upstream Omega modules',
-            'os_receipts':'durable external OS-owner v1 built fact with hash-bound Nix receipt' if ledger_import else
+            'os_receipts':'external OS-owner observed Nix private-profile history with canonical predecessor hashes' if profile_import else
+                'durable external OS-owner v1 built fact with hash-bound Nix receipt' if ledger_import else
                 'external OS-owner v1 built fact with hash-bound Nix receipt' if native_import else 'synthetic fixtures only',
             'verified_native_nix_guix':False,'executed_actions':0}
     write_record(args.output/'result.json',result)

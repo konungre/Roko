@@ -22,11 +22,13 @@ class Ledger:
             raise LedgerError('Require private owner-controlled ledger directory')
         self.db=sqlite3.connect(path,timeout=10,isolation_level=None)
         try:
+            version=self.db.execute('PRAGMA user_version').fetchone()[0]
+            tables={r[0] for r in self.db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+            if not ((version==0 and not tables) or (version==1 and tables=={'facts','heads'})):
+                raise LedgerError('Unknown OS-state ledger schema')
             os.chmod(path,0o600)
             self.db.execute('PRAGMA journal_mode=WAL')
             self.db.execute('PRAGMA synchronous=FULL')
-            version=self.db.execute('PRAGMA user_version').fetchone()[0]
-            tables={r[0] for r in self.db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
             if version==0 and not tables:
                 self.db.executescript('''BEGIN IMMEDIATE;
                     CREATE TABLE facts(machine TEXT NOT NULL,backend TEXT NOT NULL,revision INTEGER NOT NULL,
@@ -36,8 +38,6 @@ class Ledger:
                     CREATE TABLE heads(machine TEXT NOT NULL,backend TEXT NOT NULL,revision INTEGER NOT NULL,
                         fact_sha256 TEXT NOT NULL,PRIMARY KEY(machine,backend));
                     PRAGMA user_version=1;COMMIT;''')
-            elif version!=1 or tables!={'facts','heads'}:
-                raise LedgerError('Unknown OS-state ledger schema')
         except BaseException as error:
             try:self.db.close()
             except BaseException as cleanup:error.close_error=repr(cleanup)

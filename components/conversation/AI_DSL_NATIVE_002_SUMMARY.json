@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "checks": {
+    "completed": true,
+    "native_search_results": true,
+    "no_services_executed": true,
+    "one_component_one_model_one_motto": true,
+    "structured_matches_native_receipt": true,
+    "changed_request_conflict": true,
+    "atomic_observation": true,
+    "restart_replay_no_execution": true
+  },
+  "seconds": 48.20204515200021,
+  "executed_actions": 0,
+  "result_sha256": "7799967a85920cc2e0fdf6cb425a663ef50c9903e4f8e0d19759fe1e7ddd195d",
+  "suite": {
+    "tests": 153,
+    "passed": 149,
+    "skipped": 4
+  },
+  "model_text": "The speech/emotion AI-DSL search found one accepted plan and one rejected plan. No speech or emotion recognition service actually ran.\n",
+  "main_reconciled": "f1f901afef9451c91dadb29dfcdabccdf973b3a7",
+  "published_review_head": "11919590b7322b6ec01a717c915ae453a3058853"
+}

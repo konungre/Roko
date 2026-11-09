@@ -82,3 +82,24 @@ corruption cases, including two concurrent SQLite connections and abrupt process
 exit immediately after the actual ingestion API commits. The ledger still marks state unverified, does not authenticate
 the producer or inspect the remote output's bytes, and supplies no activation
 or rollback authority. Native OS generation lifecycle remains with the OS owner.
+
+## Canonical OS-owner profile history
+
+The OS owner's newer `1bce6aece867b5b88fdb01f03e541c1c8def5f0d` exports three
+actual private-profile operation receipts and `observed` facts. Its canonical
+predecessor is the digest of `{"fact": DOCUMENT, "mode": "observed"}`, which
+differs from the isolated built-fact ledger above. That experimental built-only
+store is not a drop-in reader for the OS owner's database; unknown schemas are
+rejected before changing file permissions or journal mode. `--built-ledger` is
+the preferred explicit alias for that fixture. Keep the OS owner's ledger as
+the canonical state source for subsequent profile integration.
+
+`owner_profile.py` independently checks the OS owner's exact fact/receipt hashes,
+consecutive revisions, canonical wrapper predecessor chain and private-profile
+scope, then publishes only the latest `observed` operation. Use
+`--os-profile-facts FILE --os-profile-receipts FILE --os-source-commit COMMIT`
+with the qualifier. Actual local PeTTa/Omega ingestion passed with the OS owner's
+native switch/rollback receipts. These are private-profile observations, not
+system built/activated/running/health facts. Producer authentication, current
+machine state and local Nix execution remain unverified. No action authority is
+created from the source's observed label.

@@ -23,13 +23,12 @@ def decode(raw,limit):
     return json.loads(raw,object_pairs_hook=unique)
 
 
-def import_built_fact(fact_raw,receipt_raw,source_commit):
-    fact=decode(fact_raw,4096)
+def validate_fact(fact):
     required={'machine','backend','revision','stage','generation','evidence_sha256','predecessor','schema'}
     if type(fact) is not dict or set(fact)!=required or fact['schema']!='roko-os-fact-v1':
         raise ValueError('Require exact OS-owner v1 fact')
-    if fact['backend']!='nix' or fact['stage']!='built':
-        raise ValueError('Only content-bound Nix built facts supported by this reader')
+    if fact['backend'] not in ('nix','guix') or fact['stage'] not in ('desired','resolved','built','activated','running','observed','health'):
+        raise ValueError('OS fact backend/stage')
     if type(fact['revision']) is not int or fact['revision']<1:
         raise ValueError('OS fact revision')
     for key in ('machine','generation'):
@@ -38,6 +37,13 @@ def import_built_fact(fact_raw,receipt_raw,source_commit):
     for key in ('evidence_sha256','predecessor'):
         if type(fact[key]) is not str or not re.fullmatch('[0-9a-f]{64}',fact[key]):
             raise ValueError('OS fact digest')
+    return fact
+
+
+def import_built_fact(fact_raw,receipt_raw,source_commit):
+    fact=validate_fact(decode(fact_raw,4096))
+    if fact['backend']!='nix' or fact['stage']!='built':
+        raise ValueError('Only content-bound Nix built facts supported by this reader')
     if type(source_commit) is not str or not re.fullmatch('[0-9a-f]{40}',source_commit):
         raise ValueError('Pinned OS-owner source commit required')
     receipt=decode(receipt_raw,8192)
