@@ -1,0 +1,71 @@
+{
+  "archive_sha256": "c4fec119e9f37eb94a2dab4ff01131ec4bb2b49145e5e7378b64765bdd34096f",
+  "archive_comment": "",
+  "entries": [
+    {
+      "path": "omega-pm/.gitignore",
+      "bytes": 67,
+      "sha256": "fa96b3be91d87be36c3f327bc575f5a4083a1a15270df049b6544c61dfd5e151"
+    },
+    {
+      "path": "omega-pm/README.md",
+      "bytes": 14426,
+      "sha256": "0a654cde5e390b03af5df3fef41c86624fe294fc4e3f5b2f0afc8de78517d195"
+    },
+    {
+      "path": "omega-pm/examples/minimal.metta",
+      "bytes": 97,
+      "sha256": "54c5df24e5c2a07760fc4aa9abb60fd546f3d2ec31ea414c2f4e51a16aa3c765"
+    },
+    {
+      "path": "omega-pm/examples/workstation.metta",
+      "bytes": 297,
+      "sha256": "8362ce87774375c2356a53b920b4e07d4d962e92d040e166c0f183d4d083cf15"
+    },
+    {
+      "path": "omega-pm/omega_pm/__init__.py",
+      "bytes": 98,
+      "sha256": "e8d6594e1fb3489dd153ad79668bdddb9c49b99dbf1c641fe320a65564ab5d02"
+    },
+    {
+      "path": "omega-pm/omega_pm/__main__.py",
+      "bytes": 3114,
+      "sha256": "dc712a443162fd5bfd06b00eb2005554ea9dafc62ac856582c23fca0199420f7"
+    },
+    {
+      "path": "omega-pm/omega_pm/backends.py",
+      "bytes": 5688,
+      "sha256": "45a5bc538c8903145d67ea3733be8e2e3a9a0e44d9bd0907d2d4bda1459ead78"
+    },
+    {
+      "path": "omega-pm/omega_pm/core.py",
+      "bytes": 7319,
+      "sha256": "5f540fbf3e3ff52a8c43270bbb430c8ebda5dab99192ee474b0b39553d0991c8"
+    },
+    {
+      "path": "omega-pm/omega_pm/metta.py",
+      "bytes": 3863,
+      "sha256": "d68d68664a6e9612e6771a9adff43bdd10a324bcf248ebd37f2d0cd7a7b1004b"
+    },
+    {
+      "path": "omega-pm/pyproject.toml",
+      "bytes": 375,
+      "sha256": "b3ed6b41b5477d6bd073a7be0370d22948067d91a03f9a8c1a4870977ec09316"
+    },
+    {
+      "path": "omega-pm/tests/test_metta.py",
+      "bytes": 5117,
+      "sha256": "91106fc96c18e3219453ef8f8ab67cd0adf6ff0dc1350485e2bfa6e98290500b"
+    },
+    {
+      "path": "omega-pm/tests/test_pm.py",
+      "bytes": 8750,
+      "sha256": "21b42ce8f93f00f85a432373b5a137c9a53264233e03e0563161238871c5f5c3"
+    }
+  ],
+  "license_files": [],
+  "upstream_repository_identified": false,
+  "rights_holder_identified": false,
+  "redistribution_grant_identified": false,
+  "status": "unresolved; user-supplied archive is provenance, not license authorization"
+}

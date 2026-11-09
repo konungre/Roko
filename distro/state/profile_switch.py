@@ -64,3 +64,29 @@ class Profiles:
    if observed!=receipt['native']:raise ValueError('retained profile changed')
    self.publish(str(target),expected)
    return {'before':expected,'after':self.current(),'native':observed,'scope':'private-user-profile-rollback'}
+ def recover(self,target,expected_pending,expected_actual,review):
+  """Explicit reviewed recovery, never automatic adoption of an uncertain switch."""
+  if review is not True:raise PermissionError('external review required')
+  target=Path(target)
+  if target.name!='profile' or target.parent.parent!=self.root or not re.fullmatch('generation-[0-9a-f]{32}',target.parent.name):raise ValueError('foreign generation')
+  if target.parent.is_symlink() or not target.exists():raise ValueError('missing retained generation')
+  with (self.root/'lock').open('a') as lock:
+   fcntl.flock(lock,fcntl.LOCK_EX)
+   state=json.loads((self.root/'pointer.json').read_text())
+   active=self.root/'active'
+   if os.path.lexists(active) and not active.is_symlink():raise ValueError('foreign active pointer')
+   actual=os.readlink(active) if active.is_symlink() else None
+   if set(state)!= {'revision','target','pending'} or type(state['revision'])!=int or state['revision']<1:raise ValueError('invalid pending journal')
+   if not state.get('pending') or state!=expected_pending or actual!=expected_actual:raise ValueError('stale recovery evidence')
+   receipt=json.loads((target.parent/'receipt.json').read_text())
+   observed=json.loads(self.run('profile','list','--profile',str(target),'--json'))
+   if observed!=receipt['native']:raise ValueError('retained profile changed')
+   # Consume another revision, so pre-interruption and prior recovery decisions
+   # cannot become valid again even when returning to the same target.
+   state={'revision':state['revision']+1,'target':str(target),'pending':True}
+   save(self.root/'pointer.json',state)
+   temporary=self.root/('pointer-'+uuid.uuid4().hex)
+   os.symlink(str(target),temporary);os.replace(temporary,self.root/'active')
+   fd=os.open(self.root,os.O_DIRECTORY);os.fsync(fd);os.close(fd)
+   state['pending']=False;save(self.root/'pointer.json',state)
+   return {'before_pending':expected_pending,'before_actual':expected_actual,'after':self.current(),'native':observed,'scope':'explicit-private-profile-recovery'}

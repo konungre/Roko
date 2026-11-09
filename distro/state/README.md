@@ -155,3 +155,24 @@ the old A decision, while native Nix and exact PeTTa/Omega fact matching pass.
 The imported prototype's license is explicitly unresolved; see its LICENSING.md.
 Do not approve release redistribution until the rights-holder grant is established
 or the imported source is replaced. PR22 remains draft pending independent review.
+
+## Explicit interrupted-pointer recovery
+
+`Profiles.recover` is restricted to a reviewed retained private generation. Under
+the same writer lock it compares the complete pending journal and observed pointer
+against the reviewed evidence, re-observes the target native profile against its
+saved receipt, consumes another monotonic revision, and publishes the chosen
+pointer. A repeated decision cannot be reused. Foreign regular active files and
+malformed pending journals are rejected. There is no automatic recovery/adoption.
+
+Two live disposable-profile tests injected exceptions immediately before pointer
+rename and after rename/before journal finalization. Both blocked normal reads,
+rejected unreviewed recovery, recovered the retained payload1 at revision3, and
+rejected stale recovery replay. Exact receipts are in explicit-recovery-001/002.
+These are controlled process fault injections, not physical power-loss tests.
+Generic executor handler recovery still requires operation-specific inspection;
+this method recovers only the private-profile pointer journal.
+
+Prototype provenance audit records every original archive entry/hash. No upstream
+repository, rights-holder identity, license file or grant was identified in that
+archive. Licensing remains unresolved; keep the draft release block in place.
