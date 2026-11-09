@@ -1,6 +1,11 @@
 # Roko bounded NACE predictive adaptation candidate
 
-Status: source-only. Seventy authored pure tests pass. No upstream NACE function, simulation, ONA process, planner, robot interface, or native worker has been executed for this candidate. There is no native success receipt. This is a real source integration candidate, not a claim that full NACE is integrated into Roko or its guest.
+Current status: the actual seven-function slice passed twelve bounded host cases
+on 2026-11-09. See [native result and limitations](NATIVE_RESULT.md). Full NACE,
+simulation, ONA, planning, robot interfaces, guest execution, and conversation
+integration remain unqualified. The source-stage description below is preserved
+as historical context; its statements about an unexecuted native gate describe
+that earlier stage, not the new host result.
 
 ## Actual upstream code
 
