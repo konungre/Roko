@@ -48,3 +48,18 @@ closure counts/identities remain historical receipts for their old definitions;
 refresh the graph before a future build. Persistent /home/history, full model
 closure, secure operator provisioning, strict sandbox build and boot tests remain
 separate gates. Keep PR22 draft; no release/redistribution readiness is claimed.
+
+Offline first-boot refinement: offline mode now explicitly removes Nix substituters,
+flake registry, channels/NIX_PATH and registry entries, and disables network-online
+waiters. NetworkManager/DHCP remain off. Automatic system upgrade, Nix GC and store
+optimisation are disabled in all modes to preserve recovery generations. This
+controls configured Nix acquisition/boot waits, not all program traffic or a
+network sandbox. Managed networking remains an explicit choice.
+
+/etc/roko/first-boot.json records the requested policy and unready model/history/
+credential states; it is not runtime health or a new privileged executor. Eleven
+live-policy evaluations check defaults, managed access and rejections. The first
+managed query used an optional flake-registry field as if mandatory; it is now
+reported as null when unset, without changing managed configuration to force a
+pass. These refinements have not been booted; persistence/storage budgets and
+manual generation-retention policy remain operator design requirements.

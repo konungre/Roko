@@ -92,3 +92,6 @@ See [strict sandbox qualification](SANDBOX_QUALIFICATION.md) for exact next gate
 The next [live-image evaluation prototype](LIVE_IMAGE_EVALUATION.md) resolves ISO
 and system derivation identities for headless/COSMIC variants. It is separate
 from the bootstrap rescue and still produces no built ISO or boot result.
+
+For a capable future builder, use [the acquisition/verification handoff](BUILDER_HANDOFF.md).
+Evidence-packet checks deliberately cannot grant trust, readiness or activation.

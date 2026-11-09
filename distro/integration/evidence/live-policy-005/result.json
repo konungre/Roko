@@ -1,0 +1,252 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "case": "offline-locked",
+      "expected_rejection": false,
+      "returncode": 0,
+      "passed": true,
+      "evaluation": {
+        "allFirmware": false,
+        "autoLogin": false,
+        "autoUpgrade": false,
+        "automaticGc": false,
+        "automaticOptimise": false,
+        "channel": false,
+        "emptyPasswords": false,
+        "failedAssertions": [],
+        "firmware": false,
+        "firmwareDerivation": "/workspace/scratch/nix-live-001/direct-store/p2vp1l2lvl1lg2rv3fbkl5yinidvks36-firmware.drv",
+        "firstBoot": {
+          "automaticGenerationDeletion": false,
+          "automaticUpgrade": false,
+          "credentialProvisioningRequired": true,
+          "durableHistoryReady": false,
+          "modelReady": false,
+          "networkIsolationProven": false,
+          "offlineRequested": true,
+          "schema": "roko-first-boot-policy-v1"
+        },
+        "flakeRegistry": "",
+        "interactiveSsh": false,
+        "networkManager": false,
+        "nixPath": [],
+        "nmWaitEnabled": false,
+        "passwordSsh": false,
+        "registryNames": [],
+        "rootLocked": true,
+        "rootSsh": "no",
+        "ssh": false,
+        "sshMethods": "publickey",
+        "sshUsers": [
+          "roko"
+        ],
+        "substituters": [],
+        "sudo": false,
+        "sudoPassword": true,
+        "userPasswordSet": false,
+        "waitOnline": false
+      }
+    },
+    {
+      "case": "console-password",
+      "expected_rejection": false,
+      "returncode": 0,
+      "passed": true,
+      "evaluation": {
+        "allFirmware": false,
+        "autoLogin": false,
+        "autoUpgrade": false,
+        "automaticGc": false,
+        "automaticOptimise": false,
+        "channel": false,
+        "emptyPasswords": false,
+        "failedAssertions": [],
+        "firmware": false,
+        "firmwareDerivation": "/workspace/scratch/nix-live-001/direct-store/p2vp1l2lvl1lg2rv3fbkl5yinidvks36-firmware.drv",
+        "firstBoot": {
+          "automaticGenerationDeletion": false,
+          "automaticUpgrade": false,
+          "credentialProvisioningRequired": false,
+          "durableHistoryReady": false,
+          "modelReady": false,
+          "networkIsolationProven": false,
+          "offlineRequested": true,
+          "schema": "roko-first-boot-policy-v1"
+        },
+        "flakeRegistry": "",
+        "interactiveSsh": false,
+        "networkManager": false,
+        "nixPath": [],
+        "nmWaitEnabled": false,
+        "passwordSsh": false,
+        "registryNames": [],
+        "rootLocked": true,
+        "rootSsh": "no",
+        "ssh": false,
+        "sshMethods": "publickey",
+        "sshUsers": [
+          "roko"
+        ],
+        "substituters": [],
+        "sudo": true,
+        "sudoPassword": true,
+        "userPasswordSet": true,
+        "waitOnline": false
+      }
+    },
+    {
+      "case": "managed-key-console",
+      "expected_rejection": false,
+      "returncode": 0,
+      "passed": true,
+      "evaluation": {
+        "allFirmware": false,
+        "autoLogin": false,
+        "autoUpgrade": false,
+        "automaticGc": false,
+        "automaticOptimise": false,
+        "channel": true,
+        "emptyPasswords": false,
+        "failedAssertions": [],
+        "firmware": false,
+        "firmwareDerivation": "/workspace/scratch/nix-live-001/direct-store/i7f4h2a1iqmkmyrvh0b69w86k2wzr4ii-firmware.drv",
+        "firstBoot": {
+          "automaticGenerationDeletion": false,
+          "automaticUpgrade": false,
+          "credentialProvisioningRequired": false,
+          "durableHistoryReady": false,
+          "modelReady": false,
+          "networkIsolationProven": false,
+          "offlineRequested": false,
+          "schema": "roko-first-boot-policy-v1"
+        },
+        "flakeRegistry": null,
+        "interactiveSsh": false,
+        "networkManager": true,
+        "nixPath": [
+          "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos",
+          "nixos-config=/etc/nixos/configuration.nix",
+          "/nix/var/nix/profiles/per-user/root/channels"
+        ],
+        "nmWaitEnabled": true,
+        "passwordSsh": false,
+        "registryNames": [],
+        "rootLocked": true,
+        "rootSsh": "no",
+        "ssh": true,
+        "sshMethods": "publickey",
+        "sshUsers": [
+          "roko"
+        ],
+        "substituters": [
+          "https://cache.nixos.org/"
+        ],
+        "sudo": true,
+        "sudoPassword": true,
+        "userPasswordSet": true,
+        "waitOnline": true
+      }
+    },
+    {
+      "case": "redistributable-firmware",
+      "expected_rejection": false,
+      "returncode": 0,
+      "passed": true,
+      "evaluation": {
+        "allFirmware": false,
+        "autoLogin": false,
+        "autoUpgrade": false,
+        "automaticGc": false,
+        "automaticOptimise": false,
+        "channel": false,
+        "emptyPasswords": false,
+        "failedAssertions": [],
+        "firmware": true,
+        "firmwareDerivation": "/workspace/scratch/nix-live-001/direct-store/wsdi93smyxwpmgfxvnwf0wbkjd11rk0g-firmware.drv",
+        "firstBoot": {
+          "automaticGenerationDeletion": false,
+          "automaticUpgrade": false,
+          "credentialProvisioningRequired": true,
+          "durableHistoryReady": false,
+          "modelReady": false,
+          "networkIsolationProven": false,
+          "offlineRequested": true,
+          "schema": "roko-first-boot-policy-v1"
+        },
+        "flakeRegistry": "",
+        "interactiveSsh": false,
+        "networkManager": false,
+        "nixPath": [],
+        "nmWaitEnabled": false,
+        "passwordSsh": false,
+        "registryNames": [],
+        "rootLocked": true,
+        "rootSsh": "no",
+        "ssh": false,
+        "sshMethods": "publickey",
+        "sshUsers": [
+          "roko"
+        ],
+        "substituters": [],
+        "sudo": false,
+        "sudoPassword": true,
+        "userPasswordSet": false,
+        "waitOnline": false
+      }
+    },
+    {
+      "case": "missing-console-credential",
+      "expected_rejection": true,
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    },
+    {
+      "case": "ssh-offline",
+      "expected_rejection": true,
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    },
+    {
+      "case": "plaintext-credential",
+      "expected_rejection": true,
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    },
+    {
+      "case": "missing-ssh-key",
+      "expected_rejection": true,
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    },
+    {
+      "case": "malformed-ssh-key",
+      "expected_rejection": true,
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    },
+    {
+      "case": "unrestricted-firmware",
+      "expected_rejection": true,
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    },
+    {
+      "case": "unknown-network",
+      "expected_rejection": true,
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    }
+  ],
+  "host_activation": false,
+  "build_completed": false,
+  "credential_scope": "ephemeral local fixture; no cleartext/hash/private key committed",
+  "firmware_license_audit_completed": false
+}

@@ -19,6 +19,19 @@ in import ./system-eval.nix {
   extraModules = [
     (pinned + "/nixos/modules/installer/cd-dvd/iso-image.nix")
     ({ lib, ... }: {
+      system.autoUpgrade.enable = lib.mkForce false;
+      nix.gc.automatic = lib.mkForce false;
+      nix.optimise.automatic = lib.mkForce false;
+      environment.etc."roko/first-boot.json".text = builtins.toJSON {
+        schema = "roko-first-boot-policy-v1";
+        offlineRequested = networkPolicy == "offline";
+        networkIsolationProven = false;
+        automaticUpgrade = false;
+        automaticGenerationDeletion = false;
+        modelReady = false;
+        durableHistoryReady = false;
+        credentialProvisioningRequired = adminAccess == "locked";
+      };
       networking.networkmanager.enable = lib.mkForce (networkPolicy == "managed");
       networking.useDHCP = lib.mkForce false;
       hardware.enableAllFirmware = lib.mkForce false;
@@ -52,6 +65,15 @@ in import ./system-eval.nix {
         bootTested = false;
         productionReady = false;
       };
+    })
+    ({ lib, ... }: lib.mkIf (networkPolicy == "offline") {
+      nix.channel.enable = lib.mkForce false;
+      nix.nixPath = lib.mkForce [];
+      nix.registry = lib.mkForce {};
+      nix.settings.substituters = lib.mkForce [];
+      nix.settings.flake-registry = lib.mkForce "";
+      systemd.network.wait-online.enable = lib.mkForce false;
+      systemd.services.NetworkManager-wait-online.enable = lib.mkForce false;
     })
   ];
 }
