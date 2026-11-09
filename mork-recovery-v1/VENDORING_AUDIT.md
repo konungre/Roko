@@ -12,8 +12,11 @@ The ecosystem name is not a license declaration.
 | luketpeterson/gxhash | 55bde471dc2e395dd17eb4e7055f323c0c29c19d | LICENSE: MIT, copyright 2023 Olivier Giniaux | Eligible with full notice; no redundant copy added |
 | tobz/tracking-allocator | 8d1e79b025011e5b8d445856eb51ab98ee915b6c | LICENSE: Mozilla Public License Version 2.0 | Requires its actual MPL terms; do not label Apache 2.0 |
 
-This audit reads the already acquired exact source revisions and their complete
-license files. Public GitHub tree verification for MORK and mork_ffi was attempted
+The MORK and three dependency entries were independently checked against local
+pinned Git objects. License bytes match their tracked versions; hashes and
+tracked license paths are in VENDORING_EVIDENCE.json. The mork_ffi entry has
+weaker evidence: a materialized build subtree and prior pin inventory, without
+an independently verified complete upstream tree. It remains unresolved. Public GitHub tree verification for MORK and mork_ffi was attempted
 but the browser fetch returned a restricted-URL failure; no alternate fetch was
 attempted in this audit. That failed check does not establish a license or change
 the local evidence. Missing declarations remain unresolved rather than a claim

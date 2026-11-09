@@ -1,0 +1,34 @@
+{
+  "scope": "Local pinned Git objects; not a complete redistribution approval",
+  "repositories": [
+    {
+      "project": "MORK",
+      "revision": "1c44f70f34db6305c3ba7bdb2e1434db3387778b",
+      "tracked_license_files": {}
+    },
+    {
+      "project": "PathMap",
+      "revision": "5f2118c1d61d782a7590bac8874dcb3c94c1e0fb",
+      "tracked_license_files": {
+        "LICENSE": "cff341ccbc2eb122281dcf19c90aef65b8a1f4696c708c190c50acf537053cd0"
+      }
+    },
+    {
+      "project": "gxhash",
+      "revision": "55bde471dc2e395dd17eb4e7055f323c0c29c19d",
+      "tracked_license_files": {
+        "LICENSE": "1775b5819b22ff8b57fae313035b6256e87a0d1ee15c461259ec371278940728"
+      }
+    },
+    {
+      "project": "tracking-allocator",
+      "revision": "8d1e79b025011e5b8d445856eb51ab98ee915b6c",
+      "tracked_license_files": {
+        "LICENSE": "c76f740d1521b9bed9ca7a04ad526c310493c62621b1341d623b431736533b30"
+      }
+    }
+  ],
+  "ffi_scope": "Materialized build subtree and prior pin inventory only; independent complete upstream tree verification unavailable",
+  "restricted_url_retry": false,
+  "new_upstream_source_redistributed": false
+}
