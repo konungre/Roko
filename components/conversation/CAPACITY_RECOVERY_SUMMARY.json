@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "checks": {
+    "protocol": true,
+    "input_limit_explicit": true,
+    "unchanged_revision_recovers": true,
+    "recall": true,
+    "eight_messages_retained": true,
+    "native_mork_complete": true,
+    "both_observations_retained": true,
+    "native_calls": true,
+    "successful_model_verified": true
+  },
+  "reply": {
+    "api_version": 2,
+    "session_id": "language",
+    "request_id": "capacity-fourth",
+    "status": "completed",
+    "text": "Red foxes and robins.\n",
+    "context_ids": [],
+    "executed_actions": 0,
+    "generation": {
+      "input_tokens": 412,
+      "output_tokens": 7,
+      "finish_reason": "eos"
+    },
+    "history_policy": "complete_no_omission",
+    "revision": 4
+  },
+  "executed_actions": 0
+}
