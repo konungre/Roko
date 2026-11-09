@@ -63,3 +63,59 @@ def create(directory, tooling, upstream_lock):
         return report
     finally:
         os.close(fd)
+
+
+def restore(snapshot, directory, expected_sha256, *, checkpoint=lambda phase: None):
+    """Restore one pinned snapshot to a NEW private image; never adopt partial work."""
+    import re
+    if os.geteuid() == 0:
+        raise ValueError('Snapshot restoration must be unprivileged')
+    if not isinstance(expected_sha256, str) or not re.fullmatch(r'[0-9a-f]{64}', expected_sha256):
+        raise ValueError('Explicit snapshot SHA256 required')
+    snapshot, directory = Path(snapshot), Path(directory)
+    if directory.parent != directory.parent.resolve():
+        raise ValueError('Canonical output parent required')
+    source = os.open(snapshot, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+    try:
+        before = os.fstat(source)
+        if (not stat.S_ISREG(before.st_mode) or before.st_uid != os.getuid() or
+                before.st_nlink != 1 or before.st_size != SIZE or stat.S_IMODE(before.st_mode) != 0o600):
+            raise ValueError('Expected private owned snapshot of qualification size')
+        fcntl.flock(source, fcntl.LOCK_SH | fcntl.LOCK_NB)
+        directory.mkdir(mode=0o700)
+        dirfd = os.open(directory, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+        try:
+            target = os.open('state.partial', os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600, dir_fd=dirfd)
+            with os.fdopen(target, 'wb') as output:
+                digest = hashlib.sha256()
+                offset = 0
+                while offset < SIZE:
+                    block = os.pread(source, min(1024 * 1024, SIZE-offset), offset)
+                    if not block: raise ValueError('Snapshot truncated during restoration')
+                    output.write(block); digest.update(block); offset += len(block)
+                after = os.fstat(source)
+                identity = lambda s: (s.st_size, s.st_mtime_ns, s.st_ctime_ns, s.st_nlink)
+                if identity(before) != identity(after) or digest.hexdigest() != expected_sha256:
+                    raise ValueError('Snapshot changed or digest mismatch')
+                output.flush(); os.fsync(output.fileno())
+            checkpoint('copy-durable')
+            # Verify bytes read from the new file, not just bytes offered to write.
+            with (directory/'state.partial').open('rb') as copy:
+                if hashlib.file_digest(copy, 'sha256').hexdigest() != expected_sha256:
+                    raise ValueError('Restored snapshot readback mismatch')
+            checkpoint('copy-verified')
+            os.rename('state.partial', 'state.raw', src_dir_fd=dirfd, dst_dir_fd=dirfd)
+            os.fsync(dirfd)
+            checkpoint('image-published')
+            report = {'schema': 'roko-foundation-restored-state-v1', 'bytes': SIZE,
+                      'sha256': expected_sha256, 'source_unchanged': True,
+                      'filesystem_checked': False, 'guest_read_tested': False}
+            with (directory/'restoration.json').open('x') as receipt:
+                json.dump(report, receipt, indent=2); receipt.write('\n')
+                receipt.flush(); os.fsync(receipt.fileno())
+            os.fsync(dirfd)
+            return report
+        finally:
+            os.close(dirfd)
+    finally:
+        os.close(source)

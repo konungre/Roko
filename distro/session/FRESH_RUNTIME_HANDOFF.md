@@ -66,3 +66,32 @@ actual non-root UID/GID1000 Unix sockets and kernel SO_PEERCRED. It accepts the
 owned process and rejects another same-user process, a dead listener and a
 symlink. Only the guest socket path is relocated for these tests. This is a host
 boundary test, not a PipeWire daemon or desktop boot qualification.
+
+## Conversation checkpoint received
+
+Commit `55bebd8d79454c765b258b27471ad54a971700e5` and its complete bundle were
+verified against the supplied transfer manifest, along with all 51 handoff files.
+The component was merged without altering its sources. Current fresh-host
+endpoint is `fresh_server.py`, selected by `ROKO_FRESH_PROFILE`; this supersedes
+the inherited `recovered_server.py` recommendation for a newly rebuilt profile.
+The fresh profile supports empty context only; nonempty ECAN context remains
+explicitly unavailable. See `components/conversation/FRESH_HOST.md` for lifecycle,
+resource and transport limits. Producer absolute paths and profiles are retained
+as provenance and are not admitted as consumer runtime bindings.
+
+A new local symbolic rebuild uses the supplied unmodified recipe and historical
+source lock, with a consumer-local root. It verifies 208 PeTTa and 330 Omega source
+files before building SWI10.0.2/Janus against Python3.12. A new local profile and
+native import probe are required after compilation; neither inventory generation
+nor source merge is a model/guest result.
+
+Local rebuild completed and qualified at
+`/workspace/scratch/roko-symbolic-local-001`: SWI10.0.2, embedded Python3.12.14,
+538 matching source files and 1,140 locally generated runtime inventory entries.
+Normal and child-seccomp-network-denied probes passed actual PeTTa arithmetic,
+Omega utility/loop/provider imports and creation of an Omega message object.
+A separate socket probe confirmed network denial. All26 conversation tests now
+pass without skips, including the real Prolog bounded reader. The profile remains
+an inventory-only artifact; `LOCAL_SYMBOLIC_VALIDATION.json` separately records
+native probe outcomes and evidence hashes. No model inference, autonomous loop,
+ECAN context or guest integration was executed by this qualification.

@@ -124,3 +124,20 @@ snapshot, subsequent state images and actual results/serial/capture files. The
 read-only7.5GB ISO and full external native runtimes are dependencies, not silently
 embedded in the transfer artifact. Exact locks/hashes accompany the handoff.
 Do not restart work on this old computer, delete artifacts, or push.
+
+## Restoring a preserved checkpoint safely
+
+`state_image.restore(snapshot, NEW_DIRECTORY, expected_sha256)` verifies a pinned,
+owned mode0600 singly-linked snapshot and copies it through held descriptors to a
+new private directory. It hashes the copied bytes, checks source metadata, fsyncs,
+and independently reads back the copy before publishing `state.raw`. The source
+is opened read-only and remains separate from the writable restored image.
+A failed copy remains `state.partial` and cannot be attached by `open_image`.
+Existing output directories are never reused. No physical device is opened.
+The SHA256 must come from the trusted preserved receipt, not from the candidate
+snapshot itself. The operation does not mount, fsck or qualify guest recovery.
+
+Tests cover mismatched hashes, private metadata, linked inputs, independent copy
+mutation, and interruption before publication. The fresh executor also restored
+the actual post-write snapshot (`cbaccc407716ca1c9061e99ccd426c1924dd3f5dfcc5aadc595eaf3b7bded976`)
+with byte-for-byte readback. A fresh guest read remains pending runtime restoration.
