@@ -220,3 +220,37 @@ used. Receipts include `batch_size` and `batch_count`; multi-batch receipts reta
 each original native receipt. The pre-fix PathMap qualification remains scoped
 to these bounded queries, not general MORK workloads. The total transcript
 ceiling is sixteen messages; native token admission may reject a turn earlier.
+
+## Explicit per-turn model-context projection
+
+`context_policy` is an optional turn field. Omitted or `complete` preserves the
+historical request normalization and full model history. `extractive_v1` is
+accepted only with a profile explicitly prepared using
+`--context-projection extractive_v1`; qualification tests native token counting.
+Other policy values are invalid. Unsupported new requests create no session or
+claim. A saved successful response can replay even after capability is disabled.
+
+Opt-in turns still claim the revision before retrieval/planning and atomically
+commit the full original user/assistant transcript and cognitive ledger. The
+model receives full history when its exact count fits; otherwise it receives
+source-linked older-user prefixes, recent complete pairs and the unchanged
+current request/advisory context. Each candidate must fit an exact 512-token
+count. The shared planning deadline is 30 seconds; individual counters have at
+most 10 seconds. No candidate fit, invalid counter evidence, timeout or count
+mismatch fails without a commit or implicit fallback.
+
+Only successful opt-in responses add `model_context`, containing `policy`,
+`model_context_complete`, exact `token_count`/`budget`, `prompt_sha256`,
+`full_history_sha256`, and omission counts. Lossy plans additionally expose
+excerpt source indices/hashes/spans/truncation and retained recent indices.
+`authoritative_history_changed:false` describes projection; the subsequent
+successful commit appends the normal full turn. `history_policy` continues to
+describe complete durable storage. The projected context is explicitly lossy;
+it is not a general semantic summary or a verified source of facts. Complete
+history is always available via `snapshot`.
+
+The policy is not sticky: every new request defaults to `complete`. Request-ID
+binding includes a non-default policy, so changing policy on an existing ID is
+a conflict. Unknown policy errors precede claims; actual failed planned turns
+remain terminal and need a new request ID. Default responses gain no projection
+field. Existing `cognitive_tasks`/`cognitive_results` remain compatible.

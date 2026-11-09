@@ -1,6 +1,6 @@
 """Experimental extractive prompt planner; never changes authoritative history.
 
-Not connected to public v2. The caller supplies the exact tokenizer counter;
+Available only through an explicitly qualified opt-in policy. The caller supplies the exact tokenizer counter;
 budget is the rendered input budget, excluding any output-token reservation.
 """
 import copy

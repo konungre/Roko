@@ -43,6 +43,11 @@ class DurableSession(conversation.Session):
                     'history_policy':'complete_no_omission'}
         if self.pending_component_results:
             response['cognitive_results']=self.pending_component_results
+        if getattr(self.provider,'context_policy','complete') == 'extractive_v1':
+            metadata = getattr(self.provider,'model_context',None)
+            if type(metadata) is not dict:
+                raise ValueError('Missing explicit model context receipt')
+            response['model_context'] = metadata
         saved = store.commit(current['token'],self.user_message(),expected[-1],response,
                              cognitive_history=self.cognitive_context)
         self.history = expected
@@ -128,8 +133,14 @@ def prepare_line(line):
                          **store.recover(data['session_id'],data['request_id'],data['expected_revision'])}
             return False
         required = {'api_version','op','session_id','request_id','expected_revision','text','context'}
-        if op != 'turn' or not required <= set(data) or set(data)-required-{'max_output_tokens','cognitive_tasks'}:
+        if op != 'turn' or not required <= set(data) or set(data)-required-{'max_output_tokens','context_policy','cognitive_tasks'}:
             raise ValueError('Invalid turn fields')
+        policy=data.get('context_policy','complete')
+        if policy not in ('complete','extractive_v1'):
+            raise ValueError('Unsupported context policy')
+        admission_error = None
+        if policy=='extractive_v1' and getattr(conversation.session.provider,'profile',{}).get('context_projection')!='extractive_v1':
+            admission_error = StoreError('unsupported_context_policy','Projection is not qualified in this profile')
         maximum = data.get('max_output_tokens',128)
         if type(maximum) is not int or not 1<=maximum<=128:
             raise ValueError('Output budget must be 1..128')
@@ -139,7 +150,10 @@ def prepare_line(line):
             from learning import validate_tasks
             tasks=validate_tasks(data['cognitive_tasks'])
             payload['cognitive_tasks']=tasks
-        claim = store.start(data['session_id'],data['request_id'],data['expected_revision'],payload)
+        # Preserve the historical canonical payload for default requests/replay.
+        if policy!='complete':payload['context_policy']=policy
+        claim = store.start(data['session_id'],data['request_id'],data['expected_revision'],payload,
+                            admission_error=admission_error)
         if claim['status'] == 'replayed':
             immediate = claim['response']
             return False
@@ -153,6 +167,8 @@ def prepare_line(line):
         session.provider.max_tokens = maximum
         session.provider.last_error = None
         session.provider.last_generation = None
+        session.provider.context_policy = policy
+        session.provider.model_context = None
         if getattr(session.provider, 'profile', {}).get('mork_memory'):
             from mork_v2 import retrieve_history, history_digest, MAX_MESSAGES
             if len(claim['history']) >= MAX_MESSAGES:

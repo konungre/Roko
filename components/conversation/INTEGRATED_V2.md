@@ -200,7 +200,27 @@ native checks passed, including unchanged database contents. A previous trial
 refused a 514-token minimum candidate, preserving its failed evidence. See
 `SUMMARY_NATIVE_EXPERIMENT.json` and `tests/probe_summary_native.py`.
 
-Public v2 remains complete-history conversation with explicit token admission.
-Activating projection in that endpoint requires an agreed explicit model-context
-policy and response metadata; this experiment does not silently change
+Default public v2 remains complete-history conversation with explicit token admission.
+The subsequent explicit opt-in contract is documented in DURABLE_API.md;
+the default behavior does not silently change
 `history_policy:complete_no_omission`. No database turns or actions are committed.
+
+## Qualified explicit opt-in contract
+
+`context_policy:"extractive_v1"` is now an optional per-turn v2 request, gated
+by a separately qualified profile capability. It defaults to `complete` for
+every request. Successful opt-in responses expose `model_context`, including
+exact token count, full-history/prompt digests, completeness and any excerpt
+source spans/omissions. Durable history remains complete and atomic. Old
+canonical default request payloads and saved replay remain compatible; saved
+opt-in responses also replay when projection capability is later disabled.
+
+Reconciliation with main `721d402` preserves cognitive task/results, learning
+and Motto hooks. The reconciled suite ran 185 tests: 184 passed and one optional
+native fixture skipped. Eighteen real v2 checks passed through Omega/PeTTa with
+native MORK, ECAN, retained NARS observations and Granite. A default 531-token
+request failed without commit; explicit opt-in succeeded at 508 tokens and
+committed the full original message. Replay was identical; changed policy was
+a conflict, later default behavior remained complete, small opt-in prompts
+retained full context, and no extra NARS inference or actions were claimed.
+See `OPTIN_NATIVE_SUMMARY.json` and `tests/probe_optin_context.py`.
