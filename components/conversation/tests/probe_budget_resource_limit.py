@@ -3,8 +3,12 @@ import pathlib,shutil,sqlite3,json,hashlib,subprocess,sys,os
 import argparse
 parser=argparse.ArgumentParser(description='Actual provider resource_limit with a separately copied stricter3GiB supervisor')
 parser.add_argument('--profile',required=True,type=pathlib.Path);parser.add_argument('--source-db',required=True,type=pathlib.Path);parser.add_argument('--output',required=True,type=pathlib.Path)
-args=parser.parse_args();root=args.output.resolve();root.mkdir(mode=0o700,parents=True,exist_ok=False)
-repo=pathlib.Path(__file__).resolve().parents[3];shutil.copytree(repo,root/'source',ignore=shutil.ignore_patterns('.git','__pycache__'));supervise=root/'source/components/conversation/fresh_supervise.py';s=supervise.read_text();assert s.count('rss > 5 * 1024**3')==1;supervise.write_text(s.replace('rss > 5 * 1024**3','rss > 3 * 1024**3'))
+args=parser.parse_args();repo=pathlib.Path(__file__).resolve().parents[3];root=args.output.resolve()
+if root.is_relative_to(repo):parser.error('--output must resolve outside the repository')
+root.mkdir(mode=0o700,parents=True,exist_ok=False)
+shutil.copytree(repo,root/'source',symlinks=True,ignore=shutil.ignore_patterns('.git','__pycache__'));supervise=root/'source/components/conversation/fresh_supervise.py'
+if supervise.is_symlink():raise ValueError('Supervisor must be a copied regular file')
+s=supervise.read_text();assert s.count('rss > 5 * 1024**3')==1;supervise.write_text(s.replace('rss > 5 * 1024**3','rss > 3 * 1024**3'))
 profile=json.loads(args.profile.resolve().read_text());files={}
 for path,digest in profile['files'].items():
  old=pathlib.Path(path)

@@ -81,11 +81,12 @@
       "scope": "Actual provider resource_limit with isolated RSS threshold tightened to3GiB; normal5GiB supervisor untouched. Explicit recovery uses a new request ID under the normal experimental profile. No production activation or deliberate host exhaustion."
     }
   },
-  "suite_run": 258,
-  "suite_passed": 257,
+  "suite_run": 263,
+  "suite_passed": 262,
   "suite_skipped": 1,
   "focused_budget_tests": 8,
   "earlier_negative_startup_profiles": 3,
   "earlier_standalone_scope": "Cloud-only 20-case qualification includes exact768 input/128 length output; not target desktop qualification",
-  "raw_evidence_transfer": "Local checkpoint; prior Library upload failed401 and was not retried via another route"
+  "raw_evidence_transfer": "Local checkpoint; prior Library upload failed401 and was not retried via another route",
+  "resource_output_path_regressions": 5
 }
