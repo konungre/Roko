@@ -57,7 +57,8 @@ def initialize(provider, ranker, *, reasoner=None):
     store = Store(os.environ['ROKO_HISTORY_DB'])
     conversation.session = DurableSession(provider, ranker, reasoner=reasoner)
     if getattr(provider, 'profile', {}).get('mork_memory'):
-        conversation.session.max_history = 8
+        from mork_v2 import MAX_MESSAGES
+        conversation.session.max_history = MAX_MESSAGES
     provider.allow_partial = True
 
 
@@ -145,9 +146,9 @@ def prepare_line(line):
         session.provider.last_error = None
         session.provider.last_generation = None
         if getattr(session.provider, 'profile', {}).get('mork_memory'):
-            from mork_v2 import retrieve_history, history_digest
-            if len(claim['history']) >= 8:
-                raise StoreError('history_limit','Native MORK conversation admits four exchanges')
+            from mork_v2 import retrieve_history, history_digest, MAX_MESSAGES
+            if len(claim['history']) >= MAX_MESSAGES:
+                raise StoreError('history_limit','Native MORK conversation history capacity reached')
             text = conversation.bounded_text(data['text'])
             if len(text.encode('utf-8')) > 4096:
                 raise ValueError('MORK message byte limit')

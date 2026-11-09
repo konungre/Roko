@@ -8,7 +8,7 @@ contract. `fresh_server.py` continues to speak v1; `durable_server.py` speaks v2
 Set trusted environment variables `ROKO_FRESH_PROFILE` to this machine's newly
 qualified profile and `ROKO_HISTORY_DB` to an absolute local SQLite path. The
 request cannot select programs, model paths or database paths. Launch
-`durable_server.py` with the profile's Python interpreter. Keep a 180-second
+`durable_server.py` with the profile's Python interpreter. Keep a 240-second
 per-turn client budget plus initial verification. Native inference retains its
 150-second deadline. Only one request is processed at a time in each worker.
 
@@ -107,8 +107,8 @@ The model receives complete history; no messages are silently dropped or summari
 Native admission remains 512 input tokens, 1,024 context tokens, a 16 KiB rendered
 prompt, and at most 128 generated tokens. Reaching input limits fails without a
 commit. Without MORK, the v2 session has a 128-exchange admission ceiling. With the
-qualified MORK profile, it admits four complete exchanges (eight messages),
-4,096 UTF-8 bytes per message and 65,536 serialized history bytes. A fifth
+qualified MORK profile, it admits eight complete exchanges (sixteen messages),
+4,096 UTF-8 bytes per message and 65,536 serialized history bytes. A ninth
 exchange returns `history_limit` without dropping prior messages. Native token
 limits will usually be reached first. To continue beyond admission, explicitly create a
 new session and supply a user-approved summary; no automatic summary is substituted.
@@ -180,8 +180,20 @@ limits`, the current `revision`, `history_messages`, `max_history_messages`,
 `history_policy:complete_no_omission`, and `executed_actions:0`.
 
 This query creates no session or claim and performs no inference or retrieval.
-With MORK enabled, four exchanges are admitted; the fifth is refused. The
+With MORK enabled, eight exchanges are admitted; the ninth is refused. The
 history flag also accounts for a pending claim. It does not predict rendered
 prompt token count or reserve capacity: the subsequent turn must still supply
 `expected_revision` and pass native token admission. Existing clients can
 continue using the existing turn and snapshot operations.
+
+## Bounded native history batches
+
+Complete committed history is retrieved in at most two native queries, each
+limited to eight typed turn facts. Global turn IDs preserve transcript position.
+Every batch must independently return exactly its expected rows and a verified
+runtime/cleanup receipt; missing, extra, duplicate or substituted rows fail the
+entire turn before generation. No Python matching fallback or history window is
+used. Receipts include `batch_size` and `batch_count`; multi-batch receipts retain
+each original native receipt. The pre-fix PathMap qualification remains scoped
+to these bounded queries, not general MORK workloads. The total transcript
+ceiling is sixteen messages; native token admission may reject a turn earlier.

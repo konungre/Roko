@@ -122,21 +122,34 @@ class DurableMorkApiTests(unittest.TestCase):
         self.assertEqual(self.error(),'failed')
         self.assertEqual(self.retrieve_mock.call_count,1)
 
-    def test_eight_message_bound_is_explicit_and_runs_no_mork(self):
-        for index in range(4):
+    def test_sixteen_message_bound_is_explicit_and_runs_no_mork(self):
+        for index in range(8):
             user={'role':'user','content':'User '+str(index)}
             assistant={'role':'assistant','content':'Assistant '+str(index)}
             claim=api.store.start('story','seed'+str(index),index,{'text':user['content']})
             api.store.commit(claim['token'],user,assistant,{'text':assistant['content']},
                              cognitive_history=self.observations)
         before=api.store.snapshot('story',include_cognition=True)
-        self.assertEqual(conversation.session.max_history,8)
-        self.assertFalse(self.prepare(request_id='fifth',expected_revision=4))
+        self.assertEqual(conversation.session.max_history,16)
+        self.assertFalse(self.prepare(request_id='ninth',expected_revision=8))
         self.assertEqual(self.error(),'history_limit')
         self.assertEqual(self.retrieve_mock.call_count,0)
         self.assertEqual(self.nars_calls,[])
         self.assertEqual(self.provider.calls,0)
         self.assertEqual(api.store.snapshot('story',include_cognition=True),before)
+
+    def test_fifth_exchange_restores_complete_history_and_cognition(self):
+        for index in range(4):
+            user={'role':'user','content':'User '+str(index)}
+            assistant={'role':'assistant','content':'Assistant '+str(index)}
+            c=api.store.start('story','seed'+str(index),index,{'text':user['content']})
+            api.store.commit(c['token'],user,assistant,{'text':assistant['content']},cognitive_history=self.observations)
+        self.assertTrue(self.prepare(request_id='fifth',expected_revision=4))
+        self.finish()
+        state=api.store.snapshot('story',include_cognition=True)
+        self.assertEqual(state['revision'],5)
+        self.assertEqual(len(state['history']),10)
+        self.assertEqual(state['cognitive_history'][:1],self.observations)
 
     def test_fourth_exchange_is_admitted_and_commits_exactly_eight_messages(self):
         for index in range(3):
