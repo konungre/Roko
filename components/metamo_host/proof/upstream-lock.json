@@ -1,0 +1,29 @@
+{
+  "commit": "bf97e50a68aa5059457092dfbe70699b7dd1dbe2",
+  "files": {
+    "upstream/core/state.metta": {
+      "sha256": "2ce76f38f07494cfa86c0fc7dd8f779367c9623f05f12fddbc25b4bc277f3cf5",
+      "bytes": 1896
+    },
+    "upstream/core/state_accessors.metta": {
+      "sha256": "d4ebf5bbeec3f9d9c50add675af61405158554ecf9dc359f0268b22f71da2ca0",
+      "bytes": 1026
+    },
+    "upstream/openpsi/config.metta": {
+      "sha256": "670feb4df4f0322f5906efddf6da3ce4eba6232c8640e1e6fbab07e943639c4d",
+      "bytes": 5837
+    },
+    "upstream/category/functors.metta": {
+      "sha256": "11b85507cb6aef4300910782e70ac9d43d5fc9ea3b21004cef9c60fcf200f4e0",
+      "bytes": 6182
+    },
+    "upstream/magus/decision.metta": {
+      "sha256": "011b8db5fed671855e3ab99aa5512b7b301c35f36cfb9d6f0dc4dabd1386ee59",
+      "bytes": 6451
+    },
+    "upstream/LICENSE": {
+      "sha256": "64704400fd8296d2e7300f4c2173d1c0bbe5e0ed4b56cb8edb7e6bf5ba9cd621",
+      "bytes": 1066
+    }
+  }
+}

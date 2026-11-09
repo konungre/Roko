@@ -8,9 +8,9 @@ The native test checks two real turns and exact prompt/history binding. See
 | Target | Verified scope in this development work |
 | --- | --- |
 | MeTTa-NARS | Six fresh Hyperon NAL-1 cases, then actual two-turn Omega conversation with derived observations retained in session context. |
-| NACE | Twelve actual native seven-function-slice cases on synthetic 3x3 states. Not conversation integration or full NACE. |
-| MetaMo | Prior bounded native results restored. Cleanup successor and conversation ranking hook source-tested; not wired into the current combined turn. |
-| AIRIS | Prior scalar transition experiment restored. Cleanup successor source-tested; no new combined conversation result. |
+| NACE | Twelve native seven-function-slice cases, plus typed v2 prediction integrated with actual Omega/Granite conversation. Not full NACE. |
+| MetaMo | Eight freshly executed MAGUS scoring/selection cases through rebuilt PeTTa/SWI, with independent score oracle and 16 helper probes each. Now additionally invoked by typed v2 cognitive tasks and verified in actual Omega/Granite conversation. |
+| AIRIS | Four freshly executed original AIRIS scalar-learning cases, with held-out prediction, empty-knowledge ablation and snapshot restoration. Now additionally invoked by typed v2 cognitive tasks, with verified native results committed/replayed alongside conversation. |
 | ECAN | Historical sources/adapters preserved; fresh profile rejects nonempty external context because its native ECAN closure is absent. |
 | MeTTa-Motto | No new implementation or qualification in this work. |
 | MOSES | Pending. |
@@ -19,9 +19,11 @@ The native test checks two real turns and exact prompt/history binding. See
 | Predictive and Causal Coding | NACE's bounded prediction is not evidence of these complete architectures. |
 | TransWeave | No implemented or qualified architecture claim. |
 
-The new conversational grammar accepts two explicit user assertions. Premise
+The controlled conversational grammar accepts two explicit inheritance assertions, including plural forms, reversed premise order, multiword labels and explicit hypothetical premises. Six expanded forms passed real NARS calls; two expanded forms passed actual NARS → Omega → Granite turns. Premise
 truth values are identified controller policy; observations and model prose are
 not independently established facts. No external actions were executed.
 Runtime profiles and native receipts are local evidence, not cross-machine
 attestation. Source, attribution, earlier failures, and checkpoints are preserved.
-Nothing has been pushed.
+Integration branches are prepared for parent review; no merge is performed by this task.
+
+See [native learning integration](../components/conversation/LEARNING_V2.md) for the executable MetaMo/AIRIS/NACE request path, structured results, validation and limitations.

@@ -159,6 +159,29 @@ synthetic story history in a private database under its new output directory.
 Source tests include real SQLite competing writers and process-crash cases; API
 callback tests explicitly use a fake provider and are not model evidence.
 
+## Optional native learning tasks
+
+A v2 turn may include `cognitive_tasks`, a list of zero to three objects with
+exact fields `component` and `request`. Component names are `metamo`, `airis`,
+and `nace`, with no duplicates. Requests use each component's existing bounded
+typed contract; the text model never supplies their state, features, rules or
+training data. See `tests/learning_fixtures.json` for complete synthetic examples.
+The full list is included in the durable request fingerprint: changing a task
+while reusing a request ID returns `request_conflict`.
+
+A locally qualified `learning_components` profile is required. Missing runtime,
+failed native verification or failed generation prevents transcript/observation
+commit. Runtime paths, manifests and commands cannot be supplied by a request.
+Native results become advisory prompt observations. Existing context/token limits
+still apply; supplying multiple tasks does not enlarge the model's admission.
+
+Successful task-bearing responses additionally include `cognitive_results`:
+`[{"component":"metamo","observation_id":"...","result":{...}}]`.
+These are verified structured component results, distinct from unverified model
+`text`. They commit atomically with the response, transcript and observation
+ledger and replay without reexecuting any native component. No action authority
+is added. Ordinary requests and their response shape remain unchanged.
+
 ## Resource failure diagnostics
 
 A recognized supervisor deadline produces `native_timeout`; its native RSS or

@@ -1,0 +1,335 @@
+{
+  "cases": [
+    {
+      "error": null,
+      "executed_actions": 0,
+      "finalization_errors": [],
+      "name": "upstream-score",
+      "response": {
+        "authorizes_actions": false,
+        "executed_actions": 0,
+        "proposed_delta_goals": [
+          0.0,
+          0.0,
+          0.05,
+          0.1,
+          0.05,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "request_sha256": "5f119ecfa67fc44b3f359bf4a9f01aa0ee426077860a3759ab1d925f372af806",
+        "scope": "upstream-magus-decision-subset",
+        "scores": [
+          {
+            "id": "act1",
+            "score": 0.31375
+          }
+        ],
+        "selected_proposal_id": "act1",
+        "state_changed": false,
+        "version": 1
+      },
+      "returncode": 0,
+      "seconds": 0.3167107289996238,
+      "status": "passed"
+    },
+    {
+      "error": null,
+      "executed_actions": 0,
+      "finalization_errors": [],
+      "name": "upstream-choice",
+      "response": {
+        "authorizes_actions": false,
+        "executed_actions": 0,
+        "proposed_delta_goals": [
+          0.0,
+          0.0,
+          0.05,
+          0.05,
+          0.05,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "request_sha256": "ff9939d8905053acb11b978889680f89711379108857b2ecd362f7815e083f1f",
+        "scope": "upstream-magus-decision-subset",
+        "scores": [
+          {
+            "id": "act1",
+            "score": 0.11125000000000002
+          },
+          {
+            "id": "act2",
+            "score": 0.6125
+          }
+        ],
+        "selected_proposal_id": "act2",
+        "state_changed": false,
+        "version": 1
+      },
+      "returncode": 0,
+      "seconds": 0.3183235249998688,
+      "status": "passed"
+    },
+    {
+      "error": null,
+      "executed_actions": 0,
+      "finalization_errors": [],
+      "name": "upstream-conflict",
+      "response": {
+        "authorizes_actions": false,
+        "executed_actions": 0,
+        "proposed_delta_goals": [
+          0.0,
+          0.0,
+          0.0,
+          0.01,
+          0.0,
+          0.0,
+          0.08,
+          0.0
+        ],
+        "request_sha256": "a1756be78e40e7fac0626abb3e784f0f0e90ae2f683b97b9b4cd3ff8208d9b19",
+        "scope": "upstream-magus-decision-subset",
+        "scores": [
+          {
+            "id": "conflict_act",
+            "score": -6.788875135957419
+          },
+          {
+            "id": "safe_act",
+            "score": 0.1716666666666667
+          }
+        ],
+        "selected_proposal_id": "safe_act",
+        "state_changed": false,
+        "version": 1
+      },
+      "returncode": 0,
+      "seconds": 0.3239932880001106,
+      "status": "passed"
+    },
+    {
+      "error": null,
+      "executed_actions": 0,
+      "finalization_errors": [],
+      "name": "risk-preference",
+      "response": {
+        "authorizes_actions": false,
+        "executed_actions": 0,
+        "proposed_delta_goals": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "request_sha256": "b74fcd09f65585a3df1674b1242dbd5a256adc907cd67565585f26e0d799a558",
+        "scope": "upstream-magus-decision-subset",
+        "scores": [
+          {
+            "id": "risky",
+            "score": 0.6237780695039539
+          },
+          {
+            "id": "low-risk",
+            "score": 0.9842280695039539
+          }
+        ],
+        "selected_proposal_id": "low-risk",
+        "state_changed": false,
+        "version": 1
+      },
+      "returncode": 0,
+      "seconds": 0.269756210000196,
+      "status": "passed"
+    },
+    {
+      "error": null,
+      "executed_actions": 0,
+      "finalization_errors": [],
+      "name": "growth-preference",
+      "response": {
+        "authorizes_actions": false,
+        "executed_actions": 0,
+        "proposed_delta_goals": [
+          0.0,
+          0.0,
+          0.0,
+          0.1,
+          0.1,
+          0.1,
+          0.0,
+          0.0
+        ],
+        "request_sha256": "64ef350ab5a45a359d8fd9b1651e29323213ede7e425cdcf76c3eb20a173b5d7",
+        "scope": "upstream-magus-decision-subset",
+        "scores": [
+          {
+            "id": "no-shift",
+            "score": 0.23000000000000004
+          },
+          {
+            "id": "growth-shift",
+            "score": 0.2675
+          }
+        ],
+        "selected_proposal_id": "growth-shift",
+        "state_changed": false,
+        "version": 1
+      },
+      "returncode": 0,
+      "seconds": 0.3347771300000204,
+      "status": "passed"
+    },
+    {
+      "error": null,
+      "executed_actions": 0,
+      "finalization_errors": [],
+      "name": "first-tie",
+      "response": {
+        "authorizes_actions": false,
+        "executed_actions": 0,
+        "proposed_delta_goals": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "request_sha256": "dd7523c8e9d2b37d88b9a30aaf0cf2aca340d75701bf7a8b20c39304b2d8b793",
+        "scope": "upstream-magus-decision-subset",
+        "scores": [
+          {
+            "id": "first",
+            "score": 0.23000000000000004
+          },
+          {
+            "id": "second",
+            "score": 0.23000000000000004
+          }
+        ],
+        "selected_proposal_id": "first",
+        "state_changed": false,
+        "version": 1
+      },
+      "returncode": 0,
+      "seconds": 0.33500586699983614,
+      "status": "passed"
+    },
+    {
+      "error": null,
+      "executed_actions": 0,
+      "finalization_errors": [],
+      "name": "reverse-tie",
+      "response": {
+        "authorizes_actions": false,
+        "executed_actions": 0,
+        "proposed_delta_goals": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "request_sha256": "77dcdd10ab9224d79407c80c632fec6d82b1f1b3e98ed4f2399a3ebd1bba4ea3",
+        "scope": "upstream-magus-decision-subset",
+        "scores": [
+          {
+            "id": "second",
+            "score": 0.23000000000000004
+          },
+          {
+            "id": "first",
+            "score": 0.23000000000000004
+          }
+        ],
+        "selected_proposal_id": "second",
+        "state_changed": false,
+        "version": 1
+      },
+      "returncode": 0,
+      "seconds": 0.269207458999972,
+      "status": "passed"
+    },
+    {
+      "error": null,
+      "executed_actions": 0,
+      "finalization_errors": [],
+      "name": "capacity-eight",
+      "response": {
+        "authorizes_actions": false,
+        "executed_actions": 0,
+        "proposed_delta_goals": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "request_sha256": "7fd55bf1e9f94bbfadbeb556514a3c4d1d7f4c8be85c060385c44c2f581734ef",
+        "scope": "upstream-magus-decision-subset",
+        "scores": [
+          {
+            "id": "proposal-0",
+            "score": -0.0125
+          },
+          {
+            "id": "proposal-1",
+            "score": 0.10875000000000001
+          },
+          {
+            "id": "proposal-2",
+            "score": 0.23000000000000004
+          },
+          {
+            "id": "proposal-3",
+            "score": 0.35125
+          },
+          {
+            "id": "proposal-4",
+            "score": 0.47250000000000003
+          },
+          {
+            "id": "proposal-5",
+            "score": 0.59375
+          },
+          {
+            "id": "proposal-6",
+            "score": 0.7150000000000001
+          },
+          {
+            "id": "proposal-7",
+            "score": 0.8362499999999999
+          }
+        ],
+        "selected_proposal_id": "proposal-7",
+        "state_changed": false,
+        "version": 1
+      },
+      "returncode": 0,
+      "seconds": 0.3133287669998026,
+      "status": "passed"
+    }
+  ],
+  "conversation_integrated": false,
+  "error": null,
+  "executed_actions": 0,
+  "full_metamo": false,
+  "manifest_sha256": "6a5f24953b52e44fa4fc701359a79ec2aab197f06b8de44e6a265b4ed3c51463",
+  "seconds": 3.7094948700000714,
+  "status": "passed"
+}

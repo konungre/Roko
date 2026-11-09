@@ -41,11 +41,14 @@ class DurableSession(conversation.Session):
                     'text':self.reply,'context_ids':[f['id'] for f in self.context],
                     'executed_actions':0,'generation':generation,
                     'history_policy':'complete_no_omission'}
+        if self.pending_component_results:
+            response['cognitive_results']=self.pending_component_results
         saved = store.commit(current['token'],self.user_message(),expected[-1],response,
                              cognitive_history=self.cognitive_context)
         self.history = expected
         self.cognitive_history = [dict(item) for item in self.cognitive_context]
         self.pending_cognition = []
+        self.pending_component_results = []
         self.pending = None
         current = None
         completed = json.dumps(saved,ensure_ascii=False)
@@ -125,12 +128,17 @@ def prepare_line(line):
                          **store.recover(data['session_id'],data['request_id'],data['expected_revision'])}
             return False
         required = {'api_version','op','session_id','request_id','expected_revision','text','context'}
-        if op != 'turn' or not required <= set(data) or set(data)-required-{'max_output_tokens'}:
+        if op != 'turn' or not required <= set(data) or set(data)-required-{'max_output_tokens','cognitive_tasks'}:
             raise ValueError('Invalid turn fields')
         maximum = data.get('max_output_tokens',128)
         if type(maximum) is not int or not 1<=maximum<=128:
             raise ValueError('Output budget must be 1..128')
         payload = {'text':data['text'],'context':data['context'],'max_output_tokens':maximum}
+        tasks=[]
+        if 'cognitive_tasks' in data:
+            from learning import validate_tasks
+            tasks=validate_tasks(data['cognitive_tasks'])
+            payload['cognitive_tasks']=tasks
         claim = store.start(data['session_id'],data['request_id'],data['expected_revision'],payload)
         if claim['status'] == 'replayed':
             immediate = claim['response']
@@ -160,7 +168,7 @@ def prepare_line(line):
             except Exception as error:
                 raise conversation.NativePreparationError(str(error)) from error
             session.provider.mork_receipts.append(receipt)
-        session.prepare({'text':data['text'],'context':data['context']})
+        session.prepare({'text':data['text'],'context':data['context']},learning_tasks=tasks)
         return True
     except Exception as error:
         code = (error.code if isinstance(error,StoreError) else
@@ -194,5 +202,6 @@ def abort():
     conversation.session.pending = None
     conversation.session.reply = None
     conversation.session.pending_cognition = []
+    conversation.session.pending_component_results = []
     conversation.session.cognitive_context = [dict(item) for item in conversation.session.cognitive_history]
     return json.dumps(error_response(code,data),ensure_ascii=False)

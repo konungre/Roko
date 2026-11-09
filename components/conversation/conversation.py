@@ -31,14 +31,16 @@ class Session:
         self.cognitive_history = []
         self.pending_cognition = []
         self.cognitive_binding = None
+        self.pending_component_results = []
 
-    def prepare(self, request):
+    def prepare(self, request, *, learning_tasks=None):
         """Stage one turn. Failed inference must leave committed history intact."""
         self.pending = None
         self.reply = None
         self.context = []
         self.cognitive_context = [dict(item) for item in self.cognitive_history]
         self.pending_cognition = []
+        self.pending_component_results = []
         if type(request) is not dict or set(request) != {'text', 'context'}:
             raise ValueError('Expected text and context')
         if len(self.history) >= self.max_history:
@@ -76,6 +78,7 @@ class Session:
                 raise NativePreparationError('Invalid ECAN focus')
             self.context = [{'id': fact['id'], 'text': fact['text']}
                             for index, fact in enumerate(facts) if f'ctx_{index}' in focus]
+        observations=[];component_results=[]
         if self.reasoner is not None:
             try:
                 history = [dict(message) for message in self.history]
@@ -87,19 +90,37 @@ class Session:
                 raise NativePreparationError(str(error)) from error
             if type(observations) is not list or len(observations)>2:
                 raise NativePreparationError('Cognitive observation cap')
-            seen_observations={item['id'] for item in self.cognitive_history}
-            for item in observations:
-                if type(item) is not dict or set(item)!={'id','text'}:
-                    raise NativePreparationError('Cognitive observation schema')
-                try:
-                    bounded_text(item['id'],128);bounded_text(item['text'],500)
-                except ValueError as error:
-                    raise NativePreparationError(str(error)) from error
-                if item['id'] in seen_observations:
-                    raise NativePreparationError('Duplicate cognitive observation ID')
-                seen_observations.add(item['id'])
-            self.pending_cognition = observations
-            self.cognitive_context += observations
+        if learning_tasks:
+            learner=getattr(self.provider,'learning',None)
+            if learner is None:raise NativePreparationError('Learning components are not qualified in this profile')
+            try:
+                extra=learner.run_turn(learning_tasks,text,[dict(m) for m in self.history],self.cognitive_binding)
+                if type(extra) is not dict or set(extra)!={'observations','results'}:
+                    raise ValueError('Learning result schema')
+                if type(extra['observations']) is not list or len(extra['observations'])!=len(learning_tasks):
+                    raise ValueError('Learning observation count')
+                component_results=extra['results']
+                if type(component_results) is not list or len(component_results)!=len(learning_tasks):
+                    raise ValueError('Learning result count')
+                for row,task,obs in zip(component_results,learning_tasks,extra['observations']):
+                    if type(row) is not dict or set(row)!={'component','observation_id','result'} or row['component']!=task['component'] or row['observation_id']!=obs.get('id'):
+                        raise ValueError('Learning result identity')
+                observations=observations+extra['observations']
+            except Exception as error:
+                raise NativePreparationError(str(error)) from error
+        seen_observations={item['id'] for item in self.cognitive_history}
+        for item in observations:
+            if type(item) is not dict or set(item)!={'id','text'}:
+                raise NativePreparationError('Cognitive observation schema')
+            try:
+                bounded_text(item['id'],128);bounded_text(item['text'],500)
+            except ValueError as error:
+                raise NativePreparationError(str(error)) from error
+            if item['id'] in seen_observations:raise NativePreparationError('Duplicate cognitive observation ID')
+            seen_observations.add(item['id'])
+        self.pending_component_results = json.loads(json.dumps(component_results,allow_nan=False))
+        self.pending_cognition = [dict(item) for item in observations]
+        self.cognitive_context += self.pending_cognition
         self.pending = {'role': 'user', 'content': text}
         return True
 

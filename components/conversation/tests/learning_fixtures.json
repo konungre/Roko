@@ -1,0 +1,202 @@
+[
+  {
+    "component": "metamo",
+    "request": {
+      "candidates": [
+        {
+          "correlations": [
+            0,
+            0,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1
+          ],
+          "delta_goals": [
+            0,
+            0,
+            0.01,
+            0.01,
+            0.01,
+            0,
+            0,
+            0
+          ],
+          "id": "act1",
+          "risk": 0.1
+        },
+        {
+          "correlations": [
+            0,
+            0,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "delta_goals": [
+            0,
+            0,
+            0.05,
+            0.05,
+            0.05,
+            0,
+            0,
+            0
+          ],
+          "id": "act2",
+          "risk": 0.05
+        }
+      ],
+      "operation": "rank_proposals",
+      "request_id": "upstream-choice",
+      "state": {
+        "goals": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "modulators": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "version": 1
+    },
+    "text": "Which proposal did MetaMo select? Answer with its ID."
+  },
+  {
+    "component": "airis",
+    "request": {
+      "operation": "learn-scalar-transition",
+      "query": 7,
+      "revision": 1,
+      "task_id": "increment",
+      "training": [
+        {
+          "action": "step",
+          "after": 3,
+          "before": 2,
+          "id": "evidence_0",
+          "sha256": "5a49050565aef66d5a8c5add53a553a9e4b61523d936d8b94e42cabff91767d0",
+          "source": "synthetic:recorded inert transition"
+        },
+        {
+          "action": "step",
+          "after": 5,
+          "before": 4,
+          "id": "evidence_1",
+          "sha256": "e557f164ecc111fad5aa3513144c213220b14d2848bbcfe61ac5c0246de40ad3",
+          "source": "synthetic:recorded inert transition"
+        },
+        {
+          "action": "hold",
+          "after": 2,
+          "before": 2,
+          "id": "evidence_2",
+          "sha256": "baa8a89daaf6824df42509398da2d1000bf079831cd69ca20627a2ac30f71486",
+          "source": "synthetic:recorded inert transition"
+        },
+        {
+          "action": "hold",
+          "after": 4,
+          "before": 4,
+          "id": "evidence_3",
+          "sha256": "1da5f15f64dcf3a5deec55c3eece528361d357cd9fef3bd25ab37575bdb9103f",
+          "source": "synthetic:recorded inert transition"
+        }
+      ],
+      "version": 1
+    },
+    "text": "Give the learned AIRIS prediction as step=<value>, hold=<value>."
+  },
+  {
+    "component": "nace",
+    "request": {
+      "action": "right",
+      "board": [
+        [
+          ".",
+          ".",
+          "."
+        ],
+        [
+          ".",
+          "x",
+          "."
+        ],
+        [
+          ".",
+          ".",
+          "."
+        ]
+      ],
+      "focus": [
+        [
+          "x",
+          2
+        ]
+      ],
+      "now": 5,
+      "rules": [
+        {
+          "action": "right",
+          "conditions": [
+            [
+              0,
+              0,
+              "x"
+            ]
+          ],
+          "evidence": [
+            1,
+            0
+          ],
+          "id": "r0",
+          "inventory": 0,
+          "result": "f",
+          "values": [
+            1,
+            0
+          ]
+        }
+      ],
+      "times": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "updates": [],
+      "values": [
+        0,
+        0
+      ]
+    },
+    "text": "What reward value does NACE predict? Answer briefly."
+  }
+]
