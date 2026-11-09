@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "checks": {
+    "protocol": true,
+    "exact_original_request": true,
+    "backend_replay_matches_saved": true,
+    "all_fourteen_messages_preserved": true,
+    "plain_text_required": true,
+    "recovery_confirmation_required": true,
+    "server_rejects_live_owner": true,
+    "pending_owner_preserved": true,
+    "history_and_cognition_unchanged": true,
+    "zero_native_inference_or_retrieval": true,
+    "no_automatic_requests": true
+  },
+  "evidence_provenance": "local headless backend consumer check; not graphical UI or independent reproduction",
+  "executed_actions": 0,
+  "tested_base_main": "0f3117c",
+  "unit_tests_passed": 11,
+  "suite_run": 204,
+  "suite_passed": 203,
+  "suite_skipped": 1
+}
