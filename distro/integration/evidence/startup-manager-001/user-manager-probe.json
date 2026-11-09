@@ -1,0 +1,6 @@
+{
+  "returncode": 1,
+  "isolated_unit_path": "/workspace/scratch/startup-manager-001/units",
+  "host_service_changes": false,
+  "stderr": "Trying to run as user instance, but the system has not been booted with systemd.\n"
+}

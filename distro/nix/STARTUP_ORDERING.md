@@ -1,5 +1,10 @@
 # Boot-local policy diagnostics and ordering
 
+Later actual adapted systemd guest trials are recorded in
+`STARTUP_MANAGER_FIXTURE.md`. Statements below about unexecuted units describe
+the original evaluation checkpoint, not the later adapted fixture. The full Nix
+image still has not been booted.
+
 The live image now declares `roko-startup-report.service`. Pinned Nix evaluation
 passed headless/COSMIC × offline/managed cases, including generated unit text.
 The service is wanted by multi-user.target, ordered after local-fs.target and

@@ -1,0 +1,22 @@
+{
+  "image_sha256": "403635b18610b99e5b94bbf8ed5bb30619e36171bffcc24222fce5615acd4faa",
+  "image_bytes": 45727072,
+  "manifest_sha256": "0d3128b151f83129ed7f07f45f214fbeb19be7298a1001fc8f55dd82db325ca2",
+  "unit_evaluation_sha256": "e6857ef9c31f9e7e6173a9e73bd6338e0f7894e9c14be746facf19af510051f2",
+  "source_hashes": {
+    "distro/integration/build_startup_manager_guest.py": "75d3be45285d3aba13e803f9fcc76bc8c52f33693a5d65aa1ad4e6c16d969d6a",
+    "distro/integration/startup_manager_controller.py": "541bc73b0633e6195276a7b93e24d0bdaa451afc812a4f19533c6a1a1e73c0e5",
+    "distro/integration/run_startup_manager_guest.py": "8bb46c9a657d6ad9323e964cfd582fd533c8746cc5cee4aac66765840e396ea5",
+    "distro/integration/startup_manager_evidence.py": "8a16ca07cd34c2062eb026d996c546b4316f2bef6a972a6cdcfc69c07602d7a9",
+    "distro/nix/startup_report.py": "978b4affcb5e6e1eb80b57a2b01f1f4002d7d47818f95d3680c8cff1e3190c49"
+  },
+  "native_file_hashes": {
+    "usr/bin/echo": "416903b966ea8a2fc3b11e09b03a30e09aaf3b2e8f5a581b4c1b80899edf545f",
+    "usr/bin/systemctl": "848c70d7e2c2f43f4f93287897ac8946e8eda45e7daa5f2975d9728071856b1a",
+    "usr/lib/systemd/systemd": "799fd89964a716fb5f26c4506047190b6e842ac2745b473bd45351c4d8cbd929",
+    "usr/lib/systemd/systemd-executor": "7444817ff087099a021e7c4eabefc0f894f48028513a78c207da03572329e136"
+  },
+  "runtime_manifest_local": "/workspace/scratch/startup-manager-001/guest-004/manifest.json",
+  "runtime_redistributed": false,
+  "scope": "host-copied Debian systemd fixture; no reproducible Nix closure claim"
+}

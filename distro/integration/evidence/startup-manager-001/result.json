@@ -1,0 +1,134 @@
+{
+  "command": [
+    "/workspace/scratch/boot-tools-001/minimal-runtime/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+    "--library-path",
+    "/workspace/scratch/boot-tools-001/minimal-runtime/usr/lib/x86_64-linux-gnu",
+    "/workspace/scratch/boot-tools-001/minimal-runtime/usr/bin/qemu-system-x86_64",
+    "-L",
+    "/workspace/scratch/boot-tools-001/minimal-runtime/usr/share/qemu",
+    "-bios",
+    "/workspace/scratch/boot-tools-001/minimal-runtime/usr/share/seabios/bios-256k.bin",
+    "-no-user-config",
+    "-nodefaults",
+    "-machine",
+    "q35,accel=tcg",
+    "-m",
+    "512",
+    "-smp",
+    "1",
+    "-display",
+    "none",
+    "-monitor",
+    "none",
+    "-serial",
+    "stdio",
+    "-nic",
+    "none",
+    "-no-reboot",
+    "-kernel",
+    "/workspace/scratch/boot-tools-001/minimal-runtime/boot/vmlinuz-6.12.116+deb13-amd64",
+    "-initrd",
+    "/workspace/scratch/startup-manager-001/guest-004/initramfs.gz",
+    "-append",
+    "console=ttyS0 rdinit=/init panic=1"
+  ],
+  "runtime": {
+    "entries_verified": 131,
+    "lock_sha256": "4b86230ec43ae4326f196dc136e2c5ac364910eadc39f6fcfcde364be8145cab"
+  },
+  "image_sha256": "403635b18610b99e5b94bbf8ed5bb30619e36171bffcc24222fce5615acd4faa",
+  "serial_sha256": "40022c0e13a43ba0131207a97b680d83e764f670e305a5ad83a2c84c0a37df34",
+  "manifest_sha256": "0d3128b151f83129ed7f07f45f214fbeb19be7298a1001fc8f55dd82db325ca2",
+  "passed": true,
+  "stop": "eof",
+  "returncode": 0,
+  "elapsed_seconds": 19.189881432997936,
+  "child_reaped": true,
+  "network_device": false,
+  "host_disks": false,
+  "host_activation": false,
+  "scope": "adapted Debian systemd service-manager fixture, not Nix image",
+  "serial_contract": {
+    "serial_contract_passed": true,
+    "phases": [
+      {
+        "phase": "missing-model-network-unavailable",
+        "report": {
+          "boot_id": "f27b8892-e8a3-4d14-a6eb-8208333d76a9",
+          "declared_policy": {
+            "automaticGenerationDeletion": false,
+            "automaticUpgrade": false,
+            "credentialProvisioningRequired": true,
+            "durableHistoryReady": false,
+            "modelReady": false,
+            "networkIsolationProven": false,
+            "offlineRequested": true,
+            "schema": "roko-first-boot-policy-v1"
+          },
+          "execution_authorized": false,
+          "issues": [
+            "runtime-health-not-observed",
+            "model-not-qualified",
+            "durable-history-not-qualified",
+            "credentials-not-provisioned",
+            "network-isolation-not-proven"
+          ],
+          "runtime_health_observed": false,
+          "schema": "roko-startup-report-v1",
+          "scope": "boot-local policy diagnostics; no service/model/persistence probe",
+          "status": "unqualified",
+          "system_ready": false
+        },
+        "network_unavailable": true
+      },
+      {
+        "phase": "invalid-policy",
+        "report": {
+          "execution_authorized": false,
+          "issues": [
+            "startup-policy-or-boot-identity-unreadable-or-invalid"
+          ],
+          "runtime_health_observed": false,
+          "schema": "roko-startup-report-v1",
+          "status": "failed",
+          "system_ready": false
+        }
+      },
+      {
+        "phase": "recovery",
+        "report": {
+          "boot_id": "f27b8892-e8a3-4d14-a6eb-8208333d76a9",
+          "declared_policy": {
+            "automaticGenerationDeletion": false,
+            "automaticUpgrade": false,
+            "credentialProvisioningRequired": true,
+            "durableHistoryReady": false,
+            "modelReady": false,
+            "networkIsolationProven": false,
+            "offlineRequested": true,
+            "schema": "roko-first-boot-policy-v1"
+          },
+          "execution_authorized": false,
+          "issues": [
+            "runtime-health-not-observed",
+            "model-not-qualified",
+            "durable-history-not-qualified",
+            "credentials-not-provisioned",
+            "network-isolation-not-proven"
+          ],
+          "runtime_health_observed": false,
+          "schema": "roko-startup-report-v1",
+          "scope": "boot-local policy diagnostics; no service/model/persistence probe",
+          "status": "unqualified",
+          "system_ready": false
+        }
+      }
+    ],
+    "observed_service_uids": [
+      63914,
+      63914,
+      63914
+    ],
+    "scope": "serial consistency only; caller must bind runtime/image/process evidence"
+  }
+}
