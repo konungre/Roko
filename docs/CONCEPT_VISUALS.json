@@ -208,6 +208,40 @@
       "duration_ms": 16000,
       "unique_frames": 158,
       "loop": 0
+    },
+    {
+      "path": "docs/media/roko-task-demo-v3.gif",
+      "bytes": 4329490,
+      "sha256": "f51b0570ab317908b0cc4f22fde8fb9e568d689ce476bc3926735391d9af1d37",
+      "dimensions": [
+        1254,
+        706
+      ],
+      "frames": 384,
+      "duration_ms": 16000,
+      "frame_intervals_ms": [
+        40,
+        50
+      ],
+      "unique_frames": 384,
+      "loop": 0
+    },
+    {
+      "path": "docs/media/roko-autonomous-demo-v3.gif",
+      "bytes": 3171532,
+      "sha256": "6875aa41e55d49bc97965a093fb6ff463493f5aacb57ad7957c5a81ba943533b",
+      "dimensions": [
+        1254,
+        706
+      ],
+      "frames": 336,
+      "duration_ms": 14000,
+      "frame_intervals_ms": [
+        40,
+        50
+      ],
+      "unique_frames": 336,
+      "loop": 0
     }
   ]
 }

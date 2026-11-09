@@ -152,3 +152,46 @@ bubble and content for reuse. Generation brief for the poses: preserve the
 hero's green/gold quadruped basilisk identity in four isolated transparent
 poses, standing, wingless flight, reaching and perching. The source assets,
 not prompts alone, are the reproducible inputs to the frame renderer.
+
+## Serpentine movement and desktop depth
+
+The README now uses `roko-task-demo-v3.gif` and `roko-autonomous-demo-v3.gif`.
+Earlier images, GIFs and renderers remain unchanged. The new sequences retain
+the same desktop, apps, tasks and permanent simulation labels.
+
+The flight pose is animated by a continuous piecewise-affine ribbon rig: a
+traveling wave bends the torso and tail independently, with a quieter head.
+The same rig hovers between glides, avoiding ghosted pose dissolves. Smooth
+easing drives aerial turns, full twirls, shallow banking and curved glides.
+24 frames per second replaces the previous 12 fps; GIF centisecond timing
+approximates the requested rate using 40/50 ms frame intervals.
+
+Roko recedes in apparent size, passes behind the opaque IDE, and reappears
+around its edge. In the autonomous example, Roko and the carried source card
+pass behind the note widget and emerge below. Solid masks preserve the window
+and widget pixels; the creature is not merely made transparent over them.
+Speech is hidden while its anchor is behind a surface. This is a 2.5D visual
+simulation, not a new desktop compositor, skeletal animation system or running
+Roko capability. It is inspired by flowing, serpentine dragon movement.
+
+The existing verified sprite is sampled once to prepare the flight rig. No new
+third-party art or private desktop content is introduced. The original source
+images are unchanged.
+
+```sh
+ROKO_PREVIEW_DIR=/tmp/roko-motion-preview node docs/demo-source/render-serpentine-demo.cjs
+ROKO_PREVIEW_DIR=/tmp/roko-motion-preview node docs/demo-source/test-serpentine-motion.cjs
+ROKO_FRAME_DIR=/tmp/roko-motion-task ROKO_AUTO_DIR=/tmp/roko-motion-auto \
+  node docs/demo-source/render-serpentine-demo.cjs
+ffmpeg -framerate 24 -i /tmp/roko-motion-task/%04d.png \
+  -vf 'split[a][b];[a]palettegen=max_colors=224[p];[b][p]paletteuse=dither=bayer:bayer_scale=4' \
+  -loop 0 docs/media/roko-task-demo-v3.gif
+ffmpeg -framerate 24 -i /tmp/roko-motion-auto/%04d.png \
+  -vf 'split[a][b];[a]palettegen=max_colors=224[p];[b][p]paletteuse=dither=bayer:bayer_scale=4' \
+  -loop 0 docs/media/roko-autonomous-demo-v3.gif
+```
+
+Motion tests check transform continuity, independent head/tail displacement,
+finite transforms and depth planes. Optional rendered-frame checks compare
+opaque UI interiors pixel-for-pixel during behind-surface movement. These are
+visual-renderer checks, not runtime AI or desktop integration tests.
