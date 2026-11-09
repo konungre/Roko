@@ -78,3 +78,19 @@ The directory builders use host /bin/sh and /bin/mkdir, with sandbox disabled.
 They establish real profile/history behavior only, not hermetic builds or NixOS.
 The fixed-output build from the previous test remains separately evidenced.
 The local recipes include exact test paths; replay needs fresh isolated paths.
+
+## Successor private profile switch
+
+`profile_switch.py` prepares a complete native profile in a new private generation
+directory, verifies its exact output set, then switches a single `active` symlink
+with rename and parent fsync. Existing generations remain available. It uses the
+observed Nix2.26 CLI without --name or index selectors. This supersedes the
+preserved prototype's incompatible mutation path; it does not silently rewrite
+that historical implementation. Empty desired profiles are currently rejected.
+Only cooperative clients using this private root lock are supported.
+
+Two real candidate profiles and pointer switches passed, with old profile retained
+and stale target rejected. `projection.py` reads a durable ledger snapshot and
+refuses simulation-mode export. The observed pointer receipt was committed,
+reopened and projected into actual PeTTa, where exact fact matching passed.
+This is a private profile observation, not running-system or health evidence.
