@@ -1,5 +1,12 @@
 # Durable native MORK conversation integration
 
+> Historical v1 checkpoint evidence. The current endpoint is `durable_server.py`
+> with the published durable v2 API (`components/conversation/DURABLE_API.md`).
+> Its client request IDs, replay, CAS claims and explicit recovery supersede
+> the v1 server-generated IDs and automatic abandoned-request cleanup below.
+> Original qualified profiles remain bound to the original checkout, not this merge.
+
+
 This host profile connects the actual PeTTa/Omega conversation step to native
 MORK retrieval and SQLite-owned history. It preserves the bounded, inert-text
 provider path. It does not run Omega's autonomous action loop.

@@ -13,7 +13,8 @@ See [conversation integration](CONVERSATION_INTEGRATION.md) for the new host
 interface, limits, exact verification scope, and remaining runtime blockers.
 See [native rebuild](NATIVE_REBUILD.md) for the candidate's exact identity,
 explicit host-selection API, and compatibility/security limitations.
-See [live durable conversation](../components/conversation/DURABLE_MORK.md)
-for the actual host integration and its separate runtime receipts.
+See [current durable v2 integration](../components/conversation/INTEGRATED_V2.md)
+and its [request/replay contract](../components/conversation/DURABLE_API.md).
+The [v1 native proof](../components/conversation/DURABLE_MORK.md) remains historical evidence.
 
 See the repository-level docs for current status, external dependencies and publication limitations. Development-root paths may be public placeholders. These sources are not a self-contained runtime.

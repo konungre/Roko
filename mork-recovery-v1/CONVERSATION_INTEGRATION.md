@@ -1,5 +1,12 @@
 # Durable conversation integration checkpoint — 2026-11-09
 
+> Historical v1 checkpoint evidence. The current endpoint is `durable_server.py`
+> with the published durable v2 API (`components/conversation/DURABLE_API.md`).
+> Its client request IDs, replay, CAS claims and explicit recovery supersede
+> the v1 server-generated IDs and automatic abandoned-request cleanup below.
+> Original qualified profiles remain bound to the original checkout, not this merge.
+
+
 Latest update: `../components/conversation/DURABLE_MORK.md` records the actual
 PeTTa/Omega/Granite + native MORK restart and cancellation proof. The new
 `prepare_exchange` / `accept_exchange` methods stage user input and commit both

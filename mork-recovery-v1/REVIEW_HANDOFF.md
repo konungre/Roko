@@ -35,22 +35,33 @@ The actual run selected manifest SHA-256
 `b480e3973455b2b6bedc903ec245b5cd0e7a8fd0e9b30a85a7a6329d54aef7d2`.
 Existing profile 002 and its runtime were not rewritten for these tests.
 
-## Integration contract and outstanding work
+## Reconciled durable v2 integration
 
-The storage interface is `prepare_exchange` followed by `accept_exchange` with
-an opaque receipt token and expected history revision. Commit inserts both rows
-atomically; the host owns an exclusive lease, and abandons staged receipts after
-failure/restart. `ExternalMORKBackend` is the Janus-compatible subprocess boundary.
-Keep the independent supervisor: embedded Janus owns C signal handlers that the
-older direct Python supervisor cannot safely restore.
+Published main commit `4225bb553f03f78bf3da9f0ae5ec6861d2388a53` contains the
+conversation successor through `21e8621`. It was fetched through GitHub and
+merged into the existing native-memory branch. The four conflicted conversation
+files (`fresh.py`, `qualify_fresh.py`, `probe_durable.py`, `FRESH_HOST.md`) retain
+the published main versions exactly. The current v2 implementation was not
+replaced with the earlier v1 receipt/lease mechanism.
 
-This branch still exposes the original `{text, context: []}` conversation
-transport. It does not claim integration with the newer durable v2 transport.
-The newer Library handoff was discovered, but the required download route remains
-blocked by the previously reported HTTP 401; no alternate download route was used.
-The published `basilisk/native-conversation-bubble` branch does not contain that
-conversation API. The parent must supply its contract or publish its source
-branch before interface reconciliation and a fresh end-to-end qualification.
+`durable_server.py` uses client-supplied request IDs, committed CAS claims,
+atomic history/response commits and saved replay before any native execution.
+Lost response delivery can replay the saved response value after restart.
+Cancelled pending work requires explicit recovery after the original owner dies.
+See `components/conversation/DURABLE_API.md`; no additional acknowledgment field
+or incompatible transport was invented. The v1 `fresh_server.py` stays separate.
+
+The optional native replay regression combines real MORK and real SQLite with
+an explicitly labeled provider double. It commits a response, discards delivery,
+reopens the store, verifies exact replay without native retrieval or generation,
+rejects changed payload reuse, then retrieves two committed messages with real
+MORK for the next claimed request. It is not new Omega/Granite model evidence.
+
+Historical v1 storage/lease utilities and tests remain available for recovery;
+the reconciled current launcher does not select them. The original working
+checkout and profile 002 remain untouched. The earlier Library 401 was neither
+retried nor bypassed. Source availability through the published repository
+resolved the v2 contract-access blocker.
 
 Keep the following limitations in the PR and any release notes:
 
@@ -63,3 +74,10 @@ Keep the following limitations in the PR and any release notes:
 - Local manifests bind reviewed bytes, not a portable release or a security audit.
 - Missing upstream MORK license declarations remain unresolved. Upstream sources,
   binaries and model weights are not included in this review commit/checkpoint.
+
+Reconciliation validation: 121 conversation tests ran with 120 passing and one
+optional real-ECAN skip. This includes four real native MORK calls across the
+v2 adapter and SQLite replay tests. All 73 memory/helper tests passed, including
+20 additional real native calls. No new full PeTTa/Omega/Granite qualification
+was performed on this merged checkout, and no CI run is claimed. The independent
+PathMap reproducer and observed failure are in `probes/pathmap-fork`.

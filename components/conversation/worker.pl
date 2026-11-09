@@ -18,11 +18,24 @@ run :-
     process_metta_string(Program, _),
     (getenv('ROKO_FRESH_PROFILE', _) ->
       janus:py_call(fresh:initialize(), @(true)),
-      setup_call_cleanup(true, turns, janus:py_call(fresh:finish(), @(true)))
+      setup_call_cleanup(true, selected_turns, janus:py_call(fresh:finish(), @(true)))
     ; getenv('ROKO_RECOVERED_PROFILE', _) ->
       janus:py_call(recovered:initialize(), @(true)),
       setup_call_cleanup(true, turns, janus:py_call(recovered:finish(), @(true)))
     ; janus:py_call(conversation:initialize(), @(true)), turns).
+selected_turns :-
+    (getenv('ROKO_API_VERSION', '2') -> durable_turns ; turns).
+durable_turns :-
+    read_request_line(user_input, Line),
+    (Line == end_of_file -> true
+    ; (janus:py_call(durable_api:prepare_line(Line), @(true)) ->
+        catch((process_metta_string("!(rokoRecoveredStep)", [_NativeReply]) ->
+                 janus:py_call(durable_api:completed_json(), Reply)
+               ; throw(error(native_turn_failed, durable_turns/0))),
+              Error, (print_message(error, Error), janus:py_call(durable_api:abort(), Reply)))
+      ; janus:py_call(durable_api:immediate_json(), Reply)),
+      format(user_output, '~s~n', [Reply]), flush_output(user_output),
+      durable_turns).
 turns :-
     read_request_line(user_input, Line),
     ( Line == end_of_file -> true

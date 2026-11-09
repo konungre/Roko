@@ -1,9 +1,8 @@
 # Fresh cloud host profile
 
-An optional `durable_memory` profile binding adds tested native MORK retrieval
-and atomic SQLite history. See [Durable MORK](DURABLE_MORK.md) for its restart,
-cancellation, provenance and host-lease contract. The in-memory behavior below
-continues to describe profiles without that explicit binding.
+The opt-in NAL-1 cognitive successor is now separately qualified on a rebuilt
+executor. See [actual cognitive integration](COGNITIVE_INTEGRATION.md). The
+baseline and historical native summaries below retain their original scope.
 
 This profile rebuilds the runtime on a separate cloud computer. It does not
 substitute new binaries for the historical recovered-host hashes. The original

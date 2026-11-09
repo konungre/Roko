@@ -1,11 +1,9 @@
 # Local conversation through a bounded native Omega step
 
-The optional [durable native MORK profile](DURABLE_MORK.md) now passes actual
-restart/recall and cancellation tests. It preserves the three-field transport
-and inert-text boundary. The in-memory profiles below remain available.
-
 For the separately rebuilt cloud computer, see [Fresh host profile](FRESH_HOST.md).
 It uses a new native provenance profile and the same three-field JSON-lines API.
+The opt-in [durable API v2](DURABLE_API.md) adds revision-checked local history,
+saved-response replay, explicit truncation metadata and genuine ECAN context.
 
 The recovered-host endpoint has completed real free-form Granite turns, a follow-up
 that recalled the prior lighthouse setting, and native ECAN context selection.

@@ -1,4 +1,6 @@
-"""Explicit host binding of real native MORK to durable Omega history.
+"""Historical v1 host binding retained for checkpoint recovery only.
+
+Current durable_server uses durable_api/mork_v2, not this lease-based adapter.
 
 No runtime, path, session or query can be selected by the JSON chat request.
 The existing four-exchange limit remains stricter than the storage capacity.
