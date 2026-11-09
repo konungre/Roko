@@ -1,0 +1,49 @@
+{
+  "scope": "image",
+  "roots": [
+    {
+      "label": "headless-imageDerivation",
+      "derivation": "/workspace/scratch/nix-live-001/direct-store/x4gbkvbnijjp3kybq1g6zq67i1d84chj-roko-live-evaluation.iso.drv",
+      "output": "/workspace/scratch/nix-live-001/direct-store/5w2x9djg5r721193dnkl3jbmfp8l2wpq-roko-live-evaluation.iso",
+      "available": false,
+      "preflight_returncode": 1,
+      "output_exists": false
+    },
+    {
+      "label": "headless-systemDerivation",
+      "derivation": "/workspace/scratch/nix-live-001/direct-store/9hjb705kc0pvwzwr6ll74bviqp3z5a2l-nixos-system-roko-evaluation-26.11pre-git.drv",
+      "output": "/workspace/scratch/nix-live-001/direct-store/nq4p9zmrqw4qyhsc90vm0nglwr1f9ay4-nixos-system-roko-evaluation-26.11pre-git",
+      "available": false,
+      "preflight_returncode": 1,
+      "output_exists": false
+    },
+    {
+      "label": "cosmic-imageDerivation",
+      "derivation": "/workspace/scratch/nix-live-001/direct-store/idn7v990x162dflg977nv83id7dvc35h-roko-live-evaluation.iso.drv",
+      "output": "/workspace/scratch/nix-live-001/direct-store/kjqqyfymwz49lm9kqkp2wmdmlicq14k6-roko-live-evaluation.iso",
+      "available": false,
+      "preflight_returncode": 1,
+      "output_exists": false
+    },
+    {
+      "label": "cosmic-systemDerivation",
+      "derivation": "/workspace/scratch/nix-live-001/direct-store/j00a4qsfjc2x05pp428wamsv083c9b7j-nixos-system-roko-evaluation-26.11pre-git.drv",
+      "output": "/workspace/scratch/nix-live-001/direct-store/x9dkbzr8mlgs9nglvrvhwrk1ifjwnih6-nixos-system-roko-evaluation-26.11pre-git",
+      "available": false,
+      "preflight_returncode": 1,
+      "output_exists": false
+    }
+  ],
+  "closure_available": false,
+  "verification_attempted": false,
+  "export_attempted": false,
+  "ordinary_store_verification_passed": false,
+  "local_cache_exported": false,
+  "cache_file_hashes": {},
+  "build_requested": false,
+  "repair_requested": false,
+  "trust_checks_disabled": false,
+  "host_activation": false,
+  "sandbox_retried": false,
+  "image_built": false
+}

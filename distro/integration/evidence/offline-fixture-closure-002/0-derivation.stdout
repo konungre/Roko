@@ -1,0 +1,24 @@
+{
+  "/workspace/scratch/nix-live-001/direct-store/06n09xnwf043h7f148h74y9nbh2g89ns-roko-profile-1.drv": {
+    "args": [
+      "-c",
+      "/bin/mkdir -p \"$out/share\"; printf 1 > \"$out/share/roko-generation\""
+    ],
+    "builder": "/bin/sh",
+    "env": {
+      "builder": "/bin/sh",
+      "name": "roko-profile-1",
+      "out": "/workspace/scratch/nix-live-001/direct-store/y0qv1607w8j8pg12zxqny1fqykvdzam0-roko-profile-1",
+      "system": "x86_64-linux"
+    },
+    "inputDrvs": {},
+    "inputSrcs": [],
+    "name": "roko-profile-1",
+    "outputs": {
+      "out": {
+        "path": "/workspace/scratch/nix-live-001/direct-store/y0qv1607w8j8pg12zxqny1fqykvdzam0-roko-profile-1"
+      }
+    },
+    "system": "x86_64-linux"
+  }
+}

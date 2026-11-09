@@ -1,0 +1,8 @@
+/workspace/roko-foundation-review/distro/integration/qualify_offline_closure.py:18: SyntaxWarning: invalid escape sequence '\.'
+  if path.parent!=base/'direct-store' or not re.fullmatch('[0-9abcdfghijklmnpqrsvwxyz]{32}-[A-Za-z0-9+._=-]+\.drv',path.name):raise ValueError('exact local derivation required')
+.......................ROKO_FOUNDATION_PIPEWIRE_READY uid=1000 peer=owned-role
+...................................................................................
+----------------------------------------------------------------------
+Ran 106 tests in 3.567s
+
+OK

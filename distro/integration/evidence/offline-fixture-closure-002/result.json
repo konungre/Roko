@@ -1,0 +1,29 @@
+{
+  "scope": "fixture",
+  "roots": [
+    {
+      "label": "existing-tiny-profile-build",
+      "derivation": "/workspace/scratch/nix-live-001/direct-store/06n09xnwf043h7f148h74y9nbh2g89ns-roko-profile-1.drv",
+      "output": "/workspace/scratch/nix-live-001/direct-store/y0qv1607w8j8pg12zxqny1fqykvdzam0-roko-profile-1",
+      "available": true,
+      "preflight_returncode": 0,
+      "output_exists": true
+    }
+  ],
+  "closure_available": true,
+  "verification_attempted": true,
+  "export_attempted": true,
+  "ordinary_store_verification_passed": true,
+  "local_cache_exported": true,
+  "cache_file_hashes": {
+    "cache/nix-cache-info": "b768ef513a31a7cf8ed525a633d0feb4e26c1a4dd70494714b3b87d9cf684579",
+    "cache/y0qv1607w8j8pg12zxqny1fqykvdzam0.narinfo": "815ab9a9be01ce47cee7a24fc8cca072364eff35a4c1f17f097f3e1d9f0085a5",
+    "cache/nar/1kg25783pkjn6acwwcih4lrmskgag5da49icm2mrx4hczl053wk1.nar.xz": "61f25100fd0c929eaba82c26a25a79ea4d5d33253032ce993256ce3bd029e2cd"
+  },
+  "build_requested": false,
+  "repair_requested": false,
+  "trust_checks_disabled": false,
+  "host_activation": false,
+  "sandbox_retried": false,
+  "image_built": false
+}

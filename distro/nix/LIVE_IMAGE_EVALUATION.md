@@ -48,3 +48,7 @@ Those graph counts must not be presented as a realized runtime closure.
 access choices parameters, with conservative defaults and negative evaluations.
 Earlier graph identities/counts are historical snapshots, not the new policy
 combinations. No credential or host service is activated by these definitions.
+
+The [offline closure preflight](OFFLINE_CLOSURE.md) refreshed current identities
+and found all four image/system outputs missing; verification/export were skipped.
+A separate small fixture successfully tested ordinary local cache export only.
