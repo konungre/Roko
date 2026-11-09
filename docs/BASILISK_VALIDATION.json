@@ -1,0 +1,24 @@
+{
+  "schema": "roko-basilisk-public-validation-v1",
+  "date": "2026-11-09",
+  "scope": "Finite authored source and native host UI tests; not a complete OS or COSMIC guest qualification",
+  "companion_tests_passed": 29,
+  "runtime_preflight_tests_passed": 3,
+  "conversation_source_tests_passed": 24,
+  "conversation_source_tests_skipped": 2,
+  "native_ui": {
+    "gtk": "3.24.49",
+    "gtk_layer_shell": "0.9.0",
+    "compositor": "Sway 1.10.1 / wlroots 0.18.2 headless pixman",
+    "output": [1280, 800],
+    "passed": ["hidden bubble at startup", "avatar click opens bubble", "focused Enter submission", "fixture two-turn history", "dismiss cancels pending fixture turn", "explicit new-session requirement", "reset and new response", "Escape dismissal", "transparent-area click-through", "background keyboard focus"],
+    "real_omega_ui_turns": 2,
+    "real_omega_ui_seconds": [56.755, 47.414],
+    "real_omega_setting_recall": true,
+    "quit_clean": true,
+    "cosmic_tested": false
+  },
+  "animation": {"irregular_frame_steps": 18000, "bounds_and_speed_passed": true, "interrupted_crossfade_passed": true},
+  "excluded_evidence": "Private runtime inventories, local paths, captures and full diagnostic logs remain outside this public source subset.",
+  "limitations": ["No native COSMIC corner/scaling qualification", "No arbitrary per-window or per-icon depth ordering", "No skeletal segmented wrapping", "No durable memory, ECAN or autonomous loop qualification", "No runtime/model binaries included", "Finite reply checks are not general answer-quality evidence"]
+}

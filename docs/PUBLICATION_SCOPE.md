@@ -42,3 +42,14 @@ emerald/gold wallpaper. Their asset hashes and origin are recorded in
 `ARTWORK_PROVENANCE.json`, with animation geometry in the showcase manifest.
 The earlier blanket artwork omission was corrected after checking provenance.
 This addition does not restore omitted runtime source or make the image build complete.
+
+## Basilisk conversation source addition
+
+The separate basilisk publication branch adds the latest authored GTK companion,
+JSON-lines conversation transport, geometry/motion helpers, preflight, staging and
+tests. Character/corner images are byte-identical copies of already-public artwork.
+Only the latest source revision is included; private development commits and
+intermediate revisions are not publication ancestors. Tracker executables, native
+runtimes, model weights, private handoffs, runtime profiles, captures and logs are
+excluded. Public validation describes observed host tests and their COSMIC limits.
+No new project-wide license or upstream redistribution grant is asserted.

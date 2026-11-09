@@ -48,3 +48,12 @@ for byte hashes and origin. The assets were not edited for publication.
 The repository still does not reproduce the complete delivered desktop image.
 Exact acquisition pins and preserved build recipes are useful provenance, not a
 guarantee of a complete reproducible build.
+
+## Basilisk conversation companion
+
+The [latest companion source](omega-baseline/desktop/chat-bubble-v3/README.md)
+provides a windowless avatar with a transient conversation bubble and persistent
+Omega JSON-lines transport. Finite native Wayland and real-model UI tests are
+summarized in [basilisk validation](docs/BASILISK_VALIDATION.json). The optional
+COSMIC tracker and model/runtime closure remain external; this is not a complete
+installable desktop image.
