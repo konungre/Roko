@@ -140,3 +140,17 @@ RSS/host-reserve stops (`resource_limit`), and reported supervisor cancellation
 synthetic resource failures with real SQLite rollback/restart. A separate real
 supervisor test killed a harmless sleeping process at a 0.1-second deadline and
 reported cleanup; it did not run a model or induce memory exhaustion.
+
+The native fourth-turn boundary probe passed eight checks: MORK retrieved six
+prior messages, both NARS observations remained committed, and Granite answered
+“Red foxes and robins” using 412 input tokens. The fifth exchange returned
+`history_limit` without another model or MORK call. Snapshot retained all eight
+messages at revision 4 with no pending claim. See
+`FOURTH_TURN_NATIVE_SUMMARY.json` and `tests/audit_fourth_turn.py`.
+
+A separate near-capacity recovery probe copied the three-turn checkpoint and
+submitted an oversized fourth request. It returned `context_limit`; a new short
+request at the same revision then completed as the fourth exchange. Native MORK
+retrieved all six prior messages for both claims, both NARS observations remained
+intact, and the final snapshot retained eight messages. All nine checks passed.
+See `CAPACITY_RECOVERY_SUMMARY.json` and `tests/probe_capacity_recovery.py`.
