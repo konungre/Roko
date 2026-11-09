@@ -98,3 +98,57 @@ ffmpeg -framerate 12 -i /tmp/roko-auto-frames/%04d.png \
 Output depends on the installed fonts, renderer and encoder versions. The
 manifest hashes identify the reviewed published bytes, not a cross-platform
 bit-for-bit reproducibility promise.
+
+## Unified desktop and dynamic interaction revision
+
+The README now selects the `*-v2` media. All earlier media and rendering source
+remain preserved unchanged, including the original two generated hero screens.
+The revised assets reuse a clean background plate made by editing the first
+hero image with built-in image generation: remove its character, speech bubble
+and window content while preserving the wallpaper, gold arcs, top panel, dock
+and window placement. New four-pose transparent character art was generated
+from that same hero reference. Both inputs are in `demo-source/assets/`.
+
+The new code overlays a detailed IDE or browser in the original window area.
+The IDE includes menus, explorer, tabs, numbered code, proposed changes and a
+terminal. The browser includes tabs, navigation controls, address bar, bookmarks
+and article/product content. These are authored app-like mockups, not screenshots
+of real apps or endorsements by app vendors. Browser URLs use example.org;
+content, products, prices, test commands and test results are fictional.
+
+- `roko-task-demo-v2.gif`: 16 seconds, 192 frames at approximately 12 fps. Roko
+  moves from the desktop into an IDE, highlights a patch, waits for a simulated
+  user click, then moves to the terminal to inspect the illustrative result.
+- `roko-autonomous-demo-v2.gif`: 14 seconds, 168 frames. Roko starts at the dock,
+  flies to a browser, reaches toward Save and carries a source-link card into
+  a local reading-list note. This is a self-chosen fictional goal, not live
+  autonomous browsing or factual research.
+- Coding, shopping and research `*-concept-v2.png` screens show Roko interacting
+  with application content rather than standing in a fixed side position.
+- The speech-bubble tails remain anchored to the moving character. Permanent
+  concept and simulation labels remain visible in every frame.
+
+No code, model, browser navigation, test command, purchase or external message
+shown in these images actually executes. The source renders fictional frames.
+No added image grants a new reuse license. No private captures or copied
+third-party screenshots are included.
+
+To reproduce the revised media with Node.js, Sharp and FFmpeg installed:
+
+```sh
+ROKO_FRAME_DIR=/tmp/roko-dynamic-task ROKO_AUTO_DIR=/tmp/roko-dynamic-auto \
+  node docs/demo-source/render-dynamic-demo.cjs
+ffmpeg -framerate 12 -i /tmp/roko-dynamic-task/%04d.png \
+  -vf 'split[a][b];[a]palettegen=max_colors=224[p];[b][p]paletteuse=dither=bayer:bayer_scale=4' \
+  -loop 0 docs/media/roko-task-demo-v2.gif
+ffmpeg -framerate 12 -i /tmp/roko-dynamic-auto/%04d.png \
+  -vf 'split[a][b];[a]palettegen=max_colors=224[p];[b][p]paletteuse=dither=bayer:bayer_scale=4' \
+  -loop 0 docs/media/roko-autonomous-demo-v2.gif
+```
+
+Generation brief for the plate: preserve the exact emerald/gold desktop,
+top panel, dock, concept badge and window chrome, removing only character,
+bubble and content for reuse. Generation brief for the poses: preserve the
+hero's green/gold quadruped basilisk identity in four isolated transparent
+poses, standing, wingless flight, reaching and perching. The source assets,
+not prompts alone, are the reproducible inputs to the frame renderer.

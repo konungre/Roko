@@ -112,6 +112,102 @@
       "duration_ms": 14000,
       "loop": 0,
       "unique_frames": 168
+    },
+    {
+      "path": "docs/demo-source/assets/desktop-plate.png",
+      "bytes": 1517082,
+      "sha256": "da8ff44a6eb805281048ee595a7f259c1971d264a4e2aed6740cfbe09f465307",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "frames": 1
+    },
+    {
+      "path": "docs/demo-source/assets/roko-poses.png",
+      "bytes": 2146554,
+      "sha256": "88c8189f580fae72cab8c0104e262c673e7f3aaad8db0f2a8e4a07c3a337ce72",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "frames": 1
+    },
+    {
+      "path": "docs/media/roko-autonomous-demo-v2-still.png",
+      "bytes": 1182733,
+      "sha256": "378e4f168db8fb1a527611128a9b1a50a1ab57181ad865691e6e71da71e49415",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "frames": 1
+    },
+    {
+      "path": "docs/media/roko-autonomous-demo-v2.gif",
+      "bytes": 1270706,
+      "sha256": "f4d448837b78ddf34857b8e5493c6f975d820d36cce5aef833b6fa993f0dd4a7",
+      "dimensions": [
+        1254,
+        706
+      ],
+      "frames": 168,
+      "duration_ms": 14000,
+      "unique_frames": 84,
+      "loop": 0
+    },
+    {
+      "path": "docs/media/roko-coding-concept-v2.png",
+      "bytes": 1273381,
+      "sha256": "1c70654fb776e1c2c7a0ec03743a7508ea9845e7b417e11702466a8428d2e65c",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "frames": 1
+    },
+    {
+      "path": "docs/media/roko-research-concept-v2.png",
+      "bytes": 1170649,
+      "sha256": "c1188c468ad5f7aeb0c8cd98e5918546922281eaadb42ee95c6e9bda6bc9582f",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "frames": 1
+    },
+    {
+      "path": "docs/media/roko-shopping-concept-v2.png",
+      "bytes": 1274548,
+      "sha256": "2f53203811ad9eca63d2c93f4107d131bd580071fa07321c67c4f28813a25a2f",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "frames": 1
+    },
+    {
+      "path": "docs/media/roko-task-demo-v2-still.png",
+      "bytes": 1266871,
+      "sha256": "4d89ef315c2c0f47f68bca720c29dc918fbdc39e2126ea0f20900a88cac56d7c",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "frames": 1
+    },
+    {
+      "path": "docs/media/roko-task-demo-v2.gif",
+      "bytes": 1765635,
+      "sha256": "7691a72203ac0079e36f0134017fe15918f21ca8148f45c90ae2fb3a43706f54",
+      "dimensions": [
+        1254,
+        706
+      ],
+      "frames": 192,
+      "duration_ms": 16000,
+      "unique_frames": 158,
+      "loop": 0
     }
   ]
 }

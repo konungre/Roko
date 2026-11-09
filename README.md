@@ -26,42 +26,47 @@ inside an avatar card.*
 
 ### A task, from request to result
 
-**Simulated screen-recording-style demo, not a running Roko build.** Watch a
-request being typed, a proposed change reviewed, the notes converted to a
-checklist, and an item checked off. The 14-second sequence uses continuous
-cursor motion and staged UI changes, not a two-image storyboard.
+**Simulated screen-recording-style demo, not a running Roko build.** The same
+emerald/gold desktop from the opening images now hosts a detailed
+IDE with an explorer, editor tabs, code review and terminal. In this 16-second
+sequence, Roko flies into the editor, points to a proposed guard, waits for the
+patch to be applied, then moves down to check the simulated test output.
 
-![Simulated concept demo: ask Roko to turn notes into a checklist, apply the change, then check an item](docs/media/roko-task-demo.gif)
+![Simulated concept demo: Roko flies into an IDE, highlights a proposed fix and checks simulated terminal output](docs/media/roko-task-demo-v2.gif)
 
-[View the non-animated task result](docs/media/roko-task-demo-still.png).
+[View the non-animated task result](docs/media/roko-task-demo-v2-still.png).
 
 ### A self-directed goal
 
 **Simulated autonomy, not a present capability.** Roko chooses a local goal:
-make its explanations clearer. It reviews example material, drafts a shorter
-help card and saves the improvement for a future conversation. This 12-second
-concept shows no user prompt and no external action, message or purchase.
+build a useful reading list. It leaves the dock, inspects an example article
+in a browser, reaches for the save control and carries a source link into a
+local note. The 14-second concept uses browser tabs, navigation controls, an
+address bar and article content. It shows no user prompt and performs no real
+external action, message or purchase.
 
-![Simulated concept demo: Roko pursues its own goal of improving a help card, drafts a clearer hint and saves it locally](docs/media/roko-autonomous-demo.gif)
+![Simulated concept demo: Roko leaves the dock, browses an example article and carries its source link into a local reading-list note](docs/media/roko-autonomous-demo-v2.gif)
 
-[View the non-animated self-directed result](docs/media/roko-autonomous-demo-still.png).
+[View the non-animated self-directed result](docs/media/roko-autonomous-demo-v2-still.png).
 
 ### More ways Roko could help
 
-These are **concept mockups**, not verified integrations. The examples and
+These are **concept mockups**, not verified integrations. All use the same
+original desktop styling. Roko reaches into the IDE, points at a shopping card
+in the browser, and carries a research source into a note. The examples and
 shopping prices are fictional.
 
 **Coding:** spot an edge case and offer an edit for review.
 
-![Coding concept: Roko suggests guarding against an empty list before calculating an average](docs/media/roko-coding-concept.png)
+![Coding concept: Roko suggests guarding against an empty list before calculating an average](docs/media/roko-coding-concept-v2.png)
 
 **Shopping:** compare options against a budget before any purchase decision.
 
-![Shopping concept: Roko compares three fictional keyboards below a 100 dollar budget](docs/media/roko-shopping-concept.png)
+![Shopping concept: Roko compares three fictional keyboards below a 100 dollar budget](docs/media/roko-shopping-concept-v2.png)
 
 **Research:** organize sources, compare claims and keep citations with findings.
 
-![Research concept: Roko proposes a source-backed outline for comparing local AI approaches](docs/media/roko-research-concept.png)
+![Research concept: Roko carries an example browser source into a local reading-list note](docs/media/roko-research-concept-v2.png)
 
 See [visual provenance and limitations](docs/CONCEPT_VISUALS.md) for how these
 images were made, and [current status](docs/STATUS.md) for what actually exists.
