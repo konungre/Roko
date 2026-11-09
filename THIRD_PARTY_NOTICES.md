@@ -51,3 +51,8 @@ are authored integration code, not a claim of full upstream execution.
 commit `db19ad4e2cea33e6129c8bf03e85797da8cf7625`, Apache-2.0. Original
 LICENSE and NOTICE are retained under `components/airis/upstream/`. Original
 `airis.py` and runtime binaries are not included.
+
+The fresh `components/metamo_host/upstream/` snapshot also preserves the five
+MIT MetaMo modules at `bf97e50a68aa5059457092dfbe70699b7dd1dbe2` and their LICENSE.
+Its request/bridge/helper/worker source derives from `metamo-core-v4/source`;
+see `components/metamo_host/README.md` for exact lineage and bounded scope.
