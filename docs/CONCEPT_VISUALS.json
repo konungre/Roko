@@ -36,6 +36,82 @@
         941
       ],
       "frames": 1
+    },
+    {
+      "path": "docs/media/roko-autonomous-demo-still.png",
+      "bytes": 141596,
+      "sha256": "0a251c106ff997fcd27548d984c5cd75d7a895a166957beefad645a8f75d245a",
+      "dimensions": [
+        1000,
+        620
+      ],
+      "frames": 1
+    },
+    {
+      "path": "docs/media/roko-autonomous-demo.gif",
+      "bytes": 1552274,
+      "sha256": "32e6aba2e20c03fc5f1405a5d53cb6c59b2ce005555995bc839ceb96294a4792",
+      "dimensions": [
+        1000,
+        620
+      ],
+      "frames": 144,
+      "duration_ms": 12000,
+      "loop": 0,
+      "unique_frames": 144
+    },
+    {
+      "path": "docs/media/roko-coding-concept.png",
+      "bytes": 135460,
+      "sha256": "3d7bf73795052f5a69577d75aab16a46ab45c64ddb2b0e735627f2230bb7dc12",
+      "dimensions": [
+        1000,
+        620
+      ],
+      "frames": 1
+    },
+    {
+      "path": "docs/media/roko-research-concept.png",
+      "bytes": 140057,
+      "sha256": "320153205d6f68d83fd81722052999eec31ae66cb68a8ab072fbbe58d7ea3a58",
+      "dimensions": [
+        1000,
+        620
+      ],
+      "frames": 1
+    },
+    {
+      "path": "docs/media/roko-shopping-concept.png",
+      "bytes": 138534,
+      "sha256": "f16729d6e2ed03db912206a8bdd776777ce0eb23088c738e728bdf7e1edb52ee",
+      "dimensions": [
+        1000,
+        620
+      ],
+      "frames": 1
+    },
+    {
+      "path": "docs/media/roko-task-demo-still.png",
+      "bytes": 128213,
+      "sha256": "8d2a61dcbd7422b97422d2d655d32ed2576d7aa343be4f626cd37461d0f0da89",
+      "dimensions": [
+        1000,
+        620
+      ],
+      "frames": 1
+    },
+    {
+      "path": "docs/media/roko-task-demo.gif",
+      "bytes": 1900479,
+      "sha256": "7d78ebc7b0678006b8e9246913820d286fb9e7c28c0c941d3b6b5b70859f1f69",
+      "dimensions": [
+        1000,
+        620
+      ],
+      "frames": 168,
+      "duration_ms": 14000,
+      "loop": 0,
+      "unique_frames": 168
     }
   ]
 }
