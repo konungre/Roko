@@ -1,0 +1,32 @@
+[
+  {
+    "machine": "private-profile-gate",
+    "backend": "nix",
+    "revision": 1,
+    "stage": "observed",
+    "generation": "profile-operation-1",
+    "evidence_sha256": "dafdb591d434aeed7d2c499b413231b0afc5305d39995e89a4291f44d17f6caa",
+    "predecessor": "0000000000000000000000000000000000000000000000000000000000000000",
+    "schema": "roko-os-fact-v1"
+  },
+  {
+    "machine": "private-profile-gate",
+    "backend": "nix",
+    "revision": 2,
+    "stage": "observed",
+    "generation": "profile-operation-2",
+    "evidence_sha256": "f6ac463e38652eca15f9b00161c5c2743d05e784e971a2d3a0dfddc592b879de",
+    "predecessor": "fdaeca0759090f966f5bcd431bf46b91d9986f55db7f58ae42aaf6f13c25eefb",
+    "schema": "roko-os-fact-v1"
+  },
+  {
+    "machine": "private-profile-gate",
+    "backend": "nix",
+    "revision": 3,
+    "stage": "observed",
+    "generation": "profile-operation-3",
+    "evidence_sha256": "abec97c40aaac9992ae07675c0240c07d7208e30396a4326e89e71c4c8c7eeb2",
+    "predecessor": "912bc835887a5e63ff477af54d37765b89365942096a6e02540c174a9bd1cf40",
+    "schema": "roko-os-fact-v1"
+  }
+]

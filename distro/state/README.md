@@ -102,3 +102,23 @@ A real rollback restored payload1 from payload2. Unreviewed rollback left the
 pointer unchanged; a stale repeat was rejected. `rollback.json` retains the
 actual native observation. This establishes private-profile rollback only; OS
 boot rollback, health confirmation and user-data schema rollback remain separate.
+
+## Integrated native receipt gate
+
+`qualify_profile.py BASE SYMBOLIC NEW_OUTPUT` joins actual offline Nix build
+commands, two prepared private-profile switches and a retained rollback with
+durable versioned observations. Each canonical receipt digest is bound into a
+fact; facts survive ledger close/reopen, then all three exact facts are inserted
+and matched in real PeTTa with successful Omega utils/provider imports. Stale
+profile rollback, unreviewed rollback and stale ledger insertion must all fail.
+The final gate002 passed. The Nix outputs may be cached; this gate does not claim
+fresh rebuilds. Inputs remain the previously measured local non-hermetic builders.
+No model inference, autonomous Omega loop or system activation is performed.
+
+Schema coordination: `roko-os-fact v1` uses machine/backend/revision, explicit
+stage, generation, canonical receipt SHA256 and predecessor snapshot digest.
+Digest symbols carry an h prefix to preserve numeric-only hashes in PeTTa.
+These gate facts are OBSERVED operation receipts. They must not be promoted to
+system BUILT/ACTIVATED/RUNNING/HEALTH. Durable ingestion into the cognitive owner's
+long-lived AtomSpace remains to be wired through that owner's snapshot/CAS API;
+this gate proves replay from the OS ledger into an actual in-memory AtomSpace.
