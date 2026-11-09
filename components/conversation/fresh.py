@@ -404,8 +404,8 @@ def initialize():
     try:
         if 'package_awareness' in profile:
             if os.environ.get('ROKO_API_VERSION')!='2':raise ValueError('Package awareness requires durable v2')
-            from package_awareness import PackageAwareness
-            provider.package_awareness=PackageAwareness(profile)
+            from package_awareness import create_awareness
+            provider.package_awareness=create_awareness(profile)
         if 'learning_components' in profile:
             from learning import LearningComponents
             provider.learning = LearningComponents(profile)

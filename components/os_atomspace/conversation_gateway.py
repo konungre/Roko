@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import stat
 
 ROOT=Path(__file__).resolve().parent
 REPO=ROOT.parents[1]
@@ -19,12 +20,48 @@ from learning import finalize_process
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def read_source(path,limit):
+    # Optional data can disappear or become a special file. Never block on a
+    # FIFO or follow a replacement symlink while checking availability.
+    fd=os.open(path,os.O_RDONLY|os.O_NONBLOCK|os.O_NOFOLLOW)
+    primary=None
+    try:
+        before=os.fstat(fd)
+        if not stat.S_ISREG(before.st_mode):raise OSError('Receipt source is not a regular file')
+        if before.st_size>limit:raise ValueError('Receipt source byte cap')
+        raw=b''
+        while len(raw)<=limit:
+            chunk=os.read(fd,min(4096,limit+1-len(raw)))
+            if not chunk:break
+            raw+=chunk
+        after=os.fstat(fd)
+        if len(raw)>limit:raise ValueError('Receipt source byte cap')
+        if (before.st_size,before.st_mtime_ns,before.st_ctime_ns)!=(after.st_size,after.st_mtime_ns,after.st_ctime_ns):
+            raise OSError('Receipt source changed during read')
+        return raw
+    except BaseException as error:
+        primary=error;raise
+    finally:
+        try:os.close(fd)
+        except BaseException as error:
+            if primary is None:raise
+            errors=getattr(primary,'source_finalization_errors',[])
+            errors.append({'stage':'source-close','type':type(error).__name__,'error':str(error)})
+            primary.source_finalization_errors=errors
+
+
+def parse_source(profile,facts_raw,receipts_raw):
+    for key,raw in (('facts_path',facts_raw),('receipts_path',receipts_raw)):
+        if hashlib.sha256(raw).hexdigest()!=profile['files'][profile[key]]:
+            raise ValueError('OS observation source bytes changed')
+    return import_profile_history(facts_raw,receipts_raw,profile['source_commit'])
+
+
 def source_packet(profile):
-    return import_profile_history(Path(profile['facts_path']).read_bytes(),
-        Path(profile['receipts_path']).read_bytes(),profile['source_commit'])
+    return parse_source(profile,read_source(profile['facts_path'],16384),read_source(profile['receipts_path'],32768))
 
 
-def verify_profile(profile):
+def verify_runtime(profile, *, include_sources=False):
     if (type(profile) is not dict or set(profile)!={'schema','runtime','facts_path','receipts_path','source_commit','files'}
             or profile['schema']!='roko.os-atomspace.conversation-profile.v1'):
         raise ValueError('OS observation profile schema')
@@ -37,7 +74,14 @@ def verify_profile(profile):
             raise ValueError('Absolute OS observation runtime selector required')
     if any(type(key) is not str or type(value) is not str for key,value in runtime['runtime_env'].items()):
         raise ValueError('OS observation runtime environment schema')
+    data_paths={profile['facts_path'],profile['receipts_path']}
+    for path in data_paths:
+        expected=profile['files'].get(path)
+        if (not Path(path).is_absolute() or type(expected) is not str or len(expected)!=64
+                or any(c not in '0123456789abcdef' for c in expected)):
+            raise ValueError('Unpinned OS observation data source')
     for path,expected in profile['files'].items():
+        if path in data_paths:continue
         if not Path(path).is_absolute() or sha(path)!=expected:
             raise ValueError('OS observation source/runtime changed')
     entrypoints=[Path(runtime['python']),Path(runtime['swipl']),Path(runtime['petta'])/'src/metta.pl']
@@ -46,13 +90,20 @@ def verify_profile(profile):
         if str(path) not in profile['files'] or profile['files'][str(path)]!=sha(path):
             raise ValueError('Unpinned OS observation runtime entrypoint')
     paths=list(ROOT.glob('*.py'))+list(ROOT.glob('*.pl'))
-    paths += [Path(profile[name]) for name in ('facts_path','receipts_path')]
     paths += [Path(profile['runtime'][name]) for name in ('swipl','python')]
     paths += [ROOT.parent/'conversation'/name for name in ('fresh_supervise.py','learning.py','cognition.py','assertions.py')]
     paths += [REPO/'omega-baseline/scripts/no-network.py']
     for path in paths:
         if profile['files'].get(str(path))!=sha(path):
             raise ValueError('Missing OS observation closure pin')
+    if include_sources:
+        for key,limit in (('facts_path',16384),('receipts_path',32768)):
+            if hashlib.sha256(read_source(profile[key],limit)).hexdigest()!=profile['files'][profile[key]]:
+                raise ValueError('OS observation source bytes changed')
+
+
+def verify_profile(profile):
+    verify_runtime(profile,include_sources=True)
     return source_packet(profile)
 
 

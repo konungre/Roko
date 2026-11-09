@@ -18,7 +18,8 @@ class ConversationGatewayTests(unittest.TestCase):
             'runtime':{'python':'/runtime/python','swipl':'/runtime/swipl','petta':'/unqualified/petta',
                        'omega':'/runtime/omega','runtime_env':{}},
             'facts_path':'/source/facts.json','receipts_path':'/source/receipts.json','source_commit':'a'*40,
-            'files':{path:'f'*64 for path in ('/runtime/python','/runtime/swipl','/runtime/old-petta/src/metta.pl')}}
+            'files':{path:'f'*64 for path in ('/runtime/python','/runtime/swipl','/runtime/old-petta/src/metta.pl',
+                                            '/source/facts.json','/source/receipts.json')}}
         with patch.object(gateway,'sha',return_value='f'*64),patch.object(gateway,'source_packet') as source:
             with self.assertRaisesRegex(ValueError,'runtime entrypoint'):gateway.verify_profile(profile)
             source.assert_not_called()
