@@ -8,7 +8,7 @@ proposal adds no transport executor or production activation. No GUI source was 
 
 ## Qualification
 
-Nineteen deterministic tests passed, plus five offline captured-packet consumer
+Twenty-two deterministic tests passed, plus five offline captured-packet consumer
 checks. Fresh live qualification passed 20 checks and a read-only SQLite audit
 added 6, for 26 passing live/audit checks on the merged source base. Two real native
 Omega/PeTTa/Granite replies completed at 531 and 536 input tokens through an explicit
@@ -70,7 +70,7 @@ remain future client integration work.
     python3 -B -m unittest discover -s components/conversation/tests -p test_cancellation_ux.py -v
     python3 -B -m unittest discover -s components/conversation/tests -p test_waiting_view.py -v
 
-The 19 unit tests need no native runtime. The five captured-packet checks and raw
+The 22 unit tests need no native runtime. The five captured-packet checks and raw
 native traces remain in the local qualification checkpoint, not as claims of
 independent reproduction. No failed artifact transfer was retried.
 
@@ -94,5 +94,43 @@ The source was qualified on merged main ab5dfe1. See CANCELLATION_UX_SUMMARY.jso
 for producer evidence scope. Model/binaries, actual GUI/worker registry/transport
 implementation and crash-persistent drafts are outside this change.
 
-The full local conversation suite ran 327 tests: 326 passed and one optional native
-fixture skipped. These include the 19 focused waiting/cancellation tests.
+The full local conversation suite ran 330 tests: 329 passed and one optional native
+fixture skipped. These include the 22 focused waiting/cancellation tests.
+
+## Uncertain recovery delivery
+
+`recover(confirmed=True)` still returns only the existing backend packet. Capture
+`recovery_ticket()` locally at that moment, and pass that captured value to
+`receive_recovery_reply(packet, ticket=ticket)`. The local ticket is never a wire
+field. Each operation has a distinct turn/serial ticket; old callbacks cannot
+settle another attempt with the same backend identity.
+
+If the recovery response is lost, call `transport_lost()`. It preserves the
+outstanding operation as uncertain and fences previous snapshot tickets. Request
+and accept a new matching snapshot, then explicitly call
+`reconcile_recovery(confirmed=True)`. Reconciliation sends no request. If the same
+claim remains pending at its original revision, the user can separately propose
+another recovery with a new ticket. If no claim is pending, the user can review
+and release; that snapshot alone does not claim a received interrupted receipt.
+Other pending claims or stale/in-flight snapshots cannot reconcile the operation.
+Retired callbacks reject after either path.
+
+An observed owned-worker stop also clears the local outstanding replay flag and
+fences its older snapshot tickets. A fresh own-pending snapshot can then support
+explicit recovery. A matching committed reply is still admitted: stopping never
+proves rollback. This fixes waiting-state dead ends without adding automatic
+recovery/replay or changing backend packets.
+
+A callback must retain the ticket captured when dispatching; it must not look up
+the current ticket later. For example, bind it as the callback's local/default
+argument. The reusable control-only probe exercises both server outcomes with
+real dead-owner claims and no model generation:
+
+    python3 -B components/conversation/tests/probe_recovery_reconciliation.py \
+      --profile /absolute/path/to/qualified-profile.json \
+      --source-db /absolute/path/to/verified-six-turn/history.sqlite \
+      --output /absolute/path/to/new-reconciliation-evidence
+
+This still needs the endpoint's qualified external dependencies for startup.
+It uses real Store claims owned by a short-lived child, not real conversation
+inference, and deliberately withholds results to test callback reconciliation.

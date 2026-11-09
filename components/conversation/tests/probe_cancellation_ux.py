@@ -67,7 +67,7 @@ try:
  except ValueError:checks['prestop_snapshot_fenced']=True
  else:checks['prestop_snapshot_fenced']=False
  pending=inspect(u,observer);checks['real_pending_claim_visible']=pending['pending']==original['request_id']
- recovery=u.recover(confirmed=True);recovery_reply=observer.call(recovery);u.receive_recovery_reply(recovery_reply)
+ recovery=u.recover(confirmed=True);recovery_ticket=u.recovery_ticket();recovery_reply=observer.call(recovery);u.receive_recovery_reply(recovery_reply,ticket=recovery_ticket)
  checks['actual_explicit_recovery']=recovery_reply['status']=='interrupted' and u.view()['request_outcome']=='interrupted_reported'
  after=inspect(u,observer);checks['recovery_kept_full_history']=after['history']==old_snapshot['history'] and after['revision']==6 and after['pending'] is None
  u.review_and_release(confirmed=True);checks['draft_preserved_after_stop']=u.view()['draft']=='unsent text during stop'

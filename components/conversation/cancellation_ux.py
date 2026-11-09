@@ -12,7 +12,7 @@ else:
 class CancellationUX:
     def __init__(self,text=''):
         self._draft=DesktopDraft(text);self._active=None;self._used=set();self._nonce=None
-        self._worker=None;self._cancel=None;self._stopped=False;self._lost=False;self._reply=None;self._control=None;self._cancel_serial=0;self._last_recovery_error=None;self._replay_pending=False;self._last_turn_error=None;self._recovered=False
+        self._worker=None;self._cancel=None;self._stopped=False;self._lost=False;self._reply=None;self._control=None;self._cancel_serial=0;self._last_recovery_error=None;self._replay_pending=False;self._last_turn_error=None;self._recovered=False;self._control_ticket=None;self._control_serial=0;self._control_uncertain=False;self._uncertain_snapshot=None;self._recovery_reconciliation=None
     def edit(self,text):self._draft.edit(text)
     def begin(self,request,*,confirmed=False,owned_worker=None):
         if owned_worker is not None and (type(owned_worker) is not str or not owned_worker or len(owned_worker)>128):
@@ -23,7 +23,7 @@ class CancellationUX:
         if key in self._used:raise ValueError('Prior identity requires explicit replay; new turns require a new ID')
         captured=self._draft.begin(request,confirmed=confirmed)
         self._used.add(key);self._active=captured;self._nonce=uuid.uuid4().hex;self._state=ReconnectState(self._draft)
-        self._worker=owned_worker;self._cancel=None;self._stopped=False;self._lost=False;self._reply=None;self._control=None;self._last_recovery_error=None;self._replay_pending=False;self._last_turn_error=None;self._recovered=False
+        self._worker=owned_worker;self._cancel=None;self._stopped=False;self._lost=False;self._reply=None;self._control=None;self._last_recovery_error=None;self._replay_pending=False;self._last_turn_error=None;self._recovered=False;self._control_ticket=None;self._control_uncertain=False;self._uncertain_snapshot=None;self._recovery_reconciliation=None
         return copy.deepcopy(captured)
     def worker_binding(self):
         if self._active is None or self._worker is None:return None
@@ -47,9 +47,11 @@ class CancellationUX:
     def worker_stopped(self,proposal):
         self._require()
         if self._cancel is None or proposal!=self._cancel or self._stopped:raise ValueError('Stale or duplicate worker callback')
-        self._stopped=True;self._lost=True;self._state.service_lost()
+        self._stopped=True;self._lost=True;self._replay_pending=False;self._state.service_lost()
     def transport_lost(self):
-        self._require();self._lost=True;self._replay_pending=False;self._state.service_lost()
+        self._require();self._lost=True;self._replay_pending=False
+        if self._control is not None:self._control_uncertain=True;self._uncertain_snapshot=None
+        self._state.service_lost()
     def inspect(self,*,confirmed=False):
         self._require();proposal=self._state.request_snapshot(confirmed=confirmed)
         return dict(ticket=dict(turn=self._nonce,snapshot=proposal['ticket']),packet=proposal['packet'])
@@ -58,6 +60,7 @@ class CancellationUX:
         if type(ticket) is not dict or set(ticket)!={'turn','snapshot'} or ticket['turn']!=self._nonce:
             raise ValueError('Snapshot belongs to another captured turn')
         self._state.receive_snapshot(ticket['snapshot'],packet)
+        if self._control_uncertain:self._uncertain_snapshot=copy.deepcopy(packet)
     def receive_error(self,packet):
         self._require()
         if (type(packet) is not dict or packet.get('session_id')!=self._active['session_id']
@@ -88,19 +91,40 @@ class CancellationUX:
         self._require()
         if self._recovered or self._replay_pending or not self._stopped or self._reply is not None or self._control is not None:raise ValueError('Verified local stop and explicit inspection required')
         proposal=self._state.propose_action('recover_pending',confirmed=confirmed,owner_stopped=True)
-        self._control=copy.deepcopy(proposal);return proposal
-    def receive_recovery_reply(self,packet):
+        self._control=copy.deepcopy(proposal);self._control_serial+=1
+        self._control_ticket=dict(turn=self._nonce,serial=self._control_serial)
+        self._control_uncertain=False;self._uncertain_snapshot=None;self._recovery_reconciliation=None
+        return proposal
+    def recovery_ticket(self):return copy.deepcopy(self._control_ticket)
+    def reconcile_recovery(self,*,confirmed=False):
+        self._require();snap=self._uncertain_snapshot
+        if (confirmed is not True or self._control is None or not self._control_uncertain or snap is None
+                or self._draft.view()['needs_snapshot'] or self._state.view()['phase']=='snapshot_requested'):
+            raise ValueError('Explicit reconciliation requires a fresh matching snapshot after recovery loss')
+        expected=self._control['expected_revision']
+        if snap['pending']==self._active['request_id'] and snap['revision']==expected:
+            resolution='pending_claim'
+        elif snap['pending'] is None and snap['revision']>=expected:
+            resolution='no_pending_claim'
+        else:raise ValueError('Snapshot cannot reconcile the original recovery claim')
+        self._control=None;self._control_ticket=None;self._control_uncertain=False;self._uncertain_snapshot=None
+        self._recovery_reconciliation=resolution;self._last_recovery_error=None
+        return dict(resolution=resolution,automatic_requests=False)
+    def receive_recovery_reply(self,packet,*,ticket):
         self._require();control=self._control
+        if (type(ticket) is not dict or set(ticket)!={'turn','serial'} or type(ticket['turn']) is not str
+                or type(ticket['serial']) is not int or ticket!=self._control_ticket):
+            raise ValueError('Stale or uncorrelated recovery operation ticket')
         if (control is not None and type(packet) is dict and type(packet.get('api_version')) is int and packet['api_version']==2
                 and packet.get('status')=='error' and packet.get('session_id')==control['session_id'] and packet.get('request_id')==control['request_id']):
-            self._state.receive_error(packet);self._control=None
+            self._state.receive_error(packet);self._control=None;self._control_ticket=None;self._control_uncertain=False;self._uncertain_snapshot=None
             self._last_recovery_error=self._draft.view()['active']['guidance']['code'];return
         if (control is None or type(packet) is not dict or type(packet.get('api_version')) is not int or packet['api_version']!=2
                 or packet.get('status')!='interrupted' or packet.get('session_id')!=control['session_id']
                 or packet.get('request_id')!=control['request_id'] or type(packet.get('revision')) is not int
                 or packet['revision']!=control['expected_revision']):raise ValueError('Uncorrelated recovery reply')
         if self._reply is not None:raise ValueError('Conflicting terminal outcomes')
-        self._control=None;self._last_recovery_error=None;self._recovered=True;self._state.service_lost()
+        self._control=None;self._control_ticket=None;self._control_uncertain=False;self._uncertain_snapshot=None;self._last_recovery_error=None;self._recovered=True;self._state.service_lost()
     def review_and_release(self,*,confirmed=False):
         self._require()
         if self._replay_pending or self._control is not None or (self._cancel is not None and not self._stopped):raise ValueError('Control operation is unsettled')
@@ -112,7 +136,7 @@ class CancellationUX:
     def view(self,elapsed_seconds=0):
         if self._active is None:return dict(phase='idle',draft=self._draft.view()['draft'],automatic_requests=False)
         result=waiting_view(self._draft,elapsed_seconds,connection_lost=self._lost)
-        phase='reply_received_review_required' if self._reply is not None else 'recovery_recorded_inspect_required' if self._recovered else 'worker_stopped_inspect_required' if self._stopped else 'stop_requested' if self._cancel is not None else 'error_review_required' if self._last_turn_error is not None else 'outcome_unknown' if self._lost else 'waiting'
+        phase='recovery_outcome_uncertain' if self._control_uncertain else 'recovery_reconciled_review_required' if self._recovery_reconciliation is not None else 'reply_received_review_required' if self._reply is not None else 'recovery_recorded_inspect_required' if self._recovered else 'worker_stopped_inspect_required' if self._stopped else 'stop_requested' if self._cancel is not None else 'error_review_required' if self._last_turn_error is not None else 'outcome_unknown' if self._lost else 'waiting'
         if self._reply is not None:
             result['message']='Committed reply received. Inspect and review the saved session.'
             result['request_outcome']='committed_reply_received'
@@ -121,7 +145,11 @@ class CancellationUX:
             result['request_outcome']='interrupted_reported'
         elif self._last_turn_error is not None:
             result['message']='Service status received. Inspect the session before deciding what to do.'
-        result.update(reply_panel=self._draft.view()['active']['reply'],phase=phase,session_id=self._active['session_id'],request_id=self._active['request_id'],received_reply=copy.deepcopy(self._reply),worker_stopped=self._stopped,
+        if self._control_uncertain:
+            result['message']='Recovery result is unknown. Inspect the session, then explicitly reconcile it.'
+        elif self._recovery_reconciliation is not None:
+            result['message']=('Snapshot still shows the original pending claim. Recovery requires a new explicit decision.' if self._recovery_reconciliation=='pending_claim' else 'Snapshot shows no pending claim. Review the saved session before releasing this turn.')
+        result.update(recovery_uncertain=self._control_uncertain,recovery_reconciliation=self._recovery_reconciliation,reply_panel=self._draft.view()['active']['reply'],phase=phase,session_id=self._active['session_id'],request_id=self._active['request_id'],received_reply=copy.deepcopy(self._reply),worker_stopped=self._stopped,
                       cancel_available=self._worker is not None and self._cancel is None and not self._stopped and self._reply is None,
                       cancellation_means_recovery=False,last_recovery_error=self._last_recovery_error,last_turn_error=self._last_turn_error,replay_pending=self._replay_pending)
         return result
