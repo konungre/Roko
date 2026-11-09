@@ -1,0 +1,113 @@
+{
+  "status": "passed",
+  "checks": {
+    "01-combined_model_verification": true,
+    "02-restart-replay-cas_model_verification": true,
+    "03-output-limit_model_verification": true,
+    "cancel_nars_completed_before_model": true,
+    "cancel_no_ledger_commit": true,
+    "cancel_resident_model_cleanup": true,
+    "context_rejected_without_commit": true,
+    "durable_ledger_restored": true,
+    "explicit_recovery": true,
+    "explicit_truncation": true,
+    "first_actual_nars": true,
+    "first_completed": true,
+    "first_ecan_selection": true,
+    "first_mork": true,
+    "first_nars_snapshot": true,
+    "first_native_components": true,
+    "first_prompt_binding": true,
+    "followup_mork": true,
+    "followup_no_nars_rerun": true,
+    "followup_prompt_binding": true,
+    "followup_recall": true,
+    "ledger_atomic_commit": true,
+    "overflow_no_cognitive_ledger": true,
+    "partial_replay_no_native": true,
+    "pending_not_reexecuted": true,
+    "recovery_preserves_ledger": true,
+    "restart_history": true,
+    "saved_replay": true,
+    "stale_cas": true
+  },
+  "seconds": 165.042,
+  "source_base": "0493700c4e16e91f720218ae6e9dacb8915f2aba",
+  "cognitive_parent": "f07e16d3e23863b319a8f837dd7e26ed65164909",
+  "mork_input_library": "libfile_733cc5535858819186c15fd41a8dceb5",
+  "unit_tests": {
+    "conversation": 92,
+    "nars_parent_guard": 4,
+    "skipped": 0
+  },
+  "native_calls": [
+    {
+      "phase": "01-combined",
+      "returncode": 0,
+      "seconds": 5.458,
+      "prompt_sha256": "5e31603afef05955fc5cf282081e9b20638fd3b66b3f94b888ad6176e97512b3",
+      "generation": {
+        "input_tokens": 226,
+        "output_tokens": 6,
+        "finish_reason": "eos"
+      }
+    },
+    {
+      "phase": "02-restart-replay-cas",
+      "returncode": 0,
+      "seconds": 7.116,
+      "prompt_sha256": "dd7a2fccdf89891cd242f0085f5e23d5e7342f9f1676f4fa0ff25e6d525aca38",
+      "generation": {
+        "input_tokens": 201,
+        "output_tokens": 15,
+        "finish_reason": "eos"
+      }
+    },
+    {
+      "phase": "03-output-limit",
+      "returncode": 0,
+      "seconds": 2.946,
+      "prompt_sha256": "a970ea2dcdd4fae7a9f08b4d327eda6f313d0d0e505cfed84009df385df8da62",
+      "generation": {
+        "input_tokens": 62,
+        "output_tokens": 4,
+        "finish_reason": "length"
+      }
+    },
+    {
+      "phase": "05-input-limit",
+      "returncode": 2,
+      "seconds": 0.31,
+      "prompt_sha256": "a18a8b6f6e5274a716387f11dbbb5a17b0093e8b5baacc20ceadcdccf0b1ae81",
+      "generation": null
+    }
+  ],
+  "profile_sha256": "360cec0dd2cf7993700cbe3d2f8727b77e82f01e71972cb4928a6bd2879534d1",
+  "native_probe_result_sha256": "6b78086f3ab7002fc69c8e43a5e8b674469a217842da6f5075c1a1b4418fbe64",
+  "example_replies": [
+    "A robin is an animal.\n",
+    "You mentioned a robin, which belongs to the kinds of bird and animal.\n"
+  ],
+  "cancellation": {
+    "resident_model_bytes": 4370259968,
+    "answer_bytes": 0,
+    "descendants_remaining": 0,
+    "new_nars_completed": true
+  },
+  "initial_attempt": {
+    "status": "failed",
+    "cause": "CPU_REPACK allocation exceeded existing memory cap",
+    "history_committed": false,
+    "preserved": true
+  },
+  "executed_actions": 0,
+  "graphical_ui_tested": false,
+  "full_autonomous_omega": false,
+  "limitations": [
+    "NARS extracts only two explicit inheritance assertions",
+    "MORK four-exchange bound; pinned PathMap predates zipper fix",
+    "512 input tokens; partial outputs explicitly marked",
+    "consumer Cargo lock newly resolved; no producer binary identity claim",
+    "public v2 schema unchanged; basilisk adoption remains separate"
+  ]
+}

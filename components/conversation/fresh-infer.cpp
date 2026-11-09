@@ -108,6 +108,9 @@ int main(int argc, char ** argv) {
 
     llama_model_params model_params = llama_model_default_params();
     model_params.n_gpu_layers = ngl;
+    // Keep weights mmap-backed within the fixed 6 GiB native address-space cap.
+    // CPU_REPACK would allocate a second multi-GiB copy on optimized builds.
+    model_params.use_extra_bufts = false;
 
     llama_model * model = llama_model_load_from_file(model_path.c_str(), model_params);
 

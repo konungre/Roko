@@ -16,6 +16,40 @@ def sha(path):
         return hashlib.file_digest(stream,'sha256').hexdigest()
 
 
+def add_mork_profile(profile, manifest_path, manifest_sha256):
+    """Pin a reviewed native closure; this does not claim a successful query."""
+    if manifest_path is None and manifest_sha256 is None:
+        return
+    if manifest_path is None or manifest_sha256 is None:
+        raise ValueError('Both MORK qualification options are required')
+    from mork_host import RebuiltMORKCandidate, native_mork
+    import rebuilt_mork
+    manifest_path = Path(manifest_path).resolve(strict=True)
+    candidate = RebuiltMORKCandidate(manifest_path,
+        expected_manifest_sha256=manifest_sha256, python_executable=profile['python'])
+    pins = dict(candidate.manifest['files'])
+    pins[str(manifest_path)] = manifest_sha256
+    source = Path(__file__).resolve().parent
+    helpers = [Path(native_mork.__file__).resolve(), Path(rebuilt_mork.__file__).resolve()]
+    helpers += [native_mork.ROOT / relative for relative in native_mork.CHILD_FILE_HASHES]
+    helpers += [source / name for name in
+                ('mork_host.py', 'mork_supervise.py', 'mork_v2.py', 'fresh_supervise.py')]
+    for path in helpers:
+        path = str(path.resolve(strict=True))
+        digest = sha(path)
+        if path in pins and pins[path] != digest:
+            raise ValueError('Conflicting MORK helper pin: '+path)
+        pins[path] = digest
+    for path, expected in pins.items():
+        if not Path(path).is_absolute():
+            raise ValueError('MORK closure paths must be absolute')
+        if path in profile['files'] and profile['files'][path] != expected:
+            raise ValueError('Conflicting MORK source pin: '+path)
+    profile['files'].update(pins)
+    profile['mork_memory'] = {'manifest':str(manifest_path),
+                              'manifest_sha256':manifest_sha256}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--symbolic-profile', type=Path, required=True)
@@ -23,6 +57,11 @@ def main():
     parser.add_argument('--model', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--ecan-profile', type=Path)
+    parser.add_argument('--nars-manifest', type=Path)
+    parser.add_argument('--nars-admission')
+    parser.add_argument('--nars-evidence-root', type=Path)
+    parser.add_argument('--mork-manifest', type=Path)
+    parser.add_argument('--mork-manifest-sha256')
     args = parser.parse_args()
     if args.output.exists():
         raise ValueError('Refuse to replace a qualification profile')
@@ -53,6 +92,21 @@ def main():
     paths += [p for p in source.iterdir() if p.suffix in ('.py','.pl','.metta','.cpp')]
     paths += [source.parents[1]/'omega-baseline/scripts/no-network.py']
     profile['files'].update({str(p):sha(p) for p in paths})
+    if any((args.nars_manifest,args.nars_admission,args.nars_evidence_root)):
+        if not all((args.nars_manifest,args.nars_admission,args.nars_evidence_root)):
+            raise ValueError('All three NARS qualification options are required')
+        import cognition  # installs the fixed repository namespace for this script
+        from components.nars_hyperon.source.runtime import verify
+        manifest_path=args.nars_manifest.resolve(strict=True)
+        manifest=json.loads(manifest_path.read_bytes())
+        verify(manifest,args.nars_admission)
+        if sha(manifest_path)!=args.nars_admission:
+            raise ValueError('NARS manifest must use canonical bytes')
+        profile['files'].update(manifest['files'])
+        profile['files'][str(manifest_path)]=sha(manifest_path)
+        profile['nars_cognition']={'manifest':str(manifest_path),'admission':args.nars_admission,
+            'evidence_root':str(args.nars_evidence_root.absolute())}
+    add_mork_profile(profile,args.mork_manifest,args.mork_manifest_sha256)
     from fresh import load_profile
     # Write once; verification errors remain explicit evidence, not rewritten locks.
     with args.output.open('x') as stream:

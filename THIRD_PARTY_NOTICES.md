@@ -11,7 +11,13 @@ This source checkpoint integrates with, references, or adapts interfaces from:
 - [MetaMo](https://github.com/iCog-Labs-Dev/MetaMo), MIT at
   `bf97e50a68aa5059457092dfbe70699b7dd1dbe2`. Original scoring modules are external.
 - [MeTTa-NARS](https://github.com/patham9/metta-nars), MIT at
-  `945e2f83711b143e3f6e2eb112cc40c4f531c6f2`. Original NAL-1 modules are external.
+  `945e2f83711b143e3f6e2eb112cc40c4f531c6f2`. The historical PeTTa adapter's
+  modules are external. The development `components/nars_hyperon/upstream`
+  directory retains exact `nal1.metta`, `truthfunctions.metta`, and the original
+  MIT license, copyright Patrick Hammer (2023).
+- [Hyperon](https://github.com/trueagi-io/hyperon-experimental), MIT, version
+  0.2.10, is an external runtime dependency for the development NAL-1 adapter.
+  Its wheel and native libraries are not redistributed in this repository.
 - [MORK](https://github.com/trueagi-io/MORK) and
   [mork_ffi](https://github.com/patham9/mork_ffi). No redistribution license was
   found at the inspected source pins. Their source and binaries are excluded.
@@ -28,3 +34,20 @@ fulfills all applicable source-delivery, relinking, notice or license obligation
 Confirmed project-owned/generated artwork is included at the owner's request;
 see `docs/ARTWORK_PROVENANCE.json`. No new artwork or project-wide reuse
 license has been selected. Third-party artwork with unverified origin is not included.
+
+## NACE derived function slice
+
+`components/nace/source/nace_slice.py` retains seven exact function blocks from
+[patham9/NACE](https://github.com/patham9/NACE) commit
+`361fddf5f6885a60b6d5e0d179e0394da876df4c`, MIT. Both source module notices
+credit Patrick Hammer and Peter Isaev (2024) and are retained in the derived
+file. The upstream repository license is `components/nace/LICENSE.upstream`.
+The adapter, deterministic rule-group composition and bounded fixture bindings
+are authored integration code, not a claim of full upstream execution.
+
+## AIRIS transition-learning wrapper
+
+`components/airis` calls externally pinned [singnet/AIRIS-general](https://github.com/singnet/AIRIS-general),
+commit `db19ad4e2cea33e6129c8bf03e85797da8cf7625`, Apache-2.0. Original
+LICENSE and NOTICE are retained under `components/airis/upstream/`. Original
+`airis.py` and runtime binaries are not included.

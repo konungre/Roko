@@ -1,5 +1,9 @@
 # Fresh cloud host profile
 
+The opt-in NAL-1 cognitive successor is now separately qualified on a rebuilt
+executor. See [actual cognitive integration](COGNITIVE_INTEGRATION.md). The
+baseline and historical native summaries below retain their original scope.
+
 This profile rebuilds the runtime on a separate cloud computer. It does not
 substitute new binaries for the historical recovered-host hashes. The original
 `recovered_server.py` admission and handoff remain available unchanged.

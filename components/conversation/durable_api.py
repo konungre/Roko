@@ -29,6 +29,9 @@ class DurableSession(conversation.Session):
         expected = self.history + [self.user_message(), {'role':'assistant','content':self.reply}]
         if self.reply is None or omega_messages != expected:
             raise ValueError('Incomplete Omega turn')
+        if getattr(self.provider, 'profile', {}).get('mork_memory'):
+            from mork_v2 import validate_history
+            validate_history(expected)
         generation = self.provider.last_generation
         if generation is None:
             raise ValueError('Missing native generation receipt')
@@ -38,18 +41,23 @@ class DurableSession(conversation.Session):
                     'text':self.reply,'context_ids':[f['id'] for f in self.context],
                     'executed_actions':0,'generation':generation,
                     'history_policy':'complete_no_omission'}
-        saved = store.commit(current['token'],self.user_message(),expected[-1],response)
+        saved = store.commit(current['token'],self.user_message(),expected[-1],response,
+                             cognitive_history=self.cognitive_context)
         self.history = expected
+        self.cognitive_history = [dict(item) for item in self.cognitive_context]
+        self.pending_cognition = []
         self.pending = None
         current = None
         completed = json.dumps(saved,ensure_ascii=False)
         return completed
 
 
-def initialize(provider, ranker):
+def initialize(provider, ranker, *, reasoner=None):
     global store
     store = Store(os.environ['ROKO_HISTORY_DB'])
-    conversation.session = DurableSession(provider, ranker)
+    conversation.session = DurableSession(provider, ranker, reasoner=reasoner)
+    if getattr(provider, 'profile', {}).get('mork_memory'):
+        conversation.session.max_history = 8
     provider.allow_partial = True
 
 
@@ -113,14 +121,32 @@ def prepare_line(line):
         current = {**claim,'session_id':data['session_id'],'request_id':data['request_id']}
         session = conversation.session
         session.history = claim['history']
+        session.cognitive_history = claim['cognitive_history']
         session.max_output_tokens = maximum
         session.provider.max_tokens = maximum
         session.provider.last_error = None
         session.provider.last_generation = None
+        if getattr(session.provider, 'profile', {}).get('mork_memory'):
+            from mork_v2 import retrieve_history, history_digest
+            if len(claim['history']) >= 8:
+                raise StoreError('history_limit','Native MORK conversation admits four exchanges')
+            text = conversation.bounded_text(data['text'])
+            if len(text.encode('utf-8')) > 4096:
+                raise ValueError('MORK message byte limit')
+            try:
+                session.history, receipt = retrieve_history(claim['history'],
+                    {'session_id':data['session_id'],'request_id':data['request_id'],
+                     'revision':claim['revision'],'history_sha256':history_digest(claim['history'])},
+                     session.provider.profile)
+            except Exception as error:
+                raise conversation.NativePreparationError(str(error)) from error
+            session.provider.mork_receipts.append(receipt)
         session.prepare({'text':data['text'],'context':data['context']})
         return True
     except Exception as error:
-        code = error.code if isinstance(error,StoreError) else 'invalid_request'
+        code = (error.code if isinstance(error,StoreError) else
+                'native_turn_failed' if isinstance(error,conversation.NativePreparationError)
+                else 'invalid_request')
         if current is not None:
             store.fail(current['token'],{'code':code})
             current = None
@@ -148,4 +174,6 @@ def abort():
     # A failed turn leaves the prior durable history authoritative.
     conversation.session.pending = None
     conversation.session.reply = None
+    conversation.session.pending_cognition = []
+    conversation.session.cognitive_context = [dict(item) for item in conversation.session.cognitive_history]
     return json.dumps(error_response(code,data),ensure_ascii=False)

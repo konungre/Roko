@@ -60,6 +60,23 @@ def _alive(owner):
     return _identity(owner['pid']) == owner
 
 
+def _cognition(value):
+    """Validate detached observations, never executable expressions or paths."""
+    if type(value) is not list or len(value) > 256:
+        raise StoreError('invalid_commit', 'Expected at most 256 cognitive observations')
+    seen = set()
+    for item in value:
+        if type(item) is not dict or set(item) != {'id','text'}:
+            raise StoreError('invalid_commit', 'Invalid cognitive observation schema')
+        for key, limit in (('id',128),('text',500)):
+            if type(item[key]) is not str or not item[key].strip() or len(item[key]) > limit:
+                raise StoreError('invalid_commit', 'Invalid cognitive observation '+key)
+        if item['id'] in seen:
+            raise StoreError('invalid_commit', 'Duplicate cognitive observation identifier')
+        seen.add(item['id'])
+    return _json(value)
+
+
 class Store:
     def __init__(self, path):
         self.path = Path(path).absolute()
@@ -99,6 +116,13 @@ class Store:
                 PRIMARY KEY(session_id,request_id)
             );
         ''')
+        # Serialize inspection and ALTER so simultaneous workers can safely open
+        # an old v2 database. Existing rows receive an empty ledger; all history,
+        # revisions, pending claims, and saved responses retain their identities.
+        with self._transaction():
+            columns = {row['name'] for row in self.db.execute('PRAGMA table_info(sessions)')}
+            if 'cognitive_history' not in columns:
+                self.db.execute("ALTER TABLE sessions ADD COLUMN cognitive_history TEXT NOT NULL DEFAULT '[]'")
         for sidecar in (str(self.path)+'-wal', str(self.path)+'-shm'):
             if os.path.exists(sidecar):
                 os.chmod(sidecar, 0o600)
@@ -145,21 +169,23 @@ class Store:
             if session is None:
                 if expected_revision != 0:
                     raise StoreError('stale_revision', 'New session starts at revision zero')
-                self.db.execute('INSERT INTO sessions VALUES (?,0,?,NULL)', (session_id, '[]'))
-                history, revision = [], 0
+                self.db.execute('INSERT INTO sessions (id,revision,history,pending) VALUES (?,0,?,NULL)', (session_id, '[]'))
+                history, cognitive_history, revision = [], [], 0
             else:
                 if session['revision'] != expected_revision:
                     raise StoreError('stale_revision', 'Session revision changed')
                 if session['pending'] is not None:
                     raise StoreError('busy', 'Session has an unresolved request')
                 history, revision = json.loads(session['history']), session['revision']
+                cognitive_history = json.loads(session['cognitive_history'])
             token = uuid.uuid4().hex
             self.db.execute('INSERT INTO requests VALUES (?,?,?,?,?,?,?,?,NULL,NULL,?,NULL)',
                             (session_id, request_id, expected_revision, encoded,
                              hashlib.sha256(encoded.encode()).hexdigest(), 'pending', token,
                              _json(owner), time.time_ns()))
             self.db.execute('UPDATE sessions SET pending=? WHERE id=?', (request_id, session_id))
-            return {'status':'claimed', 'token':token, 'history':history, 'revision':revision}
+            return {'status':'claimed', 'token':token, 'history':history,
+                    'cognitive_history':cognitive_history, 'revision':revision}
 
     def _claim(self, token):
         if type(token) is not str:
@@ -172,12 +198,13 @@ class Store:
             raise StoreError('stale_revision', 'Claim no longer owns this revision')
         return request, session
 
-    def commit(self, token, user, assistant, response):
+    def commit(self, token, user, assistant, response, *, cognitive_history=None):
         for value, role in ((user,'user'), (assistant,'assistant')):
             if type(value) is not dict or set(value) != {'role','content'} or value['role'] != role or type(value['content']) is not str or not value['content'].strip():
                 raise StoreError('invalid_commit', 'Expected exact user/assistant text messages')
         if type(response) is not dict:
             raise StoreError('invalid_commit', 'Response must be an object')
+        encoded_cognition = None if cognitive_history is None else _cognition(cognitive_history)
         with self._transaction():
             request, session = self._claim(token)
             payload = json.loads(request['payload'])
@@ -189,8 +216,10 @@ class Store:
             saved['revision'] = session['revision']+1
             encoded_response = _json(saved)
             history = json.loads(session['history'])+[user,assistant]
-            self.db.execute('UPDATE sessions SET history=?,revision=?,pending=NULL WHERE id=?',
-                            (_json(history),saved['revision'],request['session_id']))
+            if encoded_cognition is None:
+                encoded_cognition = session['cognitive_history']
+            self.db.execute('UPDATE sessions SET history=?,cognitive_history=?,revision=?,pending=NULL WHERE id=?',
+                            (_json(history),encoded_cognition,saved['revision'],request['session_id']))
             self.db.execute("UPDATE requests SET status='committed',response=?,completed_ns=? WHERE token=?",
                             (encoded_response,time.time_ns(),token))
             return saved
@@ -227,9 +256,13 @@ class Store:
             self.db.execute('UPDATE sessions SET pending=NULL WHERE id=?', (session_id,))
             return {'status':'interrupted','revision':session['revision']}
 
-    def snapshot(self, session_id):
+    def snapshot(self, session_id, *, include_cognition=False):
         _identifier(session_id)
         row = self.db.execute('SELECT * FROM sessions WHERE id=?',(session_id,)).fetchone()
         if row is None:
-            return {'revision':0,'history':[],'pending':None}
-        return {'revision':row['revision'],'history':json.loads(row['history']),'pending':row['pending']}
+            result = {'revision':0,'history':[],'pending':None}
+        else:
+            result = {'revision':row['revision'],'history':json.loads(row['history']),'pending':row['pending']}
+        if include_cognition:
+            result['cognitive_history'] = json.loads(row['cognitive_history']) if row else []
+        return result

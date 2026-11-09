@@ -1,0 +1,15 @@
+{
+  "files": [
+    {
+      "source": "metamo-core-v4/source/contract.py",
+      "copy": "source/metamo_contract.py",
+      "sha256": "a0028e70899cfd792f8c1706613082573eb61469d2b0a1e91ea04db88ccae3f6"
+    },
+    {
+      "source": "live-symbolic-context-v5/capsule-bridge/working_state.py",
+      "copy": "source/working_state.py",
+      "sha256": "98de1a99406f32835f1676a3ee09d7b65efbcdaefa92e17d4528fcb96d503674"
+    }
+  ],
+  "native_execution": false
+}

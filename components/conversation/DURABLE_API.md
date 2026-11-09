@@ -67,7 +67,7 @@ requires a new ID. A cancelled worker may leave a pending claim; this is intenti
 Errors return `api_version: 2`, `status: error`, `code`, `executed_actions: 0`, and
 valid request/session IDs when available. Important codes are `stale_revision`,
 `request_conflict`, `busy`, `pending`, `failed`, `interrupted`, `context_limit`,
-`invalid_request`, and `native_turn_failed`. No text is committed on failed native
+`history_limit`, `invalid_request`, and `native_turn_failed`. No text is committed on failed native
 inference or input-limit admission. An oversized transport line ends the process.
 
 ## Durability and concurrency
@@ -78,8 +78,9 @@ still depends on the underlying filesystem/storage; this is not distributed stor
 or a backup service. Use it on this host, not as a cross-machine shared-filesystem
 coordination protocol.
 
-A claim is committed before ECAN/model execution. Successful user/assistant history,
-response, revision increment, and claim completion are saved in one transaction.
+A claim is committed before MORK retrieval, ECAN, NARS, or model execution.
+Successful user/assistant history, internal derived-observation ledger, response,
+revision increment, and claim completion are saved in one transaction.
 The response is emitted only after that transaction commits. A crash before commit
 leaves no partial history; a crash after commit but before delivery can return the
 saved response value. These guarantees concern the local transaction, not rollback
@@ -99,13 +100,31 @@ All committed messages remain durable and are available through `snapshot`.
 The model receives complete history; no messages are silently dropped or summarized.
 Native admission remains 512 input tokens, 1,024 context tokens, a 16 KiB rendered
 prompt, and at most 128 generated tokens. Reaching input limits fails without a
-commit. The v2 session also has a 128-exchange admission ceiling; native token limits
-will usually be reached first. To continue beyond admission, explicitly create a
+commit. Without MORK, the v2 session has a 128-exchange admission ceiling. With the
+qualified MORK profile, it admits four complete exchanges (eight messages),
+4,096 UTF-8 bytes per message and 65,536 serialized history bytes. A fifth
+exchange returns `history_limit` without dropping prior messages. Native token
+limits will usually be reached first. To continue beyond admission, explicitly create a
 new session and supply a user-approved summary; no automatic summary is substituted.
 
 ECAN is the real pinned attention-bank subset on PeTTa, ephemeral and advisory.
 Its source is separately acquired and hash-checked before and after execution.
-It is not full ECAN diffusion/scheduling and does not provide durable MORK memory.
+It is not full ECAN diffusion/scheduling.
+
+An optional `mork_memory` profile uses the pinned native MORK candidate in a
+separate SWI-Prolog process to index typed turn IDs and roles. SQLite remains
+the authoritative durable store; the adapter demands every expected native row
+before hydrating its original text in order. There is no matching fallback or
+automatic recovery. The pinned PathMap predates its zipper fix, so this only
+qualifies the bounded adapter workload, not arbitrary MORK workloads.
+
+An optional `nars_cognition` profile recognizes exactly two explicit affirmative
+inheritance assertions forming a three-symbol chain. Other prose does not run
+NARS. Actual native NAL-1 deductions enter the model prompt as uncertain beliefs,
+with premise values explicitly labeled controller policy. The internal ledger
+is restored across worker restarts and commits with history; failed or cancelled
+turns do not commit new observations. It is separate from ECAN `context_ids`.
+No public v2 fields changed for either integration.
 No full autonomous Omega loop, model-generated command execution, guest deployment,
 or graphical desktop qualification is implied.
 

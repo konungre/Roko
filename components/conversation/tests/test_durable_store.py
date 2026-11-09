@@ -3,6 +3,7 @@ import json
 import os
 from pathlib import Path
 import stat
+import sqlite3
 import subprocess
 import sys
 import tempfile
@@ -165,6 +166,132 @@ os._exit(19)
             self.assert_code('invalid_request',lambda:self.store.start('s1','r1',revision,self.payload))
         self.assert_code('invalid_request',lambda:self.store.start('s1','r1',0,{'value':float('nan')}))
         self.assertEqual(self.store.snapshot('s1'),{'revision':0,'history':[],'pending':None})
+
+    def test_legacy_database_migration_preserves_history_revisions_and_replays(self):
+        legacy = Path(self.temp.name)/'legacy.sqlite'
+        history = [self.user,self.assistant]
+        response = {'text':self.assistant['content'],'revision':7,'executed_actions':0}
+        with sqlite3.connect(legacy) as db:
+            db.executescript('''
+              CREATE TABLE sessions(id TEXT PRIMARY KEY, revision INTEGER NOT NULL,
+                                    history TEXT NOT NULL,pending TEXT);
+              CREATE TABLE requests(session_id TEXT NOT NULL REFERENCES sessions(id),
+                request_id TEXT NOT NULL,expected_revision INTEGER NOT NULL,
+                payload TEXT NOT NULL,payload_sha256 TEXT NOT NULL,status TEXT NOT NULL,
+                token TEXT UNIQUE NOT NULL,owner TEXT NOT NULL,response TEXT,error TEXT,
+                created_ns INTEGER NOT NULL,completed_ns INTEGER,
+                PRIMARY KEY(session_id,request_id));
+            ''')
+            db.execute('INSERT INTO sessions VALUES (?,?,?,NULL)',('s1',7,json.dumps(history)))
+            payload=json.dumps(self.payload,sort_keys=True,separators=(',',':'))
+            db.execute('INSERT INTO requests VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
+                       ('s1','old',6,payload,'retained-digest','committed','retained-token',
+                        '{}',json.dumps(response),None,1,2))
+            before=db.execute('SELECT * FROM requests').fetchall()
+        with Store(legacy) as migrated:
+            self.assertEqual(migrated.snapshot('s1'),{'revision':7,'history':history,'pending':None})
+            self.assertEqual(migrated.snapshot('s1',include_cognition=True)['cognitive_history'],[])
+            replay=migrated.start('s1','old',6,self.payload)
+            self.assertEqual(replay['response'],response)
+            self.assertEqual([tuple(row) for row in migrated.db.execute('SELECT * FROM requests')],before)
+            claim=migrated.start('s1','new',7,self.payload)
+            self.assertEqual(claim['cognitive_history'],[])
+            migrated.fail(claim['token'],{})
+        # Opening an already migrated database is idempotent.
+        with Store(legacy) as reopened:
+            self.assertEqual(reopened.snapshot('s1')['revision'],7)
+            self.assertEqual(len([row for row in reopened.db.execute('PRAGMA table_info(sessions)')
+                                  if row['name']=='cognitive_history']),1)
+
+    def test_cognitive_ledger_survives_restart_and_omitted_updates(self):
+        observations=[{'id':'nars_turn_1','text':'Uncertain robin -> animal belief.'}]
+        claim=self.claim()
+        self.assertEqual(claim['cognitive_history'],[])
+        response=self.store.commit(claim['token'],self.user,self.assistant,
+                                   {'text':self.assistant['content']},cognitive_history=observations)
+        with Store(self.path) as reopened:
+            self.assertNotIn('cognitive_history',reopened.snapshot('s1'))
+            self.assertEqual(reopened.snapshot('s1',include_cognition=True)['cognitive_history'],observations)
+            self.assertEqual(reopened.start('s1','r1',0,self.payload)['response'],response)
+            second=reopened.start('s1','r2',1,self.payload)
+            self.assertEqual(second['cognitive_history'],observations)
+            reopened.commit(second['token'],self.user,self.assistant,{'text':self.assistant['content']})
+            self.assertEqual(reopened.snapshot('s1',include_cognition=True)['cognitive_history'],observations)
+            third=reopened.start('s1','r3',2,self.payload)
+            reopened.fail(third['token'],{'code':'native-failure'})
+            self.assertEqual(reopened.snapshot('s1',include_cognition=True)['cognitive_history'],observations)
+
+    def test_concurrent_workers_migrate_legacy_schema_once(self):
+        self.store.db.execute('ALTER TABLE sessions DROP COLUMN cognitive_history')
+        code="""from durable_store import Store
+import sys,json
+with Store(sys.argv[1]) as s: print(json.dumps(s.snapshot('s1',include_cognition=True)),flush=True)
+"""
+        processes=[self.child(code) for _ in range(5)]
+        for proc in processes:
+            out,err=proc.communicate(timeout=10)
+            self.assertEqual(proc.returncode,0,err)
+            self.assertEqual(json.loads(out),{'revision':0,'history':[],'pending':None,'cognitive_history':[]})
+        self.assertEqual(sum(row['name']=='cognitive_history' for row in
+                             self.store.db.execute('PRAGMA table_info(sessions)')),1)
+
+    def test_invalid_cognition_does_not_commit_or_replace_ledger(self):
+        claim=self.claim()
+        invalid=[{},'text',[{'id':'x','text':'y','extra':0}],
+                 [{'id':'','text':'y'}],[{'id':'x','text':' '}],
+                 [{'id':'x'*129,'text':'y'}],[{'id':'x','text':'y'*501}],
+                 [{'id':'x','text':'y'},{'id':'x','text':'z'}],
+                 [{'id':str(i),'text':'y'} for i in range(257)]]
+        for observations in invalid:
+            self.assert_code('invalid_commit',lambda:self.store.commit(claim['token'],self.user,self.assistant,
+                {'text':self.assistant['content']},cognitive_history=observations))
+        self.assertEqual(self.store.snapshot('s1',include_cognition=True),
+                         {'revision':0,'history':[],'pending':'r1','cognitive_history':[]})
+        self.store.fail(claim['token'],{})
+
+    def test_crash_rolls_back_cognition_and_history_together(self):
+        first=[{'id':'nars_turn_1','text':'Prior admitted belief.'}]
+        c=self.claim();self.store.commit(c['token'],self.user,self.assistant,{},cognitive_history=first)
+        code="""from durable_store import Store
+import sys,os
+s=Store(sys.argv[1]);c=s.start('s1','r2',1,{'text':'Remember the lighthouse.','context':[]})
+class CrashAfterHistoryWrite:
+ def execute(self,sql,*args):
+  result=real.execute(sql,*args)
+  if sql.startswith('UPDATE sessions SET history='): os._exit(23)
+  return result
+real=s.db;s.db=CrashAfterHistoryWrite()
+s.commit(c['token'],{'role':'user','content':'Remember the lighthouse.'},
+ {'role':'assistant','content':'Unsaved answer'},{'text':'Unsaved answer'},
+ cognitive_history=[{'id':'nars_turn_1','text':'Prior admitted belief.'},
+                    {'id':'nars_turn_2','text':'Uncommitted new belief.'}])
+"""
+        proc=self.child(code);out,err=proc.communicate(timeout=10)
+        self.assertEqual(proc.returncode,23,err)
+        snapshot=self.store.snapshot('s1',include_cognition=True)
+        self.assertEqual(snapshot,{'revision':1,'history':[self.user,self.assistant],
+                                   'pending':'r2','cognitive_history':first})
+        self.store.recover('s1','r2',1)
+        snapshot=self.store.snapshot('s1',include_cognition=True)
+        self.assertEqual(snapshot['cognitive_history'],first)
+        self.assertEqual(snapshot['revision'],1)
+        self.assertIsNone(snapshot['pending'])
+
+    def test_committed_cognition_survives_crash_before_delivery(self):
+        code="""from durable_store import Store
+import sys,os
+s=Store(sys.argv[1]);c=s.start('s1','r1',0,{'text':'Remember the lighthouse.','context':[]})
+s.commit(c['token'],{'role':'user','content':'Remember the lighthouse.'},
+ {'role':'assistant','content':'Saved answer'},{'text':'Saved answer'},
+ cognitive_history=[{'id':'nars_turn_1','text':'Committed belief.'}])
+os._exit(29)
+"""
+        proc=self.child(code);out,err=proc.communicate(timeout=10)
+        self.assertEqual(proc.returncode,29,err)
+        replay=self.claim()
+        self.assertEqual(replay['response'],{'text':'Saved answer','revision':1})
+        self.assertEqual(self.store.snapshot('s1',include_cognition=True)['cognitive_history'],
+                         [{'id':'nars_turn_1','text':'Committed belief.'}])
 
 
 if __name__=='__main__':unittest.main()
