@@ -1,7 +1,10 @@
 # Current package-state implementation
 
-The unresolved imported prototype source, tests and packaging have been removed
-from the current tree. Only its provenance/hash audit remains under provenance/.
+The duplicate imported prototype source, tests and packaging under distro/state
+have been removed. A pre-existing copy remains under
+omega-baseline/components/omega-pm and is used by baseline snapshot planning.
+The repository-wide prototype licensing issue therefore remains in the current
+tree as well as history. See provenance/repository-prototype-audit.json.
 Earlier Git history and backups still contain the import: this removal is not a
 retroactive license grant or a legal determination. Do not claim that history's
 licensing is resolved. No history was rewritten.
@@ -212,3 +215,18 @@ this method recovers only the private-profile pointer journal.
 Prototype provenance audit records every original archive entry/hash. No upstream
 repository, rights-holder identity, license file or grant was identified in that
 archive. Licensing remains unresolved; keep the draft release block in place.
+
+## Repository-wide correction
+
+Review identified ten tracked files byte-identical to the original archive under
+`omega-baseline/components/omega-pm`, including all five Python implementation
+files, packaging, examples and tests. They entered in 7fbcb5f before this work.
+`omega-baseline/adapters/package_planning.py` imports its core for read-only
+snapshot plans; the integration bridge/native test consume that adapter.
+No baseline file was removed or changed. Its suite still passes 30 tests with
+one live Hyperon skip. This preserves functionality while the parent decides
+whether to establish an explicit rights grant or replace these consumers and
+source together. Git author attribution is provenance, not license clearance.
+Earlier statements that the prototype was removed from the whole current tree
+were incorrect; removal was limited to the newly imported duplicate directory.
+PR22 must remain draft pending the repository-wide decision and re-review.
