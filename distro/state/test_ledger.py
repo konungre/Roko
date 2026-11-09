@@ -12,3 +12,12 @@ class LedgerTests(unittest.TestCase):
    with self.assertRaises(ValueError):l.append(f,0)
    g=Fact('test','nix',2,Stage.ACTIVATED,'generation','b'*64,h)
    l.append(g,1,'simulation');self.assertEqual(l.latest('test','nix')[0]['mode'],'simulation');l.close()
+ def test_reopened_projection_rejects_corruption(self):
+  from projection import latest_atom
+  with tempfile.TemporaryDirectory() as d:
+   path=Path(d)/'state.db';l=Ledger(path)
+   f=Fact('test','nix',1,Stage.OBSERVED,'generation','a'*64,'0'*64)
+   l.append(f,0);l.close()
+   self.assertEqual(latest_atom(path,'test','nix'),f.atom())
+   l=Ledger(path);l.db.execute("UPDATE facts SET mode='simulation'");l.close()
+   with self.assertRaises(ValueError):latest_atom(path,'test','nix')

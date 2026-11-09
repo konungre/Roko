@@ -122,3 +122,11 @@ These gate facts are OBSERVED operation receipts. They must not be promoted to
 system BUILT/ACTIVATED/RUNNING/HEALTH. Durable ingestion into the cognitive owner's
 long-lived AtomSpace remains to be wired through that owner's snapshot/CAS API;
 this gate proves replay from the OS ledger into an actual in-memory AtomSpace.
+
+Reopened snapshot projection now checks the entire machine/backend chain: schema,
+typed fact identity, contiguous revision, predecessor digest, receipt digest and
+evidence mode. A modified mode column was rejected after restart. This detects
+inconsistency/corruption, not malicious rewriting by a database owner able to
+recompute hashes. Five state tests and the repeated real Nix/PeTTa/Omega gate003
+pass. Durable cognitive-owner subscription and independently observed running
+health remain open.

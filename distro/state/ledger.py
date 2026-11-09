@@ -18,6 +18,15 @@ class Ledger:
    self.db.execute('COMMIT');return identity
   except BaseException:self.db.execute('ROLLBACK');raise
  def latest(self,machine,backend):
-  row=self.db.execute('SELECT body,hash FROM facts WHERE machine=? AND backend=? ORDER BY revision DESC LIMIT 1',(machine,backend)).fetchone()
-  return (json.loads(row[0]),row[1]) if row else None
+  rows=self.db.execute('SELECT body,hash,revision,mode FROM facts WHERE machine=? AND backend=? ORDER BY revision',(machine,backend)).fetchall()
+  previous='0'*64
+  for expected,(raw,identity,revision,mode) in enumerate(rows,1):
+   body=json.loads(raw);f=dict(body['fact'])
+   if body['mode']!=mode or mode not in ('observed','simulation') or digest(body)!=identity:raise ValueError('fact receipt corruption')
+   if f.pop('schema')!='roko-os-fact-v1':raise ValueError('fact schema')
+   from facts import Stage
+   f['stage']=Stage(f['stage']);fact=Fact(**f)
+   if (fact.machine,fact.backend,fact.revision,revision,fact.predecessor)!=(machine,backend,expected,expected,previous):raise ValueError('broken fact chain')
+   previous=identity
+  return (json.loads(rows[-1][0]),rows[-1][1]) if rows else None
  def close(self):self.db.close()
