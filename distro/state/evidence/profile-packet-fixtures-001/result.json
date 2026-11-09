@@ -1,0 +1,14 @@
+{
+  "scope": "fixtures only; no canonical store access retried",
+  "result": {
+    "packet_consistent": true,
+    "native_execution_verified": false,
+    "closure_verified": false,
+    "builder_identity_verified": false,
+    "image_ready": false,
+    "execution_authorized": false,
+    "scope": "self-reported packet consistency only"
+  },
+  "host_activation": false,
+  "native_qualification_attempted": false
+}

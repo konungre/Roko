@@ -2,8 +2,9 @@
 
 This opt-in code does not change legacy OmegaAwareness/default bindings. It uses
 caller-owned read-only backend observations and dedicated runtime factories.
-Hyperon is absent here; fixture spaces are NOT native Hyperon evidence, and prior
-PeTTa checks do not replace that gate. No package or host state is mutated.
+The original checks below used fixture spaces, not native Hyperon. Later native
+qualification is recorded separately in AWARENESS_NATIVE_HYPERON.md and
+AWARENESS_NATIVE_NIX.md; prior PeTTa checks do not replace that gate. No package or host state is mutated.
 
 Within one SnapshotAwareness, refresh requests receive increasing local tickets.
 Only the latest-started request may publish current. A slower old observation is
@@ -35,8 +36,8 @@ explicit restore, corruption without auto-repair, reused-runtime rejection and
 partial fresh-space insertion failure. Three NEW processes wrote version1,
 restored it with zero backend calls, refreshed/removing a fact at version2, then
 restored historical version2 with another process epoch. Read-only fixture parity
-with legacy still passes. Twenty-four state tests pass; native Hyperon remains
-unverified. Caller must guarantee independent fresh spaces; object identity checks
+with legacy still passes. Twenty-four state tests passed at this historical checkpoint; native Hyperon
+was unverified then. Later qualification does not change these fixture receipts. Caller must guarantee independent fresh spaces; object identity checks
 are not a general sandbox or proof about all native proxy/space aliases.
 
 Keep PR22 draft, provenance/licensing unresolved, and metadata approval pending.
