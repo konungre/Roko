@@ -73,7 +73,8 @@ python3 -B components/conversation/tests/probe_budget_resource_limit.py \
 The resolved output must be outside the repository, including paths through
 symlinks; this is checked before creating directories. This copies the source
 tree into its fresh output, excluding Git metadata and Python caches, preserving
-symlinks without following them. The copied supervisor must be a regular file. Only that copy's RSS threshold is tightened from5GiB to3GiB and
+symlinks without following them. The copied supervisor must be a regular file whose resolved path stays inside
+the copied source, including all parent-directory links. Only that copy's RSS threshold is tightened from5GiB to3GiB and
 its profile pins recomputed. It tests actual `resource_limit` propagation without
 host exhaustion or relaxed caps, preserved history/ledger, terminal failed IDs,
 and explicit new-ID retry under the unchanged normal5GiB supervisor. It does not

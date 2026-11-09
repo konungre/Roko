@@ -7,7 +7,8 @@ args=parser.parse_args();repo=pathlib.Path(__file__).resolve().parents[3];root=a
 if root.is_relative_to(repo):parser.error('--output must resolve outside the repository')
 root.mkdir(mode=0o700,parents=True,exist_ok=False)
 shutil.copytree(repo,root/'source',symlinks=True,ignore=shutil.ignore_patterns('.git','__pycache__'));supervise=root/'source/components/conversation/fresh_supervise.py'
-if supervise.is_symlink():raise ValueError('Supervisor must be a copied regular file')
+if supervise.is_symlink() or not supervise.resolve().is_relative_to((root/'source').resolve()):
+ raise ValueError('Supervisor must be a copied regular file inside the copied source')
 s=supervise.read_text();assert s.count('rss > 5 * 1024**3')==1;supervise.write_text(s.replace('rss > 5 * 1024**3','rss > 3 * 1024**3'))
 profile=json.loads(args.profile.resolve().read_text());files={}
 for path,digest in profile['files'].items():
