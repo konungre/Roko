@@ -1,0 +1,17 @@
+{
+  "schema": "roko-private-state-coldboot-v1",
+  "passed": false,
+  "boots": [
+    {
+      "phase": "created",
+      "passed": false,
+      "returncode": 0,
+      "serial_sha256": "39a239fcb58386367ac1cd159719e99051a8a0c04349c340ef02ad8671baaff4"
+    }
+  ],
+  "initramfs_sha256": "d6064224173eb10e4c3d673a860507e0e7873d3caa78e9812621d88435098413",
+  "state_sha256": "ead8463a0b2680482b1e78f83cfe56fb16a94a6e0ec6c4beb11ea1fae2453dda",
+  "cosmic_tested": false,
+  "model_tested": false,
+  "network": false
+}

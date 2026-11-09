@@ -1,0 +1,52 @@
+{
+  "schema": "roko-private-state-coldboot-v1",
+  "passed": true,
+  "boots": [
+    {
+      "phase": "created",
+      "passed": true,
+      "returncode": 0,
+      "crash_injected": false,
+      "child_reaped": true,
+      "serial_sha256": "58e6977fb2106cade8d4247c179fcd7144c9d860285812bdc8503764db388a46"
+    },
+    {
+      "phase": "interrupted",
+      "passed": true,
+      "returncode": -9,
+      "crash_injected": true,
+      "child_reaped": true,
+      "serial_sha256": "6e303420dbc7a8e139369953b17519105520dd33edda03f6a160ff4fcf5a87b3"
+    },
+    {
+      "phase": "recovered",
+      "passed": true,
+      "returncode": 0,
+      "crash_injected": false,
+      "child_reaped": true,
+      "serial_sha256": "9f868166f2a03544959166392757c095f6f4ad120d034e8763d8b2b00e442468"
+    },
+    {
+      "phase": "committed",
+      "passed": true,
+      "returncode": 0,
+      "crash_injected": false,
+      "child_reaped": true,
+      "serial_sha256": "2d73ddfda0c18e73e9b80fae3a9be1d9e5412f1ac316820ef5fed1e2a880e743"
+    },
+    {
+      "phase": "final",
+      "passed": true,
+      "returncode": 0,
+      "crash_injected": false,
+      "child_reaped": true,
+      "serial_sha256": "b882d4fbb786190ac3e4de038ee4151a734154967d4e65bfcfd87c69ece46d19"
+    }
+  ],
+  "initramfs_sha256": "e37a08a64eac463fd2712aca984e5aac528eae8c7fa6f7e7332fb227e257ad67",
+  "state_sha256": "b5c591ad4658459761eb5c77e13d75eea9c8b1e077e9d6d0fe774e84200a9ba4",
+  "cosmic_tested": false,
+  "model_tested": false,
+  "network": false,
+  "crash_recovery": true
+}

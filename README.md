@@ -76,6 +76,7 @@ images were made, and [current status](docs/STATUS.md) for what actually exists.
 
 ## Start here
 
+- [Distribution foundation](distro/README.md): offline release packing, inactive model service contract, and production qualification gaps.
 - [Current status](docs/STATUS.md): what actually ran, what is experimental, and
   which requested AI components remain pending.
 - [Repository map](docs/REPOSITORY_MAP.md): source directories and intended scope.
