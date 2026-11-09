@@ -108,3 +108,35 @@ replayed the identical saved response without inference. Raw bytes remain in
 the private receipt. Both expanded-language turns completed: “A red fox is an
 animal” and “Robins are animals.” Their premise labels/modes remain provenance,
 not a general factual-verification claim.
+
+## Third-turn restart qualification
+
+A separate probe copied the verified synthetic database, restarted the worker,
+and continued the two-observation `language` session at revision 2. Native MORK
+retrieved all four prior messages, both NARS observations matched the actual
+Granite prompt hash, and the completed third turn answered “We discussed red
+foxes and robins.” It used 385 input tokens and nine output tokens. A further
+restart replayed the exact response with no native work. All ten checks passed;
+no new NARS inference or actions were performed. The original database remains
+unchanged. See `THIRD_TURN_NATIVE_SUMMARY.json` and
+`tests/probe_third_turn.py --profile PROFILE --source-db VERIFIED_SYNTHETIC_DB
+--output NEW_DIRECTORY`. This is local native evidence, not a graphical UI test.
+
+## Free-form recovery and resource diagnostics
+
+A real three-turn balcony-garden conversation passed 13 checks in one worker.
+ECAN selected natural-language tone context, Granite retained the user's morning
+sun and twice-weekly watering preferences, and MORK retrieved the complete
+committed transcript. An intervening 4,000-character request returned
+`context_limit`; the next request continued at the unchanged revision. The failed
+message never entered history. Final replay performed no native work. Ordinary
+prose did not trigger NARS or claim new cognitive observations. See
+`FREEFORM_RECOVERY_SUMMARY.json` and `tests/probe_freeform_recovery.py`.
+
+Resource diagnostics now distinguish supervisor deadlines (`native_timeout`),
+RSS/host-reserve stops (`resource_limit`), and reported supervisor cancellation
+(`native_cancelled`) from missing generation metadata. Caps are unchanged. All
+127 conversation tests passed against the updated main, including explicit
+synthetic resource failures with real SQLite rollback/restart. A separate real
+supervisor test killed a harmless sleeping process at a 0.1-second deadline and
+reported cleanup; it did not run a model or induce memory exhaustion.

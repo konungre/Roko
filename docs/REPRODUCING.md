@@ -48,3 +48,11 @@ recovered. Review upstream rights before acquisition or redistribution.
 Missing metadata/native-source tests may fail deliberately. Do not weaken hash,
 resource, ownership or authorization checks to force a pass. Native process
 limits are not a general filesystem/process sandbox.
+
+## Public serial rescue foundation
+
+A dependency-free (apart from Python and the x86-64 GCC toolchain) rescue build
+and adversarial archive/ELF checks are described in
+[the fresh Linux foundation checkpoint](LINUX_FOUNDATION_FRESH.md). The explicit
+`--minimal` build needs none of the omitted historical profile or asset locks.
+It has no desktop or model and does not boot a VM automatically.

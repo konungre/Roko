@@ -1,0 +1,89 @@
+{
+  "schema": "roko-bounded-model-guest-qualification-v1",
+  "conversation_source_commit": "55bebd8d79454c765b258b27471ad54a971700e5",
+  "model_sha256": "5a38b08c441ae1adbafb1d2b8a7167e0d48734d83af68b268cefea1eec553dcd",
+  "attempts": [
+    {
+      "schema": "roko-real-conversation-guest-v1",
+      "passed": false,
+      "returncode": 0,
+      "stop_reason": "eof",
+      "seconds": 16.019758404000186,
+      "child_reaped": true,
+      "response_evidence": [],
+      "serial_sha256": "ee3b6b624e006762cde6fa9fd60289ce4f7d4dd9251efaacb3b60e66081f2145",
+      "network": false,
+      "read_only_disks": true,
+      "cosmic_tested": false,
+      "scope": "One actual bounded non-root model conversation request in an independent minimal guest",
+      "attempt": "boot-001",
+      "nonroot_entered": false,
+      "workspace_mounted_readonly": false,
+      "model_mounted_readonly": false,
+      "native_started": false,
+      "driver_deadline": false,
+      "stderr_tail": "shed hash table entries: 131072 (order: 8, 1048576 bytes, linear)\n[    2.151287] TCP bind hash table entries: 65536 (order: 9, 2097152 bytes, linear)\n[    2.155146] TCP: Hash tables configured (established 131072 bind 65536)\n[    2.160951] MPTCP token hash table entries: 16384 (order: 7, 393216 bytes, linear)\n[    2.162866] UDP hash table entries: 8192 (order: 6, 262144 bytes, linear)\n[    2.164423] UDP-Lite hash table entries: 8192 (order: 6, 262144 bytes, linear)\n[    2.167361] NET: Registered PF_UNIX/PF_LOCAL protocol family\n[    2.168272] NET: Registered PF_XDP protocol family\n[    2.170357] pci_bus 0000:00: resource 4 [io  0x0000-0x0cf7 window]\n[    2.170492] pci_bus 0000:00: resource 5 [io  0x0d00-0xffff window]\n[    2.170590] pci_bus 0000:00: resource 6 [mem 0x000a0000-0x000bffff window]\n[    2.170817] pci_bus 0000:00: resource 7 [mem 0x80000000-0xafffffff window]\n[    2.170961] pci_bus 0000:00: resource 8 [mem 0xc0000000-0xfebfffff window]\n[    2.171098] pci_bus 0000:00: resource 9 [mem 0xc000000000-0xc7ffffffff window]\n[    2.172328] PCI: CLS 0 bytes, default 64\n[    2.173726] PCI-DMA: Using software bounce buffering for IO (SWIOTLB)\n[    2.174108] software IO TLB: mapped [mem 0x0000000078c1c000-0x000000007cc1c000] (64MB)\n[    2.188122] Initialise system trusted keyrings\n[    2.194501] Key type blacklist registered\n[    2.197169] workingset: timestamp_bits=36 max_order=22 bucket_order=0\n[    2.197789] zbud: loaded\n[    2.199395] Trying to unpack rootfs image as initramfs...\n[    2.204341] fuse: init (API version 7.41)\n[    2.218994] integrity: Platform Keyring initialized\n[    2.219476] integrity: Machine keyring initialized\n[    2.386009] Key type asymmetric registered\n[    2.386298] Asymmetric key parser 'x509' registered\n[    3.184039] tsc: Refined TSC clocksource calibration: 2300.021 MHz\n[    3.184807] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x212748fdc2e, max_idle_ns: 440795232711 ns\n[    3.190410] clocksource: Switched to clocksource tsc\n[    9.106128] Freeing initrd memory: 52944K\n[    9.137914] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 246)\n[    9.140027] io scheduler mq-deadline registered\n[    9.188782] ledtrig-cpu: registered to indicate activity on CPUs\n[    9.190285] shpchp: Standard Hot Plug PCI Controller Driver version: 0.4\n[    9.211359] ACPI: \\_SB_.GSIF: Enabled at IRQ 21\n[    9.225063] ACPI: \\_SB_.GSIG: Enabled at IRQ 22\n[    9.228804] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled\n[    9.236704] 00:02: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 16550A\n[    9.260318] Linux agpgart interface v0.103\n[    9.283923] i8042: PNP: PS/2 Controller [PNP0303:KBD,PNP0f13:MOU] at 0x60,0x64 irq 1,12\n[    9.292554] serio: i8042 KBD port at 0x60,0x64 irq 1\n[    9.293237] serio: i8042 AUX port at 0x60,0x64 irq 12\n[    9.298417] mousedev: PS/2 mouse device common for all mice\n[    9.299901] rtc_cmos 00:03: RTC can wake from S4\n[    9.327878] rtc_cmos 00:03: registered as rtc0\n[    9.328252] input: AT Translated Set 2 keyboard as /devices/platform/i8042/serio0/input/input0\n[    9.332699] rtc_cmos 00:03: setting system clock to 2026-11-09T17:42:19 UTC (1794246139)\n[    9.336819] rtc_cmos 00:03: alarms up to one day, y3k, 242 bytes nvram, hpet irqs\n[    9.337402] amd_pstate: the _CPC object is not present in SBIOS or ACPI disabled\n[    9.349742] NET: Registered PF_INET6 protocol family\n[    9.421861] Segment Routing with IPv6\n[    9.422271] In-situ OAM (IOAM) with IPv6\n[    9.423236] mip6: Mobile IPv6\n[    9.423752] NET: Registered PF_PACKET protocol family\n[    9.424779] mpls_gso: MPLS GSO support\n[    9.434113] IPI shorthand broadcast: enabled\n[    9.473430] sched_clock: Marking stable (9520082801, -46848018)->(9498165465, -24930682)\n[    9.479835] registered taskstats version 1\n[    9.520622] Loading compiled-in X.509 certificates\n[    9.710061] Loaded X.509 cert 'Build time autogenerated kernel key: 0a04fbb1322a405cf04cc828049b2bf54895c9d9'\n[    9.742153] Demotion targets for Node 0: null\n[    9.745547] Key type .fscrypt registered\n[    9.745663] Key type fscrypt-provisioning registered\n[    9.837322] Key type encrypted registered\n[    9.839177] AppArmor: AppArmor sha256 policy hashing enabled\n[    9.842263] ima: No TPM chip found, activating TPM-bypass!\n[    9.845723] ima: Allocated hash algorithm: sha256\n[    9.850706] ima: No architecture policies found\n[    9.852755] evm: Initialising EVM extended attributes:\n[    9.852877] evm: security.selinux\n[    9.853024] evm: security.SMACK64 (disabled)\n[    9.853472] evm: security.SMACK64EXEC (disabled)\n[    9.853610] evm: security.SMACK64TRANSMUTE (disabled)\n[    9.853717] evm: security.SMACK64MMAP (disabled)\n[    9.853928] evm: security.apparmor\n[    9.854471] evm: security.ima\n[    9.854534] evm: security.capability\n[    9.854607] evm: HMAC attrs: 0x1\n[    9.975784] RAS: Correctable Errors collector initialized.\n[   10.051959] clk: Disabling unused clocks\n[   10.081086] PM: genpd: Disabling unused power domains\n[   10.246970] Freeing unused decrypted memory: 2028K\n[   10.501840] Freeing unused kernel image (initmem) memory: 4176K\n[   10.502886] Write protecting the kernel read-only data: 28672k\n[   10.507036] Freeing unused kernel image (rodata/data gap) memory: 456K\n[   10.736039] x86/mm: Checked W+X mappings: passed, no W+X pages found.\n[   10.737755] Run /init as init process\nROKO_FOUNDATION_ENTERED b12a860e70c0086658c0ed7bec706e5ac0bb8260db1351e2b2db126f744615dd\n[   11.008042] virtio_blk virtio0: 4/0/0 default/read/poll queues\n[   11.082580] virtio_blk virtio0: [vda] 16777216 512-byte logical blocks (8.59 GB/8.00 GiB)\n[   11.138759] virtio_blk virtio1: 4/0/0 default/read/poll queues\n[   11.172114] virtio_blk virtio1: [vdb] 10485760 512-byte logical blocks (5.37 GB/5.00 GiB)\n[   12.566831] EXT4-fs (vda): Cannot load crc32c driver.\nROKO_MODEL_GUEST_FAILED mount-workspace\n[   12.581878] ACPI: PM: Preparing to enter system sleep state S5\n[   12.584660] reboot: Power down\n"
+    },
+    {
+      "schema": "roko-real-conversation-guest-v1",
+      "passed": false,
+      "returncode": 0,
+      "stop_reason": "eof",
+      "seconds": 504.7380350370004,
+      "child_reaped": true,
+      "response_evidence": [],
+      "serial_sha256": "72c62c42a7e9275bd3d109e6fd591694aca74165e7c19c3a217ca68ec82861a5",
+      "network": false,
+      "read_only_disks": true,
+      "cosmic_tested": false,
+      "scope": "One actual bounded non-root model conversation request in an independent minimal guest",
+      "attempt": "boot-002",
+      "nonroot_entered": true,
+      "workspace_mounted_readonly": true,
+      "model_mounted_readonly": true,
+      "native_started": true,
+      "driver_deadline": true,
+      "stderr_tail": "2 (order: 6, 262144 bytes, linear)\n[    2.653602] UDP-Lite hash table entries: 8192 (order: 6, 262144 bytes, linear)\n[    2.656302] NET: Registered PF_UNIX/PF_LOCAL protocol family\n[    2.657273] NET: Registered PF_XDP protocol family\n[    2.658807] pci_bus 0000:00: resource 4 [io  0x0000-0x0cf7 window]\n[    2.659073] pci_bus 0000:00: resource 5 [io  0x0d00-0xffff window]\n[    2.659146] pci_bus 0000:00: resource 6 [mem 0x000a0000-0x000bffff window]\n[    2.659346] pci_bus 0000:00: resource 7 [mem 0x80000000-0xafffffff window]\n[    2.659463] pci_bus 0000:00: resource 8 [mem 0xc0000000-0xfebfffff window]\n[    2.659612] pci_bus 0000:00: resource 9 [mem 0xc000000000-0xc7ffffffff window]\n[    2.660316] PCI: CLS 0 bytes, default 64\n[    2.661493] PCI-DMA: Using software bounce buffering for IO (SWIOTLB)\n[    2.661677] software IO TLB: mapped [mem 0x0000000078c1b000-0x000000007cc1b000] (64MB)\n[    2.672724] Trying to unpack rootfs image as initramfs...\n[    2.682515] Initialise system trusted keyrings\n[    2.693746] Key type blacklist registered\n[    2.699268] workingset: timestamp_bits=36 max_order=22 bucket_order=0\n[    2.699515] zbud: loaded\n[    2.704750] fuse: init (API version 7.41)\n[    2.722071] integrity: Platform Keyring initialized\n[    2.722579] integrity: Machine keyring initialized\n[    2.961306] Key type asymmetric registered\n[    2.961688] Asymmetric key parser 'x509' registered\n[    3.687449] tsc: Refined TSC clocksource calibration: 2300.019 MHz\n[    3.688570] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x21274761946, max_idle_ns: 440795313454 ns\n[    3.695653] clocksource: Switched to clocksource tsc\n[    9.593886] Freeing initrd memory: 52948K\n[    9.635067] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 246)\n[    9.638868] io scheduler mq-deadline registered\n[    9.695408] ledtrig-cpu: registered to indicate activity on CPUs\n[    9.697699] shpchp: Standard Hot Plug PCI Controller Driver version: 0.4\n[    9.731205] ACPI: \\_SB_.GSIF: Enabled at IRQ 21\n[    9.751615] ACPI: \\_SB_.GSIG: Enabled at IRQ 22\n[    9.757596] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled\n[    9.776554] 00:02: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 16550A\n[    9.801191] Linux agpgart interface v0.103\n[    9.830896] i8042: PNP: PS/2 Controller [PNP0303:KBD,PNP0f13:MOU] at 0x60,0x64 irq 1,12\n[    9.839754] serio: i8042 KBD port at 0x60,0x64 irq 1\n[    9.840199] serio: i8042 AUX port at 0x60,0x64 irq 12\n[    9.844174] mousedev: PS/2 mouse device common for all mice\n[    9.848457] rtc_cmos 00:03: RTC can wake from S4\n[    9.865441] input: AT Translated Set 2 keyboard as /devices/platform/i8042/serio0/input/input0\n[    9.867181] rtc_cmos 00:03: registered as rtc0\n[    9.868059] rtc_cmos 00:03: setting system clock to 2026-11-09T17:48:07 UTC (1794246487)\n[    9.875228] rtc_cmos 00:03: alarms up to one day, y3k, 242 bytes nvram, hpet irqs\n[    9.877282] amd_pstate: the _CPC object is not present in SBIOS or ACPI disabled\n[    9.885759] NET: Registered PF_INET6 protocol family\n[    9.943108] Segment Routing with IPv6\n[    9.944782] In-situ OAM (IOAM) with IPv6\n[    9.945424] mip6: Mobile IPv6\n[    9.945809] NET: Registered PF_PACKET protocol family\n[    9.950153] mpls_gso: MPLS GSO support\n[    9.961325] IPI shorthand broadcast: enabled\n[   10.032996] sched_clock: Marking stable (10088219725, -57235005)->(10101654353, -70669633)\n[   10.041657] registered taskstats version 1\n[   10.048025] Loading compiled-in X.509 certificates\n[   10.215272] Loaded X.509 cert 'Build time autogenerated kernel key: 0a04fbb1322a405cf04cc828049b2bf54895c9d9'\n[   10.252241] Demotion targets for Node 0: null\n[   10.256023] Key type .fscrypt registered\n[   10.256141] Key type fscrypt-provisioning registered\n[   10.336533] Key type encrypted registered\n[   10.336935] AppArmor: AppArmor sha256 policy hashing enabled\n[   10.337922] ima: No TPM chip found, activating TPM-bypass!\n[   10.338090] ima: Allocated hash algorithm: sha256\n[   10.342426] ima: No architecture policies found\n[   10.344159] evm: Initialising EVM extended attributes:\n[   10.344279] evm: security.selinux\n[   10.344353] evm: security.SMACK64 (disabled)\n[   10.344400] evm: security.SMACK64EXEC (disabled)\n[   10.344447] evm: security.SMACK64TRANSMUTE (disabled)\n[   10.344498] evm: security.SMACK64MMAP (disabled)\n[   10.344546] evm: security.apparmor\n[   10.344583] evm: security.ima\n[   10.344616] evm: security.capability\n[   10.344664] evm: HMAC attrs: 0x1\n[   10.542410] RAS: Correctable Errors collector initialized.\n[   10.643517] clk: Disabling unused clocks\n[   10.644444] PM: genpd: Disabling unused power domains\n[   10.786556] Freeing unused decrypted memory: 2028K\n[   10.996668] Freeing unused kernel image (initmem) memory: 4176K\n[   10.997615] Write protecting the kernel read-only data: 28672k\n[   11.007567] Freeing unused kernel image (rodata/data gap) memory: 456K\n[   11.239882] x86/mm: Checked W+X mappings: passed, no W+X pages found.\n[   11.240731] Run /init as init process\nROKO_FOUNDATION_ENTERED ee737e6f0d7a1365f90e0fce20d31b6143ccd0201441ead103a56e96df9377f5\n[   11.410393] virtio_blk virtio0: 4/0/0 default/read/poll queues\n[   11.460781] virtio_blk virtio0: [vda] 16777216 512-byte logical blocks (8.59 GB/8.00 GiB)\n[   11.496947] virtio_blk virtio1: 4/0/0 default/read/poll queues\n[   11.511459] virtio_blk virtio1: [vdb] 10485760 512-byte logical blocks (5.37 GB/5.00 GiB)\n[   13.014084] EXT4-fs (vda): mounted filesystem 726f6b6f-776f-426b-8000-000000000001 ro with ordered data mode. Quota mode: none.\n[   13.156535] EXT4-fs (vdb): mounted filesystem 726f6b6f-6d6f-4465-8000-000000000001 ro with ordered data mode. Quota mode: none.\nROKO_FOUNDATION_NONROOT uid=1000 gid=1000 groups=0 no_new_privs=1 regain_root=denied\nROKO_NATIVE_STARTED {\"supervisor_pid\": 165}\nGuest conversation deadline\nROKO_FOUNDATION_FAILED child\n[  501.122230] ACPI: PM: Preparing to enter system sleep state S5\n[  501.181930] reboot: Power down\n"
+    }
+  ],
+  "qualified": false,
+  "cosmic_tested": false,
+  "physical_hardware_tested": false,
+  "kvm_available": false,
+  "limits_changed": false,
+  "iso_access_retried": false,
+  "evidence": {
+    "guest-001/manifest.json": {
+      "bytes": 881,
+      "sha256": "08dcf05d59a9666f398b874d30922265434c3d8714bfc65da3bf7e1d853021dd"
+    },
+    "guest-002/manifest.json": {
+      "bytes": 923,
+      "sha256": "409019f36ad80ccf02d8e410d985c26e82ed3c8bace7c75decbc5b641ce6d32a"
+    },
+    "boot-001/admission.json": {
+      "bytes": 2410,
+      "sha256": "49878a56aa7fa05b772d4ee22dd096ab1a7e1642b27b270c488a29e790e063bb"
+    },
+    "boot-001/result.json": {
+      "bytes": 457,
+      "sha256": "18793d22bf42cbfb1173f3d004758ebb26603325f9328e3a3b0fe173bf8c3473"
+    },
+    "boot-001/serial.txt": {
+      "bytes": 26036,
+      "sha256": "ee3b6b624e006762cde6fa9fd60289ce4f7d4dd9251efaacb3b60e66081f2145"
+    },
+    "boot-002/admission.json": {
+      "bytes": 2454,
+      "sha256": "15279d0825adfad0204e952e8e32e5db4a27e11d9cedba3dc178f24b353fbfd6"
+    },
+    "boot-002/result.json": {
+      "bytes": 456,
+      "sha256": "314aa7413cbc132295e48e8f7704342216d632e71a332fe14ea23000a0bdb947"
+    },
+    "boot-002/serial.txt": {
+      "bytes": 26459,
+      "sha256": "72c62c42a7e9275bd3d109e6fd591694aca74165e7c19c3a217ca68ec82861a5"
+    }
+  }
+}
