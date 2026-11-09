@@ -56,3 +56,9 @@ The fresh `components/metamo_host/upstream/` snapshot also preserves the five
 MIT MetaMo modules at `bf97e50a68aa5059457092dfbe70699b7dd1dbe2` and their LICENSE.
 Its request/bridge/helper/worker source derives from `metamo-core-v4/source`;
 see `components/metamo_host/README.md` for exact lineage and bounded scope.
+
+`components/airis_host/upstream/` now includes the exact original `airis.py`,
+README, Apache-2.0 LICENSE and NOTICE from AIRIS-general at
+`db19ad4e2cea33e6129c8bf03e85797da8cf7625`. This new host experiment is separate
+from `components/airis`, whose original source remains external. The wrapper's
+contract, experiment and worker derive byte-for-byte from that earlier component.

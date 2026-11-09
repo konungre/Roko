@@ -10,7 +10,7 @@ The native test checks two real turns and exact prompt/history binding. See
 | MeTTa-NARS | Six fresh Hyperon NAL-1 cases, then actual two-turn Omega conversation with derived observations retained in session context. |
 | NACE | Twelve actual native seven-function-slice cases on synthetic 3x3 states. Not conversation integration or full NACE. |
 | MetaMo | Eight freshly executed MAGUS scoring/selection cases through rebuilt PeTTa/SWI, with independent score oracle and 16 helper probes each. Standalone; not wired into the combined turn. |
-| AIRIS | Prior scalar transition experiment restored. Cleanup successor source-tested; no new combined conversation result. |
+| AIRIS | Four freshly executed original AIRIS scalar-learning cases, with held-out prediction, empty-knowledge ablation and snapshot restoration. Standalone; no conversation integration. |
 | ECAN | Historical sources/adapters preserved; fresh profile rejects nonempty external context because its native ECAN closure is absent. |
 | MeTTa-Motto | No new implementation or qualification in this work. |
 | MOSES | Pending. |

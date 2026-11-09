@@ -1,0 +1,355 @@
+{
+  "cases": [
+    {
+      "error": null,
+      "executed_external_actions": 0,
+      "finalization_errors": [],
+      "logs": {
+        "airis logs/airis init 2026-11-09 17-48-46.log": {
+          "bytes": 9942,
+          "sha256": "05d1e8041f20e418868364a71c333b6b8946cae966829b0e61f8eb339777572e"
+        },
+        "training logs/training log 2026-11-09 17-48-46.log": {
+          "bytes": 22931,
+          "sha256": "4253cf5b1d23dff3a25c5d1fec0ad513aecf5b43bb87a639ce1f34f5dff667a9"
+        }
+      },
+      "response": {
+        "authorizes_actions": false,
+        "evidence_ids": [
+          "evidence_0",
+          "evidence_1",
+          "evidence_2",
+          "evidence_3"
+        ],
+        "executed_external_actions": 0,
+        "full_airis": false,
+        "general_causal_learning_established": false,
+        "operation": "learn-scalar-transition",
+        "persistent_state_changed": false,
+        "predictions": {
+          "empty": {
+            "hold": 7,
+            "step": 7
+          },
+          "learned": {
+            "hold": 7,
+            "step": 8
+          },
+          "restored": {
+            "hold": 7,
+            "step": 8
+          }
+        },
+        "query": 7,
+        "request_sha256": "8db4f1d5d1a78b9d7281b3dbce3dc824e9b99b63633de72a9f63462d5e729344",
+        "revision": 1,
+        "status": "synthetic-transition-fixture",
+        "task_id": "increment",
+        "training": [
+          {
+            "action": "step",
+            "after": 3,
+            "before": 2,
+            "id": "evidence_0",
+            "sha256": "5a49050565aef66d5a8c5add53a553a9e4b61523d936d8b94e42cabff91767d0",
+            "source": "synthetic:recorded inert transition"
+          },
+          {
+            "action": "step",
+            "after": 5,
+            "before": 4,
+            "id": "evidence_1",
+            "sha256": "e557f164ecc111fad5aa3513144c213220b14d2848bbcfe61ac5c0246de40ad3",
+            "source": "synthetic:recorded inert transition"
+          },
+          {
+            "action": "hold",
+            "after": 2,
+            "before": 2,
+            "id": "evidence_2",
+            "sha256": "baa8a89daaf6824df42509398da2d1000bf079831cd69ca20627a2ac30f71486",
+            "source": "synthetic:recorded inert transition"
+          },
+          {
+            "action": "hold",
+            "after": 4,
+            "before": 4,
+            "id": "evidence_3",
+            "sha256": "1da5f15f64dcf3a5deec55c3eece528361d357cd9fef3bd25ab37575bdb9103f",
+            "source": "synthetic:recorded inert transition"
+          }
+        ],
+        "version": 1
+      },
+      "returncode": 0,
+      "seconds": 0.2333914430000732,
+      "status": "passed"
+    },
+    {
+      "error": null,
+      "executed_external_actions": 0,
+      "finalization_errors": [],
+      "logs": {
+        "airis logs/airis init 2026-11-09 17-48-46.log": {
+          "bytes": 9942,
+          "sha256": "b2bdaa0012d1ce21a0a08d407e95e203f84d515dd680b8de9238a6fa92afb897"
+        },
+        "training logs/training log 2026-11-09 17-48-46.log": {
+          "bytes": 22964,
+          "sha256": "aa1b462ba7f1abde3d232e44a07e72b97aaf2e8f0a4a0eaafc6699c6a236dbcb"
+        }
+      },
+      "response": {
+        "authorizes_actions": false,
+        "evidence_ids": [
+          "evidence_0",
+          "evidence_1",
+          "evidence_2",
+          "evidence_3"
+        ],
+        "executed_external_actions": 0,
+        "full_airis": false,
+        "general_causal_learning_established": false,
+        "operation": "learn-scalar-transition",
+        "persistent_state_changed": false,
+        "predictions": {
+          "empty": {
+            "hold": 7,
+            "step": 7
+          },
+          "learned": {
+            "hold": 7,
+            "step": 6
+          },
+          "restored": {
+            "hold": 7,
+            "step": 6
+          }
+        },
+        "query": 7,
+        "request_sha256": "700b98a75bf0f5bf91a6486a5344f7c16d678a09082911e956e8de443cdad7ae",
+        "revision": 1,
+        "status": "synthetic-transition-fixture",
+        "task_id": "decrement",
+        "training": [
+          {
+            "action": "step",
+            "after": 1,
+            "before": 2,
+            "id": "evidence_0",
+            "sha256": "59d3773814de9cd3a29303126f8053c809734508e1469aa254afe91ed49647e2",
+            "source": "synthetic:recorded inert transition"
+          },
+          {
+            "action": "step",
+            "after": 3,
+            "before": 4,
+            "id": "evidence_1",
+            "sha256": "53f265a591ff3365d2832778b3d4ff2b0630ad7658f4730b0b1c061430cd6b06",
+            "source": "synthetic:recorded inert transition"
+          },
+          {
+            "action": "hold",
+            "after": 2,
+            "before": 2,
+            "id": "evidence_2",
+            "sha256": "baa8a89daaf6824df42509398da2d1000bf079831cd69ca20627a2ac30f71486",
+            "source": "synthetic:recorded inert transition"
+          },
+          {
+            "action": "hold",
+            "after": 4,
+            "before": 4,
+            "id": "evidence_3",
+            "sha256": "1da5f15f64dcf3a5deec55c3eece528361d357cd9fef3bd25ab37575bdb9103f",
+            "source": "synthetic:recorded inert transition"
+          }
+        ],
+        "version": 1
+      },
+      "returncode": 0,
+      "seconds": 0.2296975859999293,
+      "status": "passed"
+    },
+    {
+      "error": null,
+      "executed_external_actions": 0,
+      "finalization_errors": [],
+      "logs": {
+        "airis logs/airis init 2026-11-09 17-48-46.log": {
+          "bytes": 9811,
+          "sha256": "4d7f9dc1379c12b3b24ffec33f32cb46cf357f0e5b473e0d0ae9f26743e875a7"
+        },
+        "training logs/training log 2026-11-09 17-48-46.log": {
+          "bytes": 22821,
+          "sha256": "c3456754cb05dc2fadaacb0f32e0f658b3b8b2d730bb4de02e8ab3ccc8e38cba"
+        }
+      },
+      "response": {
+        "authorizes_actions": false,
+        "evidence_ids": [
+          "evidence_0",
+          "evidence_1",
+          "evidence_2",
+          "evidence_3"
+        ],
+        "executed_external_actions": 0,
+        "full_airis": false,
+        "general_causal_learning_established": false,
+        "operation": "learn-scalar-transition",
+        "persistent_state_changed": false,
+        "predictions": {
+          "empty": {
+            "hold": 11,
+            "step": 11
+          },
+          "learned": {
+            "hold": 11,
+            "step": 13
+          },
+          "restored": {
+            "hold": 11,
+            "step": 13
+          }
+        },
+        "query": 11,
+        "request_sha256": "d37c8a48cd4767cc82da9ceb714a8ee1fe1c0df36816c379de6d43c37b11948e",
+        "revision": 1,
+        "status": "synthetic-transition-fixture",
+        "task_id": "double_step",
+        "training": [
+          {
+            "action": "step",
+            "after": 4,
+            "before": 2,
+            "id": "evidence_0",
+            "sha256": "f69599831224f5647041752fe3309fe63af77f467be9b13d0f319168cdeb9f0c",
+            "source": "synthetic:recorded inert transition"
+          },
+          {
+            "action": "step",
+            "after": 6,
+            "before": 4,
+            "id": "evidence_1",
+            "sha256": "b19d2d8773225323ef90ee29517ec9fc802d54fb29de4d4bdde832ae0c11e345",
+            "source": "synthetic:recorded inert transition"
+          },
+          {
+            "action": "hold",
+            "after": 2,
+            "before": 2,
+            "id": "evidence_2",
+            "sha256": "baa8a89daaf6824df42509398da2d1000bf079831cd69ca20627a2ac30f71486",
+            "source": "synthetic:recorded inert transition"
+          },
+          {
+            "action": "hold",
+            "after": 4,
+            "before": 4,
+            "id": "evidence_3",
+            "sha256": "1da5f15f64dcf3a5deec55c3eece528361d357cd9fef3bd25ab37575bdb9103f",
+            "source": "synthetic:recorded inert transition"
+          }
+        ],
+        "version": 1
+      },
+      "returncode": 0,
+      "seconds": 0.23163193499976842,
+      "status": "passed"
+    },
+    {
+      "error": null,
+      "executed_external_actions": 0,
+      "finalization_errors": [],
+      "logs": {
+        "airis logs/airis init 2026-11-09 17-48-47.log": {
+          "bytes": 9942,
+          "sha256": "08a889c6b8b2c1fbd309031d3d4cc666aa962d1727377d803cae8ae14bf05fde"
+        },
+        "training logs/training log 2026-11-09 17-48-47.log": {
+          "bytes": 22931,
+          "sha256": "a9753683558558a84753e675884725aedf85441ce80942538c269a3c16230e11"
+        }
+      },
+      "response": {
+        "authorizes_actions": false,
+        "evidence_ids": [
+          "evidence_0",
+          "evidence_1",
+          "evidence_2",
+          "evidence_3"
+        ],
+        "executed_external_actions": 0,
+        "full_airis": false,
+        "general_causal_learning_established": false,
+        "operation": "learn-scalar-transition",
+        "persistent_state_changed": false,
+        "predictions": {
+          "empty": {
+            "hold": 7,
+            "step": 7
+          },
+          "learned": {
+            "hold": 7,
+            "step": 8
+          },
+          "restored": {
+            "hold": 7,
+            "step": 8
+          }
+        },
+        "query": 7,
+        "request_sha256": "dd3cdee71579cae61eb857dcc4436941226e88ec863074cc11e706f8dfb5bb2c",
+        "revision": 1,
+        "status": "synthetic-transition-fixture",
+        "task_id": "reset_repeat",
+        "training": [
+          {
+            "action": "step",
+            "after": 3,
+            "before": 2,
+            "id": "evidence_0",
+            "sha256": "5a49050565aef66d5a8c5add53a553a9e4b61523d936d8b94e42cabff91767d0",
+            "source": "synthetic:recorded inert transition"
+          },
+          {
+            "action": "step",
+            "after": 5,
+            "before": 4,
+            "id": "evidence_1",
+            "sha256": "e557f164ecc111fad5aa3513144c213220b14d2848bbcfe61ac5c0246de40ad3",
+            "source": "synthetic:recorded inert transition"
+          },
+          {
+            "action": "hold",
+            "after": 2,
+            "before": 2,
+            "id": "evidence_2",
+            "sha256": "baa8a89daaf6824df42509398da2d1000bf079831cd69ca20627a2ac30f71486",
+            "source": "synthetic:recorded inert transition"
+          },
+          {
+            "action": "hold",
+            "after": 4,
+            "before": 4,
+            "id": "evidence_3",
+            "sha256": "1da5f15f64dcf3a5deec55c3eece528361d357cd9fef3bd25ab37575bdb9103f",
+            "source": "synthetic:recorded inert transition"
+          }
+        ],
+        "version": 1
+      },
+      "returncode": 0,
+      "seconds": 0.28337699900021107,
+      "status": "passed"
+    }
+  ],
+  "conversation_integrated": false,
+  "error": null,
+  "executed_external_actions": 0,
+  "full_airis": false,
+  "manifest_sha256": "1217cebbc0b31c09ef949917adc147e0ca04abda8698d7e74de81f77f7895529",
+  "seconds": 1.4466790129999936,
+  "status": "passed"
+}
