@@ -108,3 +108,16 @@ replayed the identical saved response without inference. Raw bytes remain in
 the private receipt. Both expanded-language turns completed: “A red fox is an
 animal” and “Robins are animals.” Their premise labels/modes remain provenance,
 not a general factual-verification claim.
+
+## Third-turn restart qualification
+
+A separate probe copied the verified synthetic database, restarted the worker,
+and continued the two-observation `language` session at revision 2. Native MORK
+retrieved all four prior messages, both NARS observations matched the actual
+Granite prompt hash, and the completed third turn answered “We discussed red
+foxes and robins.” It used 385 input tokens and nine output tokens. A further
+restart replayed the exact response with no native work. All ten checks passed;
+no new NARS inference or actions were performed. The original database remains
+unchanged. See `THIRD_TURN_NATIVE_SUMMARY.json` and
+`tests/probe_third_turn.py --profile PROFILE --source-db VERIFIED_SYNTHETIC_DB
+--output NEW_DIRECTORY`. This is local native evidence, not a graphical UI test.
