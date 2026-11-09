@@ -161,3 +161,35 @@ fault fixture, not a claim that a real installed package was removed. The prior
 native-profile parity gate separately covers nonempty workspace observations and
 their required canonical-path rejection. No host activation, package operation or
 license clearance follows from these read-only migration checks. Keep PR22 draft.
+
+## Remaining-caller acceptance and deletion gate
+
+The tracked static inventory is reproducible with audit_planner_consumers.py;
+its AST import edges and text-reference locations carry file hashes. Conditional
+and test imports are labelled, not treated as proof of runtime calls. Dynamic
+imports, user-installed entry points and external callers remain incomplete.
+A dirty worktree is recorded, so the baseline commit is not misrepresented as an
+exact snapshot of unstaged/staged source. No inventory result authorizes deletion.
+
+provenance/remaining-caller-migration.json records four separately reviewed gates:
+- Scalar bridge: explicit schema2 acceptance and helper/inner-plan/startup parity;
+  opt-in remains reversible by process restart with legacy/unset.
+- Direct parser/SnapshotOnly API: not supplied by v2. Inventory external calls and
+  migrate to explicit structured input with error-boundary tests before removal.
+- Console entry point: no drop-in replacement. Preserve the old state directories,
+  prepare read-only exports, build/test a new private-root CLI and explicit state
+  import, and never share mutable profiles between old/new controllers. Existing
+  legacy Nix mutation incompatibility is not a safe rollback fallback. Preserve
+  source/state without silently invoking old apply or deleting data.
+- Hyperon awareness: projection.py is not a drop-in. Agree with the cognitive owner
+  on stage/revision/provenance and live snapshot/CAS/restart behavior. An observed
+  operation receipt cannot become installed/running/health by renaming predicates.
+
+No default was switched and no baseline source deleted. Keep the current scalar
+opt-in for experiments; require separate review for each remaining consumer.
+Archive/Git identities and source-context investigation are provenance evidence,
+not a license determination or proof of third-party ownership. The parent reviews
+original context separately; private room transcripts are not republished here.
+Rights/project-license and historic-import decisions remain explicit release gates.
+Sixteen state/inventory tests pass, including static/dynamic scope, syntax failures
+and unchanged input hashes. No PR description retry or host activation is involved.
