@@ -1,0 +1,8 @@
+this derivation will be built:
+  /nix/store/c9nms02jxqbjdqgr1zl0i32jsb5y5mwl-roko-offline-generation.drv
+building '/nix/store/c9nms02jxqbjdqgr1zl0i32jsb5y5mwl-roko-offline-generation.drv'...
+error: builder for '/nix/store/c9nms02jxqbjdqgr1zl0i32jsb5y5mwl-roko-offline-generation.drv' failed with exit code 1;
+       last 1 log lines:
+       > error: opening file '/nix/store/jqfmh3pcvbgsp1kp33kddfwkk57758m1-roko-offline-generation': No such file or directory
+       For full logs, run:
+         nix log /nix/store/c9nms02jxqbjdqgr1zl0i32jsb5y5mwl-roko-offline-generation.drv

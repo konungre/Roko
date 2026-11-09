@@ -1,0 +1,10 @@
+{
+  "machine": "executor",
+  "backend": "nix",
+  "revision": 1,
+  "stage": "built",
+  "generation": "m2jycqzjaj6i9vi7bapz6csi4da1r50k-roko-offline-generation",
+  "evidence_sha256": "1d160f61fdd3bf2398a386a7b9fda0ec5d2879bdb1f17b4686b67343d288e511",
+  "predecessor": "0000000000000000000000000000000000000000000000000000000000000000",
+  "schema": "roko-os-fact-v1"
+}

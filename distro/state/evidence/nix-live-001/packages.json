@@ -1,0 +1,26 @@
+[
+  {
+    "file": "libwww-curl-perl_4.17-12_amd64.deb",
+    "sha256": "4c65b91a3de837e20026e343ae13f1c576240def35ac63f0cc79fa244da82660"
+  },
+  {
+    "file": "libboost-context1.83.0_1.83.0-4.2_amd64.deb",
+    "sha256": "95951c6f8509608a53f26d4ac3015c326867a43b22b1004c387ff0dad6558510"
+  },
+  {
+    "file": "libdbd-sqlite3-perl_1.76-1_amd64.deb",
+    "sha256": "344caa03a2ffa0328e1cd8c2ccf0e2e611d106e6c75b1a44c524a60a89fe89fb"
+  },
+  {
+    "file": "liblowdown2_2.0.2-2_amd64.deb",
+    "sha256": "8bba5d59c957be0487a8597c8f537b0bdab8036f872d7f9f19d12a501d1d67b3"
+  },
+  {
+    "file": "libcpuid17_0.7.1+repack1-0.2_amd64.deb",
+    "sha256": "6b22af1f39da6947e8abded41617a5a59dd2aacb46328a194b985eee6757a470"
+  },
+  {
+    "file": "nix-bin_2.26.3+dfsg-1_amd64.deb",
+    "sha256": "06e8338eb0ca303802fcfe4579e184dd308d9fa89f7f0aae5974e21fac8178fb"
+  }
+]

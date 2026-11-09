@@ -28,3 +28,28 @@ compatibility and AtomSpace ingestion remain unqualified. Next work requires
 pinned official unprivileged Nix tooling, disposable offline build/generation
 tests, cognitive-owner agreement on versioned facts, and a real declarative
 COSMIC image. Existing boot/state fixtures remain acceptance tests.
+
+## First live backend and AtomSpace check
+
+Nix 2.26.3 from authenticated Debian download-only packages ran as UID1000 from
+an extracted workspace runtime. A real fixed-output `builtin:fetchurl` derivation
+read a local file offline into a direct workspace store. Output bytes matched
+its declared SHA256. The first relocated-root attempt failed and is retained.
+This is a tiny fixed-output build, not a NixOS build, system generation, profile
+activation, sandbox/isolation qualification or boot test. Sandbox was disabled for
+this disposable development store; no host installation or activation occurred.
+
+`facts.py` defines v1 desired/resolved/built/activated/running/observed/health
+facts with explicit generation and evidence/predecessor hashes. Its typed executor
+requires a matching current revision and an external trusted review callback;
+serialized facts supply no authority. Real handlers for system activation are
+not installed. Three boundary tests pass.
+
+The actual PeTTa runtime accepted a built fact derived from the Nix build receipt
+and matched generation and provenance. Numeric-only hex digests required an `h`
+symbol prefix to prevent parser coercion. Evidence under `evidence/nix-live-001`
+contains exact local recipes/paths and diagnostics; it is a measured local test,
+not a portable reproduction recipe. This is PeTTa's in-memory AtomSpace only:
+no cognitive-owner durable ledger or host-state reconciliation is connected yet.
+Next gates are complete source/closure provenance, live user-profile generations,
+durable snapshot replacement/CAS, and a real NixOS COSMIC image with health trials.

@@ -1,0 +1,1 @@
+builtins.derivation { name="roko-offline-generation"; system=builtins.currentSystem; builder="builtin:fetchurl"; url="file:///workspace/scratch/nix-live-001/payload.txt"; outputHashAlgo="sha256"; outputHashMode="flat"; outputHash="21f77f84fcd6a014e2821cd7ef300c3a08dd062598faee722b0af9219895780b"; }
