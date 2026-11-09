@@ -52,6 +52,17 @@ commit `db19ad4e2cea33e6129c8bf03e85797da8cf7625`, Apache-2.0. Original
 LICENSE and NOTICE are retained under `components/airis/upstream/`. Original
 `airis.py` and runtime binaries are not included.
 
+The fresh `components/metamo_host/upstream/` snapshot also preserves the five
+MIT MetaMo modules at `bf97e50a68aa5059457092dfbe70699b7dd1dbe2` and their LICENSE.
+Its request/bridge/helper/worker source derives from `metamo-core-v4/source`;
+see `components/metamo_host/README.md` for exact lineage and bounded scope.
+
+`components/airis_host/upstream/` now includes the exact original `airis.py`,
+README, Apache-2.0 LICENSE and NOTICE from AIRIS-general at
+`db19ad4e2cea33e6129c8bf03e85797da8cf7625`. This new host experiment is separate
+from `components/airis`, whose original source remains external. The wrapper's
+contract, experiment and worker derive byte-for-byte from that earlier component.
+
 ## Conversation Hyperon release audit
 
 Hyperon v0.2.10 resolves to `3f76dc460da6961f57f69f6c3e550c59c74ada83`.

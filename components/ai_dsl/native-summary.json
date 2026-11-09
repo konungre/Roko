@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "native_cases": 6,
+  "seconds": 10.410232440999607,
+  "executed_services": 0,
+  "executed_actions": 0,
+  "result_sha256": "af798494b9f64aba8a17a3887e8a03285f53e2605dd5661199b16bc6ed948361",
+  "scope": "Actual upstream AI-DSL type-composition search; no ASR or emotion recognition executed",
+  "source_commit": "1f7b1cacd4daa5915b79061075a10d150fe40a44",
+  "checks": [
+    "direct service declaration",
+    "insufficient depth",
+    "native composition",
+    "reject type-correct shortcut missing emotion recognition",
+    "admit capability-complete composition",
+    "fresh process repeat"
+  ],
+  "unit_tests": 7
+}

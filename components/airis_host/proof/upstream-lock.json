@@ -1,0 +1,35 @@
+{
+  "repo": "singnet/AIRIS-general",
+  "commit": "db19ad4e2cea33e6129c8bf03e85797da8cf7625",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 5179,
+      "sha256": "0d1cc9d209b4ae09ddb1a70f434021613eb63abbb4f276e53b433b4e1b987dd1",
+      "git_blob_sha": "23ab426f809d19039a552faeabab6d24f9993bef",
+      "url": "https://github.com/singnet/AIRIS-general/blob/db19ad4e2cea33e6129c8bf03e85797da8cf7625/README.md"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 11373,
+      "sha256": "66c21d9bc47c8f2615f6cb73a51070f32818f8e34404215bdb544d92b8ba8c5b",
+      "git_blob_sha": "b082854d570eb675436bf1e09c2400f6f86fc9f9",
+      "url": "https://github.com/singnet/AIRIS-general/blob/db19ad4e2cea33e6129c8bf03e85797da8cf7625/LICENSE"
+    },
+    {
+      "path": "NOTICE",
+      "bytes": 314,
+      "sha256": "5ecf6af63c019d8d3da051f9b73f125590a1662a9dbb2c6d11d5d936a4705b74",
+      "git_blob_sha": "5d625cd77a84d8e61005ac5325a4d7f3b93afed2",
+      "url": "https://github.com/singnet/AIRIS-general/blob/db19ad4e2cea33e6129c8bf03e85797da8cf7625/NOTICE"
+    },
+    {
+      "path": "airis.py",
+      "bytes": 81660,
+      "sha256": "7245e21eafb40b23fb834ad319dbafa0875ea62e3404622a0f7b438965599f0b",
+      "git_blob_sha": "7ea338b80275e62f1f42ea073bdad452df3474f7",
+      "url": "https://github.com/singnet/AIRIS-general/blob/db19ad4e2cea33e6129c8bf03e85797da8cf7625/airis.py"
+    }
+  ]
+}

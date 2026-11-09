@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "checks": {
+    "atomic_three_observation_commit": true,
+    "completed": true,
+    "exact_replay": true,
+    "structured_results": true,
+    "three_components_one_model": true,
+    "one_motto_transport": true
+  },
+  "seconds": 65.54686413499985,
+  "result_sha256": "6efff5279a544431dd02542c4169cce0856361ecea9922297a94a1cd07b570a3",
+  "executed_actions": 0,
+  "scope": "Actual MetaMo/AIRIS/NACE -> Omega -> MeTTa-Motto -> Granite in one durable v2 turn; same-process exact replay"
+}

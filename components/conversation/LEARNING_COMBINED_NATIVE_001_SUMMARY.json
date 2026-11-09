@@ -1,0 +1,23 @@
+{
+  "checks": {
+    "atomic_three_observation_commit": true,
+    "completed": true,
+    "exact_replay": true,
+    "structured_results": true,
+    "three_components_one_model": true
+  },
+  "error": null,
+  "executed_actions": 0,
+  "seconds": 65.59540211300009,
+  "status": "passed",
+  "reply": "METAMO suggests focusing on act2 with a score of 0.6125. AIRIS indicates step=8, hold=7 at meter=7. NACE predicts a certain reward match score with board configuration [. . .; . f .; . . .] and focus age 0.\n",
+  "generation": {
+    "finish_reason": "eos",
+    "input_tokens": 456,
+    "output_tokens": 62
+  },
+  "post_audit": {
+    "all_three_in_native_prompt": true,
+    "all_component_snapshots_bound": true
+  }
+}

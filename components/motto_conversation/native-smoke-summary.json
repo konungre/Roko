@@ -1,0 +1,35 @@
+{
+  "scope": "native-motto-granite-transport-smoke",
+  "status": "passed",
+  "omega_integration": false,
+  "durable_v2_integration": false,
+  "executed_actions": 0,
+  "messages": [
+    {
+      "role": "system",
+      "content": "Answer in one short sentence."
+    },
+    {
+      "role": "user",
+      "content": "What is two plus three?"
+    }
+  ],
+  "text": "Five.\n",
+  "generation": {
+    "input_tokens": 25,
+    "output_tokens": 2,
+    "finish_reason": "eos"
+  },
+  "seconds": 9.539299194000705,
+  "evidence_sha256": "c9ea68379b267c98350f716e2f67bb6e05e55b55cdda9d4e8034abaf35288580",
+  "prompt_sha256": "5c16eaa4347f386b08d9ee04bcc52fdaedf5af8aec3e6cf96f3902bd0b36d648",
+  "source_commit": "8a9225dee23780ad0be836161e1afcfadc75980a",
+  "tests": {
+    "native_transport_with_synthetic_callback": 6,
+    "passed": 6
+  },
+  "limitations": [
+    "Native transport smoke only; no Omega or durable-v2 wiring",
+    "Consumer runtime closure and worker supervision pending"
+  ]
+}
