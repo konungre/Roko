@@ -84,6 +84,8 @@ def derive(source, output):
         "        if point in SIZES or point in ('/','/run/roko-guest-cognition','/sys/fs/cgroup'):",
         "        if point in ('/run/roko-foundation-state','/home/roko/.local/state') and item[2:5]!=[1,1,1]:raise ValueError('Unsafe persistent state mount')\n        if point in SIZES or point in ('/','/run/roko-guest-cognition','/sys/fs/cgroup'):"))
     def supervisor(raw):
+        raw = replace_once(raw, "            self.start('pipewire');self.start('wireplumber');self.start('session')",
+            "            self.start('pipewire')\n            import foundation_state\n            if not foundation_state.wait_pipewire(self):return\n            for role in ('wireplumber','session'):self.start(role)")
         raw = replace_once(raw, "            self.verify_evidence()\n",
             "            self.verify_evidence()\n            import foundation_state\n            foundation_state.root_receipt()\n")
         return replace_once(raw, "        except Exception as error:\n            failure_metadata.report_startup(error, self.evidence)",

@@ -19,7 +19,7 @@ def validate(log, phase):
                 "ROKO_DESKTOP_READY uid=1000 inference=not-started"]
     positions = [lines.index(line) if lines.count(line) == 1 else -1 for line in required]
     if -1 in positions or positions != sorted(positions): raise ValueError("Missing/duplicate/reordered session markers")
-    if any(marker in log for marker in ("ROKO_START_FAILED", "ROKO_UNPRIVILEGED_PREPARE_FAILED", "ROKO_LIVE_BOOT_FAILED", "Kernel panic")):
+    if any(marker in log for marker in ("ROKO_START_FAILED", "ROKO_UNPRIVILEGED_PREPARE_FAILED", "ROKO_LIVE_BOOT_FAILED", "ROKO_RECOVERY", "ROKO_INERT_RECOVERY", "ROKO_ROLE_EXIT_META_V1", "Kernel panic")):
         raise ValueError("Guest reported failure")
     raw = [line.removeprefix("ROKO_EVIDENCE_V1 ") for line in lines if line.startswith("ROKO_EVIDENCE_V1 ")]
     if len(raw) != 1 or len(raw[0]) > 65536: raise ValueError("Expected one bounded identity record")

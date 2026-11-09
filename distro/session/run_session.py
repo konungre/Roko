@@ -126,6 +126,7 @@ def run(capsule, runtime, runtime_lock, iso, image_dir, output, phase):
             qmp = QMP(proc)
             reason = "timeout"
             ready_at = None
+            captures = []
             while time.monotonic() - started < 390:
                 if proc.poll() is not None: reason = "unexpected_exit"; break
                 if (output / "serial.txt").stat().st_size > 2 * 1024**2:
@@ -134,16 +135,19 @@ def run(capsule, runtime, runtime_lock, iso, image_dir, output, phase):
                 rss = next((int(line.split()[1])*1024 for line in Path(f"/proc/{proc.pid}/status").read_text().splitlines() if line.startswith("VmRSS:")), 0)
                 if rss > 4 * 1024**3: reason = "qemu_memory_limit"; break
                 log = (output / "serial.txt").read_text(errors="replace")
-                if any(marker in log for marker in ("ROKO_UNPRIVILEGED_PREPARE_FAILED", "ROKO_START_FAILED", "ROKO_LIVE_BOOT_FAILED", "Kernel panic")):
+                if any(marker in log for marker in ("ROKO_UNPRIVILEGED_PREPARE_FAILED", "ROKO_START_FAILED", "ROKO_LIVE_BOOT_FAILED", "ROKO_RECOVERY", "ROKO_INERT_RECOVERY", "ROKO_ROLE_EXIT_META_V1", "Kernel panic")):
                     reason = "guest_failure"; break
                 if "ROKO_DESKTOP_READY uid=1000 inference=not-started" in log and "ROKO_FOUNDATION_STATE_VERIFIED " + phase + " uid=1000 revision=1" in log:
                     report.update(validate(log, phase))
                     if ready_at is None: ready_at = time.monotonic()
-                    if time.monotonic() - ready_at < 30:
-                        time.sleep(.5)
-                        continue
-                    qmp.call("screendump", {"filename":str((output / "desktop.ppm").resolve())})
-                    reason = "desktop_and_state_ready"; break
+                    elapsed_ready = time.monotonic() - ready_at
+                    for moment in (30, 60, 90, 120):
+                        if elapsed_ready >= moment and moment not in captures:
+                            qmp.call("screendump", {"filename":str((output / f"desktop-{moment:03d}.ppm").resolve())})
+                            captures.append(moment)
+                    report["capture_seconds_after_ready"] = list(captures)
+                    if elapsed_ready >= 120:
+                        reason = "desktop_and_state_ready"; break
                 time.sleep(.5)
             report["stop_reason"] = reason
             qmp.call("quit")

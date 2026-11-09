@@ -50,8 +50,8 @@ only writable guest disk. The explicit desktop-only budget is 3 GiB/4 TCG CPUs,
 The earlier 4 GiB plan refused launch when its 7 GiB headroom was unavailable.
 This smaller gate is not a model-memory qualification or the 32 GiB hardware target.
 
-The runner checks startup/state evidence independently and allows 30 seconds of
-passive rendering time within the same outer deadline before a QMP screenshot.
+The runner checks startup/state evidence independently and captures at 30, 60, 90 and 120 seconds after readiness,
+within the same outer deadline.
 An image must be visually inspected separately. A ready marker is not a screenshot
 pass. QMP Quit then deliberately stops the VM: there is **no clean guest-unmount
 claim**. This tests cold restart after committed user writes and possible journal
@@ -89,3 +89,21 @@ See [CONVERSATION_INTERFACE.md](CONVERSATION_INTERFACE.md) for the parent handof
 The new host-qualified conversation endpoint requires a new matched guest closure;
 it is not silently copied into the Python3.13 guest. Durable conversation history
 and model activation remain separate integration work.
+
+## PipeWire ordering correction
+
+The diagnostic read005 boot reproduced WirePlumber exit69 and retained its actual
+`Failed to connect to PipeWire` diagnostic. The inherited supervisor launched
+PipeWire, WirePlumber and COSMIC back-to-back. The successor starts PipeWire first
+and waits at most30 seconds for its real Unix socket, requiring UID/GID1000 and
+SO_PEERCRED matching the owned PipeWire PID. It continues draining the original
+control/evidence loop, aborts on lifecycle transitions or child exit, and starts
+WirePlumber/COSMIC only after readiness. Wrong credentials fail immediately. No
+role is retried, realtime privilege granted, or host/service setting changed.
+Five pure tests cover transient absence, wrong peer, dead role, control transition
+and timeout. Actual successor results are separate in SESSION_VALIDATION.json.
+
+A successful serial startup/state result never certifies the complete visible
+desktop. The read004 capture showed only a dark compositor surface and cursor.
+The extended render attempt read005 failed before capturing. Both observations
+remain preserved. The final readiness-fix run must be evaluated on its own evidence.

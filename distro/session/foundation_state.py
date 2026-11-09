@@ -126,3 +126,41 @@ def startup_diagnostics():
             print("ROKO_FOUNDATION_ROLE_LOG " + json.dumps({"role":role,"tail":tail}, separators=(",", ":")), flush=True)
         except Exception:
             print("ROKO_FOUNDATION_ROLE_LOG_UNAVAILABLE " + role, flush=True)
+
+
+def pipewire_ready(pid):
+    import socket
+    import struct
+    path = Path("/run/user/1000/pipewire-0")
+    info = path.lstat()
+    if not stat.S_ISSOCK(info.st_mode) or (info.st_uid,info.st_gid)!=(1000,1000):
+        raise ValueError("Unexpected PipeWire socket identity")
+    with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as client:
+        client.settimeout(.1)
+        client.connect(str(path))
+        peer = struct.unpack("3i", client.getsockopt(socket.SOL_SOCKET,socket.SO_PEERCRED,12))
+        if peer != (pid,1000,1000):
+            raise ValueError("PipeWire socket is not owned by the launched role")
+    return True
+
+
+def wait_pipewire(supervisor, *, clock=None, probe=pipewire_ready):
+    import time
+    import socket
+    clock = clock or time.monotonic
+    deadline = clock() + 30
+    while clock() < deadline:
+        if supervisor.state.mode != "starting": return False
+        child = supervisor.children["pipewire"]
+        if child.poll() is not None:
+            raise RuntimeError("PipeWire exited before readiness")
+        try:
+            if probe(child.pid):
+                print("ROKO_FOUNDATION_PIPEWIRE_READY uid=1000 peer=owned-role", flush=True)
+                return True
+        except (FileNotFoundError, ConnectionRefusedError, socket.timeout):
+            pass
+        # Keep the original control/evidence/cleanup event loop responsive.
+        # This does not restart or resend any operation to a role.
+        supervisor.drain(.1)
+    raise TimeoutError("PipeWire readiness deadline")
