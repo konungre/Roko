@@ -3,9 +3,11 @@ import json
 if __package__:
     from .desktop_diagnostics import DesktopDiagnostics
     from .package_reply_view import render_reply
+    from .desktop_provenance import provenance_view
 else:
     from desktop_diagnostics import DesktopDiagnostics
     from package_reply_view import render_reply
+    from desktop_provenance import provenance_view
 
 
 class DesktopReplyPanel:
@@ -14,7 +16,7 @@ class DesktopReplyPanel:
         if type(original.get('text')) is not str or not 0<len(original['text'])<=4000:
             raise ValueError('Captured bounded turn text required')
         self._request=json.dumps(original,sort_keys=True,allow_nan=False)
-        self._reply=None
+        self._reply=None;self._provenance_expanded=False
 
     def receive(self,packet):
         original=json.loads(self._request)
@@ -36,6 +38,11 @@ class DesktopReplyPanel:
             raise ValueError('Saved reply changed for the captured request')
         self._reply=encoded
 
+    def set_provenance_details_visible(self,visible):
+        if type(visible) is not bool:raise ValueError('Local details visibility must be boolean')
+        if self._reply is None:raise ValueError('No captured reply to inspect')
+        self._provenance_expanded=visible
+
     def view(self,*,snapshot_revision=None,transcript=None):
         if self._reply is None:return None
         packet=json.loads(self._reply);original=json.loads(self._request)
@@ -50,5 +57,6 @@ class DesktopReplyPanel:
                 relation=('matching_snapshot_turn' if transcript[index:index+2]==expected else 'conflicting_snapshot_turn')
         return {'status':packet['status'],'session_id':packet['session_id'],'request_id':packet['request_id'],
             'reply_revision':packet['revision'],'display_text':render_reply(packet),'history_relation':relation,
+            'provenance':provenance_view(packet,expanded=self._provenance_expanded),
             'source_check_refreshed':False,'live_host_state_established':False,'mutation_authority':False,
             'render_as_plain_text':True,'automatic_requests':False}
