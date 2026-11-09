@@ -94,7 +94,7 @@ class ReceiptStatusAwareness(PackageAwareness):
             if admitted:
                 source=active['state']['source']
                 text=('Imported package receipt: machine='+source['machine']+', source revision='+str(source['source_revision'])+
-                    '. Source observation time is unknown. Local admission is valid; it does not prove source freshness. '
+                    '. Source observation time is unknown. Admission was valid at the evidence check; this does not prove source freshness. '
                     'No current-host, running-system or health state is established. No mutation authority.')
             else:
                 source=None
@@ -112,6 +112,7 @@ class ReceiptStatusAwareness(PackageAwareness):
             context=[{'id':identifier,'text':text}]
             state={**status,'observation_id':identifier,'binding':copy.deepcopy(binding),'data_admitted':admitted,
                 'source':copy.deepcopy(source),'last_known_source':None if admitted or self.cache is None else copy.deepcopy(self.cache['result']),
+                'last_known_query_receipt_sha256':None if admitted or self.cache is None else self.cache['receipt_sha256'],
                 'source_commit':self.manifest['source_commit'],'query_receipt_sha256':active['state']['query_receipt_sha256'] if admitted else None,
                 'query_reused':active['state']['query_reused'] if admitted else False,
                 'context_sha256':hashlib.sha256(canonical(context)).hexdigest(),'mutation_authority':False,'executed_actions':0}
