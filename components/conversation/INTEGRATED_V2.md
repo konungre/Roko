@@ -173,3 +173,54 @@ The sixth turn used 460 input tokens and retained twelve messages. Native MORK
 used two queries for its ten-message input; no new NARS inference was claimed.
 See `SIX_TURN_NATIVE_SUMMARY.json`, `tests/probe_six_turns.py` and
 `tests/audit_cognitive_prompts.py`. The PathMap pre-fix limitation is preserved.
+
+## Experimental exact-token context projection
+
+`context_summary.py` is an internal experiment, separate from public v2 turns.
+It preserves the full authoritative history, recent complete pairs and current
+request, while replacing older model-context messages with source-linked user
+prefix quotations. Older assistant text is excluded. Each excerpt records its
+original message index, SHA-256, exact character span and truncation. The plan
+explicitly reports `model_context_complete:false`; it is a lossy projection,
+not an information-preserving semantic summary or a new source of facts.
+
+The native inference executable's optional `--count-tokens` mode uses the same
+pinned tokenizer and flags as generation, loads vocabulary only, and returns
+`{"input_tokens":N}` before context allocation or generation. Its original
+16,384-byte prompt bound remains. Normal generation behavior is preserved.
+The planner tries deterministic excerpt bounds and requires exact counts; if
+no candidate fits, it raises `SummaryBudgetError` without generation or storage.
+
+All 142 source tests and nine supervised native tokenizer checks passed. The
+combined experimental probe used real native MORK and ECAN, retained two prior
+NARS observations, and opened the synthetic conversation database read-only.
+A full 531-token prompt was rejected; a 508-token projection generated “Red foxes
+and robins,” with the generation receipt matching that exact count. All ten
+native checks passed, including unchanged database contents. A previous trial
+refused a 514-token minimum candidate, preserving its failed evidence. See
+`SUMMARY_NATIVE_EXPERIMENT.json` and `tests/probe_summary_native.py`.
+
+Default public v2 remains complete-history conversation with explicit token admission.
+The subsequent explicit opt-in contract is documented in DURABLE_API.md;
+the default behavior does not silently change
+`history_policy:complete_no_omission`. No database turns or actions are committed.
+
+## Qualified explicit opt-in contract
+
+`context_policy:"extractive_v1"` is now an optional per-turn v2 request, gated
+by a separately qualified profile capability. It defaults to `complete` for
+every request. Successful opt-in responses expose `model_context`, including
+exact token count, full-history/prompt digests, completeness and any excerpt
+source spans/omissions. Durable history remains complete and atomic. Old
+canonical default request payloads and saved replay remain compatible; saved
+opt-in responses also replay when projection capability is later disabled.
+
+Reconciliation with main `721d402` preserves cognitive task/results, learning
+and Motto hooks. The reconciled suite ran 185 tests: 184 passed and one optional
+native fixture skipped. Eighteen real v2 checks passed through Omega/PeTTa with
+native MORK, ECAN, retained NARS observations and Granite. A default 531-token
+request failed without commit; explicit opt-in succeeded at 508 tokens and
+committed the full original message. Replay was identical; changed policy was
+a conflict, later default behavior remained complete, small opt-in prompts
+retained full context, and no extra NARS inference or actions were claimed.
+See `OPTIN_NATIVE_SUMMARY.json` and `tests/probe_optin_context.py`.

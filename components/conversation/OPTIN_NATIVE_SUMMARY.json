@@ -1,0 +1,124 @@
+{
+  "passed": true,
+  "checks": {
+    "protocol": true,
+    "default_refused_full": true,
+    "optin_committed": true,
+    "loss_explicit": true,
+    "source_history_bound": true,
+    "token_count_matches_native": true,
+    "recall": true,
+    "exact_replay": true,
+    "policy_conflict": true,
+    "default_not_sticky": true,
+    "full_authority_preserved": true,
+    "ledger_unchanged": true,
+    "small_optin_complete": true,
+    "default_schema_unchanged": true,
+    "native_calls": true,
+    "no_new_nars": true,
+    "mork_claims_only": true,
+    "real_ecan": true
+  },
+  "optin_response": {
+    "api_version": 2,
+    "session_id": "language",
+    "request_id": "optin",
+    "status": "completed",
+    "text": "Red foxes and robins.\n",
+    "context_ids": [
+      "brief"
+    ],
+    "executed_actions": 0,
+    "generation": {
+      "input_tokens": 508,
+      "output_tokens": 7,
+      "finish_reason": "eos"
+    },
+    "history_policy": "complete_no_omission",
+    "model_context": {
+      "summary_policy": "experimental_extractive_user_prefixes_lossy_v1",
+      "full_history_sha256": "17cd25fb27dbb8a3b7e52f3534085989ab0d21dbda27063af6a2bf758174f395",
+      "prompt_sha256": "69f851a89fcc7c0d6d25ac67900ee7b0df85d2a34eb580fb57902b88c883d917",
+      "token_count": 508,
+      "budget": 512,
+      "excerpt_character_limit": 16,
+      "omitted_count": 10,
+      "omitted_assistant_count": 5,
+      "retained_recent_indices": [
+        10,
+        11
+      ],
+      "excerpts": [
+        {
+          "index": 0,
+          "role": "user",
+          "source_sha256": "00ce00459c5bc97723d78ed96fcbe64ae00586c12fa0201e9872e626ebf4e707",
+          "span": [
+            0,
+            16
+          ],
+          "span_unit": "unicode_codepoint",
+          "excerpt_sha256": "e2b9508b864db49dd1d888b2b5761e53791dce383954497097573051702cca96",
+          "truncated": true
+        },
+        {
+          "index": 2,
+          "role": "user",
+          "source_sha256": "b8189584d305f020ecece035a965087ad96d4ae34f97b2963ddffc5cb345b7dc",
+          "span": [
+            0,
+            16
+          ],
+          "span_unit": "unicode_codepoint",
+          "excerpt_sha256": "36acaf02fd6ff5cdcfa1d8c909e6093e82ed58a833715cbd11c2638eecb8dce3",
+          "truncated": true
+        },
+        {
+          "index": 4,
+          "role": "user",
+          "source_sha256": "90b47fde8f47ed5d1da4b0177cf280cb0c79681f35cf5b37f773d677854cdf1c",
+          "span": [
+            0,
+            16
+          ],
+          "span_unit": "unicode_codepoint",
+          "excerpt_sha256": "f36eec187bf2eb9dca04ed7dbe663f01ae6ab610567dc6ca4c5217314e097a54",
+          "truncated": true
+        },
+        {
+          "index": 6,
+          "role": "user",
+          "source_sha256": "986e3d9c7dae384e2f10540f09aea7f3fc74dd08f8e70b76da8811b2103b1335",
+          "span": [
+            0,
+            16
+          ],
+          "span_unit": "unicode_codepoint",
+          "excerpt_sha256": "a5dfcae183b2bb6e9465ec36be2439fc90cf2fd98fb6b7990a97bf36f8e4cf27",
+          "truncated": true
+        },
+        {
+          "index": 8,
+          "role": "user",
+          "source_sha256": "97c5ab64ae99ad2d00bdf24cdf8f5fc0eef4aef6f9bc3c8cf0104ebdc7013441",
+          "span": [
+            0,
+            16
+          ],
+          "span_unit": "unicode_codepoint",
+          "excerpt_sha256": "8a49fbceb803a670d41a245c3b1f86a5fbb0170198309d99e742b5a40b3bbdff",
+          "truncated": true
+        }
+      ],
+      "authoritative_history_changed": false,
+      "model_context_complete": false,
+      "policy": "extractive_v1",
+      "full_input_tokens": 531,
+      "full_count_unavailable_reason": null
+    },
+    "revision": 7
+  },
+  "public_default_changed": false,
+  "executed_actions": 0
+}
