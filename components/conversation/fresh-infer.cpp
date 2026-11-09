@@ -24,7 +24,20 @@ static void print_usage(int, char ** argv) {
     printf("\n");
 }
 
+#ifndef ROKO_INPUT_TOKEN_LIMIT
+#define ROKO_INPUT_TOKEN_LIMIT 512
+#endif
+constexpr int MAX_INPUT_TOKENS = ROKO_INPUT_TOKEN_LIMIT;
+constexpr int CONTEXT_TOKENS = 1024;
+constexpr int MAX_OUTPUT_TOKENS = 128;
+static_assert(MAX_INPUT_TOKENS == 512 || MAX_INPUT_TOKENS == 768, "Unsupported input budget");
+static_assert(MAX_INPUT_TOKENS + MAX_OUTPUT_TOKENS <= CONTEXT_TOKENS, "Output allowance exceeds context");
+
 int main(int argc, char ** argv) {
+    if (argc == 2 && strcmp(argv[1], "--capabilities") == 0) {
+        printf("{\"kind\":\"roko-native-budget-v1\",\"input_tokens\":%d,\"context_tokens\":%d,\"max_output_tokens\":%d}\n", MAX_INPUT_TOKENS, CONTEXT_TOKENS, MAX_OUTPUT_TOKENS);
+        return 0;
+    }
     std::setlocale(LC_NUMERIC, "C");
 
     // path to the model gguf file
@@ -106,7 +119,7 @@ int main(int argc, char ** argv) {
             prompt.push_back(ch);
         }
     }
-    if (prompt.empty() || prompt.size() > 16384 || n_predict < 1 || n_predict > 128 || ngl != 0) return 2;
+    if (prompt.empty() || prompt.size() > 16384 || n_predict < 1 || n_predict > MAX_OUTPUT_TOKENS || ngl != 0) return 2;
     llama_backend_init();
 
     // initialize the model
@@ -149,13 +162,13 @@ int main(int argc, char ** argv) {
 
     llama_context_params ctx_params = llama_context_default_params();
     // n_ctx is the context size
-    if (n_prompt < 1 || n_prompt > 512 || n_predict < 1 || n_predict > 128) {
+    if (n_prompt < 1 || n_prompt > MAX_INPUT_TOKENS || n_predict < 1 || n_predict > MAX_OUTPUT_TOKENS) {
         fprintf(stderr, "ROKO_GENERATION {\"input_tokens\":%d,\"output_tokens\":0,\"finish_reason\":\"input_limit\"}\n", n_prompt);
         return 2;
     }
     ctx_params.n_threads = 4;
     ctx_params.n_threads_batch = 4;
-    ctx_params.n_ctx = 1024;
+    ctx_params.n_ctx = CONTEXT_TOKENS;
     // n_batch is the maximum number of tokens that can be processed in a single call to llama_decode
     ctx_params.n_batch = n_prompt;
     // enable performance counters
