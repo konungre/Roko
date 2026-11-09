@@ -1,0 +1,204 @@
+{
+  "evaluations": [
+    {
+      "mode": "headless",
+      "returncode": 0,
+      "configuration": {
+        "bios": true,
+        "dhcp": false,
+        "efi": true,
+        "fileSystems": [
+          {
+            "device": "tmpfs",
+            "fsType": "tmpfs",
+            "name": "/"
+          },
+          {
+            "device": "/dev/disk/by-label/ROKO_LIVE_EVAL",
+            "fsType": "iso9660",
+            "name": "/iso"
+          },
+          {
+            "device": "/sysroot/iso/nix-store.squashfs",
+            "fsType": "squashfs",
+            "name": "/nix/.ro-store"
+          },
+          {
+            "device": "tmpfs",
+            "fsType": "tmpfs",
+            "name": "/nix/.rw-store"
+          },
+          {
+            "device": "overlay",
+            "fsType": "overlay",
+            "name": "/nix/store"
+          }
+        ],
+        "firmwarePolicy": false,
+        "graphics": false,
+        "homeMountDeclared": false,
+        "initrdAvailableModules": [
+          "ahci",
+          "ata_piix",
+          "atkbd",
+          "autofs",
+          "efivarfs",
+          "ehci_hcd",
+          "ehci_pci",
+          "hid_apple",
+          "hid_cherry",
+          "hid_corsair",
+          "hid_generic",
+          "hid_lenovo",
+          "hid_logitech_dj",
+          "hid_logitech_hidpp",
+          "hid_microsoft",
+          "hid_roccat",
+          "i8042",
+          "iso9660",
+          "mmc_block",
+          "nvme",
+          "ohci_hcd",
+          "ohci_pci",
+          "overlay",
+          "pata_marvell",
+          "pcips2",
+          "sata_nv",
+          "sata_sis",
+          "sata_uli",
+          "sata_via",
+          "sd_mod",
+          "squashfs",
+          "sr_mod",
+          "tpm-crb",
+          "tpm-tis",
+          "uas",
+          "uhci_hcd",
+          "usbhid",
+          "xhci_hcd",
+          "xhci_pci"
+        ],
+        "initrdModules": [
+          "dm_mod",
+          "loop",
+          "overlay"
+        ],
+        "isoVolume": "ROKO_LIVE_EVAL",
+        "kernelParams": [
+          "root=fstab",
+          "loglevel=4",
+          "lsm=landlock,yama,bpf"
+        ],
+        "kernelVersion": "6.18.62",
+        "networkManager": false,
+        "rootPassword": "!",
+        "ssh": false,
+        "sudo": false,
+        "userHome": "/home/roko",
+        "userPassword": "!"
+      }
+    },
+    {
+      "mode": "cosmic",
+      "returncode": 0,
+      "configuration": {
+        "bios": true,
+        "dhcp": false,
+        "efi": true,
+        "fileSystems": [
+          {
+            "device": "tmpfs",
+            "fsType": "tmpfs",
+            "name": "/"
+          },
+          {
+            "device": "/dev/disk/by-label/ROKO_LIVE_EVAL",
+            "fsType": "iso9660",
+            "name": "/iso"
+          },
+          {
+            "device": "/sysroot/iso/nix-store.squashfs",
+            "fsType": "squashfs",
+            "name": "/nix/.ro-store"
+          },
+          {
+            "device": "tmpfs",
+            "fsType": "tmpfs",
+            "name": "/nix/.rw-store"
+          },
+          {
+            "device": "overlay",
+            "fsType": "overlay",
+            "name": "/nix/store"
+          }
+        ],
+        "firmwarePolicy": false,
+        "graphics": true,
+        "homeMountDeclared": false,
+        "initrdAvailableModules": [
+          "ahci",
+          "ata_piix",
+          "atkbd",
+          "autofs",
+          "efivarfs",
+          "ehci_hcd",
+          "ehci_pci",
+          "hid_apple",
+          "hid_cherry",
+          "hid_corsair",
+          "hid_generic",
+          "hid_lenovo",
+          "hid_logitech_dj",
+          "hid_logitech_hidpp",
+          "hid_microsoft",
+          "hid_roccat",
+          "i8042",
+          "iso9660",
+          "mmc_block",
+          "nvme",
+          "ohci_hcd",
+          "ohci_pci",
+          "overlay",
+          "pata_marvell",
+          "pcips2",
+          "sata_nv",
+          "sata_sis",
+          "sata_uli",
+          "sata_via",
+          "sd_mod",
+          "squashfs",
+          "sr_mod",
+          "tpm-crb",
+          "tpm-tis",
+          "uas",
+          "uhci_hcd",
+          "usbhid",
+          "xhci_hcd",
+          "xhci_pci"
+        ],
+        "initrdModules": [
+          "dm_mod",
+          "loop",
+          "overlay"
+        ],
+        "isoVolume": "ROKO_LIVE_EVAL",
+        "kernelParams": [
+          "root=fstab",
+          "loglevel=4",
+          "lsm=landlock,yama,bpf"
+        ],
+        "kernelVersion": "6.18.62",
+        "networkManager": true,
+        "rootPassword": "!",
+        "ssh": false,
+        "sudo": false,
+        "userHome": "/home/roko",
+        "userPassword": "!"
+      }
+    }
+  ],
+  "build_requested": false,
+  "host_activation": false,
+  "scope": "resolved settings only, not hardware/boot health",
+  "retired_option_query_removed": "boot.initrd.systemd.enable is removed in this pinned source"
+}

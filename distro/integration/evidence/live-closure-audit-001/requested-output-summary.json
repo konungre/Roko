@@ -1,0 +1,192 @@
+{
+  "roots": [
+    {
+      "mode": "headless",
+      "declared_derivations_reachable": 3790,
+      "required_output_pairs": 3977,
+      "required_outputs_present": 0,
+      "required_outputs_missing": 3977,
+      "unknown_outputs": [],
+      "incomplete_metadata": [],
+      "missing_examples": {
+        "cosmic": [],
+        "iso-tool": [],
+        "squashfs": [
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/vxv2i6yqmc8zl88b4jsg8fnxqi72nbrm-squashfs-tools-4.7.5.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/j30l4pqsz687pxwm8bmv9h32b3alij78-squashfs-tools-4.7.5",
+            "name": "j30l4pqsz687pxwm8bmv9h32b3alij78-squashfs-tools-4.7.5"
+          }
+        ],
+        "init-system": [
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/0dd5m4a7qwq89xaig9ngdsqvhbbi76jr-libsystemd-0.7.2.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/9m9lslmxkg2v92dfz2x7qqbb1if8j3li-libsystemd-0.7.2",
+            "name": "9m9lslmxkg2v92dfz2x7qqbb1if8j3li-libsystemd-0.7.2"
+          },
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/0hkzvq6gpk6h6ymwqjfyy9hyj8nb1f9y-unit-systemd-udevd.service.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/z0q4zrkqwdnymmw1kmpxvgjn0bb31x78-unit-systemd-udevd.service",
+            "name": "z0q4zrkqwdnymmw1kmpxvgjn0bb31x78-unit-systemd-udevd.service"
+          },
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/10cbm8jhm7nagkc133d91wacblqs1dqi-unit-systemd-journald.service.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/8khm7q8bpcbsn6pw6lvqx3iavq6jf53m-unit-systemd-journald.service",
+            "name": "8khm7q8bpcbsn6pw6lvqx3iavq6jf53m-unit-systemd-journald.service"
+          }
+        ],
+        "python": [
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/2q3l9gnw068npz9mxgnvwwqmhmn18iji-python3-3.14.10.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/jn6jjsy7jrj28lshxjf75v06a1hybxwh-python3-3.14.10",
+            "name": "jn6jjsy7jrj28lshxjf75v06a1hybxwh-python3-3.14.10"
+          },
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/3462v4qgrn1j7fflgj8gn6s2jr1pff8n-python3-3.14.10-env.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/afvzjkj8cw5vwznakw6g4s3pvmws4z16-python3-3.14.10-env",
+            "name": "afvzjkj8cw5vwznakw6g4s3pvmws4z16-python3-3.14.10-env"
+          },
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/6wcwx39vimlcwyhr4m6nyiaanflm7245-python3-3.14.10-env.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/gxihf2h228m8r5sqp3haql6i4fyd3sc7-python3-3.14.10-env",
+            "name": "gxihf2h228m8r5sqp3haql6i4fyd3sc7-python3-3.14.10-env"
+          }
+        ],
+        "shell": [
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/23qlkw2hxaj4zhx7im3x9kdmk11lgf5v-bash-get-version-5.3.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/8mg9y3qxg3piwrfgaj7061lqwkgzqfmw-bash-get-version-5.3",
+            "name": "bash-get-version-5.3"
+          },
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/46hy582wkaps8zv7yvszzzjrjg0q4znc-bash-5.3p20.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/jr66fsysgx7ws7widasnck04c2f4l1kq-bash-5.3p20",
+            "name": "jr66fsysgx7ws7widasnck04c2f4l1kq-bash-5.3p20"
+          },
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/5i6lakx0ln6ryb4pmxpys1lmfs53xpi0-bash-5.3.tar.gz.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/7qg39j3a459f700sxq8dgzyp4mfgh8pj-bash-5.3.tar.gz",
+            "name": "bash-5.3.tar.gz"
+          }
+        ]
+      }
+    },
+    {
+      "mode": "cosmic",
+      "declared_derivations_reachable": 6764,
+      "required_output_pairs": 7064,
+      "required_outputs_present": 0,
+      "required_outputs_missing": 7064,
+      "unknown_outputs": [],
+      "incomplete_metadata": [],
+      "missing_examples": {
+        "cosmic": [
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/0mwv1igdfbn64lc6fcf92f8xj903xmaq-cosmic-bg-1.11.0.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/5k4l7m6mli9sasfh7c8dyg72fbg3v1bg-cosmic-bg-1.11.0",
+            "name": "5k4l7m6mli9sasfh7c8dyg72fbg3v1bg-cosmic-bg-1.11.0"
+          },
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/0ylfmvipc1fw4qm80y5c9fj5hhvlk9wi-cosmic-notifications-1.11.0.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/1118ia3zmlx7nnq54ca4jwbsw1np4kzq-cosmic-notifications-1.11.0",
+            "name": "1118ia3zmlx7nnq54ca4jwbsw1np4kzq-cosmic-notifications-1.11.0"
+          },
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/2azm7ry5ag68chclxiv5mjbpm1iwl5xq-cosmic-fallback-themes.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/5cayxr49aii7w00c2yqsgy9kkbz0y831-cosmic-fallback-themes",
+            "name": "cosmic-fallback-themes"
+          }
+        ],
+        "iso-tool": [],
+        "squashfs": [
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/vxv2i6yqmc8zl88b4jsg8fnxqi72nbrm-squashfs-tools-4.7.5.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/j30l4pqsz687pxwm8bmv9h32b3alij78-squashfs-tools-4.7.5",
+            "name": "j30l4pqsz687pxwm8bmv9h32b3alij78-squashfs-tools-4.7.5"
+          }
+        ],
+        "init-system": [
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/0dd5m4a7qwq89xaig9ngdsqvhbbi76jr-libsystemd-0.7.2.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/9m9lslmxkg2v92dfz2x7qqbb1if8j3li-libsystemd-0.7.2",
+            "name": "9m9lslmxkg2v92dfz2x7qqbb1if8j3li-libsystemd-0.7.2"
+          },
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/10cbm8jhm7nagkc133d91wacblqs1dqi-unit-systemd-journald.service.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/8khm7q8bpcbsn6pw6lvqx3iavq6jf53m-unit-systemd-journald.service",
+            "name": "8khm7q8bpcbsn6pw6lvqx3iavq6jf53m-unit-systemd-journald.service"
+          },
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/14x6f8qcv7gvsydvs6dsfsjd6slf91dp-unit-systemd-importd.service.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/8g5vh9glf06hd0zm90n20fmmqg8cmmfh-unit-systemd-importd.service",
+            "name": "8g5vh9glf06hd0zm90n20fmmqg8cmmfh-unit-systemd-importd.service"
+          }
+        ],
+        "python": [
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/0dqzy47gj7wpi00pchx5im44lzx1c83y-python3-3.14.10-env.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/6lyra7705z11qvi41s3c9y9h3ppvbixy-python3-3.14.10-env",
+            "name": "6lyra7705z11qvi41s3c9y9h3ppvbixy-python3-3.14.10-env"
+          },
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/2q3l9gnw068npz9mxgnvwwqmhmn18iji-python3-3.14.10.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/jn6jjsy7jrj28lshxjf75v06a1hybxwh-python3-3.14.10",
+            "name": "jn6jjsy7jrj28lshxjf75v06a1hybxwh-python3-3.14.10"
+          },
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/3462v4qgrn1j7fflgj8gn6s2jr1pff8n-python3-3.14.10-env.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/afvzjkj8cw5vwznakw6g4s3pvmws4z16-python3-3.14.10-env",
+            "name": "afvzjkj8cw5vwznakw6g4s3pvmws4z16-python3-3.14.10-env"
+          }
+        ],
+        "shell": [
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/23qlkw2hxaj4zhx7im3x9kdmk11lgf5v-bash-get-version-5.3.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/8mg9y3qxg3piwrfgaj7061lqwkgzqfmw-bash-get-version-5.3",
+            "name": "bash-get-version-5.3"
+          },
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/46hy582wkaps8zv7yvszzzjrjg0q4znc-bash-5.3p20.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/jr66fsysgx7ws7widasnck04c2f4l1kq-bash-5.3p20",
+            "name": "jr66fsysgx7ws7widasnck04c2f4l1kq-bash-5.3p20"
+          },
+          {
+            "derivation": "/workspace/scratch/nix-live-001/direct-store/5i6lakx0ln6ryb4pmxpys1lmfs53xpi0-bash-5.3.tar.gz.drv",
+            "output": "out",
+            "path": "/workspace/scratch/nix-live-001/direct-store/7qg39j3a459f700sxq8dgzyp4mfgh8pj-bash-5.3.tar.gz",
+            "name": "bash-5.3.tar.gz"
+          }
+        ]
+      }
+    }
+  ],
+  "metadata_nodes": 6819,
+  "graph_bytes": 39533717,
+  "graph_sha256": "8ed325da9d216ee6ddca6ff837b6f994acacab494ecf4283d99759b518a4ae1f",
+  "scope": "declared source-build graph and requested outputs; includes bootstrap/fetch derivations; NOT runtime closure or binary-cache availability/size",
+  "substituters_queried": false,
+  "packages_built": false,
+  "host_activation": false
+}

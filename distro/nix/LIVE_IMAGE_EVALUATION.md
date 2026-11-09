@@ -39,3 +39,7 @@ Missing image/closure work:
 Strict sandboxing remains blocked here by missing kernel namespaces; see
 SANDBOX_QUALIFICATION.md. No host settings changed and no fallback build was used
 for these results. PR22 remains draft; no readiness/redistribution clearance claim.
+
+A subsequent read-only [prerequisite audit](LIVE_PREREQUISITES.md) measures declared
+build-output availability and the resolved network/firmware/storage/access gaps.
+Those graph counts must not be presented as a realized runtime closure.
