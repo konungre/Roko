@@ -35,3 +35,27 @@ The runtime used explicit PYTHONPATH for the integration module. Failed import
 attempts and successful raw output are preserved under evidence/baseline-successor-001.
 The legacy bridge/adapter/component are unchanged. This does not establish source
 licensing clearance, live Nix observation by this bridge, or guest integration.
+
+## Side-by-side migration parity gate
+
+`qualify_planner_parity.py REPOSITORY NEW_OUTPUT` runs each adapter in a separate
+fresh Python subprocess using disposable labelled fixtures. Eleven cases passed
+the active scalar helpers: desired package/path, count, membership, zero mutation,
+no live observation and false authority. Cases cover empty/unchanged/replacement,
+removal/mixed changes and rejection of invalid path/name, duplicate snapshot keys,
+missing provenance and invalid observed output. Error classes differ and are not
+part of the consumer contract. The first harness run failed to catch the legacy
+custom Error; the corrected harness explicitly catches that known error class.
+
+One mixed fixture has different ordered operation lists: v2 groups removals before
+additions. The unordered planned changes/count agree, but ordered plan or full
+report/checksum compatibility is NOT claimed. Any downstream ordered-plan consumer
+must explicitly adopt schema2 semantics. Neither bridge executes those plans.
+Both legacy and successor passed independent actual PeTTa/Janus fixture probes,
+with exact path, one operation and false authority. Raw evidence is under
+planner-parity-002 and planner-native-parity-001. No legacy consumer binding was
+changed. Eleven state/successor tests still pass.
+
+Provenance conclusion remains unchanged: archive and Git matching establish
+identity/introduction, not ownership or a license grant. No additional rights
+proof was found. Keep the repository-wide licensing issue and PR draft open.
