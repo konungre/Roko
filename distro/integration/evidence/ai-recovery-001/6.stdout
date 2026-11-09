@@ -1,0 +1,2 @@
+{"event": "ready", "role": "ai-sentinel", "pid": 25165, "monotonic_ns": 24675316473433}
+{"event": "heartbeat", "role": "ai-sentinel", "pid": 25165, "sequence": 1, "monotonic_ns": 24675316543055}

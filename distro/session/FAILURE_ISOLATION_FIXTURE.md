@@ -66,3 +66,58 @@ endpoint cancellation/descendant cleanup, low-memory OOM interaction, persistent
 history semantics and the full Nix image remain unqualified. Guest inference is
 still unqualified. Preserve the inactive legacy worker and default bindings,
 unresolved licensing/notice caveats, draft PR #22 and pending metadata approval.
+
+## Explicit recovery choices and controlled failures
+
+The follow-up `qualify_ai_recovery.py` passed five additional actual-process
+scenarios with seven owned sentinel children, all reaped. No real AI service,
+model, compositor, user request or VM was started. Desktop responsiveness is
+checked by a fresh heartbeat after each failure, preserving the same desktop PID
+until the deliberately requested fixture desktop restart.
+
+- A startup crash (exit17) is followed by a fixture owner choice to keep AI stopped.
+  It starts no replacement, and desktop heartbeats continue.
+- A newly chosen restart launches a controlled heartbeat stall. The 2-second event
+  deadline expires, owner cancellation exits that worker cleanly (exit0), and the
+  desktop continues. This is a synthetic heartbeat protocol, not an inference
+  timeout/health protocol for the actual endpoint.
+- Reusing that consumed decision is rejected before any worker starts. A fresh
+  fixture choice can start a worker that deliberately ignores SIGTERM. Cleanup
+  waits one second, sends SIGKILL to that owned process group and reaps it (-9).
+  Escalation does not signal the desktop or any unrelated process.
+- Explicit recovery uses a new steady worker. After cancelling it and restarting
+  the fixture desktop, the new desktop epoch invalidates a pending old choice;
+  that stale choice starts nothing.
+- A fresh choice under the new epoch recovers a new AI sentinel. No automatic
+  restart, fallback request, saved request replay or background retry occurs.
+
+`fixture_restart_choice.py` is deliberately a **fixture-only, single-owner choice
+freshness helper**. It accepts only restart/keep-stopped, checks the in-process
+revision and desktop epoch, consumes a choice before a locked callback, and never
+revives a choice after launch failure. Regression tests reject replay, stale
+revision/epoch, invalid action/type, and startup failure reuse; keep-stopped never
+calls a launch callback. This is not authentication, durable cross-process CAS,
+a user-consent UI, an IPC server, a package executor or proof that a model cannot
+forge an approval. The fixture controller supplies choices to simulate explicit
+owner decisions. It must not be exposed to an endpoint or AtomSpace as authority.
+
+Per-worker 64MiB address-space/2 CPU-second/32-FD/no-core limits and bounded
+heartbeat/output/cleanup deadlines are inherited from the earlier fixture. These
+are process rlimits, not verified systemd MemoryMax/cgroup isolation. No actual
+kernel memory pressure or OOM was injected. The inactive model worker and real
+conversation-parent contract remain untouched. The real endpoint's lifecycle,
+descendants, history and cancellation still require component-specific tests.
+
+Full OS suite: **135 tests passed**. Final fixture receipts include source hashes,
+exit outcomes, fresh desktop/AI identities and passive current admission status in
+`../integration/evidence/ai-recovery-001/`. Admission remains insufficient and no
+VM was launched. Native live-manager lifecycle behavior, guest inference and the
+Nix/COSMIC image remain unqualified. No host service/activation or PR metadata
+retry occurred; legacy defaults, licensing limitations and draft/approval holds
+remain unchanged.
+
+Reproduce the bounded fixture only:
+
+```
+python3 distro/integration/qualify_ai_recovery.py <new-private-output-directory>
+```
