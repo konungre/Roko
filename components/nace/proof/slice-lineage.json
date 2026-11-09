@@ -1,0 +1,70 @@
+{
+  "commit": "361fddf5f6885a60b6d5e0d179e0394da876df4c",
+  "functions": [
+    {
+      "upstream_file": "nace.py",
+      "function": "NACE_Predict",
+      "first_line": 163,
+      "last_line": 196,
+      "sha256": "910ef033b39bc29f6c29ec0cb37fa651abffeaffc3b9e823561abbc7bbd919d6",
+      "bytes": 1738
+    },
+    {
+      "upstream_file": "nace.py",
+      "function": "_MatchHypotheses",
+      "first_line": 443,
+      "last_line": 493,
+      "sha256": "32fb6466f3996827b3916660b57d427448ea498f4891c7a9f5792e9a838e76b5",
+      "bytes": 2432
+    },
+    {
+      "upstream_file": "nace.py",
+      "function": "_RuleApplicable",
+      "first_line": 496,
+      "last_line": 499,
+      "sha256": "67d44db3cff65858d10a34e5017ca0827f29d6ea08d5ff2a8381e68a36bcfd2c",
+      "bytes": 171
+    },
+    {
+      "upstream_file": "hypothesis.py",
+      "function": "Hypothesis_TruthValue",
+      "first_line": 36,
+      "last_line": 40,
+      "sha256": "acdce84fcfc5fe3fa39224836b847a27cbab77633513280aa04c83cd76fe405b",
+      "bytes": 160
+    },
+    {
+      "upstream_file": "hypothesis.py",
+      "function": "Hypothesis_TruthExpectation",
+      "first_line": 43,
+      "last_line": 45,
+      "sha256": "f63c1804bff2d609f06217cee74f990abba128fb3ad723edac2ac062de0ee888",
+      "bytes": 86
+    },
+    {
+      "upstream_file": "hypothesis.py",
+      "function": "Hypothesis_Choice",
+      "first_line": 48,
+      "last_line": 53,
+      "sha256": "552a74501e43add5571b2f2e79dc4b3822b937e721502999bdd2cc34168627c8",
+      "bytes": 267
+    },
+    {
+      "upstream_file": "hypothesis.py",
+      "function": "_AddEvidence",
+      "first_line": 201,
+      "last_line": 215,
+      "sha256": "09ea7d42cb7e7f30f37f03b3ad27de9bfc5acb2168d67ca1e6ab900dc2a3e8de",
+      "bytes": 492
+    }
+  ],
+  "slice_sha256": "b6780cdf2dd28d7acbe75d7596d2140fa9054c5e7783967171b7e59b97180839",
+  "bindings": {
+    "BOARD": 0,
+    "VALUES": 1,
+    "TIMES": 2,
+    "width": 3,
+    "height": 3
+  },
+  "execution": "not executed by derivation"
+}
