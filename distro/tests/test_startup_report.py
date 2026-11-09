@@ -42,4 +42,25 @@ class StartupReportTests(unittest.TestCase):
   for field,value in [('modelReady',1),('newField',False)]:
    policy=self.policy();policy[field]=value
    with self.subTest(field=field),self.assertRaises(ValueError):inspect(policy,'00000000-0000-0000-0000-000000000001')
+ def test_low_memory_unknown_and_recovery_remain_unqualified(self):
+  with tempfile.TemporaryDirectory() as name:
+   root=Path(name);policy=root/'policy';output=root/'status';boot=root/'boot';mem=root/'meminfo'
+   policy.write_text(json.dumps(self.policy()));boot.write_text('00000000-0000-0000-0000-000000000001')
+   mem.write_text('MemAvailable: 16000000 kB\n');(root/'memory.max').write_text(str(16*1024**3));(root/'memory.current').write_text(str(16*1024**3-128*1024**2))
+   with contextlib.redirect_stdout(io.StringIO()):self.assertEqual(run(policy,output,boot,meminfo=mem,cgroup=root),0)
+   low=json.loads(output.read_text());self.assertEqual(low['resources']['status'],'headroom-low');self.assertEqual(low['resources']['model_start_recommendation'],'defer');self.assertIn('optional-model-deferred-low-memory',low['issues'])
+   (root/'memory.current').write_text('invalid-sensitive-input')
+   logs=io.StringIO()
+   with contextlib.redirect_stdout(logs):self.assertEqual(run(policy,output,boot,meminfo=mem,cgroup=root),0)
+   unknown=json.loads(output.read_text());self.assertEqual(unknown['resources']['status'],'unknown');self.assertIn('memory-observation-unavailable',unknown['issues']);self.assertNotIn('invalid-sensitive-input',output.read_text()+logs.getvalue())
+   (root/'memory.current').write_text(str(2*1024**3))
+   with contextlib.redirect_stdout(io.StringIO()):self.assertEqual(run(policy,output,boot,meminfo=mem,cgroup=root),0)
+   recovered=json.loads(output.read_text());self.assertEqual(recovered['resources']['status'],'resource-check-only-passed');self.assertNotIn('optional-model-deferred-low-memory',recovered['issues']);self.assertGreaterEqual(recovered['resources']['sampled_monotonic_ns'],low['resources']['sampled_monotonic_ns'])
+   for report in (low,unknown,recovered):
+    self.assertEqual(report['status'],'unqualified');self.assertFalse(report['system_ready']);self.assertFalse(report['execution_authorized']);self.assertIn('model-not-qualified',report['issues'])
+ def test_missing_memory_inputs_do_not_block_valid_diagnostics(self):
+  with tempfile.TemporaryDirectory() as name:
+   root=Path(name);policy=root/'policy';boot=root/'boot';output=root/'status';policy.write_text(json.dumps(self.policy()));boot.write_text('00000000-0000-0000-0000-000000000001')
+   with contextlib.redirect_stdout(io.StringIO()):self.assertEqual(run(policy,output,boot,meminfo=root/'missing',cgroup=root),0)
+   report=json.loads(output.read_text());self.assertEqual(report['resources']['status'],'unknown');self.assertFalse(report['system_ready'])
 if __name__=='__main__':unittest.main()

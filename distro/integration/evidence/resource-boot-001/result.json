@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "case": "low",
+      "exit_code": 0,
+      "resource_status": "headroom-low",
+      "system_ready": false
+    },
+    {
+      "case": "invalid",
+      "exit_code": 0,
+      "resource_status": "unknown",
+      "system_ready": false
+    },
+    {
+      "case": "recovered",
+      "exit_code": 0,
+      "resource_status": "resource-check-only-passed",
+      "system_ready": false
+    }
+  ],
+  "actual_resource_sample_status": "headroom-low",
+  "scope": "program fixture transitions and passive current memory sample; not systemd or guest boot",
+  "guest_started": false,
+  "host_activation": false,
+  "model_started": false,
+  "system_ready": false
+}

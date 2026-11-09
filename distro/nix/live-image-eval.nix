@@ -18,7 +18,13 @@ in import ./system-eval.nix {
   liveMedia = true;
   extraModules = [
     (pinned + "/nixos/modules/installer/cd-dvd/iso-image.nix")
-    ({ lib, pkgs, ... }: {
+    ({ lib, pkgs, ... }: let
+      startupProgram = pkgs.runCommand "roko-startup-program" {} ''
+        mkdir -p $out
+        cp ${./startup_report.py} $out/startup_report.py
+        cp ${./memory_budget.py} $out/memory_budget.py
+      '';
+    in {
       system.autoUpgrade.enable = lib.mkForce false;
       nix.gc.automatic = lib.mkForce false;
       nix.optimise.automatic = lib.mkForce false;
@@ -41,7 +47,12 @@ in import ./system-eval.nix {
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
-          ExecStart = "${pkgs.python3}/bin/python3 ${./startup_report.py} --policy /etc/roko/first-boot.json --output /run/roko-startup/status.json";
+          MemoryAccounting = true;
+          MemoryHigh = "64M";
+          MemoryMax = "96M";
+          OOMPolicy = "stop";
+          Restart = "no";
+          ExecStart = "${pkgs.python3}/bin/python3 ${startupProgram}/startup_report.py --model-required-headroom-mib 6144 --policy /etc/roko/first-boot.json --output /run/roko-startup/status.json";
           DynamicUser = true;
           RuntimeDirectory = "roko-startup";
           RuntimeDirectoryMode = "0750";

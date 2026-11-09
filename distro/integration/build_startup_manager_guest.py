@@ -27,7 +27,7 @@ for obj in [python,*list((stage/'opt/python').rglob('*.so'))]:
  r=subprocess.run(['ldd',str(obj)],env=env,capture_output=True,text=True);assert 'not found' not in r.stdout,r.stdout
  for path in re.findall(r'(?:=>\s+)?(/\S+)\s+\(',r.stdout):
   if not pathlib.Path(path).is_relative_to(stage):copy(path)
-copy(repo/'distro/nix/startup_report.py','opt/roko/startup_report.py');copy(repo/'distro/integration/startup_manager_controller.py','opt/roko/controller.py')
+copy(repo/'distro/nix/startup_report.py','opt/roko/startup_report.py');copy(repo/'distro/nix/memory_budget.py','opt/roko/memory_budget.py');copy(repo/'distro/integration/startup_manager_controller.py','opt/roko/controller.py')
 (stage/'etc/roko-service-manager-fixture').write_text('roko-disposable-service-manager-v1\n')
 (stage/'etc/passwd').write_text('root:x:0:0:root:/root:/bin/false\nnobody:x:65534:65534:nobody:/:/bin/false\n');(stage/'etc/group').write_text('root:x:0:\nnogroup:x:65534:\n');(stage/'etc/os-release').write_text('ID=roko-test\nNAME="Roko systemd fixture"\n');(stage/'etc/machine-id').write_text('00000000000000000000000000000001\n')
 unit=pathlib.Path(args.unit_evaluation).resolve();values=json.loads(unit.read_text())
