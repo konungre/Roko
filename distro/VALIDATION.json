@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-09",
+  "base_commit": "9990714",
+  "python": "3.12.14",
+  "systemd": "257 (257.13-1~deb13u1)",
+  "release_tests": {
+    "command": "python3 -B -m unittest discover -s distro/tests -v",
+    "passed": 17,
+    "fixtures": "Synthetic byte assets; no real boot/model inputs"
+  },
+  "inherited_native_context_tests": {
+    "passed": 71,
+    "suites": [
+      "cleanup",
+      "drop",
+      "transport",
+      "owner",
+      "copy_guard",
+      "semantics",
+      "main_failure"
+    ],
+    "scope": "Portable doubles, no native runtime/VM"
+  },
+  "systemd_verify": {
+    "real_unit": "Fails because /opt/roko/bin/roko-model-worker is absent; no remaining unknown-key diagnostic",
+    "syntax_fixture": "Exit 0 after replacing only ExecStart with /usr/bin/true; no service launched"
+  },
+  "not_tested": [
+    "boot",
+    "COSMIC login or lock",
+    "real model inference",
+    "systemd runtime isolation",
+    "persistent cold boots",
+    "power-loss recovery",
+    "signed updates or rollback",
+    "Intel hardware compatibility",
+    "upstream reproducible builds"
+  ],
+  "instructions": "No AGENTS.md or .agents/skills SKILL.md found in repository or applicable checked ancestors",
+  "workspace_coordination": "Based on live-system 9990714; inspected existing XDG/native-context contracts, documented proposed interfaces; no other worktree modified or owner acceptance claimed",
+  "network_downloads": false,
+  "host_installation": false,
+  "push": false
+}

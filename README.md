@@ -9,6 +9,7 @@ combined into a claim that every component passed in one image.
 
 ## Start here
 
+- [Distribution foundation](distro/README.md): offline release packing, inactive model service contract, and production qualification gaps.
 - [Current status](docs/STATUS.md): what actually ran, what is experimental, and
   which requested AI components remain pending.
 - [Repository map](docs/REPOSITORY_MAP.md): source directories and intended scope.
