@@ -254,3 +254,10 @@ binding includes a non-default policy, so changing policy on an existing ID is
 a conflict. Unknown policy errors precede claims; actual failed planned turns
 remain terminal and need a new request ID. Default responses gain no projection
 field. Existing `cognitive_tasks`/`cognitive_results` remain compatible.
+
+## Eight-exchange regression probe
+
+See [EIGHT_TURN_CAPACITY.md](EIGHT_TURN_CAPACITY.md) for the reproducible native
+probe and audit-only workflow. The probe resumes six verified exchanges, adds
+two native turns, and checks both context and history exhaustion without
+changing the complete-history default or enabling projection implicitly.
