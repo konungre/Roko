@@ -36,7 +36,9 @@ class DesktopDiagnostics:
     def original(self):return json.loads(self._original)
     def receive_snapshot(self,packet):
         snap=_copy(packet);history=snap.get('history') if type(snap) is dict else None
-        if (type(snap) is not dict or type(snap.get('api_version')) is not int or snap['api_version']!=2
+        if (type(snap) is not dict
+                or not {'api_version','status','session_id','revision','history','pending'}.issubset(snap)
+                or type(snap.get('api_version')) is not int or snap['api_version']!=2
                 or snap.get('status')!='snapshot' or snap.get('session_id')!=self.original()['session_id']
                 or type(snap.get('revision')) is not int or snap['revision']<0
                 or type(history) is not list or len(history)>256 or len(history)%2

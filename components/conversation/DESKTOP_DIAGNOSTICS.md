@@ -24,9 +24,13 @@ the original pending ID/revision; another request's claim is refused. The server
 still verifies owner death and may return `busy`. The adapter neither kills nor
 waits for a worker and does not assume the confirmation establishes death.
 
-Eleven adapter tests and a local eleven-check headless backend test passed. The
+Thirteen adapter tests and a local eleven-check headless backend test passed. The
 backend replay returned the saved response, retained all fourteen messages and
 both observations, and refused recovery while its original owner remained live.
-No model/retrieval call occurred. The full suite ran 204 tests: 203 passed, one
+No model/retrieval call occurred. The full suite ran 206 tests: 205 passed, one
 optional native fixture skipped. This is local backend evidence, not a graphical
 UI test or independent reproduction. See `DESKTOP_DIAGNOSTICS_SUMMARY.json`.
+
+All six required snapshot fields must be present, including `pending` when its
+value is null. Rejected packets preserve the previously accepted view and action
+proposals; regression tests omit each field individually and retain recovery.

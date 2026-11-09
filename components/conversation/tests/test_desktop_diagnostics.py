@@ -52,6 +52,22 @@ class DesktopTests(unittest.TestCase):
             with self.assertRaises(ValueError):d.receive_snapshot(bad)
         self.assertEqual(len(d.view()['transcript']),4)
 
+    def test_missing_snapshot_fields_preserve_usable_prior_state(self):
+        for missing in snapshot():
+            with self.subTest(missing=missing):
+                d=DesktopDiagnostics(REQ);d.transport_lost();d.receive_snapshot(snapshot(1))
+                before=d.view();bad=snapshot(1);del bad[missing]
+                with self.assertRaises(ValueError):d.receive_snapshot(bad)
+                self.assertEqual(d.view(),before)
+                self.assertEqual(d.request_for_user_action('replay_original',confirmed=True),REQ)
+
+    def test_missing_pending_cannot_replace_recoverable_state(self):
+        d=DesktopDiagnostics(REQ);d.transport_lost();d.receive_snapshot(snapshot(pending='r'))
+        before=d.view();bad=snapshot();del bad['pending']
+        with self.assertRaises(ValueError):d.receive_snapshot(bad)
+        self.assertEqual(d.view(),before)
+        self.assertEqual(d.request_for_user_action('recover_pending',confirmed=True,owner_stopped=True)['request_id'],'r')
+
     def test_unrelated_errors_cannot_change_current_guidance(self):
         d=DesktopDiagnostics(REQ);d.transport_lost();before=d.view()
         for packet in (None,dict(api_version=2,status='error',code='pending',request_id='other')):

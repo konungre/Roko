@@ -16,8 +16,9 @@
   "evidence_provenance": "local headless backend consumer check; not graphical UI or independent reproduction",
   "executed_actions": 0,
   "tested_base_main": "0f3117c",
-  "unit_tests_passed": 11,
-  "suite_run": 204,
-  "suite_passed": 203,
-  "suite_skipped": 1
+  "unit_tests_passed": 13,
+  "suite_run": 206,
+  "suite_passed": 205,
+  "suite_skipped": 1,
+  "schema_regression": "Every required snapshot field omitted individually is rejected before state replacement; replay/view and pending recovery remain usable."
 }
