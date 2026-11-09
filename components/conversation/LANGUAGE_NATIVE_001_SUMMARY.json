@@ -1,0 +1,42 @@
+{
+  "checks": {
+    "complete_sentences": true,
+    "multiword_answer": true,
+    "native_nars_0": true,
+    "native_nars_1": true,
+    "plural_answer": true,
+    "prompt_dataflow_0": true,
+    "prompt_dataflow_1": true,
+    "provenance_0": true,
+    "provenance_1": true,
+    "response_schema": true,
+    "session_history": true,
+    "snapshot_0": true,
+    "snapshot_1": true,
+    "two_model_calls": true
+  },
+  "executed_actions": 0,
+  "full_autonomous_omega": false,
+  "full_nars": false,
+  "guest_tested": false,
+  "native_call_seconds": [
+    17.473,
+    28.267
+  ],
+  "profile_sha256": "cad6fb0d542516b573c8d62c84a0668fb617364768be16a62f34463e9ecab6f9",
+  "replies": [
+    {
+      "context_ids": [],
+      "executed_actions": 0,
+      "text": "All robins are animals.\n"
+    },
+    {
+      "context_ids": [],
+      "executed_actions": 0,
+      "text": "A red fox is an animal.\n"
+    }
+  ],
+  "returncode": 0,
+  "seconds": 59.61560993499961,
+  "status": "passed"
+}

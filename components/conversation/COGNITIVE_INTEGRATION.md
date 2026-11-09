@@ -86,3 +86,26 @@ Not established: arbitrary language-to-logic extraction, general factual
 verification, full NARS memory/control, MetaMo ranking in this turn loop, NACE or
 AIRIS conversational learning, ECAN in the fresh profile, durable MORK memory,
 graphical/guest integration, or a full autonomous Omega architecture.
+
+## Expanded controlled language
+
+`assertions.py` accepts two affirmative inheritance clauses joined by punctuation
+or “and”, optionally reversed, with bounded labels of up to three words.
+“All robins are birds. All birds are animals” and “Every mammal is an animal.
+A red fox is a mammal” now reach real native inference. Exact source spans and
+original assertion IDs survive reordering. Hypotheticals are labelled as such.
+Hedges, negation, conditionals, quotes, identifier collisions, extra assertions,
+and unmatched chains decline cognitive inference. No stemming or synonym
+resolution is inferred. This finite grammar is not general language understanding.
+
+Six expanded forms passed standalone native NARS in 1.909842 seconds. The new
+`tests/probe_language_native.py` passed 14 checks over two actual model calls in
+59.615610 seconds, including both NARS receipts, exact snapshot and prompt hashes,
+and committed history. Replies were “All robins are animals.” and “A red fox is
+an animal.” See `LANGUAGE_NATIVE_001_SUMMARY.json`. Conversation suite: 39 tests,
+including the two native SWI request-reader tests. These examples do not prove
+reliable grounding of arbitrary model responses.
+
+The callable cognitive observer still receives `(text, history)`. Durable v2
+integration is pending the conversation owner's verified API; history length
+must not silently become a durable revision identifier after truncation/reload.
