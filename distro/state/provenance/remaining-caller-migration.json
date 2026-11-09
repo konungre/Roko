@@ -24,12 +24,13 @@
       "surface": "direct source parser/SnapshotOnly API",
       "consumer": "omega-baseline/adapters/package_planning.py",
       "replacement": "omega-baseline/adapters/package_planning_v2.py",
-      "state": "partial-scalar-only",
+      "state": "explicit-json-opt-in-tested",
       "acceptance": [
-        "inventory external imports",
-        "explicit structured-input migration; no silent parser alias",
-        "tests for full legacy plan_source callers before removal",
-        "review custom Error versus ValueError handling; no silent compatibility promise"
+        "ROKO_PACKAGE_PLANNER=successor-v2 at process startup",
+        "plan_source desired input is roko-snapshot-desired-v2 JSON, not MeTTa text",
+        "complete multi-package inner-plan and observed-snapshot equality tested",
+        "SnapshotOnly returns independent observation dictionaries",
+        "review changed outer report/type/error boundaries and unknown external callers"
       ],
       "rollback": "retain original adapter/source binding; do not delete while direct callers remain",
       "default_switch_requires_review": true
@@ -38,7 +39,7 @@
       "surface": "console CLI and state directories",
       "consumer": "omega-baseline/components/omega-pm/omega_pm/__main__.py",
       "replacement": "distro/state/declarative.py",
-      "state": "no-drop-in-cli",
+      "state": "parallel-read-only-cli-tested-mutation-not-migrated",
       "acceptance": [
         "implement separate reviewed CLI",
         "export original state read-only",
@@ -47,7 +48,8 @@
         "do not mutate old profile or simulation during migration"
       ],
       "rollback": "retain source and original state; revert binding only; incompatible legacy Nix mutation path is NOT a validated fallback",
-      "default_switch_requires_review": true
+      "default_switch_requires_review": true,
+      "read_only_entry_point": "omega-baseline/integration/package_snapshot_cli.py --planner successor-v2 --desired FILE --snapshot FILE"
     },
     {
       "surface": "optional Hyperon awareness",

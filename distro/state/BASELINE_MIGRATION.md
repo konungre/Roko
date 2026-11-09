@@ -193,3 +193,34 @@ original context separately; private room transcripts are not republished here.
 Rights/project-license and historic-import decisions remain explicit release gates.
 Sixteen state/inventory tests pass, including static/dynamic scope, syntax failures
 and unchanged input hashes. No PR description retry or host activation is involved.
+
+## Direct adapter and read-only CLI opt-in
+
+`package_planning.py` now selects the successor only when the trusted process
+launcher explicitly sets ROKO_PACKAGE_PLANNER=successor-v2. Unset/legacy keeps the
+original definitions/import behavior and class module names. Unknown modes fail.
+The same scalar bridge continues to work in both selections, proven again through
+actual PeTTa/Janus; legacy component tests remain30 passes/one live Hyperon skip.
+
+Successor `plan_source` requires JSON with exactly schema=roko-snapshot-desired-v2
+and packages. It does not accept or evaluate the old MeTTa text language. Reports
+use outer schema2; complete multi-package inner plans and observed snapshot
+values/identity match the old adapter on the disposable regression. SnapshotOnly
+returns independent observation dictionaries. Object class identity, mutable
+.snapshot internals, external exception catches and general text-parser semantics
+are NOT drop-in guarantees. Restart with legacy/unset to restore that API; no
+state/profile is migrated by selecting an adapter.
+
+`python omega-baseline/integration/package_snapshot_cli.py --planner successor-v2
+--desired DESIRED_JSON --snapshot SNAPSHOT_JSON` is a separate, explicit read-only
+CLI. It emits plans on stdout, reads bounded regular non-symlink inputs and
+refuses root use. Missing selection and --apply are rejected before mutation;
+input files remain unchanged. It does NOT replace the original omega-pm entry
+point or its simulation/apply/state interfaces. Those mutation surfaces and
+Hyperon awareness remain pending independent replacements and owner schema review.
+
+Nineteen state/migration tests pass, including multi-package complete-plan parity,
+snapshot isolation, invalid text input, explicit CLI selection and apply rejection.
+No default takeover, legacy package-source deletion, license clearance or host
+activation occurred. This is an opt-in read-only migration step, not completion
+of every inventoried legacy surface. Keep PR22 draft and metadata retry stopped.

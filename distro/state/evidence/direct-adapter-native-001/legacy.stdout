@@ -1,0 +1,51 @@
+[33m--> metta sexpr -->
+[36m(desired-package hello "/nix/store/00000000000000000000000000000000-fixture-hello")
+[33m^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(change-state! &package-plan (match &self (desired-package $name $path) (py-call (package_bridge.plan_single $name $path "{\"packages\": {}, \"revision\": \"fixture\", \"source\": \"native-successor-test\"}"))))
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           ( match('&self', ['desired-package', B, C], D, D),
+             'py-call'([ 'package_bridge.plan_single',
+                         B,
+                         C,
+                         "{\"packages\": {}, \"revision\": \"fixture\", \"source\": \"native-successor-test\"}"
+                       ],
+                       D),
+             'change-state!'('&package-plan', D, A)
+           ),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(py-call (package_bridge.operation_count (get-state &package-plan)))
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           ( 'get-state'('&package-plan', B),
+             'py-call'(['package_bridge.operation_count', B], A)
+           ),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(py-call (package_bridge.authorizes_actions (get-state &package-plan)))
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           ( 'get-state'('&package-plan', B),
+             'py-call'(['package_bridge.authorizes_actions', B], A)
+           ),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(py-call (package_bridge.has_planned_package (get-state &package-plan) "hello" "/nix/store/00000000000000000000000000000000-fixture-hello"))
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           ( 'get-state'('&package-plan', B),
+             'py-call'([ 'package_bridge.has_planned_package',
+                         B,
+                         "hello",
+                         "/nix/store/00000000000000000000000000000000-fixture-hello"
+                       ],
+                       A)
+           ),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0mLEGACY_NATIVE_PARITY_PASS
