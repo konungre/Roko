@@ -1,0 +1,14 @@
+error:
+       … while evaluating attribute 'failedAssertions'
+         at /workspace/scratch/system-eval-001/cosmic.nix:1:339:
+            1| let s=import (builtins.toPath "/workspace/roko-foundation-review/distro/nix/system-eval.nix") { nixpkgsSource=builtins.toPath "/workspace/scratch/nixpkgs-input-001/source/nixpkgs-f4a03c008967841f2a0b3cb7c436fc6fc31671f6"; expectedSourceNarHash="sha256-ziZn2PvCJE5JEEpqTdxXwJpPB+L3YqoCpTAMCzyaP3U="; enableCosmic=true; }; c=s.config; in { failedAssertions=map (a:a.message) (builtins.filter (a:!a.assertion) c.assertions); cosmic=c.services.desktopManager.cosmic.enable; greeter=c.services.displayManager.cosmic-greeter.enable; rootPassword=c.users.users.root.hashedPassword; userNormal=c.users.users.roko.isNormalUser; canTouchEfi=c.boot.loader.efi.canTouchEfiVariables; packageManager="nix"; rootDevice=c.fileSystems."/".device; stateDevice=c.fileSystems."/home".device; scope=builtins.fromJSON c.environment.etc."roko/evaluation-scope.json".text; }
+             |                                                                                                                                                                                                                                                                                                                                                   ^
+
+       … while calling the 'map' builtin
+         at /workspace/scratch/system-eval-001/cosmic.nix:1:356:
+            1| let s=import (builtins.toPath "/workspace/roko-foundation-review/distro/nix/system-eval.nix") { nixpkgsSource=builtins.toPath "/workspace/scratch/nixpkgs-input-001/source/nixpkgs-f4a03c008967841f2a0b3cb7c436fc6fc31671f6"; expectedSourceNarHash="sha256-ziZn2PvCJE5JEEpqTdxXwJpPB+L3YqoCpTAMCzyaP3U="; enableCosmic=true; }; c=s.config; in { failedAssertions=map (a:a.message) (builtins.filter (a:!a.assertion) c.assertions); cosmic=c.services.desktopManager.cosmic.enable; greeter=c.services.displayManager.cosmic-greeter.enable; rootPassword=c.users.users.root.hashedPassword; userNormal=c.users.users.roko.isNormalUser; canTouchEfi=c.boot.loader.efi.canTouchEfiVariables; packageManager="nix"; rootDevice=c.fileSystems."/".device; stateDevice=c.fileSystems."/home".device; scope=builtins.fromJSON c.environment.etc."roko/evaluation-scope.json".text; }
+             |                                                                                                                                                                                                                                                                                                                                                                    ^
+
+       (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+
+       error: expected a function but found a string: "a:!a.assertion"

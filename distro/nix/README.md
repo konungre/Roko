@@ -63,3 +63,28 @@ required. No hermeticity, NixOS image, daily-driver readiness or licensing clear
 is claimed. The existing legacy package-source issue remains unresolved.
 
 Sandbox behavior reference: [Nix configuration](https://nix.dev/manual/nix/2.26/command-ref/conf-file#conf-sandbox).
+
+## Evaluation-only NixOS base definition
+
+`system-eval.nix` uses the NAR-pinned source to define headless and optional COSMIC
+modules, EFI boot layout labels and a separate /home volume. It configures normal
+users, password locks and disabled host EFI-variable writes. SSH and sudo remain
+disabled. No filesystem is formatted and no boot variable or host profile changed.
+These partition labels are declarative placeholders, not discovered host devices.
+
+`qualify_system_eval.py REPOSITORY NIX_BASE SOURCE NEW_OUTPUT` evaluates module
+options/assertions offline with import-from-derivation disabled. It tests an
+unprovisioned negative case and two fixture-key provisioned cases. A fresh local
+SSH key is used only to exercise the provisioning assertion; its private half is
+not committed and must never be deployed. Supplying a public key satisfies one
+module assertion, not an operational login/admin path: SSH, sudo and password
+login are still disabled, and real provisioning/recovery policy remains required.
+
+The initial query had a Nix lambda-spacing error; then evaluation exposed the real
+locked-out-admin assertion. Those diagnostics are retained. No assertion was
+removed or disabled. Final headless/COSMIC cases have no failed module assertions;
+COSMIC and greeter flags match the selected mode. Neither a system toplevel closure
+nor image was built, and no compositor/model ran. Model and authority metadata
+are explicitly false. This is a definition/evaluation prototype only.
+
+See [strict sandbox qualification](SANDBOX_QUALIFICATION.md) for exact next gates.

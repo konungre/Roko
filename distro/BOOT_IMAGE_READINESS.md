@@ -1,7 +1,8 @@
 # Daily-driver boot image requirements and current gaps
 
-Assessment against main0f3117c and the foundation branch. No NixOS/Guix system
-configuration or source lock is present. The checked-in Nix expressions are local
+Initial assessment against main0f3117c found no NixOS/Guix system configuration
+or source lock. Subsequent evaluation-only definitions and candidate input pin
+are described below; they do not supply a realized system image. The checked-in Nix expressions are local
 profile/build fixtures; they do not declare an operating system. The existing
 Debian extracted kernel/QEMU path is bootstrap qualification infrastructure.
 
@@ -68,3 +69,12 @@ candidate and Nix toolchain derivation identities. It has NOT built: strict
 sandboxing with fallback disabled is blocked by unavailable kernel namespaces.
 This does not satisfy the locked system-generation, actual build, boot or health
 gates above. The bootstrap rescue remains a separate unsandboxed local result.
+
+Subsequent system-eval.nix now checks headless and optional COSMIC NixOS modules
+against the pinned candidate source with import-from-derivation disabled. The
+unprovisioned case intentionally retains its lockout assertion; fresh fixture-key
+provisioned cases have no failed assertions. Nix is enabled, users remain normal
+and password-locked, SSH/sudo and EFI-variable writes are disabled. No toplevel
+closure, disk image or compositor/model process was realized. Real provisioning,
+strict sandbox build and boot/health/recovery gates remain required. See
+nix/SANDBOX_QUALIFICATION.md. Licensing remains unresolved.
