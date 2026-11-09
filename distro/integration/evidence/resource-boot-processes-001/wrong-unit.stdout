@@ -1,0 +1,2 @@
+{"issues": ["runtime-health-not-observed", "model-not-qualified", "durable-history-not-qualified", "credentials-not-provisioned", "network-isolation-not-proven", "memory-observation-unavailable"], "status": "unqualified", "system_ready": false}
+ROKO_PROCESS_RESOURCE {"exit_code": 0, "pid": 24165, "max_rss_kib": 9984, "isolated_package_imports": true}

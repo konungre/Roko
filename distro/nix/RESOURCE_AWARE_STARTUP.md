@@ -67,3 +67,45 @@ cgroup limits, low-memory boot progress and OOM failure path still need evaluati
 and real systemd VM qualification on an adequately provisioned builder. The full
 Nix/COSMIC image remains unbooted. Legacy bindings/defaults, licensing/notice
 limitations, PR #22 draft status and pending metadata approval remain unchanged.
+
+## Fresh-process bounded package-layout fixture
+
+A subsequent six-process qualification used an isolated copy of exactly the two
+runtime Python files, with before/after source hashes and verified import paths.
+No repository integration helper was available to mask a missing packaged module.
+Each new process had a 96MiB address-space rlimit, 2 CPU seconds, 5 wall seconds,
+32 descriptors, disabled core dumps and a 64KiB regular-file size limit. These are
+host fixture process limits, **not** the systemd MemoryMax cgroup limit, and are
+not evidence that a Nix derivation was realized. The measured maximum RSS across
+the six host processes was 9,984KiB; another interpreter/guest may differ.
+
+Low headroom, wrong units, duplicate MemAvailable values, one byte below the
+threshold, exact threshold and a new boot with low memory all passed. Every step
+replaced the report atomically, retained 0640 permissions with no temporary files,
+and remained unqualified with authority/readiness false. Valid sample monotonic
+timestamps advanced across fresh processes. The new boot identity replaced the
+prior report's identity, so a prior boot's optimistic resource sample was not
+silently retained. These boot identities and memory inputs are fixtures, not boots.
+
+This exposed a genuine parser gap: earlier code accepted the first of multiple
+MemAvailable fields and ignored its unit. The shared observer now requires one
+ASCII decimal MemAvailable value explicitly in kB, ASCII decimal cgroup counters
+(or exact `max`), and bounded input sizes. It opens inputs O_NOFOLLOW/O_NONBLOCK
+and requires regular files before reading; malformed, symlink and FIFO inputs
+cannot become an optimistic budget or block a read indefinitely. Boot diagnostics
+turn these observation failures into unknown/defer; VM admission still fails
+before launch. A FIFO regression test runs in a separate process with a timeout.
+
+Full OS suite: **129 tests passed**. A passive current admission observation still
+refused a 512MiB guest plus reserve, and **no VM was launched**. New systemd cgroup
+limits, full Nix module evaluation/build, actual low-memory boot/oom progress and
+guest inference remain unqualified. No host limits/settings, services or metadata
+were changed. Legacy defaults and all draft/licensing/approval holds persist.
+
+Reproduce the fixture only, with a fresh private output directory:
+
+```
+python3 distro/integration/qualify_boot_resource_processes.py <new-output-directory>
+```
+
+Receipts: `../integration/evidence/resource-boot-processes-001/`.

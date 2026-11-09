@@ -1,0 +1,33 @@
+{
+  "boot_id": "00000000-0000-0000-0000-000000000001",
+  "declared_policy": {
+    "automaticGenerationDeletion": false,
+    "automaticUpgrade": false,
+    "credentialProvisioningRequired": true,
+    "durableHistoryReady": false,
+    "modelReady": false,
+    "networkIsolationProven": false,
+    "offlineRequested": true,
+    "schema": "roko-first-boot-policy-v1"
+  },
+  "execution_authorized": false,
+  "issues": [
+    "runtime-health-not-observed",
+    "model-not-qualified",
+    "durable-history-not-qualified",
+    "credentials-not-provisioned",
+    "network-isolation-not-proven",
+    "memory-observation-unavailable"
+  ],
+  "resources": {
+    "execution_authorized": false,
+    "model_start_recommendation": "defer",
+    "required_model_headroom_mib": 6144,
+    "status": "unknown"
+  },
+  "runtime_health_observed": false,
+  "schema": "roko-startup-report-v1",
+  "scope": "boot-local policy diagnostics; no service/model/persistence probe",
+  "status": "unqualified",
+  "system_ready": false
+}
