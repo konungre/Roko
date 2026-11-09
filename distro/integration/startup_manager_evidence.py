@@ -15,3 +15,15 @@ def parse(data):
  uids=[int(match.group(1)) for line in lines if (match:=re.search(r'^roko-startup-report.service: User lookup succeeded: uid=(\d+) gid=\d+',line))]
  if not uids or any(uid==0 for uid in uids):raise ValueError('non-root service identity missing')
  return {'serial_contract_passed':True,'phases':rows,'observed_service_uids':uids,'scope':'serial consistency only; caller must bind runtime/image/process evidence'}
+def parse_model_delay(data,expected_bytes):
+ lines=data.decode(errors='replace').replace('\r','').splitlines();prefix='ROKO_MODEL_DELAY_PHASE '
+ rows=[json.loads(line[len(prefix):]) for line in lines if line.startswith(prefix)]
+ if [r.get('phase') for r in rows]!=['absent-after-startup','available-after-startup','removed-again','asset-recovery'] or lines.count('ROKO_MODEL_DELAY_FIXTURE_PASS')!=1:raise ValueError('delayed model phases')
+ for row in (rows[0],rows[2]):
+  if row.get('system_ready') is not False:raise ValueError('absent model false readiness')
+ for row in (rows[1],rows[3]):
+  asset=row.get('asset',{})
+  if asset.get('status')!='asset-observed-not-inference-qualified' or asset.get('bytes')!=expected_bytes or type(asset.get('writer_uid')) is not int or asset['writer_uid']==0:raise ValueError('model asset contract')
+  if any(asset.get(key) is not False for key in ('inference_qualified','system_ready','execution_authorized','model_sha256_verified_in_guest')):raise ValueError('model asset false qualification')
+  if row.get('read_only_mount') is not True or not type(row.get('asset_started_usec')) is int or not type(row.get('startup_exit_usec')) is int or not row['asset_started_usec']>row['startup_exit_usec']>0:raise ValueError('model ordering or read-only contract')
+ return {'serial_contract_passed':True,'phases':rows,'inference_qualified':False,'scope':'delayed asset serial consistency, not native model inference'}
