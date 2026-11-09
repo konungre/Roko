@@ -1,0 +1,1 @@
+{"origin": "backend-observation", "token": ["c3228cbe30904fb0802fd29c3cffc857", 1, 1], "atoms": ["(omega-state 1)", "(installed hello \"/nix/store/00000000000000000000000000000000-fixture\")", "(state-revision \"fixture-a\")"], "backend_calls": 1, "legacy_imported": false, "authorizes_actions": false}

@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "process_results": [
+    {
+      "origin": "backend-observation",
+      "token": [
+        "c3228cbe30904fb0802fd29c3cffc857",
+        1,
+        1
+      ],
+      "atoms": [
+        "(omega-state 1)",
+        "(installed hello \"/nix/store/00000000000000000000000000000000-fixture\")",
+        "(state-revision \"fixture-a\")"
+      ],
+      "backend_calls": 1,
+      "legacy_imported": false,
+      "authorizes_actions": false
+    },
+    {
+      "restored_origin": "restored-historical-checkpoint",
+      "restored_token": [
+        "2acc86fe70754fd380462fa43e55cc5a",
+        1,
+        1
+      ],
+      "backend_calls_at_restore": 0,
+      "origin": "backend-observation",
+      "token": [
+        "2acc86fe70754fd380462fa43e55cc5a",
+        2,
+        2
+      ],
+      "atoms": [
+        "(omega-state 1)",
+        "(state-revision \"fixture-b\")"
+      ],
+      "backend_calls": 1,
+      "legacy_imported": false,
+      "authorizes_actions": false
+    },
+    {
+      "origin": "restored-historical-checkpoint",
+      "token": [
+        "2e3f709ad8694d8fb2417c859dd611af",
+        1,
+        2
+      ],
+      "atoms": [
+        "(omega-state 1)",
+        "(state-revision \"fixture-b\")"
+      ],
+      "backend_calls": 0,
+      "legacy_imported": false,
+      "authorizes_actions": false
+    }
+  ],
+  "native_hyperon_tested": false,
+  "package_mutations": 0,
+  "host_activation": false,
+  "scope": "private SQLite snapshot checkpoint and fixture spaces; no live owner subscription"
+}
