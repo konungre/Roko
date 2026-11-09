@@ -67,3 +67,42 @@ The evidence DB is immutable/read-only and checked unchanged. Run:
 python -B components/conversation/tests/probe_reply_socket_transport.py \
   --database CLOSED_NATIVE_HISTORY.sqlite --output NEW_DIRECTORY
 ```
+
+## Caller-reported reset, timeout or cancellation
+
+`receiver.transport_failed(error)` is the receive-side hook for an actual caller
+read exception. It requires an exception object, not server/model text. On an
+open receiver it clears pending bytes, marks failure, and notifies the local
+snapshot gate at most once, returning true. On an already terminal receiver it
+returns false and leaves accepted UI state untouched. It neither raises away
+nor disposes of the supplied exception: the caller retains responsibility for
+logging, propagating, or presenting its read failure and for closing the socket.
+If local loss notification itself fails, its type is attached to that original
+exception and recorded in receiver diagnostics; cancellation stays primary.
+
+```python
+try:
+    chunk = trusted_socket.recv(65536)
+except OSError as error:
+    receiver.transport_failed(error)
+    raise  # caller preserves the original exception; no implicit retry
+```
+
+Timeouts are set by the caller, not a hidden receiver timer. An ordinary EOF still
+uses `eof()`. Neither event proves the daemon died, the turn failed to commit, or
+the host changed state. A complete accepted reply remains historical and visible;
+a cut-off later frame cannot replace it. A first incomplete frame creates no
+reply. All paths preserve unsent input. Delayed old-connection bytes, EOF, or read
+failure cannot affect a released/new controller attempt. Reusing old identities
+in stale-attempt tests is an adversarial local fixture, not a valid new durable
+request or permission to reuse committed IDs in production.
+
+`tests/probe_reply_disconnects.py` qualifies local socket-pair EOF within UTF-8,
+a complete saved packet plus cut-off frame, caller socket timeout, delayed stale
+connection events, localhost TCP reset after an accepted packet, and a real pipe
+crossing the buffer cap. Packet data comes from a closed saved-native database;
+partial bytes, timing, reset, and reused identities are synthetic fault fixtures.
+The probe sends no desktop requests and runs no daemon, native/model runtime,
+Nix/Guix operation or GUI. Loopback transport execution is not authentication,
+service health, or live-host qualification. Run with the same closed database
+and a new output directory as the socket transport probe.

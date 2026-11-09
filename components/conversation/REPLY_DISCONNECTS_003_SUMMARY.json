@@ -1,0 +1,52 @@
+{
+  "status": "passed",
+  "checks": {
+    "partial_utf8_eof/rejected": true,
+    "partial_utf8_eof/draft_and_no_automatic_requests": true,
+    "complete_then_partial_eof/preserved": true,
+    "complete_then_partial_eof/draft_and_no_automatic_requests": true,
+    "caller_timeout/failed_and_cleared": true,
+    "caller_timeout/draft_and_no_automatic_requests": true,
+    "stale_old_stream/new_attempt_unchanged": true,
+    "stale_old_stream/draft_and_no_automatic_requests": true,
+    "complete_then_tcp_reset/preserved": true,
+    "complete_then_tcp_reset/draft_and_no_automatic_requests": true,
+    "pipe_limit/bounded_and_failed": true,
+    "pipe_limit/draft_and_no_automatic_requests": true,
+    "database_bytes_unchanged": true
+  },
+  "input_database_sha256": "6172f9159cd0381e9aacb1749e9f9dc80b82971acb3d7bd19c731b59f53f2722",
+  "source_hashes": {
+    "/workspace/Roko/components/conversation/reply_framing.py": "a963d4381b23d5871429a62522dba2b570cc2794ff55e6c93b05d394bec3d2de",
+    "/workspace/Roko/components/conversation/desktop_draft.py": "0e70f8a927d679a896bec178179ed9dbdd18873e5e3f049fcaf92fcee063c74b",
+    "/workspace/Roko/components/conversation/desktop_reply.py": "7898f6fb3d8a4767f846b6aab17ef886b63660a9db03b16f2367615164e99375",
+    "/workspace/Roko/components/conversation/desktop_provenance.py": "6c477fe584d75f07cb7699f75f4e016b7e35852f8e6c435481eaa7fee9319b5a",
+    "/workspace/Roko/components/conversation/desktop_diagnostics.py": "60a2599db2f2e0cfe6de998f7bcf3eb342d86f5b8942b71536a5576d992933f3",
+    "/workspace/Roko/components/conversation/client_diagnostics.py": "1bf9f4b3d4223c4109238d8c320858749631380aa8f8b86ede04127d48adbf57",
+    "/workspace/Roko/components/conversation/package_reply_view.py": "d9fbdba4705e1d2e6b80ef376d0585696394f2a6ec393391dae9c96dbc4d4f2d",
+    "/workspace/Roko/components/conversation/tests/probe_reply_disconnects.py": "9272715fcd7ffefcf32e9eb2239aa727b44e591554e6e58d11263b016e94f7e6"
+  },
+  "transport_executed": true,
+  "transports": [
+    "local AF_UNIX socketpair",
+    "localhost TCP",
+    "OS pipe"
+  ],
+  "fixture_peer": true,
+  "synthetic_faults": true,
+  "connection_authenticated": false,
+  "requests_dispatched": false,
+  "service_executed": false,
+  "native_runtime_rerun": false,
+  "graphical_ui_tested": false,
+  "executed_actions": 0,
+  "conversation_tests": {
+    "run": 326,
+    "passed": 317,
+    "skipped": 9
+  },
+  "new_disconnect_tests": 6,
+  "preserved_receiver_checkpoint": "91ecea8c700705441eb4d7eb1195ebaaf5168538",
+  "main_reconciled": "ab5dfe1e0270c3723eccff5f6a928e2abdb54a98",
+  "unpublished": true
+}

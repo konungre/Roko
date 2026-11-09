@@ -75,6 +75,11 @@ class ReplyIngress:
         except BaseException as error:
             self._fail(error);raise
 
+    def transport_failed(self,error):
+        if not isinstance(error,BaseException):raise ValueError('Expected caller transport exception')
+        if self._state!='open':return False
+        self._fail(error);return True
+
     def eof(self):
         if self._state=='closed':return
         if self._state!='open':raise FramingError('Reply ingress is not open')
