@@ -224,3 +224,32 @@ snapshot isolation, invalid text input, explicit CLI selection and apply rejecti
 No default takeover, legacy package-source deletion, license clearance or host
 activation occurred. This is an opt-in read-only migration step, not completion
 of every inventoried legacy surface. Keep PR22 draft and metadata retry stopped.
+
+## Read-only awareness contract assessment
+
+The opt-in package_awareness_v2.SnapshotAwareness accepts a read-only backend and
+an explicit caller-owned fresh runtime factory. It imports neither omega_pm nor
+Hyperon, installs no runtime, evaluates no desired rules and exposes no apply.
+It validates the supplied snapshot, creates legacy-shaped data atoms in a NEW
+dedicated runtime, and publishes current only after the whole insertion succeeds.
+The caller must guarantee an independent fresh space; immediate current-runtime
+reuse is additionally rejected. This is not a general sandbox for arbitrary
+factories, not a durable owner subscription and not proof of every historical
+space/proxy being distinct. Consumers must use the returned observation/runtime.
+
+Separate fixture subprocesses compare old/new initial facts, removal on refresh,
+escaped opaque revision, backend/revision identity, no query calls and preservation
+of current after factory failure. All eight parity fields match; the successor
+imports no legacy core. Additional unit tests reject current-runtime reuse before
+append and preserve current after a partial fresh-sink insertion failure. The
+current Python has no Hyperon package, so native Hyperon compatibility is FALSE.
+These are contract doubles; prior PeTTa proofs do not substitute for this native
+Hyperon gate. No existing awareness binding or factory default was changed.
+
+The installed predicate here is historical legacy-format snapshot data, not a
+claim that arbitrary fixture packages are installed or that a built/running/health
+stage was proven. This adapter is not the v1 durable OS-fact projection contract.
+Desired-from-MeTTa queries, live owner-space integration and mutating CLI remain
+separate migrations. See MUTATING_CLI_REQUIREMENTS.md for explicit action gates.
+Twenty-one state tests pass. Provenance/licensing remains unresolved, PR22 stays
+draft and the blocked metadata update has not been retried.

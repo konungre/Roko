@@ -54,13 +54,17 @@
     {
       "surface": "optional Hyperon awareness",
       "consumer": "omega-baseline/components/omega-pm/omega_pm/metta.py",
-      "replacement": "distro/state/projection.py",
-      "state": "not-drop-in",
+      "replacement": "omega-baseline/adapters/package_awareness_v2.py",
+      "state": "opt-in-observation-fixture-parity-only",
       "acceptance": [
         "cognitive-owner stage/revision schema agreement",
         "live snapshot replacement with preserved provenance",
         "long-lived restart/CAS tests",
-        "no promotion of observed operation into installed/running/health"
+        "no promotion of observed operation into installed/running/health",
+        "native Hyperon still unavailable/unverified",
+        "fresh dedicated runtime/space owner contract",
+        "legacy-shaped data not durable OS stage facts",
+        "desired query migration remains separate"
       ],
       "rollback": "retain old awareness binding until separately adopted and tested",
       "default_switch_requires_review": true
