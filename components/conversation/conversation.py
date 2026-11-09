@@ -14,6 +14,7 @@ def bounded_text(value, limit=MAX_TEXT):
 
 
 class Session:
+    max_history = MAX_HISTORY
     def __init__(self, provider, ranker):
         self.provider = provider
         self.ranker = ranker
@@ -29,7 +30,7 @@ class Session:
         self.context = []
         if type(request) is not dict or set(request) != {'text', 'context'}:
             raise ValueError('Expected text and context')
-        if len(self.history) >= MAX_HISTORY:
+        if len(self.history) >= self.max_history:
             raise ValueError('Conversation history limit reached; start a new session')
         text = bounded_text(request['text'])
         facts = request['context']

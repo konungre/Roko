@@ -22,10 +22,18 @@ def main():
     parser.add_argument('--infer', type=Path, required=True)
     parser.add_argument('--model', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--ecan-profile', type=Path)
     args = parser.parse_args()
     if args.output.exists():
         raise ValueError('Refuse to replace a qualification profile')
     profile = json.loads(args.symbolic_profile.read_text())
+    if args.ecan_profile:
+        fragment = json.loads(args.ecan_profile.read_text())
+        profile['ecan'] = fragment['ecan']
+        for path, expected in fragment['files'].items():
+            if path in profile['files'] and profile['files'][path] != expected:
+                raise ValueError('Conflicting source pin: '+path)
+            profile['files'][path] = expected
     for path, expected in profile['files'].items():
         if sha(path) != expected:
             raise ValueError('Symbolic profile changed: '+path)

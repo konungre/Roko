@@ -181,7 +181,8 @@ def request(messages):
     tool = providers.LLMTool().with_name('reply').with_description('Inert conversational text; never executed')
     tool.add_parameter(providers.LLMToolParameter().with_name('text'))
     return providers.llmRequest(providers.llmRequestMessage('system', system),
-        [providers.llmRequestMessage(m['role'], m['content']) for m in messages], 64, 'none', [tool])
+        [providers.llmRequestMessage(m['role'], m['content']) for m in messages],
+        getattr(session, 'max_output_tokens', 64), 'none', [tool])
 
 
 def admit(response):

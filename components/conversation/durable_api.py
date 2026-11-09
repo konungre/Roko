@@ -1,0 +1,151 @@
+"""Versioned durable API; model output never selects storage paths or actions.
+
+Claims precede ECAN/model execution. Commit precedes response delivery. A crash
+between them can replay the stored response, never duplicate model inference.
+Uncommitted claims require explicit recovery after the old worker has died.
+"""
+import json
+import os
+
+import conversation
+from durable_store import Store, StoreError
+
+store = None
+current = None
+immediate = None
+completed = None
+
+
+class DurableSession(conversation.Session):
+    # Durable history is never silently windowed. Native 512-token admission may
+    # reject earlier; the client can inspect history and explicitly start anew.
+    max_history = 256
+    max_output_tokens = 128
+
+    def commit(self, omega_messages):
+        global current, completed
+        if current is None:
+            raise ValueError('No durable claim')
+        expected = self.history + [self.user_message(), {'role':'assistant','content':self.reply}]
+        if self.reply is None or omega_messages != expected:
+            raise ValueError('Incomplete Omega turn')
+        generation = self.provider.last_generation
+        if generation is None:
+            raise ValueError('Missing native generation receipt')
+        response = {'api_version':2,'session_id':current['session_id'],
+                    'request_id':current['request_id'],
+                    'status':'truncated' if generation['finish_reason']=='length' else 'completed',
+                    'text':self.reply,'context_ids':[f['id'] for f in self.context],
+                    'executed_actions':0,'generation':generation,
+                    'history_policy':'complete_no_omission'}
+        saved = store.commit(current['token'],self.user_message(),expected[-1],response)
+        self.history = expected
+        self.pending = None
+        current = None
+        completed = json.dumps(saved,ensure_ascii=False)
+        return completed
+
+
+def initialize(provider, ranker):
+    global store
+    store = Store(os.environ['ROKO_HISTORY_DB'])
+    conversation.session = DurableSession(provider, ranker)
+    provider.allow_partial = True
+
+
+def packet(value):
+    def unique(pairs):
+        result = {}
+        for key,item in pairs:
+            if key in result:
+                raise ValueError('Duplicate JSON key')
+            result[key] = item
+        return result
+    data = json.loads(value,object_pairs_hook=unique)
+    if type(data) is not dict or type(data.get('api_version')) is not int or data['api_version'] != 2:
+        raise ValueError('Expected API version 2')
+    return data
+
+
+def error_response(code, data):
+    result = {'api_version':2,'status':'error','code':code,'executed_actions':0}
+    for key in ('session_id','request_id'):
+        value = data.get(key)
+        if type(value) is str and len(value)<=128:
+            result[key] = value
+    return result
+
+
+def prepare_line(line):
+    global current, immediate, completed
+    immediate = None
+    completed = None
+    data = {}
+    try:
+        if current is not None:
+            raise RuntimeError('Previous native claim unresolved')
+        data = packet(line)
+        op = data.get('op')
+        if op == 'snapshot':
+            if set(data) != {'api_version','op','session_id'}:
+                raise ValueError('Invalid snapshot fields')
+            immediate = {'api_version':2,'status':'snapshot','session_id':data['session_id'],
+                         'executed_actions':0,**store.snapshot(data['session_id'])}
+            return False
+        if op == 'recover':
+            if set(data) != {'api_version','op','session_id','request_id','expected_revision'}:
+                raise ValueError('Invalid recovery fields')
+            immediate = {'api_version':2,'session_id':data['session_id'],
+                         'request_id':data['request_id'],'executed_actions':0,
+                         **store.recover(data['session_id'],data['request_id'],data['expected_revision'])}
+            return False
+        required = {'api_version','op','session_id','request_id','expected_revision','text','context'}
+        if op != 'turn' or not required <= set(data) or set(data)-required-{'max_output_tokens'}:
+            raise ValueError('Invalid turn fields')
+        maximum = data.get('max_output_tokens',128)
+        if type(maximum) is not int or not 1<=maximum<=128:
+            raise ValueError('Output budget must be 1..128')
+        payload = {'text':data['text'],'context':data['context'],'max_output_tokens':maximum}
+        claim = store.start(data['session_id'],data['request_id'],data['expected_revision'],payload)
+        if claim['status'] == 'replayed':
+            immediate = claim['response']
+            return False
+        current = {**claim,'session_id':data['session_id'],'request_id':data['request_id']}
+        session = conversation.session
+        session.history = claim['history']
+        session.max_output_tokens = maximum
+        session.provider.max_tokens = maximum
+        session.provider.last_error = None
+        session.provider.last_generation = None
+        session.prepare({'text':data['text'],'context':data['context']})
+        return True
+    except Exception as error:
+        code = error.code if isinstance(error,StoreError) else 'invalid_request'
+        if current is not None:
+            store.fail(current['token'],{'code':code})
+            current = None
+        immediate = error_response(code,data)
+        return False
+
+
+def immediate_json():
+    return json.dumps(immediate,ensure_ascii=False)
+
+
+def completed_json():
+    if current is not None or completed is None:
+        raise ValueError('Native step did not complete a durable commit')
+    return completed
+
+
+def abort():
+    global current
+    code = conversation.session.provider.last_error or 'native_turn_failed'
+    data = current or {}
+    if current is not None:
+        store.fail(current['token'],{'code':code})
+        current = None
+    # A failed turn leaves the prior durable history authoritative.
+    conversation.session.pending = None
+    conversation.session.reply = None
+    return json.dumps(error_response(code,data),ensure_ascii=False)

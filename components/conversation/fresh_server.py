@@ -24,7 +24,7 @@ def identity(pid):
         return None
 
 
-def main():
+def main(api_version=1):
     source = Path(__file__).resolve().parent
     profile_path = str(Path(os.environ['ROKO_FRESH_PROFILE']).resolve(strict=True))
     profile = load_profile(profile_path)
@@ -43,6 +43,12 @@ def main():
                    'ROKO_FRESH_PROFILE':profile_path}
     environment.update(profile.get('runtime_env', {}))
     environment['PYTHONPATH'] = str(source) + os.pathsep + environment.get('PYTHONPATH', '')
+    if api_version == 2:
+        database = Path(os.environ['ROKO_HISTORY_DB'])
+        if not database.is_absolute():
+            raise ValueError('ROKO_HISTORY_DB must be an absolute trusted local path')
+        environment['ROKO_API_VERSION'] = '2'
+        environment['ROKO_HISTORY_DB'] = str(database)
     command = [profile['python'], '-B', str(source.parents[1]/'omega-baseline/scripts/no-network.py'),
                profile['swipl'], '--stack-limit=64m', '-q', '-f', 'none', '--no-packs',
                '-s', str(source/'worker.pl'), '--', 'silent']

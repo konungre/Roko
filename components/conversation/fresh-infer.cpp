@@ -133,7 +133,10 @@ int main(int argc, char ** argv) {
 
     llama_context_params ctx_params = llama_context_default_params();
     // n_ctx is the context size
-    if (n_prompt < 1 || n_prompt > 512 || n_predict < 1 || n_predict > 128) return 2;
+    if (n_prompt < 1 || n_prompt > 512 || n_predict < 1 || n_predict > 128) {
+        fprintf(stderr, "ROKO_GENERATION {\"input_tokens\":%d,\"output_tokens\":0,\"finish_reason\":\"input_limit\"}\n", n_prompt);
+        return 2;
+    }
     ctx_params.n_threads = 4;
     ctx_params.n_threads_batch = 4;
     ctx_params.n_ctx = 1024;
@@ -190,6 +193,7 @@ int main(int argc, char ** argv) {
 
     const auto t_main_start = ggml_time_us();
     int n_decode = 0;
+    bool reached_eos = false;
     llama_token new_token_id;
 
     for (int n_pos = 0; n_pos + n_tokens < n_prompt + n_predict; ) {
@@ -207,6 +211,7 @@ int main(int argc, char ** argv) {
 
             // is it an end of generation?
             if (llama_vocab_is_eog(vocab, new_token_id)) {
+                reached_eos = true;
                 break;
             }
 
@@ -231,6 +236,8 @@ int main(int argc, char ** argv) {
     printf("\n");
 
     const auto t_main_end = ggml_time_us();
+    fprintf(stderr, "ROKO_GENERATION {\"input_tokens\":%d,\"output_tokens\":%d,\"finish_reason\":\"%s\"}\n",
+            n_prompt, n_decode, reached_eos ? "eos" : "length");
 
     fprintf(stderr, "%s: decoded %d tokens in %.2f s, speed: %.2f t/s\n",
             __func__, n_decode, (t_main_end - t_main_start) / 1000000.0f, n_decode / ((t_main_end - t_main_start) / 1000000.0f));

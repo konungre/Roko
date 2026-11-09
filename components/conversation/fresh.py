@@ -1,7 +1,7 @@
 """Fresh-build host profile, separate from the immutable recovered-host receipt.
 
 Uses real Omega provider dispatch. No action executor or remote fallback exists.
-Nonempty symbolic context requires a separately qualified ECAN integration.
+Symbolic context requires a separately qualified native ECAN profile.
 """
 import hashlib
 import json
@@ -41,6 +41,33 @@ def no_context(candidates, **kwargs):
     raise ValueError('Native ECAN is not qualified in this fresh profile; use empty context')
 
 
+class GenerationError(RuntimeError):
+    def __init__(self, code):
+        super().__init__(code)
+        self.code = code
+
+
+def generation_metadata(stderr, max_tokens):
+    try:
+        rows = [json.loads(x.split(' ', 1)[1]) for x in stderr.splitlines()
+                if x.startswith('ROKO_GENERATION ')]
+    except ValueError as error:
+        raise GenerationError('invalid_generation_receipt') from error
+    if len(rows) != 1:
+        raise GenerationError('missing_generation_receipt')
+    row = rows[0]
+    if (type(row) is not dict or set(row) != {'input_tokens','output_tokens','finish_reason'}
+            or type(row['input_tokens']) is not int or type(row['output_tokens']) is not int
+            or not 0 <= row['output_tokens'] <= max_tokens
+            or row['finish_reason'] not in ('eos','length','input_limit')):
+        raise GenerationError('invalid_generation_receipt')
+    if row['finish_reason'] == 'input_limit':
+        raise GenerationError('context_limit')
+    if not 1 <= row['input_tokens'] <= 512:
+        raise GenerationError('invalid_generation_receipt')
+    return row
+
+
 class FreshProvider:
     def __init__(self, profile):
         try:
@@ -52,6 +79,11 @@ class FreshProvider:
             raise ValueError('Require inherited child-only network denial')
         self.profile = profile
         self.receipts = []
+        self.ecan_receipts = []
+        self.max_tokens = 64
+        self.allow_partial = False
+        self.last_generation = None
+        self.last_error = None
         self.fd = os.open(profile['model'], os.O_RDONLY | os.O_NOFOLLOW)
         self.identity = os.fstat(self.fd)
         try:
@@ -71,13 +103,15 @@ class FreshProvider:
             raise ValueError('Model bytes or identity changed')
 
     def chat(self, messages):
+        self.last_generation = None
+        self.last_error = None
         prompt = recovered.render(messages)
         source = Path(__file__).resolve().parent
         parent_start = Path(f'/proc/{os.getpid()}/stat').read_text().rsplit(')', 1)[1].split()[19]
         command = [self.profile['python'], '-B', str(source/'fresh_supervise.py'),
                    '--parent-pid', str(os.getpid()), '--parent-start', parent_start,
                    '--seconds', '150', '--', self.profile['infer'],
-                   '--model', f'/proc/{os.getpid()}/fd/{self.fd}', '--max-tokens', '64']
+                   '--model', f'/proc/{os.getpid()}/fd/{self.fd}', '--max-tokens', str(self.max_tokens)]
         started = time.monotonic()
         proc = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE, start_new_session=True,
@@ -98,10 +132,20 @@ class FreshProvider:
                    'stdout':out.decode('utf-8'), 'stderr':err.decode('utf-8',errors='replace'),
                    'network_denied':True, 'executed_actions':0}
         self.receipts.append(receipt)
+        try:
+            generation = generation_metadata(receipt['stderr'], self.max_tokens)
+        except GenerationError as error:
+            self.last_error = error.code
+            raise
         if proc.returncode or len(out)>32768 or len(err)>1024**2 or b'descendants_cleaned=1' not in err:
             raise RuntimeError('Fresh native inference failed: '+str(proc.returncode))
         self.verify_model()
         receipt['model_verified_before_history_commit'] = True
+        receipt['generation'] = generation
+        self.last_generation = generation
+        if generation['finish_reason'] == 'length' and not self.allow_partial:
+            self.last_error = 'output_limit'
+            raise GenerationError('output_limit')
         return conversation.bounded_text(receipt['stdout'])
 
     def close(self):
@@ -122,7 +166,17 @@ def initialize():
                 .with_id('roko-reply').with_arguments({'text':text}))
     providers.registerLLMProvider('RokoFreshText', Adapter())
     providers.llmProviderStart('RokoFreshText')
-    conversation.session = conversation.Session(provider, no_context)
+    ranker = no_context
+    if profile.get('ecan'):
+        from fresh_ecan import rank_candidates
+        def ranker(candidates, **kwargs):
+            result, receipt = rank_candidates(candidates, profile=profile, **kwargs)
+            provider.ecan_receipts.append(receipt)
+            return result
+    conversation.session = conversation.Session(provider, ranker)
+    if os.environ.get('ROKO_API_VERSION') == '2':
+        import durable_api
+        durable_api.initialize(provider, ranker)
     return True
 
 
@@ -132,7 +186,8 @@ def finish():
         provider.verify_model()
         print('ROKO_FRESH_CONVERSATION '+json.dumps({'native_calls':provider.receipts,
               'history':conversation.session.history, 'model_identity_unchanged':True,
-              'model_sha256':recovered.MODEL_SHA, 'ecan_qualified':False}), file=sys.stderr)
+              'model_sha256':recovered.MODEL_SHA, 'ecan_receipts':provider.ecan_receipts,
+              'ecan_qualified':bool(provider.profile.get('ecan'))}), file=sys.stderr)
     finally:
         provider.close()
     return True
