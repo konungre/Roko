@@ -104,6 +104,26 @@ class MorkV2ContractTests(unittest.TestCase):
 
 @unittest.skipUnless(os.environ.get('ROKO_MORK_V2_TEST_PROFILE'),'Requires qualified external native MORK')
 class MorkV2NativeTests(unittest.TestCase):
+    def test_real_maximum_history_preserves_unicode_text_and_receipt_hashes(self):
+        profile=json.loads(Path(os.environ['ROKO_MORK_V2_TEST_PROFILE']).read_text())
+        history=[{'role':'user' if i%2==0 else 'assistant',
+                  'content':('λ !(py-call forbidden) '+str(i)+' ')*100}
+                 for i in range(8)]
+        before=copy.deepcopy(history)
+        selected,receipt=mork_v2.retrieve_history(history,binding(history),profile)
+        self.assertEqual(selected,before)
+        self.assertEqual(history,before)
+        self.assertEqual(receipt['indexed_messages'],8)
+        self.assertFalse(receipt['history_omitted'])
+        self.assertFalse(receipt['authorizes_actions'])
+        self.assertEqual(receipt['revision'],4)
+        self.assertEqual(receipt['history_sha256'],mork_v2.history_digest(before))
+        self.assertEqual([x['message_sha256'] for x in receipt['evidence']],
+                         [mork_v2.history_digest(x) for x in before])
+        self.assertEqual(receipt['native']['facts'],
+                         [{'relation':'chat_turn','args':['turn_'+str(i),x['role']]}
+                          for i,x in enumerate(before)])
+
     def test_real_empty_and_complete_history(self):
         profile=json.loads(Path(os.environ['ROKO_MORK_V2_TEST_PROFILE']).read_text())
         for history in ([],HISTORY):

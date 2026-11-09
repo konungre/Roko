@@ -87,3 +87,12 @@ including 12 deterministic maximum-16-fact workloads (seed 729104), with shared
 symbol prefixes, mixed relations and arities 1–3. Total: 32 native calls in this
 suite. No bounded-contract disagreement was observed; this does not remove the
 separately reproduced PrefixZipper defect or establish its unreachability.
+
+V2 maximum-history qualification on main successor f1f901a: all ten adapter
+methods passed, including three actual native retrievals. The added real-native
+case indexes eight alternating messages containing Unicode and literal command-like
+text, verifies exact hydration and every evidence hash, and requires no omission
+or action authorization. Raw text remains outside the native fact index. This
+checks the full admitted v2 transcript boundary; it does not repair PathMap or
+prove arbitrary zipper operations safe. The existing independent completeness
+check continues to reject missing, extra, duplicate or altered native rows.
