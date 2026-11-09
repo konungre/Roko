@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "seconds": 0.7379352190000645,
+  "actual_runtime": "PeTTa with upstream Omega modules",
+  "os_receipts": "synthetic fixtures only",
+  "verified_native_nix_guix": false,
+  "executed_actions": 0,
+  "native_cases": 3,
+  "contract_tests": 5,
+  "evidence_sha256": "69595123322370ddb0c5ecdaa1559bf89431cba5de4d9118635c18fd3b0c4e2c",
+  "phases": [
+    "desired",
+    "resolved",
+    "built",
+    "activated",
+    "running",
+    "observed",
+    "health"
+  ],
+  "schema": "roko.os-state.claims.v0",
+  "mutation_authority": false,
+  "provisional": true
+}
