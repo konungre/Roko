@@ -1,6 +1,6 @@
 # Evaluation-only system candidate. No image build, installation or activation.
 { nixpkgsSource, expectedSourceNarHash, enableCosmic ? false, adminPublicKey ? null
-, system ? "x86_64-linux" }:
+, system ? "x86_64-linux", liveMedia ? false, extraModules ? [] }:
 assert system == "x86_64-linux";
 assert adminPublicKey == null || builtins.isString adminPublicKey;
 let
@@ -18,11 +18,13 @@ in import (pinned + "/nixos/lib/eval-config.nix") {
     services.openssh.enable = false;
     documentation.enable = false;
     nixpkgs.config.allowUnfree = false;
-    boot.loader.systemd-boot.enable = true;
+    boot.loader.systemd-boot.enable = !liveMedia;
     boot.loader.efi.canTouchEfiVariables = false;
-    fileSystems."/" = { device = "/dev/disk/by-label/ROKO_ROOT"; fsType = "ext4"; };
-    fileSystems."/boot" = { device = "/dev/disk/by-label/ROKO_EFI"; fsType = "vfat"; };
-    fileSystems."/home" = { device = "/dev/disk/by-label/ROKO_STATE"; fsType = "ext4"; options = [ "nodev" "nosuid" ]; };
+    fileSystems = if liveMedia then {} else {
+      "/" = { device = "/dev/disk/by-label/ROKO_ROOT"; fsType = "ext4"; };
+      "/boot" = { device = "/dev/disk/by-label/ROKO_EFI"; fsType = "vfat"; };
+      "/home" = { device = "/dev/disk/by-label/ROKO_STATE"; fsType = "ext4"; options = [ "nodev" "nosuid" ]; };
+    };
     users.mutableUsers = false;
     users.users.root.hashedPassword = "!";
     users.users.roko = {
@@ -44,5 +46,5 @@ in import (pinned + "/nixos/lib/eval-config.nix") {
       licensingResolved = false;
       productionReady = false;
     };
-  }) ];
+  }) ] ++ extraModules;
 }

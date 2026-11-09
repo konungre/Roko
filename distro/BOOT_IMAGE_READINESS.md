@@ -78,3 +78,9 @@ and password-locked, SSH/sudo and EFI-variable writes are disabled. No toplevel
 closure, disk image or compositor/model process was realized. Real provisioning,
 strict sandbox build and boot/health/recovery gates remain required. See
 nix/SANDBOX_QUALIFICATION.md. Licensing remains unresolved.
+
+The pinned live-image definition now resolves ISO/system derivation identities
+with IFD disabled. Repeating identical headless inputs yields identical identities.
+Declared ISO inputs count18 and system inputs count23 directly, not transitively;
+all corresponding output paths were absent. Actual realization, strict sandbox
+proof, secure provisioning, persistence and guest health remain blocking gates.

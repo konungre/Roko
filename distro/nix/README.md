@@ -88,3 +88,7 @@ nor image was built, and no compositor/model ran. Model and authority metadata
 are explicitly false. This is a definition/evaluation prototype only.
 
 See [strict sandbox qualification](SANDBOX_QUALIFICATION.md) for exact next gates.
+
+The next [live-image evaluation prototype](LIVE_IMAGE_EVALUATION.md) resolves ISO
+and system derivation identities for headless/COSMIC variants. It is separate
+from the bootstrap rescue and still produces no built ISO or boot result.
