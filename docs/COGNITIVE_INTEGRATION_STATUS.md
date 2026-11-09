@@ -8,9 +8,9 @@ The native test checks two real turns and exact prompt/history binding. See
 | Target | Verified scope in this development work |
 | --- | --- |
 | MeTTa-NARS | Six fresh Hyperon NAL-1 cases, then actual two-turn Omega conversation with derived observations retained in session context. |
-| NACE | Twelve actual native seven-function-slice cases on synthetic 3x3 states. Not conversation integration or full NACE. |
-| MetaMo | Eight freshly executed MAGUS scoring/selection cases through rebuilt PeTTa/SWI, with independent score oracle and 16 helper probes each. Standalone; not wired into the combined turn. |
-| AIRIS | Four freshly executed original AIRIS scalar-learning cases, with held-out prediction, empty-knowledge ablation and snapshot restoration. Standalone; no conversation integration. |
+| NACE | Twelve native seven-function-slice cases, plus typed v2 prediction integrated with actual Omega/Granite conversation. Not full NACE. |
+| MetaMo | Eight freshly executed MAGUS scoring/selection cases through rebuilt PeTTa/SWI, with independent score oracle and 16 helper probes each. Now additionally invoked by typed v2 cognitive tasks and verified in actual Omega/Granite conversation. |
+| AIRIS | Four freshly executed original AIRIS scalar-learning cases, with held-out prediction, empty-knowledge ablation and snapshot restoration. Now additionally invoked by typed v2 cognitive tasks, with verified native results committed/replayed alongside conversation. |
 | ECAN | Historical sources/adapters preserved; fresh profile rejects nonempty external context because its native ECAN closure is absent. |
 | MeTTa-Motto | No new implementation or qualification in this work. |
 | MOSES | Pending. |
@@ -25,3 +25,5 @@ not independently established facts. No external actions were executed.
 Runtime profiles and native receipts are local evidence, not cross-machine
 attestation. Source, attribution, earlier failures, and checkpoints are preserved.
 Integration branches are prepared for parent review; no merge is performed by this task.
+
+See [native learning integration](../components/conversation/LEARNING_V2.md) for the executable MetaMo/AIRIS/NACE request path, structured results, validation and limitations.

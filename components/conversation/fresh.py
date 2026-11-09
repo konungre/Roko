@@ -48,6 +48,9 @@ def load_profile(path):
             raise ValueError('MORK configuration schema')
         if profile['files'].get(config['manifest']) != config['manifest_sha256']:
             raise ValueError('MORK manifest must be pinned in fresh closure')
+    if 'learning_components' in profile:
+        from learning import validate_profile
+        validate_profile(profile)
     return profile
 
 
@@ -226,7 +229,11 @@ def initialize():
             provider.ecan_receipts.append(receipt)
             return result
     reasoner = None
+    provider.learning = None
     try:
+        if 'learning_components' in profile:
+            from learning import LearningComponents
+            provider.learning = LearningComponents(profile)
         if 'nars_cognition' in profile:
             from cognition import NarsCognition
             config = profile['nars_cognition']
@@ -251,6 +258,7 @@ def finish():
               'ecan_qualified':bool(provider.profile.get('ecan')),
               'cognitive_receipts':getattr(conversation.session.reasoner,'receipts',[]),
               'cognitive_history':conversation.session.cognitive_history,
+              'learning_receipts':getattr(provider.learning,'receipts',[]),
               'mork_receipts':provider.mork_receipts}), file=sys.stderr)
     finally:
         provider.close()

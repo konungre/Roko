@@ -1,0 +1,76 @@
+{
+  "checks": {
+    "airis_answer_labels": true,
+    "airis_atomic_commit": true,
+    "airis_binding": true,
+    "airis_completed": true,
+    "airis_native_prompt": true,
+    "airis_native_verified": true,
+    "airis_result": true,
+    "failed_turn_no_ledger_commit": true,
+    "metamo_atomic_commit": true,
+    "metamo_binding": true,
+    "metamo_completed": true,
+    "metamo_native_prompt": true,
+    "metamo_native_verified": true,
+    "metamo_result": true,
+    "model_failure_after_actual_component": true,
+    "nace_atomic_commit": true,
+    "nace_binding": true,
+    "nace_completed": true,
+    "nace_native_prompt": true,
+    "nace_native_verified": true,
+    "nace_result": true,
+    "no_unrequested_nars": true,
+    "restart_replay_no_native": true,
+    "structured_native_results": true,
+    "three_actual_model_and_component_calls": true
+  },
+  "ecan_qualified": false,
+  "error": null,
+  "executed_actions": 0,
+  "full_components": false,
+  "guest_tested": false,
+  "mork_qualified": false,
+  "profile_sha256": "003504f8ecb2bd419c6c6d2216c485e8bce01f0ae4de85b0b1b5908f65a9fa9a",
+  "seconds": 101.14690434899967,
+  "status": "passed",
+  "responses": [
+    {
+      "session_id": "metamo",
+      "text": "act2\n",
+      "status": "completed",
+      "generation": {
+        "finish_reason": "eos",
+        "input_tokens": 206,
+        "output_tokens": 2
+      }
+    },
+    {
+      "session_id": "airis",
+      "text": "step=8, hold=7\n",
+      "status": "completed",
+      "generation": {
+        "finish_reason": "eos",
+        "input_tokens": 196,
+        "output_tokens": 7
+      }
+    },
+    {
+      "session_id": "nace",
+      "text": "NACE predicts a reward value of 1.\n",
+      "status": "completed",
+      "generation": {
+        "finish_reason": "eos",
+        "input_tokens": 245,
+        "output_tokens": 10
+      }
+    }
+  ],
+  "native_result_sha256": "afe4f8a6daa4bac4b3bf02aa306c281f812779b2c202609d560d31cd28d8fde5",
+  "first_attempt_quality": {
+    "status": "failed",
+    "preserved": true,
+    "finding": "Model prose reversed AIRIS step/hold values despite correct native dataflow. Successor adds structured native results and clearer labels."
+  }
+}
