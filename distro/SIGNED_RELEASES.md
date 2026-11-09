@@ -72,3 +72,8 @@ mutation, corrupted staged data, updated rollback floors, unavailable space,
 root execution and public staging parents. These establish process-interruption
 behavior on the host filesystem, not physical power-loss guarantees, device
 cache behavior, bootloader rollback, or an A/B update implementation.
+
+A separate [userspace boot-trial journal](update/README.md) now consumes verified
+staging metadata and tests bounded trial/fallback behavior. It deliberately does
+not install a payload or change actual boot selection. Production slot and firmware
+integration remains open.

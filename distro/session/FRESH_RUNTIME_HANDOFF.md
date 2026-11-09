@@ -95,3 +95,18 @@ pass without skips, including the real Prolog bounded reader. The profile remain
 an inventory-only artifact; `LOCAL_SYMBOLIC_VALIDATION.json` separately records
 native probe outcomes and evidence hashes. No model inference, autonomous loop,
 ECAN context or guest integration was executed by this qualification.
+
+## Guest execution remains blocked after local native rebuild
+
+Read-only inspection of the preserved session006 capsule confirms `/init` mounts
+ISO9660 media and requires `/roko/root.ext4`, exactly3,221,225,472 bytes, SHA256
+`b7770c5352b5a38cbe5f9825133e381ba5e2772874d81e991ce04c1c2152e933`.
+It verifies the baseline accounts, applies the capsule overlay in RAM and switches
+root before starting the non-root supervisor. The capsule is not a standalone
+root image. Omitting ISO, disabling the hash checks, or replacing the guest ABI
+with host paths would not be a valid guest integration test. No such change was
+made. This executor also lacks QEMU, the pinned kernel closure and /dev/kvm.
+The rebuilt host symbolic runtime therefore cannot currently be tested inside
+the preserved non-root guest. ISO401 remains untouched; no alternate download
+route was attempted. Model weights and inference binary are also not present in
+this consumer runtime. No fresh conversation inference or guest result is claimed.
