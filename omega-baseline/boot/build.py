@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """Build deterministic boot-probe initramfs without mounting or installing."""
-import gzip,hashlib,io,json,stat,struct,subprocess
+import argparse,gzip,hashlib,io,json,stat,struct,subprocess
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];BOOT=ROOT/'boot';OUT=ROOT/'build/boot'
 def sha(data):return hashlib.sha256(data).hexdigest()
+def validate_name(name):
+ if not name or '\0' in name or name.startswith('/') or any(part in ('', '.', '..') for part in name.split('/')):
+  raise ValueError('Unsafe archive path')
 def entry(name,data,mode,ino,major=0,minor=0):
- if name.startswith('/') or '..' in name.split('/'):raise ValueError('Unsafe archive path')
+ validate_name(name)
  name=name.encode()+b'\0'
  fields=[ino,mode,0,0,2 if stat.S_ISDIR(mode) else 1,0,len(data),0,0,major,minor,len(name),0]
  header=b'070701'+b''.join(f'{x:08x}'.encode() for x in fields)+name
@@ -24,19 +27,42 @@ def inspect(raw):
   data=raw[offset:offset+size]
   if len(data)!=size:raise ValueError('Truncated archive')
   offset+=size;offset+=(-offset)%4
-  if name=='TRAILER!!!':break
+  if offset>len(raw):raise ValueError('Truncated padding')
+  if name=='TRAILER!!!':
+   if size or mode or any(raw[offset:]):raise ValueError('Invalid trailer or trailing data')
+   break
+  validate_name(name)
+  if fields[12]!=0:raise ValueError('Invalid newc checksum')
+  kind=stat.S_IFMT(mode)
+  if kind not in (stat.S_IFREG,stat.S_IFDIR,stat.S_IFLNK,stat.S_IFCHR,stat.S_IFBLK,stat.S_IFIFO,stat.S_IFSOCK):raise ValueError('Invalid file type')
+  if kind not in (stat.S_IFREG,stat.S_IFLNK) and size:raise ValueError('Unexpected file payload')
   if name in found:raise ValueError('Duplicate path')
   found[name]={'mode':mode,'bytes':size,'sha256':sha(data),'uid':fields[2],'gid':fields[3],'mtime':fields[5],'rdevmajor':fields[9],'rdevminor':fields[10]}
  return found
 def check_elf(data):
- if data[:4]!=b'\x7fELF' or data[4]!=2 or data[5]!=1 or struct.unpack_from('<H',data,18)[0]!=62:raise ValueError('Expected x86_64 ELF')
- phoff=struct.unpack_from('<Q',data,32)[0];phsize,phnum=struct.unpack_from('<HH',data,54)
- if any(struct.unpack_from('<I',data,phoff+i*phsize)[0]==3 for i in range(phnum)):raise ValueError('Dynamic interpreter dependency')
-def main(profile_bytes=None):
+ if len(data)<64 or data[:7]!=b'\x7fELF\x02\x01\x01':raise ValueError('Expected complete little-endian ELF64 header')
+ kind,machine,version=struct.unpack_from('<HHI',data,16)
+ if kind!=2 or machine!=62 or version!=1:raise ValueError('Expected static x86_64 executable')
+ phoff=struct.unpack_from('<Q',data,32)[0]
+ ehsize,phsize,phnum=struct.unpack_from('<HHH',data,52)
+ if ehsize!=64 or phsize!=56 or not phnum or phoff<64 or phoff+phsize*phnum>len(data):raise ValueError('Invalid ELF program header table')
+ loadable=False
+ for i in range(phnum):
+  offset=phoff+i*phsize
+  ptype,pflags,poffset,vaddr,paddr,filesz,memsz,align=struct.unpack_from('<IIQQQQQQ',data,offset)
+  if ptype in (2,3):raise ValueError('Dynamic runtime dependency')
+  if poffset+filesz>len(data):raise ValueError('Truncated ELF segment')
+  if ptype==1:
+   if filesz>memsz:raise ValueError('Invalid ELF load segment')
+   loadable=True
+ if not loadable:raise ValueError('Missing ELF load segment')
+def main(profile_bytes=None, *, minimal=False, output=None):
+ global OUT
+ if output is not None:OUT=Path(output)
  OUT.mkdir(parents=True,exist_ok=True)
- profile=(BOOT/'profile.json').read_bytes() if profile_bytes is None else profile_bytes
+ profile=(json.dumps({'name':'Roko serial rescue','architecture':'x86_64','network':False,'host_disks':False,'cosmic':False,'model':False},sort_keys=True,separators=(',',':')).encode()+b'\n') if minimal else ((BOOT/'profile.json').read_bytes() if profile_bytes is None else profile_bytes)
  busybox=None
- asset=json.loads((BOOT/'boot-assets.lock.json').read_text())['busybox']
+ asset=None if minimal else json.loads((BOOT/'boot-assets.lock.json').read_text())['busybox']
  if asset is not None:
   if type(asset) is not dict or set(asset)!={'path','sha256'}:raise ValueError('Invalid BusyBox asset')
   busybox=Path(asset['path']).read_bytes()
@@ -62,4 +88,9 @@ def main(profile_bytes=None):
  (OUT/'roko-initramfs.cpio.gz').write_bytes(compressed)
  report={'build_id':build_id,'compiler':subprocess.check_output(['gcc','--version'],text=True).splitlines()[0],'flags':flags,'init_sha256':sha(data),'initramfs_sha256':sha(compressed),'initramfs_bytes':len(compressed),'entries':records,'boot_tested':False,'cosmic_included':False,'busybox_included':busybox is not None,'scope':'Own freestanding no-libc PID-1 probe and deterministic initramfs; no kernel or VM runtime included'}
  (OUT/'build-manifest.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
-if __name__=='__main__':main()
+if __name__=='__main__':
+ parser=argparse.ArgumentParser(description=__doc__)
+ parser.add_argument('--minimal',action='store_true',help='Build only the public freestanding rescue; no external asset lock required')
+ parser.add_argument('--output',type=Path,help='Workspace build output directory')
+ args=parser.parse_args()
+ main(minimal=args.minimal,output=args.output)
