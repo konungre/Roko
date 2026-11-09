@@ -9,3 +9,12 @@ class SuccessorTests(unittest.TestCase):
  def test_duplicate_and_executable_rejected(self):
   with self.assertRaises(ValueError):module.plan_single('hello','/bin/sh','{}')
   with self.assertRaises(ValueError):module.plan_single('hello','/nix/store/'+'0'*32+'-fixture','{"packages":{},"packages":{},"revision":"1","source":"f"}')
+
+ def test_complete_mixed_plan_golden(self):
+  expected=json.loads((Path(__file__).parent/'evidence/planner-complete-parity-002/mixed-golden-plan.json').read_text())
+  snapshot={**expected['before'],'source':'disposable-parity'}
+  raw=module.plan_single('hello',expected['desired']['hello'],json.dumps(snapshot))
+  report=json.loads(raw)
+  self.assertEqual(report['schema'],2)
+  self.assertEqual(report['plan'],expected)
+  self.assertEqual([(x['name'],x['op']) for x in report['plan']['operations']],[('hello','remove'),('hello','install'),('zeta','remove')])

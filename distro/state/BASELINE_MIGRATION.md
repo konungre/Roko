@@ -59,3 +59,23 @@ changed. Eleven state/successor tests still pass.
 Provenance conclusion remains unchanged: archive and Git matching establish
 identity/introduction, not ownership or a license grant. No additional rights
 proof was found. Keep the repository-wide licensing issue and PR draft open.
+
+## Complete mixed-plan parity correction
+
+The earlier operation-order difference is now fixed in the successor: name order
+is stable, with remove before install for each name. The successor emits the
+same complete inner snapshot plan fields as the legacy scalar bridge (schema,
+snapshot-only backend identity, before state, desired state, ordered operations,
+and canonical SHA256 plan id). Its outer report remains explicitly schema2 and
+read-only. The plan checksum is not a signature or execution authorization.
+
+The strengthened parity gate compares complete inner dictionaries and ordered
+lists directly. Twelve cases pass: seven accepted complete plans and five invalid
+input rejections. Unicode snapshot provenance also matches the legacy checksum.
+A fixed mixed golden-plan regression locks the expected hello-remove,
+hello-install,zeta-remove sequence and checksum. Twelve unit tests pass; the
+actual PeTTa/Janus successor probe passes again. Evidence is retained under
+planner-complete-parity-002. This supersedes the earlier unordered-only parity
+finding, not its historical evidence. No legacy binding was modified.
+General MeTTa text parser parity and external caller compatibility remain outside
+this scalar bridge gate. Licensing/provenance remains unresolved repository-wide.

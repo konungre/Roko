@@ -1,0 +1,32 @@
+{
+  "backend": "snapshot-only:disposable-parity",
+  "before": {
+    "packages": {
+      "hello": "/nix/store/11111111111111111111111111111111-fixture-b",
+      "zeta": "/nix/store/11111111111111111111111111111111-fixture-b"
+    },
+    "revision": "fixture-1"
+  },
+  "desired": {
+    "hello": "/nix/store/00000000000000000000000000000000-fixture-a"
+  },
+  "id": "ca3184648cfd3968634fcf79247b9351dd3380b0bc7d295feabfb05bffc07504",
+  "operations": [
+    {
+      "name": "hello",
+      "op": "remove",
+      "path": "/nix/store/11111111111111111111111111111111-fixture-b"
+    },
+    {
+      "name": "hello",
+      "op": "install",
+      "path": "/nix/store/00000000000000000000000000000000-fixture-a"
+    },
+    {
+      "name": "zeta",
+      "op": "remove",
+      "path": "/nix/store/11111111111111111111111111111111-fixture-b"
+    }
+  ],
+  "schema": 1
+}

@@ -3,7 +3,7 @@
 This opt-in successor consumes validated JSON snapshots, not MeTTa source code.
 The legacy adapter remains unchanged until consumers explicitly adopt v2.
 """
-import json,re
+import hashlib,json,re
 
 def _packages(value):
  if not isinstance(value,dict):raise ValueError('package object required')
@@ -30,7 +30,10 @@ def plan_single(name,path,snapshot_json):
   if requested.get(key)!=old[key]:changes.append({'op':'remove','name':key,'path':old[key]})
  for key in sorted(requested):
   if old.get(key)!=requested[key]:changes.append({'op':'install','name':key,'path':requested[key]})
- return json.dumps({'schema':2,'mode':'read-only-snapshot-planning-v2','authorizes_actions':False,'package_changes_executed':0,'live_nix_observed':False,'plan':{'desired':requested,'operations':changes,'before':snapshot},'limitations':'Caller-supplied historical snapshot only; not executable or observed Nix state.'},sort_keys=True)
+ changes.sort(key=lambda item:(item['name'],0 if item['op']=='remove' else 1))
+ plan={'schema':1,'backend':'snapshot-only:'+snapshot['source'],'before':{'packages':old,'revision':snapshot['revision']},'desired':requested,'operations':changes}
+ plan['id']=hashlib.sha256(json.dumps(plan,sort_keys=True,separators=(',',':'),ensure_ascii=True).encode()).hexdigest()
+ return json.dumps({'schema':2,'mode':'read-only-snapshot-planning-v2','authorizes_actions':False,'package_changes_executed':0,'live_nix_observed':False,'plan':plan,'limitations':'Caller-supplied historical snapshot only; not executable or observed Nix state.'},sort_keys=True)
 
 def operation_count(report):return len(json.loads(report)['plan']['operations'])
 def planned_path(report,name):return json.loads(report)['plan']['desired'][name]
