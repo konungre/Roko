@@ -1,0 +1,41 @@
+{
+  "schema": "roko-concept-gallery-v1",
+  "runtime_evidence": false,
+  "assets": [
+    {
+      "path": "docs/media/roko-concept-storyboard.gif",
+      "bytes": 389163,
+      "sha256": "f7f4384e329156c949881b0fca988be8b40583e1ee4e6435e0e7077f30204ef3",
+      "dimensions": [
+        1000,
+        563
+      ],
+      "frames": 2,
+      "frame_duration_ms": [
+        2500,
+        2500
+      ],
+      "loop": 0
+    },
+    {
+      "path": "docs/media/roko-desktop-concept.png",
+      "bytes": 1762508,
+      "sha256": "04f287fdcebdac869f359cb63bff82dcae22c991753c8f4873ba8bf99c67754a",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "frames": 1
+    },
+    {
+      "path": "docs/media/roko-flight-concept.png",
+      "bytes": 1720520,
+      "sha256": "d857444968feafb471ef3ea8b62eed8e0f8727751cc9a106881c3dcb2983cdd8",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "frames": 1
+    }
+  ]
+}
