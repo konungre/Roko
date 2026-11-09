@@ -45,3 +45,20 @@ The bubble handoff is on another executor and has not been supplied here. The
 native v2 MORK/ECAN/NARS runtime closure is not yet bound to guest-local paths.
 OS package-state facts and conversational history are separate schemas; no
 AtomSpace fact grants permission to activate a generation or execute model text.
+
+## Relayed bubble handoff requirements
+
+The parent relayed endpoint commit0493700, GTK3/PyGObject/cairo GI bridge,
+GTK layer-shell and COSMIC layer-shell. Preserve that pin as a requested handoff,
+not proof of compatibility with the newer integrated conversation endpoint in
+current main. Confirm exact bubble/source/profile digests and jointly selected
+endpoint before building the image. ROKO_FRESH_PROFILE must be guest-qualified
+for the selected PeTTa/ECAN/Granite closure; ROKO_HISTORY_DB stays private and
+persistent. Use SQLite's backup API for history transfer, not a live database
+file copy. Persist XDG_STATE_HOME or supply --session-selection-file; omit
+--conversation-session on normal restart so saved selection is recovered.
+
+Before preflight, the parent must provide a shared image build ID and SHA256,
+complete runtime inventory, selected endpoint/bubble commits, and state schema.
+Then qualify actual guest recall/replay and cancellation/recovery. No image
+identity is assigned here because the complete image inputs are not available.

@@ -94,3 +94,11 @@ and stale target rejected. `projection.py` reads a durable ledger snapshot and
 refuses simulation-mode export. The observed pointer receipt was committed,
 reopened and projected into actual PeTTa, where exact fact matching passed.
 This is a private profile observation, not running-system or health evidence.
+
+The retained-profile rollback path requires external review and matching current
+pointer, admits only generation directories within the private root, and compares
+a fresh native profile observation with the saved receipt before switching.
+A real rollback restored payload1 from payload2. Unreviewed rollback left the
+pointer unchanged; a stale repeat was rejected. `rollback.json` retains the
+actual native observation. This establishes private-profile rollback only; OS
+boot rollback, health confirmation and user-data schema rollback remain separate.

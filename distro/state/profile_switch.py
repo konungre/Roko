@@ -41,3 +41,18 @@ class Profiles:
    os.symlink(str(profile),temporary);os.replace(temporary,self.root/'active')
    fd=os.open(self.root,os.O_DIRECTORY);os.fsync(fd);os.close(fd)
    return {'before':expected,'after':self.current(),'receipt':receipt}
+ def rollback(self,target,expected,review):
+  if review is not True:raise PermissionError('external review required')
+  target=Path(target)
+  if target.name!='profile' or target.parent.parent!=self.root or not re.fullmatch('generation-[0-9a-f]{32}',target.parent.name):raise ValueError('foreign generation')
+  if target.parent.is_symlink() or not target.exists():raise ValueError('missing retained generation')
+  with (self.root/'lock').open('a') as lock:
+   fcntl.flock(lock,fcntl.LOCK_EX)
+   if self.current()!=expected:raise ValueError('stale profile')
+   receipt=json.loads((target.parent/'receipt.json').read_text())
+   observed=json.loads(self.run('profile','list','--profile',str(target),'--json'))
+   if observed!=receipt['native']:raise ValueError('retained profile changed')
+   temporary=self.root/('pointer-'+uuid.uuid4().hex)
+   os.symlink(str(target),temporary);os.replace(temporary,self.root/'active')
+   fd=os.open(self.root,os.O_DIRECTORY);os.fsync(fd);os.close(fd)
+   return {'before':expected,'after':self.current(),'native':observed,'scope':'private-user-profile-rollback'}
