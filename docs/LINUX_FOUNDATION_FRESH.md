@@ -88,3 +88,9 @@ the Python3.12 conversation closure inside the Python3.13 desktop.
 Further work added [signed offline release admission](../distro/SIGNED_RELEASES.md)
 with real Ed25519 tests. This authenticates bytes and checks an externally trusted
 rollback floor; it does not implement installation or boot recovery.
+
+The next checkpoint adds interruption-safe authenticated staging (no boot-slot
+selection), actual process-death recovery tests, and real non-root Unix-peer
+identity tests. The distro suite now passes 84 tests. See
+`distro/session/FRESH_RUNTIME_HANDOFF.md` for exact missing runtime identities
+and the conversation closure request to coordinate through the parent.

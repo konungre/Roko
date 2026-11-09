@@ -44,3 +44,31 @@ Validation uses real OpenSSL-generated Ed25519 keys/signatures, modified payload
 wrong keys, altered signed metadata, stale sequences, linked files, and a full
 `release.pack` to signed-admission path. Payload fixtures are deliberately small;
 these tests do not claim a signed production OS exists.
+
+## Interruption-safe staging checkpoint
+
+`stage_release.py` runs only as an unprivileged user. It authenticates the source,
+checks disk headroom, creates a new private output directory, copies bounded
+inputs, authenticates the actual copy, then publishes `bundle.tar` and `READY`
+with file and directory fsyncs. Neither a slot nor a boot entry is selected.
+
+```sh
+mkdir -m 700 /tmp/roko-staging
+python3 distro/stage_release.py release.tar release.json release.sig trusted-public.pem /tmp/roko-staging/attempt-1 --minimum-sequence 1
+```
+
+A failure leaves its new directory for inspection. The same directory cannot be
+reused, adopted or overwritten. `inspect(directory, trusted_public_key, floor)`
+returns `incomplete` without READY; with READY it authenticates the payload and
+metadata again using the current external rollback floor. READY contents never
+grant authorization. Use a fresh directory for a separately authorized retry.
+The source/copy digest, sequence, release ID and trust key identity must agree.
+
+Tests inject failure after directory sync, metadata sync, payload sync, copied
+signature verification, payload publication, receipt sync, and final READY sync.
+A subprocess actually exits at the payload-published boundary; recovery observes
+an incomplete directory and no boot selection. Additional tests cover source
+mutation, corrupted staged data, updated rollback floors, unavailable space,
+root execution and public staging parents. These establish process-interruption
+behavior on the host filesystem, not physical power-loss guarantees, device
+cache behavior, bootloader rollback, or an A/B update implementation.
