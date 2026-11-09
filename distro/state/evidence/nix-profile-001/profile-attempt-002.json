@@ -1,0 +1,29 @@
+[
+  {
+    "argv": [
+      "build",
+      "--impure",
+      "--file",
+      "/workspace/scratch/nix-live-001/profile-1.nix",
+      "--no-link",
+      "--json"
+    ],
+    "returncode": 0,
+    "stdout": "[{\"drvPath\":\"/workspace/scratch/nix-live-001/direct-store/06n09xnwf043h7f148h74y9nbh2g89ns-roko-profile-1.drv\",\"outputs\":{\"out\":\"/workspace/scratch/nix-live-001/direct-store/y0qv1607w8j8pg12zxqny1fqykvdzam0-roko-profile-1\"},\"startTime\":1794256576,\"stopTime\":1794256576}]\n",
+    "stderr": "this derivation will be built:\n  /workspace/scratch/nix-live-001/direct-store/06n09xnwf043h7f148h74y9nbh2g89ns-roko-profile-1.drv\nbuilding '/workspace/scratch/nix-live-001/direct-store/06n09xnwf043h7f148h74y9nbh2g89ns-roko-profile-1.drv'...\n"
+  },
+  {
+    "argv": [
+      "profile",
+      "install",
+      "--profile",
+      "/workspace/scratch/nix-live-001/profile",
+      "--name",
+      "roko-test",
+      "/workspace/scratch/nix-live-001/direct-store/y0qv1607w8j8pg12zxqny1fqykvdzam0-roko-profile-1"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "error: unrecognised flag '--name'\nTry '/workspace/scratch/nix-live-001/root/usr/bin/nix --help' for more information.\n"
+  }
+]

@@ -53,3 +53,28 @@ not a portable reproduction recipe. This is PeTTa's in-memory AtomSpace only:
 no cognitive-owner durable ledger or host-state reconciliation is connected yet.
 Next gates are complete source/closure provenance, live user-profile generations,
 durable snapshot replacement/CAS, and a real NixOS COSMIC image with health trials.
+
+## Live profile generations and durable snapshots
+
+A second live test built two tiny directory outputs and installed them into an
+explicit workspace profile. Native Nix history reports generations 1 (package1),
+2 (empty after removal), and 3 (package2). The observed generation3 JSON was
+persisted and read back after reopening the SQLite ledger. Four state boundary
+and ledger tests pass, including stale CAS and simulation labeling.
+
+`ledger.py` commits fact documents and their evidence mode atomically, binding
+revision and predecessor digest. Simulation is retained separately in the body;
+consumers must not project it as real activated/running state. The tested activation
+fact is simulation only. No system activation handler has been installed.
+
+The live Nix2.26.3 test rejected `profile install --name` and numeric removal
+indices. Installation without --name and removal by the observed element name
+succeeded. This invalidates the prototype's claimed live CLI compatibility for
+this version; its backend must remain disabled pending a versioned adapter fix.
+Receipts include the actual failures. Replacement here creates an empty intermediate
+generation and is not a safe atomic production update path.
+
+The directory builders use host /bin/sh and /bin/mkdir, with sandbox disabled.
+They establish real profile/history behavior only, not hermetic builds or NixOS.
+The fixed-output build from the previous test remains separately evidenced.
+The local recipes include exact test paths; replay needs fresh isolated paths.

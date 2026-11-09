@@ -1,0 +1,15 @@
+[
+  {
+    "argv": [
+      "build",
+      "--impure",
+      "--file",
+      "/workspace/scratch/nix-live-001/profile-1.nix",
+      "--no-link",
+      "--json"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "this derivation will be built:\n  /workspace/scratch/nix-live-001/direct-store/gxqygkjwd5pk0gi6a3h40qwfkqpdw30y-roko-profile-1.drv\nbuilding '/workspace/scratch/nix-live-001/direct-store/gxqygkjwd5pk0gi6a3h40qwfkqpdw30y-roko-profile-1.drv'...\nerror: builder for '/workspace/scratch/nix-live-001/direct-store/gxqygkjwd5pk0gi6a3h40qwfkqpdw30y-roko-profile-1.drv' failed with exit code 2;\n       last 2 log lines:\n       > sh: 1: mkdir: not found\n       > sh: 1: cannot create /workspace/scratch/nix-live-001/direct-store/lq6813awfbd8pnpp8h7rlj2f7df8crgb-roko-profile-1/share/roko-generation: Directory nonexistent\n       For full logs, run:\n         nix log /workspace/scratch/nix-live-001/direct-store/gxqygkjwd5pk0gi6a3h40qwfkqpdw30y-roko-profile-1.drv\n"
+  }
+]

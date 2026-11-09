@@ -1,0 +1,1 @@
+builtins.derivation { name="roko-profile-1"; system=builtins.currentSystem; builder="/bin/sh"; args=["-c" "/bin/mkdir -p \"$out/share\"; printf 1 > \"$out/share/roko-generation\""]; }

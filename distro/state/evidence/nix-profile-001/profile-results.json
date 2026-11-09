@@ -1,0 +1,64 @@
+[
+  {
+    "argv": [
+      "build",
+      "--impure",
+      "--file",
+      "/workspace/scratch/nix-live-001/profile-1.nix",
+      "--no-link",
+      "--json"
+    ],
+    "returncode": 0,
+    "stdout": "[{\"drvPath\":\"/workspace/scratch/nix-live-001/direct-store/06n09xnwf043h7f148h74y9nbh2g89ns-roko-profile-1.drv\",\"outputs\":{\"out\":\"/workspace/scratch/nix-live-001/direct-store/y0qv1607w8j8pg12zxqny1fqykvdzam0-roko-profile-1\"}}]\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "profile",
+      "install",
+      "--profile",
+      "/workspace/scratch/nix-live-001/profile",
+      "/workspace/scratch/nix-live-001/direct-store/y0qv1607w8j8pg12zxqny1fqykvdzam0-roko-profile-1"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "profile",
+      "list",
+      "--profile",
+      "/workspace/scratch/nix-live-001/profile",
+      "--json"
+    ],
+    "returncode": 0,
+    "stdout": "{\"elements\":{\"roko-profile\":{\"active\":true,\"priority\":5,\"storePaths\":[\"/workspace/scratch/nix-live-001/direct-store/y0qv1607w8j8pg12zxqny1fqykvdzam0-roko-profile-1\"]}},\"version\":3}\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "build",
+      "--impure",
+      "--file",
+      "/workspace/scratch/nix-live-001/profile-2.nix",
+      "--no-link",
+      "--json"
+    ],
+    "returncode": 0,
+    "stdout": "[{\"drvPath\":\"/workspace/scratch/nix-live-001/direct-store/5j9r0zl48xn0zn7dw952cj5yr7sh4j07-roko-profile-2.drv\",\"outputs\":{\"out\":\"/workspace/scratch/nix-live-001/direct-store/mk439cr63i5hjg1hvsy0yrzbsvamv54y-roko-profile-2\"},\"startTime\":1794256585,\"stopTime\":1794256585}]\n",
+    "stderr": "this derivation will be built:\n  /workspace/scratch/nix-live-001/direct-store/5j9r0zl48xn0zn7dw952cj5yr7sh4j07-roko-profile-2.drv\nbuilding '/workspace/scratch/nix-live-001/direct-store/5j9r0zl48xn0zn7dw952cj5yr7sh4j07-roko-profile-2.drv'...\n"
+  },
+  {
+    "argv": [
+      "profile",
+      "remove",
+      "--profile",
+      "/workspace/scratch/nix-live-001/profile",
+      "0"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "error: 'nix profile' no longer supports indices ('0')\n"
+  }
+]
