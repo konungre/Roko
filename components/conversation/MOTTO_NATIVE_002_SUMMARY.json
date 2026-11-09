@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "checks": {
+    "three_completed_turns": true,
+    "native_history_recall": true,
+    "normalization_failed": true,
+    "three_model_calls": true,
+    "motto_receipts": true,
+    "atomic_revision_after_failure": true,
+    "restart_replay": true,
+    "replay_no_native_calls": true
+  },
+  "seconds": 55.43467320000127,
+  "executed_actions": 0,
+  "evidence_sha256": "1fab2aa09204c5de300f9585b9c2129d2235ac3c09d28089c5680931d7fea736",
+  "suite": {
+    "tests": 147,
+    "passed": 144,
+    "skipped": 3
+  },
+  "scope": "Actual Omega/PeTTa durable-v2 dispatch through original MeTTa-Motto on Hyperon to native Granite; text-only, no guest qualification",
+  "main_reconciled": "d92a26e5d52a71ff36946e89eb3e96ded6055bed"
+}

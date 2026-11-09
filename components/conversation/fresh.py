@@ -51,6 +51,9 @@ def load_profile(path):
     if 'learning_components' in profile:
         from learning import validate_profile
         validate_profile(profile)
+    if 'motto_transport' in profile:
+        from motto import validate_profile
+        validate_profile(profile)
     return profile
 
 
@@ -227,6 +230,17 @@ class FreshProvider:
 def initialize():
     profile = load_profile(os.environ['ROKO_FRESH_PROFILE'])
     provider = FreshProvider(profile)
+    provider.motto = None
+    if 'motto_transport' in profile:
+        try:
+            if os.environ.get('ROKO_API_VERSION') != '2':
+                raise ValueError('Motto transport requires durable v2')
+            from motto import MottoTransport
+            provider.motto = MottoTransport(provider)
+            provider.chat = provider.motto.chat
+        except BaseException:
+            provider.close()
+            raise
     sys.path.insert(0, str(Path(os.environ['OMEGA_PATH'])/'src'))
     import providers
     class Adapter(providers.LLMProvider):
@@ -274,6 +288,7 @@ def finish():
               'cognitive_receipts':getattr(conversation.session.reasoner,'receipts',[]),
               'cognitive_history':conversation.session.cognitive_history,
               'learning_receipts':getattr(provider.learning,'receipts',[]),
+              'motto_receipts':getattr(provider.motto,'receipts',[]),
               'mork_receipts':provider.mork_receipts}), file=sys.stderr)
     finally:
         provider.close()
