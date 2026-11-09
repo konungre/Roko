@@ -1,0 +1,1 @@
+builtins.derivation { name="roko-sandbox-canary"; system="x86_64-linux"; builder="/bin/sh"; args=["-c" "if test -r /workspace/scratch/nix-sandbox-probe-001/host-only-canary; then printf visible > \"$out\"; else printf hidden > \"$out\"; fi"]; }

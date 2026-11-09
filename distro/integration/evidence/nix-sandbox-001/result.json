@@ -1,0 +1,25 @@
+{
+  "returncode": 0,
+  "sandbox_requested": true,
+  "command": [
+    "/workspace/scratch/nix-live-001/root/usr/bin/nix",
+    "--extra-experimental-features",
+    "nix-command",
+    "--store",
+    "local?store=/workspace/scratch/nix-live-001/direct-store&state=/workspace/scratch/nix-live-001/direct-state&log=/workspace/scratch/nix-live-001/direct-log",
+    "--offline",
+    "--option",
+    "build-users-group",
+    "",
+    "--option",
+    "sandbox",
+    "true",
+    "build",
+    "--impure",
+    "--file",
+    "/workspace/scratch/nix-rescue-004/build.nix",
+    "--no-link",
+    "--json",
+    "--rebuild"
+  ]
+}

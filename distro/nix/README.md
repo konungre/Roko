@@ -29,3 +29,37 @@ Keep PR22 draft; no daily-driver or redistribution clearance follows from this.
 
 References: [Nix derivations](https://nix.dev/manual/nix/2.26/language/derivations)
 and [nix build](https://nix.dev/manual/nix/2.26/command-ref/new-cli/nix3-build).
+
+## Pinned toolchain-input evaluation prototype
+
+`rescue-pinned.nix` replaces explicit host Python/GCC paths with Python and stdenv
+from an immutable nixpkgs tree. `nixpkgs-candidate.json` records upstream revision,
+archive SHA256 and extracted source NAR hash. The source came from NixOS/nixpkgs
+at f4a03c008967841f2a0b3cb7c436fc6fc31671f6, captured from nixos-unstable once;
+this is a candidate input, not a selected production channel or update policy.
+No upstream source archive is committed in this repository.
+
+Run `qualify_pinned_rescue.py REPOSITORY NIX_BASE EXTRACTED_NIXPKGS NEW_OUTPUT`
+to evaluate it offline. The definition verifies the source NAR pin and rescue
+source hashes. Evaluation resolved x86_64-linux output and derivation identities
+and a Nix-store bash builder with three direct derivation inputs. Wrong source NAR
+pin was rejected. These are RESOLVED inputs only; dependencies have not been
+realized and this pinned definition has not built or booted here. Source identity
+is not a package-source/license audit or proof of reproducibility/trust.
+
+## Strict sandbox blocker (do not infer isolation from fallback)
+
+A rescue `--rebuild` requesting sandbox=true returned success with default
+fallback behavior; that is not isolation evidence. A FRESH canary derivation with
+sandbox=true AND sandbox-fallback=false failed before build: Nix reports that the
+required kernel namespaces are unsupported. No host canary visibility result was
+obtained, and sandbox isolation is explicitly false. Raw commands/receipts are in
+integration/evidence/nix-sandbox-001 and nix-sandbox-probe-001.
+The strict sandbox attempt stopped; no kernel/host permission changes or fallback
+were used to turn it into a pass. The older unsandboxed bootstrap result remains
+separate. Building pinned toolchain closures in an executor supporting the required
+namespaces, verifying repeat outputs/closure and then actual guest boots are still
+required. No hermeticity, NixOS image, daily-driver readiness or licensing clearance
+is claimed. The existing legacy package-source issue remains unresolved.
+
+Sandbox behavior reference: [Nix configuration](https://nix.dev/manual/nix/2.26/command-ref/conf-file#conf-sandbox).

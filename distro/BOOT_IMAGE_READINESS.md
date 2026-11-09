@@ -62,3 +62,9 @@ A subsequent [Nix bootstrap rescue definition](nix/README.md) now builds and for
 rebuild of the minimal rescue artifacts in the disposable store. Gate004 outputs
 match and rejects wrong source hashes. It deliberately uses unpinned host tool
 closure inputs and does not supply a declarative system image, kernel or desktop.
+
+Pinned-source follow-up: rescue-pinned.nix now resolves a NAR-verified nixpkgs
+candidate and Nix toolchain derivation identities. It has NOT built: strict
+sandboxing with fallback disabled is blocked by unavailable kernel namespaces.
+This does not satisfy the locked system-generation, actual build, boot or health
+gates above. The bootstrap rescue remains a separate unsandboxed local result.
