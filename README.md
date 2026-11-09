@@ -24,16 +24,44 @@ inside an avatar card.*
 
 *Flight-state concept: the companion and conversation remain visually connected.*
 
-<details>
-<summary>Play the looping concept storyboard (GIF, about 380 KiB)</summary>
+### A task, from request to result
 
-![Two-state concept storyboard alternating between standing and flight mockups; not runtime footage](docs/media/roko-concept-storyboard.gif)
+**Simulated screen-recording-style demo, not a running Roko build.** Watch a
+request being typed, a proposed change reviewed, the notes converted to a
+checklist, and an item checked off. The 14-second sequence uses continuous
+cursor motion and staged UI changes, not a two-image storyboard.
 
-This five-second GIF alternates between two illustrated states. It is a
-storyboard, not a recording, an implemented animation, or evidence of motion
-quality. The static images above provide a non-animated alternative.
+![Simulated concept demo: ask Roko to turn notes into a checklist, apply the change, then check an item](docs/media/roko-task-demo.gif)
 
-</details>
+[View the non-animated task result](docs/media/roko-task-demo-still.png).
+
+### A self-directed goal
+
+**Simulated autonomy, not a present capability.** Roko chooses a local goal:
+make its explanations clearer. It reviews example material, drafts a shorter
+help card and saves the improvement for a future conversation. This 12-second
+concept shows no user prompt and no external action, message or purchase.
+
+![Simulated concept demo: Roko pursues its own goal of improving a help card, drafts a clearer hint and saves it locally](docs/media/roko-autonomous-demo.gif)
+
+[View the non-animated self-directed result](docs/media/roko-autonomous-demo-still.png).
+
+### More ways Roko could help
+
+These are **concept mockups**, not verified integrations. The examples and
+shopping prices are fictional.
+
+**Coding:** spot an edge case and offer an edit for review.
+
+![Coding concept: Roko suggests guarding against an empty list before calculating an average](docs/media/roko-coding-concept.png)
+
+**Shopping:** compare options against a budget before any purchase decision.
+
+![Shopping concept: Roko compares three fictional keyboards below a 100 dollar budget](docs/media/roko-shopping-concept.png)
+
+**Research:** organize sources, compare claims and keep citations with findings.
+
+![Research concept: Roko proposes a source-backed outline for comparing local AI approaches](docs/media/roko-research-concept.png)
 
 See [visual provenance and limitations](docs/CONCEPT_VISUALS.md) for how these
 images were made, and [current status](docs/STATUS.md) for what actually exists.

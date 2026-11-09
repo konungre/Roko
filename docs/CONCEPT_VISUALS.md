@@ -56,3 +56,45 @@ The committed PNGs are the source of truth; generative images are not promised
 to reproduce byte-for-byte from a prompt. `CONCEPT_VISUALS.json` records the
 published files' dimensions, sizes and SHA-256 hashes. This is a supplemental
 gallery, outside the historical initial `PUBLICATION_MANIFEST.json`.
+
+## Screen-recording-style simulations and task mockups
+
+The README now uses two continuous simulated desktop interactions instead of
+the earlier two-frame storyboard. The original storyboard and both original
+screens are preserved unchanged. Neither new GIF is runtime footage.
+
+- `media/roko-task-demo.gif`: 14 seconds at approximately 12 fps. The cursor
+  focuses the input, a request is typed, a checklist is proposed, the user
+  applies it, and then checks the first item.
+- `media/roko-autonomous-demo.gif`: 12 seconds at approximately 12 fps. Roko
+  chooses to improve its explanations, reviews examples, drafts a shorter hint,
+  and saves a local help card. This is fictional self-directed activity with
+  no live model, real user input, external communication or purchase.
+- Matching `*-still.png` files provide non-animated alternatives.
+- Coding, shopping and research PNGs show additional aspirational assistance.
+  Shopping products and prices are illustrative, not live offers. Research
+  mockups outline a workflow and do not invent citations or factual findings.
+
+The new screens are authored SVG desktop mockups rendered with Sharp. Their
+character uses the existing, provenance-checked generated Roko sprite sheet
+without modifying it. No new third-party art or private desktop captures were
+used. Permanent labels identify the simulations and concepts in every frame.
+
+### Reproduce the new media
+
+With Node.js, Sharp and FFmpeg already installed, run from the repository root:
+
+```sh
+ROKO_FRAME_DIR=/tmp/roko-task-frames ROKO_AUTO_DIR=/tmp/roko-auto-frames \
+  node docs/demo-source/render-demo.cjs
+ffmpeg -framerate 12 -i /tmp/roko-task-frames/%04d.png \
+  -vf 'split[a][b];[a]palettegen=max_colors=192[p];[b][p]paletteuse=dither=bayer:bayer_scale=3' \
+  -loop 0 docs/media/roko-task-demo.gif
+ffmpeg -framerate 12 -i /tmp/roko-auto-frames/%04d.png \
+  -vf 'split[a][b];[a]palettegen=max_colors=192[p];[b][p]paletteuse=dither=bayer:bayer_scale=3' \
+  -loop 0 docs/media/roko-autonomous-demo.gif
+```
+
+Output depends on the installed fonts, renderer and encoder versions. The
+manifest hashes identify the reviewed published bytes, not a cross-platform
+bit-for-bit reproducibility promise.
