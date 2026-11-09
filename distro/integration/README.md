@@ -131,3 +131,18 @@ Attempt001 caught the formatter's root-directory mode0755 after mounting.
 Attempt002 explicitly sets mounted-root ownership and mode0700 and passes both
 boots. Raw receipts are in `persistence-evidence/`. No COSMIC, model response,
 crash consistency or physical power-loss claim follows from this test.
+
+With `--crash-recovery`, five actual guest launches check an interrupted update
+to this private state fixture. After the first committed value, the non-root
+writer fsyncs a replacement temporary file and its directory. The host kills
+QEMU at that marker, without guest shutdown. The next boot performs ext4 journal
+recovery and verifies both the old committed bytes and the durable temporary
+bytes. A fourth boot atomically renames and fsyncs the directory; a fifth checks
+the new committed bytes and absence of the temporary file. All five expected
+outcomes passed; raw crash evidence is preserved. The mount now also uses
+`noexec`. This tests a stopped emulator against host-backed storage, not physical
+cache power loss, production releases, or conversation history schema recovery.
+
+Direct inspection of the transferred COSMIC capsule finds configuration assets
+but no COSMIC executable. Its desktop depends on the unavailable ISO/runtime.
+This independent storage test does not imply a fresh COSMIC session has run.
