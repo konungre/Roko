@@ -5,6 +5,7 @@ These tests do not qualify arbitrary PathMap operations or repair its known bug.
 """
 import itertools
 import os
+import random
 from pathlib import Path
 import sys
 import tempfile
@@ -64,6 +65,7 @@ class NativeEquivalenceTests(unittest.TestCase):
                 store.remember('other', fact, source='other-private', turn='t1')
             finally:
                 store.close()
+
             store = DurableMemory(path, native_backend=self.runtime)
             try:
                 result = store.recall('s', {'relation':'topic', 'args':[None]})
@@ -75,6 +77,20 @@ class NativeEquivalenceTests(unittest.TestCase):
                 self.assertFalse(store.forget('other', ids[0]))
             finally:
                 store.close()
+
+    def test_seeded_maximum_fact_workloads(self):
+        # Exercise trie branching and shared prefixes across distinct fresh spaces.
+        # The fixed seed makes failures reproducible; no arbitrary programs enter MORK.
+        rng = random.Random(729104)
+        for case in range(12):
+            arity = 1 + case % 3
+            facts = [{'relation':rng.choice(('r', 'related', 'relation')),
+                      'args':[rng.choice(('a', 'aa', 'aaa', 'ab', 'r')) for _ in range(arity)]}
+                     for _ in range(16)]
+            query = {'relation':rng.choice(('r', 'related', 'relation', 'absent')),
+                     'args':[rng.choice((None, 'a', 'aa', 'r')) for _ in range(arity)]}
+            with self.subTest(case=case):
+                self.lookup(facts, query)
 
     def test_native_receipt_cannot_commit_after_other_writer(self):
         with tempfile.TemporaryDirectory() as directory:
