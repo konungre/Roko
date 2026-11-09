@@ -224,3 +224,22 @@ committed the full original message. Replay was identical; changed policy was
 a conflict, later default behavior remained complete, small opt-in prompts
 retained full context, and no extra NARS inference or actions were claimed.
 See `OPTIN_NATIVE_SUMMARY.json` and `tests/probe_optin_context.py`.
+
+## Repeatable staged-belief recovery regression
+
+`tests/probe_projection_recovery.py` copies the verified synthetic six-turn
+checkpoint, runs native NARS on a new assertion chain, verifies exact-token
+planning failure before generation, restarts for a shorter successful request
+and exact replay, then restarts again to check the failed ID remains terminal.
+The source database is opened read-only and is compared afterward. Its
+`--audit-only` mode uses captured JSON and logs, invokes no native components,
+and writes `audit-result.json` while preserving the original `result.json`.
+
+A local rerun against main `5a8e3a4` passed all fourteen checks: the minimum
+candidate was 582 tokens; no failed belief/history committed; recovery used
+487 tokens with full model context, correct recall and exact replay. The failed
+request ID caused no native work on retry. Full prior history, the original
+checkpoint and both original observations remained intact. The 185-test suite
+passed 184 tests with one optional native fixture skipped. This is local native
+evidence, not an independently reproduced result. See
+`RECOVERY_REGRESSION_SUMMARY.json`. Runtime and public API are unchanged.
