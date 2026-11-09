@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "returncode": 0,
+  "image_unchanged": true,
+  "image_sha256": "b5c591ad4658459761eb5c77e13d75eea9c8b1e077e9d6d0fe774e84200a9ba4",
+  "output": "Pass 1: Checking inodes, blocks, and sizes\nPass 2: Checking directory structure\nPass 3: Checking directory connectivity\nPass 4: Checking reference counts\nPass 5: Checking group summary information\n/proc/self/fd/3: 13/16384 files (0.0% non-contiguous), 9546/65536 blocks\ne2fsck 1.47.2 (1-Jan-2025)\n",
+  "tool_sha256": "be1f2c99e0dc73640cffb549da5f3f4b15da0f89e7334c6730feb69eff784571"
+}

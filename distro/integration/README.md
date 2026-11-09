@@ -146,3 +146,10 @@ cache power loss, production releases, or conversation history schema recovery.
 Direct inspection of the transferred COSMIC capsule finds configuration assets
 but no COSMIC executable. Its desktop depends on the unavailable ISO/runtime.
 This independent storage test does not imply a fresh COSMIC session has run.
+
+After all guests exit, the harness additionally opens the regular state image
+read-only and runs bounded `e2fsck -f -n`. A run passes only if fsck exits zero
+and the image hash stays unchanged. The retained crash-001 image passed all five
+fsck passes with zero errors; its SHA256 still matches the guest recovery receipt.
+See `persistence-evidence/crash-001-offline-fsck.json` for the actual checker output
+and checker binary identity.
