@@ -11,3 +11,5 @@ The separately prepared showcase avatar, additional baseline test/recipe files, 
 - `components/nace`: MIT-licensed seven-function predictive/evidence slice with authored typed adapter and reference tests. Native qualification pending.
 
 These additions do not amend the historical first-publication allowlist. They contain no runtime inventories, raw captures or private proof files.
+
+- `components/airis`: authored bounded scalar transition learning experiment, observed prior host result and portable tests. Original AIRIS source/runtime remain external.

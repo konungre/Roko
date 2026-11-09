@@ -36,3 +36,10 @@ credit Patrick Hammer and Peter Isaev (2024) and are retained in the derived
 file. The upstream repository license is `components/nace/LICENSE.upstream`.
 The adapter, deterministic rule-group composition and bounded fixture bindings
 are authored integration code, not a claim of full upstream execution.
+
+## AIRIS transition-learning wrapper
+
+`components/airis` calls externally pinned [singnet/AIRIS-general](https://github.com/singnet/AIRIS-general),
+commit `db19ad4e2cea33e6129c8bf03e85797da8cf7625`, Apache-2.0. Original
+LICENSE and NOTICE are retained under `components/airis/upstream/`. Original
+`airis.py` and runtime binaries are not included.

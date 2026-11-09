@@ -55,7 +55,12 @@ This document describes project status across the preserved local work. It is no
   libraries, the historical Cargo lock, toolchain/registry closure and complete
   runtime admission remain missing. Historical native pass statements elsewhere
   are not current MORK qualification.
-- **MeTTa-Motto, MOSES, AI-DSL and AIRIS:** requested components with
+- **AIRIS:** `components/airis` retains the authored bounded scalar-learning
+  wrapper. Its separately admitted v3 host gate passed four workers, learned
+  relative-outcome rules, and passed held-out step/hold prediction, empty-memory
+  ablation and snapshot restoration. This is synthetic scalar transition
+  learning, not general causal discovery or Omega conversation integration.
+- **MeTTa-Motto, MOSES and AI-DSL:** requested components with
   research/source mapping underway; no complete native/controller integration
   is claimed by this publication.
 - **PRIMUS, Predictive and Causal Coding, and TransWeave:** architectural goals
