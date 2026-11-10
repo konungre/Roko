@@ -1,0 +1,197 @@
+{
+  "selected_source_markers_present": true,
+  "expected_source_revision": "f4a03c008967841f2a0b3cb7c436fc6fc31671f6",
+  "whole_source_pin_reverified": false,
+  "dependencies": [
+    {
+      "dependency": "login-pam",
+      "file": "nixos/modules/services/display-managers/greetd.nix",
+      "sha256": "d65e9c7121646df775d43e36fd6983d955a4e7589908a5c2ff393234ef30d19e",
+      "source_marker_lines": {
+        "login-session-include": [
+          86,
+          93,
+          100,
+          107
+        ]
+      },
+      "source_url": "https://github.com/NixOS/nixpkgs/blob/f4a03c008967841f2a0b3cb7c436fc6fc31671f6/nixos/modules/services/display-managers/greetd.nix",
+      "runtime_verified": false,
+      "required_runtime_proof": "Verify actual generated greetd/login PAM stacks, provisioned fixture login and failure/lockout behavior."
+    },
+    {
+      "dependency": "login-registration",
+      "file": "nixos/modules/programs/shadow.nix",
+      "sha256": "60b326de043f8653d036e2ead0c0311c6681e850765fac17530a5d0c2385d6f4",
+      "source_marker_lines": {
+        "login-block": [
+          253
+        ],
+        "session-registration": [
+          254
+        ]
+      },
+      "source_url": "https://github.com/NixOS/nixpkgs/blob/f4a03c008967841f2a0b3cb7c436fc6fc31671f6/nixos/modules/programs/shadow.nix",
+      "runtime_verified": false,
+      "required_runtime_proof": "Verify the real non-root login registers a session without bypassing authentication."
+    },
+    {
+      "dependency": "pam-systemd",
+      "file": "nixos/modules/security/pam.nix",
+      "sha256": "a030ed8bf6b5814f1640c899cc4b382b5732dacff2c18c44df5c2b744f7cc2cc",
+      "source_marker_lines": {
+        "session-gate": [
+          1693
+        ],
+        "pam-systemd-module": [
+          1695
+        ]
+      },
+      "source_url": "https://github.com/NixOS/nixpkgs/blob/f4a03c008967841f2a0b3cb7c436fc6fc31671f6/nixos/modules/security/pam.nix",
+      "runtime_verified": false,
+      "required_runtime_proof": "Observe PAM session opening, runtime-directory ownership and cleanup; source presence is insufficient."
+    },
+    {
+      "dependency": "logind-runtime",
+      "file": "nixos/modules/system/boot/systemd/logind.nix",
+      "sha256": "b7402e86031109c36034cd84573cbbefa600ee0d9cc9fd6156dc10a6e43ff32c",
+      "source_marker_lines": {
+        "user-manager-template": [
+          60
+        ],
+        "runtime-directory-template": [
+          61
+        ]
+      },
+      "source_url": "https://github.com/NixOS/nixpkgs/blob/f4a03c008967841f2a0b3cb7c436fc6fc31671f6/nixos/modules/system/boot/systemd/logind.nix",
+      "runtime_verified": false,
+      "required_runtime_proof": "Test active seat/session, user manager and safe logout/restart; do not restart host logind."
+    },
+    {
+      "dependency": "base-system-bus",
+      "file": "nixos/modules/system/boot/systemd.nix",
+      "sha256": "655449ff2102b34e9ffcf5a6596151cf4c6556c578a8352dcb71f93f7e77cebf",
+      "source_marker_lines": {
+        "independent-dbus-enable": [
+          723
+        ]
+      },
+      "source_url": "https://github.com/NixOS/nixpkgs/blob/f4a03c008967841f2a0b3cb7c436fc6fc31671f6/nixos/modules/system/boot/systemd.nix",
+      "runtime_verified": false,
+      "required_runtime_proof": "Verify generated local system/session bus units in both network modes; Avahi is not their required enable path."
+    },
+    {
+      "dependency": "user-session-bus",
+      "file": "nixos/modules/services/system/dbus.nix",
+      "sha256": "ac198b6a6384d9a4ca53c9a01dbe49c91fed2e557aae0bc96a377dda3dbb11b4",
+      "source_marker_lines": {
+        "session-socket": [
+          153
+        ]
+      },
+      "source_url": "https://github.com/NixOS/nixpkgs/blob/f4a03c008967841f2a0b3cb7c436fc6fc31671f6/nixos/modules/services/system/dbus.nix",
+      "runtime_verified": false,
+      "required_runtime_proof": "Prove actual user-bus service identity and environment delivery; socket metadata cannot prove connectivity."
+    },
+    {
+      "dependency": "audio-session",
+      "file": "nixos/modules/services/desktops/pipewire/pipewire.nix",
+      "sha256": "02b4eec58916d4e84e06f15411a5ae35820ea22fc798b91956ab057d75d3c5e1",
+      "source_marker_lines": {
+        "bus-lifecycle-link": [
+          405
+        ]
+      },
+      "source_url": "https://github.com/NixOS/nixpkgs/blob/f4a03c008967841f2a0b3cb7c436fc6fc31671f6/nixos/modules/services/desktops/pipewire/pipewire.nix",
+      "runtime_verified": false,
+      "required_runtime_proof": "Qualify PipeWire/WirePlumber socket activation and real playback/capture without WAN or weakened ACLs."
+    },
+    {
+      "dependency": "cosmic-core",
+      "file": "nixos/modules/services/desktop-managers/cosmic.nix",
+      "sha256": "d3941f80414045720e5f44f142a08321c143c60bbcb05206be425d8fc3f28b8f",
+      "source_marker_lines": {
+        "session-package": [
+          134
+        ],
+        "portal-selection": [
+          127,
+          130
+        ],
+        "input-service": [
+          159
+        ]
+      },
+      "source_url": "https://github.com/NixOS/nixpkgs/blob/f4a03c008967841f2a0b3cb7c436fc6fc31671f6/nixos/modules/services/desktop-managers/cosmic.nix",
+      "runtime_verified": false,
+      "required_runtime_proof": "Realize full core package closure; test compositor/settings daemon/portal startup and teardown."
+    },
+    {
+      "dependency": "gpu-input",
+      "file": "nixos/modules/hardware/graphics.nix",
+      "sha256": "41364b53d49e52cff5ce3f353fa8887a0e8189411e073074006e93a5e20ec6b6",
+      "source_marker_lines": {
+        "driver-environment": [
+          11
+        ]
+      },
+      "source_url": "https://github.com/NixOS/nixpkgs/blob/f4a03c008967841f2a0b3cb7c436fc6fc31671f6/nixos/modules/hardware/graphics.nix",
+      "runtime_verified": false,
+      "required_runtime_proof": "Test Intel DRM/Mesa/EGL, firmware policy, logind device ACLs and keyboard/input on target hardware; no broad group/privilege workaround."
+    },
+    {
+      "dependency": "portal-dispatch",
+      "file": "nixos/modules/config/xdg/portal.nix",
+      "sha256": "3b62d0c74374b2d24e77839ce0022ec7e9721fa9918f3e11d49eab1d70a8d9de",
+      "source_marker_lines": {
+        "portal-bus-packages": [
+          145
+        ]
+      },
+      "source_url": "https://github.com/NixOS/nixpkgs/blob/f4a03c008967841f2a0b3cb7c436fc6fc31671f6/nixos/modules/config/xdg/portal.nix",
+      "runtime_verified": false,
+      "required_runtime_proof": "Exercise portal activation and bounded user-mediated file/screen sharing; metadata is not functional proof."
+    }
+  ],
+  "cached_fragment_consistency": {
+    "cached_fragment_source_hashes_match": true,
+    "matching_source_files": [
+      "cosmic-session-ordering.nix",
+      "cosmic_session_report.py",
+      "offline-startup.nix",
+      "session-network-policy.nix"
+    ],
+    "pin_document_matches": true,
+    "receipt_semantics_consistent": true,
+    "native_evidence_authenticated": false,
+    "commands_replayed": false,
+    "full_nixos_evaluated": false,
+    "runtime_dependencies_verified": false,
+    "image_ready": false,
+    "execution_authorized": false,
+    "unbound_critical_inputs": [
+      "system-eval.nix",
+      "live-image-eval.nix",
+      "startup_report.py",
+      "memory_budget.py",
+      "complete upstream module/package closure",
+      "runtime kernel/user-session state"
+    ],
+    "scope": "narrow cached file correspondence and self-report consistency only; not current full configuration evaluation"
+  },
+  "memory": {
+    "sampled_monotonic_ns": 26086417489169,
+    "host_available_bytes": 17975681024,
+    "visible_cgroup_limit_bytes": 17179869184,
+    "visible_cgroup_current_bytes": 16959893504,
+    "visible_cgroup_remaining_bytes": 219975680,
+    "observed_headroom_bytes": 219975680,
+    "scope": "visible host/cgroup snapshot only; no reclaim or hidden-ancestor guarantee"
+  },
+  "full_evaluation_attempted": false,
+  "guest_started": false,
+  "host_activation": false,
+  "image_ready": false,
+  "execution_authorized": false,
+  "scope": "selected source markers/line locations and narrow cached consistency; not generated config, dependency closure, authenticated native evidence or runtime health"
+}
