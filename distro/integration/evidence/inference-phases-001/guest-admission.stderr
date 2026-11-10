@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/roko-foundation-review/distro/integration/run_startup_manager_guest.py", line 12, in <module>
+    try:admission=admit(512,observation=budget)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/roko-foundation-review/distro/integration/memory_budget.py", line 13, in admit
+    if observation['observed_headroom_bytes']<required:raise ValueError('insufficient observed host/cgroup headroom')
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: insufficient observed host/cgroup headroom

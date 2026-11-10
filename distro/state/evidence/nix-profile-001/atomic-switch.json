@@ -1,0 +1,53 @@
+{
+  "switches": [
+    {
+      "before": null,
+      "after": "/workspace/scratch/nix-live-001/atomic-profiles-001/generation-0d7ce7de55314511a405a703026036de/profile",
+      "receipt": {
+        "packages": {
+          "roko": "/workspace/scratch/nix-live-001/direct-store/y0qv1607w8j8pg12zxqny1fqykvdzam0-roko-profile-1"
+        },
+        "native": {
+          "elements": {
+            "roko-profile": {
+              "active": true,
+              "priority": 5,
+              "storePaths": [
+                "/workspace/scratch/nix-live-001/direct-store/y0qv1607w8j8pg12zxqny1fqykvdzam0-roko-profile-1"
+              ]
+            }
+          },
+          "version": 3
+        },
+        "previous": null,
+        "scope": "private-user-profile"
+      }
+    },
+    {
+      "before": "/workspace/scratch/nix-live-001/atomic-profiles-001/generation-0d7ce7de55314511a405a703026036de/profile",
+      "after": "/workspace/scratch/nix-live-001/atomic-profiles-001/generation-36080ac55c4a4cc8bf655e470bdd3fc9/profile",
+      "receipt": {
+        "packages": {
+          "roko": "/workspace/scratch/nix-live-001/direct-store/mk439cr63i5hjg1hvsy0yrzbsvamv54y-roko-profile-2"
+        },
+        "native": {
+          "elements": {
+            "roko-profile": {
+              "active": true,
+              "priority": 5,
+              "storePaths": [
+                "/workspace/scratch/nix-live-001/direct-store/mk439cr63i5hjg1hvsy0yrzbsvamv54y-roko-profile-2"
+              ]
+            }
+          },
+          "version": 3
+        },
+        "previous": "/workspace/scratch/nix-live-001/atomic-profiles-001/generation-0d7ce7de55314511a405a703026036de/profile",
+        "scope": "private-user-profile"
+      }
+    }
+  ],
+  "stale_rejected": true,
+  "old_profile_retained": true,
+  "host_activation": false
+}

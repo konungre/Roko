@@ -1,0 +1,31 @@
+{
+  "passed": false,
+  "evaluations": [
+    {
+      "mode": "headless",
+      "returncode": 1,
+      "passed": false,
+      "evaluation": null
+    },
+    {
+      "mode": "cosmic",
+      "returncode": 1,
+      "passed": false,
+      "evaluation": null
+    }
+  ],
+  "source_pin": {
+    "repository": "https://github.com/NixOS/nixpkgs",
+    "revision": "f4a03c008967841f2a0b3cb7c436fc6fc31671f6",
+    "archive_url": "https://codeload.github.com/NixOS/nixpkgs/tar.gz/f4a03c008967841f2a0b3cb7c436fc6fc31671f6",
+    "archive_sha256": "20d36c656575bc07a2348396d31ae5a80187764b4cb401cedca11ee98ac4ea49",
+    "archive_bytes": 54695912,
+    "source_nar_hash": "sha256-ziZn2PvCJE5JEEpqTdxXwJpPB+L3YqoCpTAMCzyaP3U="
+  },
+  "import_from_derivation_allowed": false,
+  "build_completed": false,
+  "image_produced": false,
+  "vm_booted": false,
+  "host_activation": false,
+  "scope": "module/option/assertion evaluation only; not system closure realization"
+}

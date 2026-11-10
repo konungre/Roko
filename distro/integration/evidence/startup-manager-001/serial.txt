@@ -1,0 +1,977 @@
+[    0.000000] Linux version 6.12.116+deb13-amd64 (debian-kernel@lists.debian.org) (x86_64-linux-gnu-gcc-14 (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44) #1 SMP PREEMPT_DYNAMIC Debian 6.12.116-1 (2026-11-07)
+[    0.000000] Command line: console=ttyS0 rdinit=/init panic=1
+[    0.000000] BIOS-provided physical RAM map:
+[    0.000000] BIOS-e820: [mem 0x0000000000000000-0x000000000009fbff] usable
+[    0.000000] BIOS-e820: [mem 0x000000000009fc00-0x000000000009ffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000000f0000-0x00000000000fffff] reserved
+[    0.000000] BIOS-e820: [mem 0x0000000000100000-0x000000001ffdffff] usable
+[    0.000000] BIOS-e820: [mem 0x000000001ffe0000-0x000000001fffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000b0000000-0x00000000bfffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000fed1c000-0x00000000fed1ffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000fffc0000-0x00000000ffffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x000000fd00000000-0x000000ffffffffff] reserved
+[    0.000000] NX (Execute Disable) protection: active
+[    0.000000] APIC: Static calls initialized
+[    0.000000] SMBIOS 2.8 present.
+[    0.000000] DMI: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[    0.000000] DMI: Memory slots populated: 1/1
+[    0.000000] tsc: Fast TSC calibration using PIT
+[    0.000000] tsc: Detected 2299.989 MHz processor
+[    0.009307] AGP: No AGP bridge found
+[    0.009722] last_pfn = 0x1ffe0 max_arch_pfn = 0x400000000
+[    0.011149] MTRR map: 4 entries (3 fixed + 1 variable; max 19), built from 8 variable MTRRs
+[    0.011565] x86/PAT: Configuration [0-7]: WB  WC  UC- UC  WB  WP  UC- WT  
+[    0.047883] found SMP MP-table at [mem 0x000f5480-0x000f548f]
+[    0.059740] RAMDISK: [mem 0x1d444000-0x1ffdffff]
+[    0.060673] ACPI: Early table checksum verification disabled
+[    0.062687] ACPI: RSDP 0x00000000000F52C0 000014 (v00 BOCHS )
+[    0.063423] ACPI: RSDT 0x000000001FFE22E0 000038 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.066049] ACPI: FACP 0x000000001FFE20D8 0000F4 (v03 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.067744] ACPI: DSDT 0x000000001FFE0040 002098 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.067848] ACPI: FACS 0x000000001FFE0000 000040
+[    0.067911] ACPI: APIC 0x000000001FFE21CC 000078 (v03 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.067935] ACPI: HPET 0x000000001FFE2244 000038 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.067957] ACPI: MCFG 0x000000001FFE227C 00003C (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.067978] ACPI: WAET 0x000000001FFE22B8 000028 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.068068] ACPI: Reserving FACP table memory at [mem 0x1ffe20d8-0x1ffe21cb]
+[    0.068113] ACPI: Reserving DSDT table memory at [mem 0x1ffe0040-0x1ffe20d7]
+[    0.068121] ACPI: Reserving FACS table memory at [mem 0x1ffe0000-0x1ffe003f]
+[    0.068129] ACPI: Reserving APIC table memory at [mem 0x1ffe21cc-0x1ffe2243]
+[    0.068135] ACPI: Reserving HPET table memory at [mem 0x1ffe2244-0x1ffe227b]
+[    0.068141] ACPI: Reserving MCFG table memory at [mem 0x1ffe227c-0x1ffe22b7]
+[    0.068148] ACPI: Reserving WAET table memory at [mem 0x1ffe22b8-0x1ffe22df]
+[    0.073813] No NUMA configuration found
+[    0.073866] Faking a node at [mem 0x0000000000000000-0x000000001ffdffff]
+[    0.075774] NODE_DATA(0) allocated [mem 0x1d419680-0x1d443fff]
+[    0.082372] Zone ranges:
+[    0.082406]   DMA      [mem 0x0000000000001000-0x0000000000ffffff]
+[    0.082527]   DMA32    [mem 0x0000000001000000-0x000000001ffdffff]
+[    0.082540]   Normal   empty
+[    0.082557]   Device   empty
+[    0.082569] Movable zone start for each node
+[    0.082609] Early memory node ranges
+[    0.082862]   node   0: [mem 0x0000000000001000-0x000000000009efff]
+[    0.083082]   node   0: [mem 0x0000000000100000-0x000000001ffdffff]
+[    0.083294] Initmem setup node 0 [mem 0x0000000000001000-0x000000001ffdffff]
+[    0.085478] On node 0, zone DMA: 1 pages in unavailable ranges
+[    0.085802] On node 0, zone DMA: 97 pages in unavailable ranges
+[    0.089221] On node 0, zone DMA32: 32 pages in unavailable ranges
+[    0.090053] ACPI: PM-Timer IO Port: 0x608
+[    0.090831] ACPI: LAPIC_NMI (acpi_id[0xff] dfl dfl lint[0x1])
+[    0.091337] IOAPIC[0]: apic_id 0, version 32, address 0xfec00000, GSI 0-23
+[    0.091482] ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
+[    0.092108] ACPI: INT_SRC_OVR (bus 0 bus_irq 5 global_irq 5 high level)
+[    0.092171] ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
+[    0.092343] ACPI: INT_SRC_OVR (bus 0 bus_irq 10 global_irq 10 high level)
+[    0.092355] ACPI: INT_SRC_OVR (bus 0 bus_irq 11 global_irq 11 high level)
+[    0.092842] ACPI: Using ACPI (MADT) for SMP configuration information
+[    0.093108] ACPI: HPET id: 0x8086a201 base: 0xfed00000
+[    0.093953] CPU topo: Max. logical packages:   1
+[    0.093974] CPU topo: Max. logical dies:       1
+[    0.093987] CPU topo: Max. dies per package:   1
+[    0.094159] CPU topo: Max. threads per core:   1
+[    0.094311] CPU topo: Num. cores per package:     1
+[    0.094370] CPU topo: Num. threads per package:   1
+[    0.094382] CPU topo: Allowing 1 present CPUs plus 0 hotplug CPUs
+[    0.096138] PM: hibernation: Registered nosave memory: [mem 0x00000000-0x00000fff]
+[    0.096298] PM: hibernation: Registered nosave memory: [mem 0x0009f000-0x000fffff]
+[    0.096593] [mem 0x20000000-0xafffffff] available for PCI devices
+[    0.096711] Booting paravirtualized kernel on bare hardware
+[    0.097172] clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645519600211568 ns
+[    0.118079] setup_percpu: NR_CPUS:8192 nr_cpumask_bits:1 nr_cpu_ids:1 nr_node_ids:1
+[    0.122864] percpu: Embedded 66 pages/cpu s233472 r8192 d28672 u2097152
+[    0.126065] Kernel command line: console=ttyS0 rdinit=/init panic=1
+[    0.129973] Dentry cache hash table entries: 65536 (order: 7, 524288 bytes, linear)
+[    0.130690] Inode-cache hash table entries: 32768 (order: 6, 262144 bytes, linear)
+[    0.138622] Fallback order for Node 0: 0 
+[    0.139229] Built 1 zonelists, mobility grouping on.  Total pages: 130942
+[    0.139263] Policy zone: DMA32
+[    0.140228] mem auto-init: stack:all(zero), heap alloc:on, heap free:off
+[    0.140830] AGP: Checking aperture...
+[    0.142633] AGP: No AGP bridge found
+[    0.213884] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.260205] ftrace: allocating 45285 entries in 180 pages
+[    0.260567] ftrace: allocated 180 pages with 4 groups
+[    0.280407] Dynamic Preempt: voluntary
+[    0.291636] rcu: Preemptible hierarchical RCU implementation.
+[    0.291705] rcu: 	RCU restricting CPUs from NR_CPUS=8192 to nr_cpu_ids=1.
+[    0.291964] 	Trampoline variant of Tasks RCU enabled.
+[    0.291977] 	Rude variant of Tasks RCU enabled.
+[    0.291991] 	Tracing variant of Tasks RCU enabled.
+[    0.292182] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.292236] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.295344] RCU Tasks: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.295401] RCU Tasks Rude: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.295421] RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.356728] NR_IRQS: 524544, nr_irqs: 256, preallocated irqs: 16
+[    0.381190] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.382903] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.395130] Console: colour *CGA 80x25
+[    0.399409] printk: legacy console [ttyS0] enabled
+[    0.418767] ACPI: Core revision 20240827
+[    0.426261] clocksource: hpet: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604467 ns
+[    0.434764] APIC: Switch to symmetric I/O mode setup
+[    0.442879] ..TIMER: vector=0x30 apic1=0 pin1=2 apic2=-1 pin2=-1
+[    0.464428] clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles: 0x21272aab1c4, max_idle_ns: 440795259624 ns
+[    0.466378] Calibrating delay loop (skipped), value calculated using timer frequency.. 4599.97 BogoMIPS (lpj=9199956)
+[    0.473945] Last level iTLB entries: 4KB 512, 2MB 255, 4MB 127
+[    0.474213] Last level dTLB entries: 4KB 512, 2MB 255, 4MB 127, 1GB 0
+[    0.475952] Spectre V1 : Mitigation: usercopy/swapgs barriers and __user pointer sanitization
+[    0.476581] Spectre V2 : Mitigation: Retpolines
+[    0.476750] Spectre V2 : Spectre v2 / SpectreRSB: Filling RSB on context switch and VMEXIT
+[    0.481892] x86/fpu: x87 FPU will use FXSAVE
+[    0.956514] Freeing SMP alternatives memory: 40K
+[    0.959754] pid_max: default: 32768 minimum: 301
+[    0.981064] LSM: initializing lsm=lockdown,capability,landlock,yama,apparmor,tomoyo,bpf,ipe,ima,evm
+[    0.986121] landlock: Up and running.
+[    0.986273] Yama: disabled by default; enable with sysctl kernel.yama.*
+[    0.993361] AppArmor: AppArmor initialized
+[    0.993846] TOMOYO Linux initialized
+[    0.995814] LSM support for eBPF active
+[    1.002465] Mount-cache hash table entries: 1024 (order: 1, 8192 bytes, linear)
+[    1.002921] Mountpoint-cache hash table entries: 1024 (order: 1, 8192 bytes, linear)
+[    1.157064] smpboot: CPU0: AMD QEMU Virtual CPU version 2.5+ (family: 0xf, model: 0x6b, stepping: 0x1)
+[    1.174313] Performance Events: PMU not available due to virtualization, using software events only.
+[    1.176415] signal: max sigframe size: 1440
+[    1.179232] rcu: Hierarchical SRCU implementation.
+[    1.179402] rcu: 	Max phase no-delay instances is 1000.
+[    1.193392] NMI watchdog: Perf NMI watchdog permanently disabled
+[    1.196171] smp: Bringing up secondary CPUs ...
+[    1.199077] smp: Brought up 1 node, 1 CPU
+[    1.199444] smpboot: Total of 1 processors activated (4599.97 BogoMIPS)
+[    1.214547] node 0 deferred pages initialised in 4ms
+[    1.215717] Memory: 420364K/523768K available (16384K kernel code, 2499K rwdata, 11832K rodata, 4176K init, 4888K bss, 99832K reserved, 0K cma-reserved)
+[    1.231225] devtmpfs: initialized
+[    1.236075] x86/mm: Memory block size: 128MB
+[    1.246086] futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+[    1.253226] pinctrl core: initialized pinctrl subsystem
+[    1.286920] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    1.295304] DMA: preallocated 128 KiB GFP_KERNEL pool for atomic allocations
+[    1.297198] DMA: preallocated 128 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+[    1.297539] DMA: preallocated 128 KiB GFP_KERNEL|GFP_DMA32 pool for atomic allocations
+[    1.298138] audit: initializing netlink subsys (disabled)
+[    1.302049] audit: type=2000 audit(1794265761.868:1): state=initialized audit_enabled=0 res=1
+[    1.310088] thermal_sys: Registered thermal governor 'fair_share'
+[    1.310134] thermal_sys: Registered thermal governor 'bang_bang'
+[    1.310283] thermal_sys: Registered thermal governor 'step_wise'
+[    1.310377] thermal_sys: Registered thermal governor 'user_space'
+[    1.310506] thermal_sys: Registered thermal governor 'power_allocator'
+[    1.311231] cpuidle: using governor ladder
+[    1.311569] cpuidle: using governor menu
+[    1.313437] acpiphp: ACPI Hot Plug PCI Controller Driver version: 0.5
+[    1.317473] PCI: ECAM [mem 0xb0000000-0xbfffffff] (base 0xb0000000) for domain 0000 [bus 00-ff]
+[    1.319049] PCI: ECAM [mem 0xb0000000-0xbfffffff] reserved as E820 entry
+[    1.321309] PCI: Using configuration type 1 for base access
+[    1.324723] kprobes: kprobe jump-optimization is enabled. All kprobes are optimized if possible.
+[    1.430467] HugeTLB: registered 2.00 MiB page size, pre-allocated 0 pages
+[    1.430728] HugeTLB: 28 KiB vmemmap can be freed for a 2.00 MiB page
+[    1.479383] ACPI: Added _OSI(Module Device)
+[    1.479572] ACPI: Added _OSI(Processor Device)
+[    1.479653] ACPI: Added _OSI(Processor Aggregator Device)
+[    1.526701] ACPI: 1 ACPI AML tables successfully acquired and loaded
+[    1.567236] ACPI: Interpreter enabled
+[    1.568991] ACPI: PM: (supports S0 S3 S4 S5)
+[    1.569201] ACPI: Using IOAPIC for interrupt routing
+[    1.571970] PCI: Using host bridge windows from ACPI; if necessary, use "pci=nocrs" and report a bug
+[    1.572307] PCI: Using E820 reservations for host bridge windows
+[    1.575341] ACPI: Enabled 2 GPEs in block 00 to 3F
+[    1.610796] ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-ff])
+[    1.611964] acpi PNP0A08:00: _OSC: OS supports [ExtendedConfig ASPM ClockPM Segments MSI HPX-Type3]
+[    1.613611] acpi PNP0A08:00: _OSC: platform does not support [PCIeHotplug LTR]
+[    1.614603] acpi PNP0A08:00: _OSC: OS now controls [SHPCHotplug PME AER PCIeCapability]
+[    1.621368] PCI host bridge to bus 0000:00
+[    1.621975] pci_bus 0000:00: root bus resource [io  0x0000-0x0cf7 window]
+[    1.622234] pci_bus 0000:00: root bus resource [io  0x0d00-0xffff window]
+[    1.622368] pci_bus 0000:00: root bus resource [mem 0x000a0000-0x000bffff window]
+[    1.622521] pci_bus 0000:00: root bus resource [mem 0x20000000-0xafffffff window]
+[    1.622669] pci_bus 0000:00: root bus resource [mem 0xc0000000-0xfebfffff window]
+[    1.622839] pci_bus 0000:00: root bus resource [mem 0x100000000-0x8ffffffff window]
+[    1.623203] pci_bus 0000:00: root bus resource [bus 00-ff]
+[    1.625105] pci 0000:00:00.0: [8086:29c0] type 00 class 0x060000 conventional PCI endpoint
+[    1.632938] pci 0000:00:1f.0: [8086:2918] type 00 class 0x060100 conventional PCI endpoint
+[    1.633823] pci 0000:00:1f.0: quirk: [io  0x0600-0x067f] claimed by ICH6 ACPI/GPIO/TCO
+[    1.634835] pci 0000:00:1f.2: [8086:2922] type 00 class 0x010601 conventional PCI endpoint
+[    1.638632] pci 0000:00:1f.2: BAR 4 [io  0xc040-0xc05f]
+[    1.639976] pci 0000:00:1f.2: BAR 5 [mem 0xfebff000-0xfebfffff]
+[    1.641922] pci 0000:00:1f.3: [8086:2930] type 00 class 0x0c0500 conventional PCI endpoint
+[    1.643719] pci 0000:00:1f.3: BAR 4 [io  0x0700-0x073f]
+[    1.650961] ACPI: PCI: Interrupt link LNKA configured for IRQ 10
+[    1.651777] ACPI: PCI: Interrupt link LNKB configured for IRQ 10
+[    1.652460] ACPI: PCI: Interrupt link LNKC configured for IRQ 11
+[    1.652934] ACPI: PCI: Interrupt link LNKD configured for IRQ 11
+[    1.653394] ACPI: PCI: Interrupt link LNKE configured for IRQ 10
+[    1.653904] ACPI: PCI: Interrupt link LNKF configured for IRQ 10
+[    1.654331] ACPI: PCI: Interrupt link LNKG configured for IRQ 11
+[    1.654755] ACPI: PCI: Interrupt link LNKH configured for IRQ 11
+[    1.655037] ACPI: PCI: Interrupt link GSIA configured for IRQ 16
+[    1.655229] ACPI: PCI: Interrupt link GSIB configured for IRQ 17
+[    1.655410] ACPI: PCI: Interrupt link GSIC configured for IRQ 18
+[    1.655657] ACPI: PCI: Interrupt link GSID configured for IRQ 19
+[    1.655875] ACPI: PCI: Interrupt link GSIE configured for IRQ 20
+[    1.656064] ACPI: PCI: Interrupt link GSIF configured for IRQ 21
+[    1.656246] ACPI: PCI: Interrupt link GSIG configured for IRQ 22
+[    1.656549] ACPI: PCI: Interrupt link GSIH configured for IRQ 23
+[    1.662191] iommu: Default domain type: Translated
+[    1.662357] iommu: DMA domain TLB invalidation policy: lazy mode
+[    1.665188] pps_core: LinuxPPS API ver. 1 registered
+[    1.665414] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    1.665749] PTP clock support registered
+[    1.666892] EDAC MC: Ver: 3.0.0
+[    1.683440] NetLabel: Initializing
+[    1.683577] NetLabel:  domain hash size = 128
+[    1.683661] NetLabel:  protocols = UNLABELED CIPSOv4 CALIPSO
+[    1.685642] NetLabel:  unlabeled traffic allowed by default
+[    1.685886] PCI: Using ACPI for IRQ routing
+[    1.697141] vgaarb: loaded
+[    1.698791] hpet: 3 channels of 0 reserved for per-cpu timers
+[    1.699302] hpet0: at MMIO 0xfed00000, IRQs 2, 8, 0
+[    1.699510] hpet0: 3 comparators, 64-bit 100.000000 MHz counter
+[    1.707071] clocksource: Switched to clocksource tsc-early
+[    1.722997] VFS: Disk quotas dquot_6.6.0
+[    1.723519] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    1.729492] AppArmor: AppArmor Filesystem Enabled
+[    1.730563] pnp: PnP ACPI init
+[    1.735185] system 00:04: [mem 0xb0000000-0xbfffffff window] has been reserved
+[    1.737231] pnp: PnP ACPI: found 5 devices
+[    1.767783] clocksource: acpi_pm: mask: 0xffffff max_cycles: 0xffffff, max_idle_ns: 2085701024 ns
+[    1.770883] NET: Registered PF_INET protocol family
+[    1.774250] IP idents hash table entries: 8192 (order: 4, 65536 bytes, linear)
+[    1.933826] tcp_listen_portaddr_hash hash table entries: 256 (order: 0, 4096 bytes, linear)
+[    1.934257] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    1.935063] TCP established hash table entries: 4096 (order: 3, 32768 bytes, linear)
+[    1.935855] TCP bind hash table entries: 4096 (order: 5, 131072 bytes, linear)
+[    1.936461] TCP: Hash tables configured (established 4096 bind 4096)
+[    1.938862] MPTCP token hash table entries: 512 (order: 2, 12288 bytes, linear)
+[    1.939488] UDP hash table entries: 256 (order: 1, 8192 bytes, linear)
+[    1.939883] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, linear)
+[    1.941990] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    1.942732] NET: Registered PF_XDP protocol family
+[    1.944433] pci_bus 0000:00: resource 4 [io  0x0000-0x0cf7 window]
+[    1.944598] pci_bus 0000:00: resource 5 [io  0x0d00-0xffff window]
+[    1.944719] pci_bus 0000:00: resource 6 [mem 0x000a0000-0x000bffff window]
+[    1.945257] pci_bus 0000:00: resource 7 [mem 0x20000000-0xafffffff window]
+[    1.945580] pci_bus 0000:00: resource 8 [mem 0xc0000000-0xfebfffff window]
+[    1.945721] pci_bus 0000:00: resource 9 [mem 0x100000000-0x8ffffffff window]
+[    1.946716] PCI: CLS 0 bytes, default 64
+[    1.957457] Trying to unpack rootfs image as initramfs...
+[    1.966620] Initialise system trusted keyrings
+[    1.977218] Key type blacklist registered
+[    1.982993] workingset: timestamp_bits=36 max_order=17 bucket_order=0
+[    1.983347] zbud: loaded
+[    1.991637] fuse: init (API version 7.41)
+[    2.007690] integrity: Platform Keyring initialized
+[    2.008488] integrity: Machine keyring initialized
+[    2.251137] Key type asymmetric registered
+[    2.251543] Asymmetric key parser 'x509' registered
+[    2.959407] tsc: Refined TSC clocksource calibration: 2299.990 MHz
+[    2.960259] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x21272bbde41, max_idle_ns: 440795205796 ns
+[    2.960876] clocksource: Switched to clocksource tsc
+[    4.301908] Freeing initrd memory: 44656K
+[    4.317018] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 246)
+[    4.318212] io scheduler mq-deadline registered
+[    4.335578] ledtrig-cpu: registered to indicate activity on CPUs
+[    4.336695] shpchp: Standard Hot Plug PCI Controller Driver version: 0.4
+[    4.342999] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+[    4.349210] 00:02: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 16550A
+[    4.360281] Linux agpgart interface v0.103
+[    4.369891] i8042: PNP: PS/2 Controller [PNP0303:KBD,PNP0f13:MOU] at 0x60,0x64 irq 1,12
+[    4.375022] serio: i8042 KBD port at 0x60,0x64 irq 1
+[    4.375762] serio: i8042 AUX port at 0x60,0x64 irq 12
+[    4.377933] mousedev: PS/2 mouse device common for all mice
+[    4.383877] input: AT Translated Set 2 keyboard as /devices/platform/i8042/serio0/input/input0
+[    4.387507] rtc_cmos 00:03: RTC can wake from S4
+[    4.396404] rtc_cmos 00:03: registered as rtc0
+[    4.397728] rtc_cmos 00:03: setting system clock to 2026-11-09T23:09:25 UTC (1794265765)
+[    4.400608] rtc_cmos 00:03: alarms up to one day, y3k, 242 bytes nvram, hpet irqs
+[    4.401068] amd_pstate: the _CPC object is not present in SBIOS or ACPI disabled
+[    4.404653] NET: Registered PF_INET6 protocol family
+[    4.422216] Segment Routing with IPv6
+[    4.422922] In-situ OAM (IOAM) with IPv6
+[    4.423687] mip6: Mobile IPv6
+[    4.424482] NET: Registered PF_PACKET protocol family
+[    4.425113] mpls_gso: MPLS GSO support
+[    4.428616] IPI shorthand broadcast: enabled
+[    4.443595] sched_clock: Marking stable (4396072898, 46444414)->(4447806410, -5289098)
+[    4.447443] registered taskstats version 1
+[    4.450578] Loading compiled-in X.509 certificates
+[    4.572741] Loaded X.509 cert 'Build time autogenerated kernel key: 0a04fbb1322a405cf04cc828049b2bf54895c9d9'
+[    4.590010] Demotion targets for Node 0: null
+[    4.592036] Key type .fscrypt registered
+[    4.592468] Key type fscrypt-provisioning registered
+[    4.613575] Key type encrypted registered
+[    4.614199] AppArmor: AppArmor sha256 policy hashing enabled
+[    4.615343] ima: No TPM chip found, activating TPM-bypass!
+[    4.615568] ima: Allocated hash algorithm: sha256
+[    4.618145] ima: No architecture policies found
+[    4.619258] evm: Initialising EVM extended attributes:
+[    4.619439] evm: security.selinux
+[    4.619552] evm: security.SMACK64 (disabled)
+[    4.619636] evm: security.SMACK64EXEC (disabled)
+[    4.619723] evm: security.SMACK64TRANSMUTE (disabled)
+[    4.619816] evm: security.SMACK64MMAP (disabled)
+[    4.619902] evm: security.apparmor
+[    4.619969] evm: security.ima
+[    4.620030] evm: security.capability
+[    4.620176] evm: HMAC attrs: 0x1
+[    4.696076] RAS: Correctable Errors collector initialized.
+[    4.826887] clk: Disabling unused clocks
+[    4.827400] PM: genpd: Disabling unused power domains
+[    4.898241] Freeing unused decrypted memory: 2028K
+[    4.990814] Freeing unused kernel image (initmem) memory: 4176K
+[    5.110791] Write protecting the kernel read-only data: 28672k
+[    5.113134] Freeing unused kernel image (rodata/data gap) memory: 456K
+[    5.254170] x86/mm: Checked W+X mappings: passed, no W+X pages found.
+[    5.363619] Run /init as init process
+[    5.655106] systemd[1]: Failed to initialize kmod context: Operation not supported
+[!p]104[?7hsystemd 257.13-1~deb13u1 running in system mode (+PAM +AUDIT +SELINUX +APPARMOR +IMA +IPE +SMACK +SECCOMP +GCRYPT -GNUTLS +OPENSSL +ACL +BLKID +CURL +ELFUTILS +FIDO2 +IDN2 -IDN +IPTC +KMOD +LIBCRYPTSETUP +LIBCRYPTSETUP_PLUGINS +LIBFDISK +PCRE2 +PWQUALITY +P11KIT +QRENCODE +TPM2 +BZIP2 +LZ4 +XZ +ZLIB +ZSTD +BPF_FRAMEWORK +BTF -XKBCOMMON -UTMP +SYSVINIT +LIBARCHIVE)
+Virtualization QEMU found in DMI (/sys/class/dmi/id/sys_vendor)
+UML virtualization not found in /proc/cpuinfo.
+Virtualization XEN not found, /proc/xen does not exist
+Virtualization found, CPUID=TCGTCGTCGTCG
+Found VM virtualization qemu
+Detected virtualization qemu.
+CPUID func 1 0
+CPUID result 60fb1 800 80002001 78bfbfd
+CPUID is hypervisor: yes
+CPUID func 0 0
+CPUID result d 68747541 444d4163 69746e65
+CPUID sig 'AuthenticAMD'
+CPUID func 80000000 0
+CPUID result 8000000a 68747541 444d4163 69746e65
+Detected architecture x86-64.
+Detected initialized system, this is not the first boot.
+Kernel version 6.12.116+deb13-amd64, our baseline is 5.4
+No credentials passed via fw_cfg.
+No credentials passed from initrd.
+Acquired 0 regular credentials, 0 untrusted credentials.
+
+Welcome to Roko systemd fixture!
+
+No hostname configured, using default hostname.
+Hostname set to <localhost>.
+Successfully added address 127.0.0.1 to loopback interface
+Successfully added address ::1 to loopback interface
+Successfully brought loopback interface up
+Setting '/proc/sys/net/unix/max_dgram_qlen' to '512'
+Setting '/proc/sys/fs/file-max' to '9223372036854775807'
+Setting '/proc/sys/fs/nr_open' to '2147483640'
+Couldn't write fs.nr_open as 2147483640, halving it.
+Setting '/proc/sys/fs/nr_open' to '1073741816'
+Successfully bumped fs.nr_open to 1073741816
+Cannot stat /usr/sbin: No such file or directory
+Cannot stat /usr/local/sbin: No such file or directory
+Found cgroup2 on /sys/fs/cgroup/, full unified hierarchy
+Unified cgroup hierarchy is located at /sys/fs/cgroup.
+bpf-firewall: Got EBADF when using BPF_F_ALLOW_MULTI, which indicates it is supported. Yay!
+neither libbpf.so.1 nor libbpf.so.0 are installed: libbpf.so.0: cannot open shared object file: No such file or directory
+Failed to open libbpf, cgroup BPF features disabled: Operation not supported
+Controller 'cpu' supported: yes
+Controller 'cpuacct' supported: no
+Controller 'cpuset' supported: yes
+Controller 'io' supported: yes
+Controller 'blkio' supported: no
+Controller 'memory' supported: yes
+Controller 'devices' supported: no
+Controller 'pids' supported: yes
+Controller 'bpf-firewall' supported: yes
+Controller 'bpf-devices' supported: yes
+Controller 'bpf-foreign' supported: yes
+Controller 'bpf-socket-bind' supported: no
+Controller 'bpf-restrict-network-interfaces' supported: no
+Set up TFD_TIMER_CANCEL_ON_SET timerfd.
+Failed to stat /etc/localtime, ignoring: No such file or directory
+/etc/localtime doesn't exist yet, watching /etc instead.
+Using systemd-executor binary from '/usr/lib/systemd/systemd-executor'.
+Enabling (yes) showing of status (command line).
+Looking for unit files in (higher priority first):
+	/etc/systemd/system
+Unit type .automount is not supported on this system.
+Unit type .automount is not supported on this system.
+Modification times have changed, need to update cache.
+unit_file_build_name_map: normal unit file: /etc/systemd/system/sysinit.target
+unit_file_build_name_map: normal unit file: /etc/systemd/system/shutdown.target
+unit_file_build_name_map: normal unit file: /etc/systemd/system/roko-startup-report.service
+unit_file_build_name_map: normal unit file: /etc/systemd/system/roko-startup-report-failure.service
+unit_file_build_name_map: normal unit file: /etc/systemd/system/roko-fixture.target
+unit_file_build_name_map: normal unit file: /etc/systemd/system/roko-fixture-run.service
+unit_file_build_name_map: normal unit file: /etc/systemd/system/multi-user.target
+unit_file_build_name_map: normal unit file: /etc/systemd/system/local-fs.target
+unit_file_build_name_map: normal unit file: /etc/systemd/system/basic.target
+Using notification socket /run/systemd/notify
+Successfully created private D-Bus server.
+Invoking unit coldplug() handlers…
+-.slice: Changed dead -> active
+init.scope: Changed dead -> running
+system.slice: Changed dead -> active
+-.mount: Changed dead -> mounted
+Failed to communicate with plymouth: Connection refused
+Invoking unit catchup() handlers…
+Activating default unit: roko-fixture.target
+Default target could not be isolated, starting instead: Operation refused, unit may not be isolated.
+roko-fixture.target: Trying to enqueue job roko-fixture.target/start/replace
+roko-fixture-run.service: Installed new job roko-fixture-run.service/start as 2
+roko-fixture.target: Installed new job roko-fixture.target/start as 1
+roko-fixture.target: Enqueued job roko-fixture.target/start as 1
+Loaded units and determined initial transaction in 93ms.
+Using iptables as firewall backend.
+roko-fixture.target: Changed dead -> active
+roko-fixture.target: Job 1 roko-fixture.target/start finished, result=done
+[  OK  ] Reached target roko-fixture.target.
+roko-fixture-run.service: Will spawn child (service_enter_start): /opt/python/bin/python3
+roko-fixture-run.service: Passing 0 fds to service
+roko-fixture-run.service: About to execute: /opt/python/bin/python3 /opt/roko/controller.py
+Serializing sd-executor-state to memfd.
+Found cgroup2 on /sys/fs/cgroup/, full unified hierarchy
+roko-fixture-run.service: Forked /opt/python/bin/python3 as 129 (via CLONE_INTO_CGROUP)
+Closing set fd 36 (socket:[482])
+Closing set fd 34 (socket:[484])
+Closing set fd 35 (socket:[486])
+roko-fixture-run.service: Changed dead -> start
+         Starting roko-fixture-run.service...
+Got handoff timestamp event for PID 129.
+[    7.271064] random: crng init done
+ROKO_MANAGER_FIXTURE_BEGIN
+Bus private-bus-connection: changing state UNSET → OPENING
+sd-bus: starting bus private-bus-connection on fds 34/34 (socket:[542], socket:[542])...
+Bus private-bus-connection: changing state OPENING → AUTHENTICATING
+Accepting direct incoming connection from 130 (systemctl) [n/a]
+Registering bus object implementation for path=/org/freedesktop/systemd1 iface=org.freedesktop.systemd1.Manager
+Registering bus object implementation for path=/org/freedesktop/systemd1/job iface=org.freedesktop.systemd1.Job
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Unit
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Automount
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Device
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Mount
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Path
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Scope
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Service
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Slice
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Socket
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Swap
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Target
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Timer
+Registering bus object implementation for path=/org/freedesktop/LogControl1 iface=org.freedesktop.LogControl1
+Accepted new private connection.
+Bus private-bus-connection: changing state AUTHENTICATING → RUNNING
+Got message type=method_call sender=n/a destination=org.freedesktop.systemd1 path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=StartUnit  cookie=1 reply_cookie=0 signature=ss error-name=n/a error-message=n/a
+run.mount: Failed to load configuration: No such file or directory
+run-roko\x2dstartup.mount: Failed to load configuration: No such file or directory
+tmp.mount: Failed to load configuration: No such file or directory
+var.mount: Failed to load configuration: No such file or directory
+var-tmp.mount: Failed to load configuration: No such file or directory
+systemd-tmpfiles-setup.service: Failed to load configuration: No such file or directory
+display-manager.service: Failed to load configuration: No such file or directory
+Trying to acquire polkit authentication for 'org.freedesktop.systemd1.manage-units'.
+roko-startup-report.service: Trying to enqueue job roko-startup-report.service/start/replace
+roko-startup-report.service: Installed new job roko-startup-report.service/start as 5
+sysinit.target: Installed new job sysinit.target/start as 6
+roko-startup-report.service: Enqueued job roko-startup-report.service/start as 5
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=1 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=JobNew cookie=2 reply_cookie=0 signature=uos error-name=n/a error-message=n/a
+Sent message type=method_return sender=org.freedesktop.systemd1 destination=n/a path=n/a interface=n/a member=n/a cookie=3 reply_cookie=1 signature=o error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=4 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=5 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=6 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=7 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=8 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=9 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=10 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=11 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=12 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=13 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=14 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=15 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=16 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/_2d_2emount interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=17 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/_2d_2emount interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=18 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/system_2eslice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=19 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=JobNew cookie=20 reply_cookie=0 signature=uos error-name=n/a error-message=n/a
+run.mount: Collecting.
+run-roko\x2dstartup.mount: Collecting.
+tmp.mount: Collecting.
+var.mount: Collecting.
+var-tmp.mount: Collecting.
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitRemoved cookie=21 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitRemoved cookie=22 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitRemoved cookie=23 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitRemoved cookie=24 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitRemoved cookie=25 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Got message type=method_call sender=n/a destination=org.freedesktop.systemd1 path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=GetUnit  cookie=2 reply_cookie=0 signature=s error-name=n/a error-message=n/a
+Sent message type=method_return sender=org.freedesktop.systemd1 destination=n/a path=n/a interface=n/a member=n/a cookie=26 reply_cookie=2 signature=o error-name=n/a error-message=n/a
+Got message type=method_call sender=n/a destination=org.freedesktop.systemd1 path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=Get  cookie=3 reply_cookie=0 signature=ss error-name=n/a error-message=n/a
+Sent message type=method_return sender=org.freedesktop.systemd1 destination=n/a path=n/a interface=n/a member=n/a cookie=27 reply_cookie=3 signature=v error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/sysinit_2etarget interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=28 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+sysinit.target: Changed dead -> active
+sysinit.target: Job 6 sysinit.target/start finished, result=done
+[  OK  ] Reached target sysinit.target.
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/sysinit_2etarget interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=29 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=JobRemoved cookie=30 reply_cookie=0 signature=uoss error-name=n/a error-message=n/a
+roko-startup-report.service: Will spawn child (service_enter_start): /opt/python/bin/python3
+roko-startup-report.service: Passing 0 fds to service
+roko-startup-report.service: About to execute: /opt/python/bin/python3 /opt/roko/startup_report.py --policy /etc/roko/first-boot.json --output /run/roko-startup/status.json
+Serializing sd-executor-state to memfd.
+Found cgroup2 on /sys/fs/cgroup/, full unified hierarchy
+roko-startup-report.service: Forked /opt/python/bin/python3 as 131 (via CLONE_INTO_CGROUP)
+Closing set fd 46 (socket:[546])
+Closing set fd 44 (socket:[482])
+Closing set fd 47 (socket:[547])
+Closing set fd 48 (socket:[548])
+Closing set fd 43 (socket:[486])
+Closing set fd 45 (socket:[545])
+Closing set fd 42 (socket:[484])
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=31 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=32 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+roko-startup-report.service: Changed dead -> start
+         Starting roko-startup-report.servic…nostics (not runtime readiness)...
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=33 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=34 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/sysinit_2etarget interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=35 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/job/5 interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=36 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+inotify event for /etc/localtime
+Failed to stat /etc/localtime, ignoring: No such file or directory
+roko-startup-report.service: User lookup succeeded: uid=63914 gid=63914
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=37 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=38 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Got handoff timestamp event for PID 131.
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=39 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=40 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+{"issues": ["runtime-health-not-observed", "model-not-qualified", "durable-history-not-qualified", "credentials-not-provisioned", "network-isolation-not-proven"], "status": "unqualified", "system_ready": false}
+Received SIGCHLD from PID 131 (python3).
+Child 131 (python3) died (code=exited, status=0/SUCCESS)
+roko-startup-report.service: Child 131 belongs to roko-startup-report.service.
+roko-startup-report.service: Main process exited, code=exited, status=0/SUCCESS (success)
+roko-startup-report.service: Changed start -> exited
+roko-startup-report.service: Job 5 roko-startup-report.service/start finished, result=done
+[  OK  ] Finished roko-startup-report.servic…agnostics (not runtime readiness).
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=41 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=42 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=JobRemoved cookie=43 reply_cookie=0 signature=uoss error-name=n/a error-message=n/a
+Failed to communicate with plymouth: Connection refused
+Bus private-bus-connection: changing state RUNNING → CLOSING
+roko-startup-report.service: Failed to send unit change signal for roko-startup-report.service: Connection reset by peer
+roko-startup-report.service: Control group is empty.
+Bus private-bus-connection: changing state CLOSING → CLOSED
+Got disconnect on private connection.
+Bus private-bus-connection: changing state UNSET → OPENING
+sd-bus: starting bus private-bus-connection on fds 34/34 (socket:[634], socket:[634])...
+Bus private-bus-connection: changing state OPENING → AUTHENTICATING
+Accepting direct incoming connection from 134 (systemctl) [n/a]
+Registering bus object implementation for path=/org/freedesktop/systemd1 iface=org.freedesktop.systemd1.Manager
+Registering bus object implementation for path=/org/freedesktop/systemd1/job iface=org.freedesktop.systemd1.Job
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Unit
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Automount
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Device
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Mount
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Path
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Scope
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Service
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Slice
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Socket
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Swap
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Target
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Timer
+Registering bus object implementation for path=/org/freedesktop/LogControl1 iface=org.freedesktop.LogControl1
+Accepted new private connection.
+Bus private-bus-connection: changing state AUTHENTICATING → RUNNING
+Got message type=method_call sender=n/a destination=org.freedesktop.systemd1 path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=Get  cookie=1 reply_cookie=0 signature=ss error-name=n/a error-message=n/a
+Sent message type=method_return sender=org.freedesktop.systemd1 destination=n/a path=n/a interface=n/a member=n/a cookie=1 reply_cookie=1 signature=v error-name=n/a error-message=n/a
+Got message type=method_call sender=n/a destination=org.freedesktop.systemd1 path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=Get  cookie=2 reply_cookie=0 signature=ss error-name=n/a error-message=n/a
+Sent message type=method_return sender=org.freedesktop.systemd1 destination=n/a path=n/a interface=n/a member=n/a cookie=2 reply_cookie=2 signature=v error-name=n/a error-message=n/a
+Bus private-bus-connection: changing state RUNNING → CLOSING
+Bus private-bus-connection: changing state CLOSING → CLOSED
+Got disconnect on private connection.
+ROKO_MANAGER_PHASE {"phase": "missing-model-network-unavailable", "report": {"boot_id": "f27b8892-e8a3-4d14-a6eb-8208333d76a9", "declared_policy": {"automaticGenerationDeletion": false, "automaticUpgrade": false, "credentialProvisioningRequired": true, "durableHistoryReady": false, "modelReady": false, "networkIsolationProven": false, "offlineRequested": true, "schema": "roko-first-boot-policy-v1"}, "execution_authorized": false, "issues": ["runtime-health-not-observed", "model-not-qualified", "durable-history-not-qualified", "credentials-not-provisioned", "network-isolation-not-proven"], "runtime_health_observed": false, "schema": "roko-startup-report-v1", "scope": "boot-local policy diagnostics; no service/model/persistence probe", "status": "unqualified", "system_ready": false}, "network_unavailable": true}
+Bus private-bus-connection: changing state UNSET → OPENING
+sd-bus: starting bus private-bus-connection on fds 34/34 (socket:[648], socket:[648])...
+Bus private-bus-connection: changing state OPENING → AUTHENTICATING
+Accepting direct incoming connection from 135 (systemctl) [n/a]
+Registering bus object implementation for path=/org/freedesktop/systemd1 iface=org.freedesktop.systemd1.Manager
+Registering bus object implementation for path=/org/freedesktop/systemd1/job iface=org.freedesktop.systemd1.Job
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Unit
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Automount
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Device
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Mount
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Path
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Scope
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Service
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Slice
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Socket
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Swap
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Target
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Timer
+Registering bus object implementation for path=/org/freedesktop/LogControl1 iface=org.freedesktop.LogControl1
+Accepted new private connection.
+Bus private-bus-connection: changing state AUTHENTICATING → RUNNING
+Got message type=method_call sender=n/a destination=org.freedesktop.systemd1 path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=RestartUnit  cookie=1 reply_cookie=0 signature=ss error-name=n/a error-message=n/a
+Trying to acquire polkit authentication for 'org.freedesktop.systemd1.manage-units'.
+roko-startup-report.service: Trying to enqueue job roko-startup-report.service/restart/replace
+roko-startup-report.service: Installed new job roko-startup-report.service/restart as 10
+roko-startup-report.service: Enqueued job roko-startup-report.service/restart as 10
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=1 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=2 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=JobNew cookie=3 reply_cookie=0 signature=uos error-name=n/a error-message=n/a
+Sent message type=method_return sender=org.freedesktop.systemd1 destination=n/a path=n/a interface=n/a member=n/a cookie=4 reply_cookie=1 signature=o error-name=n/a error-message=n/a
+Got message type=method_call sender=n/a destination=org.freedesktop.systemd1 path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=GetUnit  cookie=2 reply_cookie=0 signature=s error-name=n/a error-message=n/a
+Sent message type=method_return sender=org.freedesktop.systemd1 destination=n/a path=n/a interface=n/a member=n/a cookie=5 reply_cookie=2 signature=o error-name=n/a error-message=n/a
+Got message type=method_call sender=n/a destination=org.freedesktop.systemd1 path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=Get  cookie=3 reply_cookie=0 signature=ss error-name=n/a error-message=n/a
+Sent message type=method_return sender=org.freedesktop.systemd1 destination=n/a path=n/a interface=n/a member=n/a cookie=6 reply_cookie=3 signature=v error-name=n/a error-message=n/a
+roko-startup-report.service: Deactivated successfully.
+roko-startup-report.service: Service will not restart (manual stop)
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=7 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=8 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+roko-startup-report.service: Changed exited -> dead
+roko-startup-report.service: Job 10 roko-startup-report.service/restart finished, result=done
+[  OK  ] Stopped roko-startup-report.service…agnostics (not runtime readiness).
+roko-startup-report.service: Converting job roko-startup-report.service/restart -> roko-startup-report.service/start
+Spawning process to nuke '/tmp/systemd-private-f27b8892e8a34d14a6eb8208333d76a9-roko-startup-report.service-2rs1e0'
+Successfully forked off '(sd-rmrf)' as PID 136.
+Spawning process to nuke '/var/tmp/systemd-private-f27b8892e8a34d14a6eb8208333d76a9-roko-startup-report.service-4tQZg4'
+Successfully forked off '(sd-rmrf)' as PID 137.
+UID 63914 is no longer referenced, cleaning up its IPC.
+GID 63914 is no longer referenced, cleaning up its IPC.
+         Stopping roko-startup-report.servic…nostics (not runtime readiness)...
+roko-startup-report.service: Will spawn child (service_enter_start): /opt/python/bin/python3
+roko-startup-report.service: Passing 0 fds to service
+roko-startup-report.service: About to execute: /opt/python/bin/python3 /opt/roko/startup_report.py --policy /etc/roko/first-boot.json --output /run/roko-startup/status.json
+Serializing sd-executor-state to memfd.
+Found cgroup2 on /sys/fs/cgroup/, full unified hierarchy
+roko-startup-report.service: Forked /opt/python/bin/python3 as 139 (via CLONE_INTO_CGROUP)
+Closing set fd 47 (socket:[657])
+Closing set fd 48 (socket:[658])
+Closing set fd 44 (socket:[486])
+Closing set fd 45 (socket:[482])
+Closing set fd 43 (socket:[484])
+Closing set fd 46 (socket:[656])
+Closing set fd 49 (socket:[659])
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=9 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=10 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+roko-startup-report.service: Changed dead -> start
+         Starting roko-startup-report.servic…nostics (not runtime readiness)...
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=11 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=12 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/job/10 interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=13 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Received SIGCHLD from PID 137 ((sd-rmrf)).
+Child 136 ((sd-rmrf)) died (code=exited, status=0/SUCCESS)
+init.scope: Child 136 belongs to init.scope.
+Child 137 ((sd-rmrf)) died (code=exited, status=0/SUCCESS)
+init.scope: Child 137 belongs to init.scope.
+roko-startup-report.service: User lookup succeeded: uid=63914 gid=63914
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=14 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=15 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Got handoff timestamp event for PID 139.
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=16 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=17 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+{"issues": ["startup-policy-or-boot-identity-unreadable-or-invalid"], "status": "failed", "system_ready": false}
+Received SIGCHLD from PID 139 (python3).
+Child 139 (python3) died (code=exited, status=1/FAILURE)
+roko-startup-report.service: Child 139 belongs to roko-startup-report.service.
+roko-startup-report.service: Main process exited, code=exited, status=1/FAILURE
+roko-startup-report.service: Failed with result 'exit-code'.
+roko-startup-report.service: Service will not restart (restart setting)
+roko-startup-report.service: Changed start -> failed
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=18 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+roko-startup-report.service: Job 10 roko-startup-report.service/start finished, result=failed
+[FAILED] Failed to start roko-startup-report…agnostics (not runtime readiness).
+See 'systemctl status roko-startup-report.service' for details.
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=19 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=20 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=JobRemoved cookie=21 reply_cookie=0 signature=uoss error-name=n/a error-message=n/a
+roko-startup-report.service: Consumed 1.981s CPU time, 10.5M memory peak.
+roko-startup-report.service: Triggering OnFailure= dependencies.
+roko-startup-report-failure.service: Trying to enqueue job roko-startup-report-failure.service/start/replace
+roko-startup-report-failure.service: Installed new job roko-startup-report-failure.service/start as 15
+roko-startup-report-failure.service: Enqueued job roko-startup-report-failure.service/start as 15
+roko-startup-report.service: Triggering OnFailure= dependencies done (1 job).
+Spawning process to nuke '/tmp/systemd-private-f27b8892e8a34d14a6eb8208333d76a9-roko-startup-report.service-Tdjuxq'
+Successfully forked off '(sd-rmrf)' as PID 142.
+Spawning process to nuke '/var/tmp/systemd-private-f27b8892e8a34d14a6eb8208333d76a9-roko-startup-report.service-ACGjKS'
+Successfully forked off '(sd-rmrf)' as PID 143.
+UID 63914 is no longer referenced, cleaning up its IPC.
+GID 63914 is no longer referenced, cleaning up its IPC.
+roko-startup-report.service: Releasing resources...
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2dfailure_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=22 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2dfailure_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=23 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=24 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=25 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=JobNew cookie=26 reply_cookie=0 signature=uos error-name=n/a error-message=n/a
+Child 142 ((sd-rmrf)) died (code=exited, status=0/SUCCESS)
+init.scope: Child 142 belongs to init.scope.
+Child 143 ((sd-rmrf)) died (code=exited, status=0/SUCCESS)
+init.scope: Child 143 belongs to init.scope.
+Received SIGCHLD from PID 142 (n/a).
+Got message type=method_call sender=n/a destination=org.freedesktop.systemd1 path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=Get  cookie=4 reply_cookie=0 signature=ss error-name=n/a error-message=n/a
+Sent message type=method_return sender=org.freedesktop.systemd1 destination=n/a path=n/a interface=n/a member=n/a cookie=27 reply_cookie=4 signature=v error-name=n/a error-message=n/a
+roko-startup-report-failure.service: Will spawn child (service_enter_start): /usr/bin/echo
+roko-startup-report-failure.service: Passing 0 fds to service
+roko-startup-report-failure.service: About to execute: /usr/bin/echo Roko startup diagnostic "failed;" readiness unknown
+Serializing sd-executor-state to memfd.
+Found cgroup2 on /sys/fs/cgroup/, full unified hierarchy
+roko-startup-report-failure.service: Forked /usr/bin/echo as 145 (via CLONE_INTO_CGROUP)
+Closing set fd 47 (socket:[738])
+Closing set fd 48 (socket:[739])
+Closing set fd 44 (socket:[486])
+Closing set fd 45 (socket:[482])
+Closing set fd 43 (socket:[484])
+Closing set fd 46 (socket:[737])
+Closing set fd 49 (socket:[740])
+Bus private-bus-connection: changing state RUNNING → CLOSING
+roko-startup-report-failure.service: Failed to send unit change signal for roko-startup-report-failure.service: Connection reset by peer
+roko-startup-report-failure.service: Changed dead -> start
+         Starting roko-startup-report-failur…Roko startup diagnostic failure...
+Bus private-bus-connection: changing state CLOSING → CLOSED
+Got disconnect on private connection.
+Bus private-bus-connection: changing state UNSET → OPENING
+sd-bus: starting bus private-bus-connection on fds 34/34 (socket:[758], socket:[758])...
+Bus private-bus-connection: changing state OPENING → AUTHENTICATING
+Accepting direct incoming connection from 144 (systemctl) [n/a]
+Registering bus object implementation for path=/org/freedesktop/systemd1 iface=org.freedesktop.systemd1.Manager
+Registering bus object implementation for path=/org/freedesktop/systemd1/job iface=org.freedesktop.systemd1.Job
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Unit
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Automount
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Device
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Mount
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Path
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Scope
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Service
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Slice
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Socket
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Swap
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Target
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Timer
+Registering bus object implementation for path=/org/freedesktop/LogControl1 iface=org.freedesktop.LogControl1
+Accepted new private connection.
+Bus private-bus-connection: changing state AUTHENTICATING → RUNNING
+Got message type=method_call sender=n/a destination=org.freedesktop.systemd1 path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=Get  cookie=1 reply_cookie=0 signature=ss error-name=n/a error-message=n/a
+Sent message type=method_return sender=org.freedesktop.systemd1 destination=n/a path=n/a interface=n/a member=n/a cookie=1 reply_cookie=1 signature=v error-name=n/a error-message=n/a
+Got message type=method_call sender=n/a destination=org.freedesktop.systemd1 path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=Get  cookie=2 reply_cookie=0 signature=ss error-name=n/a error-message=n/a
+Sent message type=method_return sender=org.freedesktop.systemd1 destination=n/a path=n/a interface=n/a member=n/a cookie=2 reply_cookie=2 signature=v error-name=n/a error-message=n/a
+Bus private-bus-connection: changing state RUNNING → CLOSING
+Bus private-bus-connection: changing state CLOSING → CLOSED
+Got disconnect on private connection.
+roko-startup-report-failure.service: User lookup succeeded: uid=64096 gid=64096
+Bus private-bus-connection: changing state UNSET → OPENING
+sd-bus: starting bus private-bus-connection on fds 34/34 (socket:[807], socket:[807])...
+Bus private-bus-connection: changing state OPENING → AUTHENTICATING
+Accepting direct incoming connection from 146 (systemctl) [n/a]
+Registering bus object implementation for path=/org/freedesktop/systemd1 iface=org.freedesktop.systemd1.Manager
+Registering bus object implementation for path=/org/freedesktop/systemd1/job iface=org.freedesktop.systemd1.Job
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Unit
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Automount
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Device
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Mount
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Path
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Scope
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Service
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Slice
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Socket
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Swap
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Target
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Timer
+Registering bus object implementation for path=/org/freedesktop/LogControl1 iface=org.freedesktop.LogControl1
+Accepted new private connection.
+Bus private-bus-connection: changing state AUTHENTICATING → RUNNING
+Got message type=method_call sender=n/a destination=org.freedesktop.systemd1 path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2dfailure_2eservice interface=org.freedesktop.DBus.Properties member=GetAll  cookie=1 reply_cookie=0 signature=s error-name=n/a error-message=n/a
+Roko startup diagnostic failed; readiness unknown
+Found unit roko-startup-report-failure.service at /etc/systemd/system/roko-startup-report-failure.service (regular file)
+Preset files don't specify rule for roko-startup-report-failure.service. Enabling.
+Sent message type=method_return sender=org.freedesktop.systemd1 destination=n/a path=n/a interface=n/a member=n/a cookie=1 reply_cookie=1 signature=a{sv} error-name=n/a error-message=n/a
+Got handoff timestamp event for PID 145.
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2dfailure_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=2 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2dfailure_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=3 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Received SIGCHLD from PID 145 (echo).
+Child 145 (echo) died (code=exited, status=0/SUCCESS)
+roko-startup-report-failure.service: Child 145 belongs to roko-startup-report-failure.service.
+roko-startup-report-failure.service: Main process exited, code=exited, status=0/SUCCESS (success)
+roko-startup-report-failure.service: Deactivated successfully.
+roko-startup-report-failure.service: Service will not restart (restart setting)
+roko-startup-report-failure.service: Changed start -> dead
+roko-startup-report-failure.service: Job 15 roko-startup-report-failure.service/start finished, result=done
+[  OK  ] Finished roko-startup-report-failur…t Roko startup diagnostic failure.
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2dfailure_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=4 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2dfailure_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=5 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Bus private-bus-connection: changing state RUNNING → CLOSING
+Failed to send job remove signal for 15: Connection reset by peer
+roko-startup-report-failure.service: Consumed 154ms CPU time, 2M memory peak.
+UID 64096 is no longer referenced, cleaning up its IPC.
+GID 64096 is no longer referenced, cleaning up its IPC.
+roko-startup-report-failure.service: Releasing resources...
+Bus private-bus-connection: changing state CLOSING → CLOSED
+Got disconnect on private connection.
+Bus private-bus-connection: changing state UNSET → OPENING
+sd-bus: starting bus private-bus-connection on fds 34/34 (socket:[828], socket:[828])...
+Bus private-bus-connection: changing state OPENING → AUTHENTICATING
+Accepting direct incoming connection from 147 (systemctl) [n/a]
+Registering bus object implementation for path=/org/freedesktop/systemd1 iface=org.freedesktop.systemd1.Manager
+Registering bus object implementation for path=/org/freedesktop/systemd1/job iface=org.freedesktop.systemd1.Job
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Unit
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Automount
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Device
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Mount
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Path
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Scope
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Service
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Slice
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Socket
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Swap
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Target
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Timer
+Registering bus object implementation for path=/org/freedesktop/LogControl1 iface=org.freedesktop.LogControl1
+Accepted new private connection.
+Bus private-bus-connection: changing state AUTHENTICATING → RUNNING
+Got message type=method_call sender=n/a destination=org.freedesktop.systemd1 path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2dfailure_2eservice interface=org.freedesktop.DBus.Properties member=GetAll  cookie=1 reply_cookie=0 signature=s error-name=n/a error-message=n/a
+Sent message type=method_return sender=org.freedesktop.systemd1 destination=n/a path=n/a interface=n/a member=n/a cookie=1 reply_cookie=1 signature=a{sv} error-name=n/a error-message=n/a
+Bus private-bus-connection: changing state RUNNING → CLOSING
+Bus private-bus-connection: changing state CLOSING → CLOSED
+Got disconnect on private connection.
+ROKO_MANAGER_PHASE {"phase": "invalid-policy", "report": {"execution_authorized": false, "issues": ["startup-policy-or-boot-identity-unreadable-or-invalid"], "runtime_health_observed": false, "schema": "roko-startup-report-v1", "status": "failed", "system_ready": false}}
+Bus private-bus-connection: changing state UNSET → OPENING
+sd-bus: starting bus private-bus-connection on fds 34/34 (socket:[842], socket:[842])...
+Bus private-bus-connection: changing state OPENING → AUTHENTICATING
+Accepting direct incoming connection from 148 (systemctl) [n/a]
+Registering bus object implementation for path=/org/freedesktop/systemd1 iface=org.freedesktop.systemd1.Manager
+Registering bus object implementation for path=/org/freedesktop/systemd1/job iface=org.freedesktop.systemd1.Job
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Unit
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Automount
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Device
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Mount
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Path
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Scope
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Service
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Slice
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Socket
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Swap
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Target
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Timer
+Registering bus object implementation for path=/org/freedesktop/LogControl1 iface=org.freedesktop.LogControl1
+Accepted new private connection.
+Bus private-bus-connection: changing state AUTHENTICATING → RUNNING
+Got message type=method_call sender=n/a destination=org.freedesktop.systemd1 path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=ResetFailedUnit  cookie=1 reply_cookie=0 signature=s error-name=n/a error-message=n/a
+Trying to acquire polkit authentication for 'org.freedesktop.systemd1.manage-units'.
+roko-startup-report.service: Changed failed -> dead
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=1 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=method_return sender=org.freedesktop.systemd1 destination=n/a path=n/a interface=n/a member=n/a cookie=2 reply_cookie=1 signature=n/a error-name=n/a error-message=n/a
+roko-startup-report.service: Releasing resources...
+Bus private-bus-connection: changing state RUNNING → CLOSING
+roko-startup-report.service: Failed to send unit change signal for roko-startup-report.service: Connection reset by peer
+roko-startup-report.service: Collecting.
+roko-startup-report-failure.service: Collecting.
+basic.target: Collecting.
+systemd-tmpfiles-setup.service: Collecting.
+local-fs.target: Collecting.
+shutdown.target: Collecting.
+display-manager.service: Collecting.
+multi-user.target: Collecting.
+Bus private-bus-connection: changing state CLOSING → CLOSED
+Got disconnect on private connection.
+Bus private-bus-connection: changing state UNSET → OPENING
+sd-bus: starting bus private-bus-connection on fds 34/34 (socket:[857], socket:[857])...
+Bus private-bus-connection: changing state OPENING → AUTHENTICATING
+Accepting direct incoming connection from 149 (systemctl) [n/a]
+Registering bus object implementation for path=/org/freedesktop/systemd1 iface=org.freedesktop.systemd1.Manager
+Registering bus object implementation for path=/org/freedesktop/systemd1/job iface=org.freedesktop.systemd1.Job
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Unit
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Automount
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Device
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Mount
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Path
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Scope
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Service
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Slice
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Socket
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Swap
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Target
+Registering bus object implementation for path=/org/freedesktop/systemd1/unit iface=org.freedesktop.systemd1.Timer
+Registering bus object implementation for path=/org/freedesktop/LogControl1 iface=org.freedesktop.LogControl1
+Accepted new private connection.
+Bus private-bus-connection: changing state AUTHENTICATING → RUNNING
+Got message type=method_call sender=n/a destination=org.freedesktop.systemd1 path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=StartUnit  cookie=1 reply_cookie=0 signature=ss error-name=n/a error-message=n/a
+run.mount: Failed to load configuration: No such file or directory
+run-roko\x2dstartup.mount: Failed to load configuration: No such file or directory
+tmp.mount: Failed to load configuration: No such file or directory
+var.mount: Failed to load configuration: No such file or directory
+var-tmp.mount: Failed to load configuration: No such file or directory
+systemd-tmpfiles-setup.service: Failed to load configuration: No such file or directory
+display-manager.service: Failed to load configuration: No such file or directory
+Trying to acquire polkit authentication for 'org.freedesktop.systemd1.manage-units'.
+roko-startup-report.service: Trying to enqueue job roko-startup-report.service/start/replace
+roko-startup-report.service: Installed new job roko-startup-report.service/start as 20
+roko-startup-report.service: Enqueued job roko-startup-report.service/start as 20
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=1 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=JobNew cookie=2 reply_cookie=0 signature=uos error-name=n/a error-message=n/a
+Sent message type=method_return sender=org.freedesktop.systemd1 destination=n/a path=n/a interface=n/a member=n/a cookie=3 reply_cookie=1 signature=o error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=4 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=5 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=6 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=7 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=8 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=9 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=10 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=11 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=12 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=13 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=14 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitNew cookie=15 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/_2d_2emount interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=16 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/_2d_2emount interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=17 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/sysinit_2etarget interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=18 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/system_2eslice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=19 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+run.mount: Collecting.
+run-roko\x2dstartup.mount: Collecting.
+tmp.mount: Collecting.
+var.mount: Collecting.
+var-tmp.mount: Collecting.
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitRemoved cookie=20 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitRemoved cookie=21 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitRemoved cookie=22 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitRemoved cookie=23 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=UnitRemoved cookie=24 reply_cookie=0 signature=so error-name=n/a error-message=n/a
+Got message type=method_call sender=n/a destination=org.freedesktop.systemd1 path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=GetUnit  cookie=2 reply_cookie=0 signature=s error-name=n/a error-message=n/a
+Sent message type=method_return sender=org.freedesktop.systemd1 destination=n/a path=n/a interface=n/a member=n/a cookie=25 reply_cookie=2 signature=o error-name=n/a error-message=n/a
+Got message type=method_call sender=n/a destination=org.freedesktop.systemd1 path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=Get  cookie=3 reply_cookie=0 signature=ss error-name=n/a error-message=n/a
+Sent message type=method_return sender=org.freedesktop.systemd1 destination=n/a path=n/a interface=n/a member=n/a cookie=26 reply_cookie=3 signature=v error-name=n/a error-message=n/a
+roko-startup-report.service: Will spawn child (service_enter_start): /opt/python/bin/python3
+roko-startup-report.service: Passing 0 fds to service
+roko-startup-report.service: About to execute: /opt/python/bin/python3 /opt/roko/startup_report.py --policy /etc/roko/first-boot.json --output /run/roko-startup/status.json
+Serializing sd-executor-state to memfd.
+Found cgroup2 on /sys/fs/cgroup/, full unified hierarchy
+roko-startup-report.service: Forked /opt/python/bin/python3 as 150 (via CLONE_INTO_CGROUP)
+Closing set fd 48 (socket:[860])
+Closing set fd 44 (socket:[486])
+Closing set fd 49 (socket:[861])
+Closing set fd 47 (socket:[859])
+Closing set fd 46 (socket:[858])
+Closing set fd 45 (socket:[482])
+Closing set fd 43 (socket:[484])
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=27 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=28 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+roko-startup-report.service: Changed dead -> start
+         Starting roko-startup-report.servic…nostics (not runtime readiness)...
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=29 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=30 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/job/20 interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=31 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+roko-startup-report.service: User lookup succeeded: uid=63914 gid=63914
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=32 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=33 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Got handoff timestamp event for PID 150.
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=34 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=35 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+{"issues": ["runtime-health-not-observed", "model-not-qualified", "durable-history-not-qualified", "credentials-not-provisioned", "network-isolation-not-proven"], "status": "unqualified", "system_ready": false}
+Received SIGCHLD from PID 150 (python3).
+Child 150 (python3) died (code=exited, status=0/SUCCESS)
+roko-startup-report.service: Child 150 belongs to roko-startup-report.service.
+roko-startup-report.service: Main process exited, code=exited, status=0/SUCCESS (success)
+roko-startup-report.service: Changed start -> exited
+roko-startup-report.service: Job 20 roko-startup-report.service/start finished, result=done
+[  OK  ] Finished roko-startup-report.servic…agnostics (not runtime readiness).
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=36 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1/unit/roko_2dstartup_2dreport_2eservice interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=37 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Sent message type=signal sender=org.freedesktop.systemd1 destination=n/a path=/org/freedesktop/systemd1 interface=org.freedesktop.systemd1.Manager member=JobRemoved cookie=38 reply_cookie=0 signature=uoss error-name=n/a error-message=n/a
+Failed to communicate with plymouth: Connection refused
+Bus private-bus-connection: changing state RUNNING → CLOSING
+roko-startup-report.service: Failed to send unit change signal for roko-startup-report.service: Connection reset by peer
+roko-startup-report.service: Control group is empty.
+Bus private-bus-connection: changing state CLOSING → CLOSED
+Got disconnect on private connection.
+ROKO_MANAGER_PHASE {"phase": "recovery", "report": {"boot_id": "f27b8892-e8a3-4d14-a6eb-8208333d76a9", "declared_policy": {"automaticGenerationDeletion": false, "automaticUpgrade": false, "credentialProvisioningRequired": true, "durableHistoryReady": false, "modelReady": false, "networkIsolationProven": false, "offlineRequested": true, "schema": "roko-first-boot-policy-v1"}, "execution_authorized": false, "issues": ["runtime-health-not-observed", "model-not-qualified", "durable-history-not-qualified", "credentials-not-provisioned", "network-isolation-not-proven"], "runtime_health_observed": false, "schema": "roko-startup-report-v1", "scope": "boot-local policy diagnostics; no service/model/persistence probe", "status": "unqualified", "system_ready": false}}
+ROKO_MANAGER_FIXTURE_PASS
+[   17.847411] ACPI: PM: Preparing to enter system sleep state S5
+[   17.848407] reboot: Power down

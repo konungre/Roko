@@ -1,0 +1,392 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "case": "empty",
+      "passed": true,
+      "operation_order_equal": true,
+      "legacy": {
+        "accepted": true,
+        "desired": {
+          "hello": "/nix/store/00000000000000000000000000000000-fixture-a"
+        },
+        "operations": [
+          {
+            "name": "hello",
+            "op": "install",
+            "path": "/nix/store/00000000000000000000000000000000-fixture-a"
+          }
+        ],
+        "count": 1,
+        "path": "/nix/store/00000000000000000000000000000000-fixture-a",
+        "has_package": true,
+        "authority": false,
+        "executed": 0,
+        "live": false,
+        "schema": 1
+      },
+      "successor": {
+        "accepted": true,
+        "desired": {
+          "hello": "/nix/store/00000000000000000000000000000000-fixture-a"
+        },
+        "operations": [
+          {
+            "name": "hello",
+            "op": "install",
+            "path": "/nix/store/00000000000000000000000000000000-fixture-a"
+          }
+        ],
+        "count": 1,
+        "path": "/nix/store/00000000000000000000000000000000-fixture-a",
+        "has_package": true,
+        "authority": false,
+        "executed": 0,
+        "live": false,
+        "schema": 2
+      }
+    },
+    {
+      "case": "unchanged",
+      "passed": true,
+      "operation_order_equal": true,
+      "legacy": {
+        "accepted": true,
+        "desired": {
+          "hello": "/nix/store/00000000000000000000000000000000-fixture-a"
+        },
+        "operations": [],
+        "count": 0,
+        "path": "/nix/store/00000000000000000000000000000000-fixture-a",
+        "has_package": true,
+        "authority": false,
+        "executed": 0,
+        "live": false,
+        "schema": 1
+      },
+      "successor": {
+        "accepted": true,
+        "desired": {
+          "hello": "/nix/store/00000000000000000000000000000000-fixture-a"
+        },
+        "operations": [],
+        "count": 0,
+        "path": "/nix/store/00000000000000000000000000000000-fixture-a",
+        "has_package": true,
+        "authority": false,
+        "executed": 0,
+        "live": false,
+        "schema": 2
+      }
+    },
+    {
+      "case": "replacement",
+      "passed": true,
+      "operation_order_equal": true,
+      "legacy": {
+        "accepted": true,
+        "desired": {
+          "hello": "/nix/store/00000000000000000000000000000000-fixture-a"
+        },
+        "operations": [
+          {
+            "name": "hello",
+            "op": "remove",
+            "path": "/nix/store/11111111111111111111111111111111-fixture-b"
+          },
+          {
+            "name": "hello",
+            "op": "install",
+            "path": "/nix/store/00000000000000000000000000000000-fixture-a"
+          }
+        ],
+        "count": 2,
+        "path": "/nix/store/00000000000000000000000000000000-fixture-a",
+        "has_package": true,
+        "authority": false,
+        "executed": 0,
+        "live": false,
+        "schema": 1
+      },
+      "successor": {
+        "accepted": true,
+        "desired": {
+          "hello": "/nix/store/00000000000000000000000000000000-fixture-a"
+        },
+        "operations": [
+          {
+            "name": "hello",
+            "op": "remove",
+            "path": "/nix/store/11111111111111111111111111111111-fixture-b"
+          },
+          {
+            "name": "hello",
+            "op": "install",
+            "path": "/nix/store/00000000000000000000000000000000-fixture-a"
+          }
+        ],
+        "count": 2,
+        "path": "/nix/store/00000000000000000000000000000000-fixture-a",
+        "has_package": true,
+        "authority": false,
+        "executed": 0,
+        "live": false,
+        "schema": 2
+      }
+    },
+    {
+      "case": "remove-unrequested",
+      "passed": true,
+      "operation_order_equal": true,
+      "legacy": {
+        "accepted": true,
+        "desired": {
+          "hello": "/nix/store/00000000000000000000000000000000-fixture-a"
+        },
+        "operations": [
+          {
+            "name": "extra",
+            "op": "remove",
+            "path": "/nix/store/11111111111111111111111111111111-fixture-b"
+          },
+          {
+            "name": "hello",
+            "op": "install",
+            "path": "/nix/store/00000000000000000000000000000000-fixture-a"
+          }
+        ],
+        "count": 2,
+        "path": "/nix/store/00000000000000000000000000000000-fixture-a",
+        "has_package": true,
+        "authority": false,
+        "executed": 0,
+        "live": false,
+        "schema": 1
+      },
+      "successor": {
+        "accepted": true,
+        "desired": {
+          "hello": "/nix/store/00000000000000000000000000000000-fixture-a"
+        },
+        "operations": [
+          {
+            "name": "extra",
+            "op": "remove",
+            "path": "/nix/store/11111111111111111111111111111111-fixture-b"
+          },
+          {
+            "name": "hello",
+            "op": "install",
+            "path": "/nix/store/00000000000000000000000000000000-fixture-a"
+          }
+        ],
+        "count": 2,
+        "path": "/nix/store/00000000000000000000000000000000-fixture-a",
+        "has_package": true,
+        "authority": false,
+        "executed": 0,
+        "live": false,
+        "schema": 2
+      }
+    },
+    {
+      "case": "replacement-and-removal",
+      "passed": true,
+      "operation_order_equal": true,
+      "legacy": {
+        "accepted": true,
+        "desired": {
+          "hello": "/nix/store/00000000000000000000000000000000-fixture-a"
+        },
+        "operations": [
+          {
+            "name": "extra",
+            "op": "remove",
+            "path": "/nix/store/11111111111111111111111111111111-fixture-b"
+          },
+          {
+            "name": "hello",
+            "op": "remove",
+            "path": "/nix/store/11111111111111111111111111111111-fixture-b"
+          },
+          {
+            "name": "hello",
+            "op": "install",
+            "path": "/nix/store/00000000000000000000000000000000-fixture-a"
+          }
+        ],
+        "count": 3,
+        "path": "/nix/store/00000000000000000000000000000000-fixture-a",
+        "has_package": true,
+        "authority": false,
+        "executed": 0,
+        "live": false,
+        "schema": 1
+      },
+      "successor": {
+        "accepted": true,
+        "desired": {
+          "hello": "/nix/store/00000000000000000000000000000000-fixture-a"
+        },
+        "operations": [
+          {
+            "name": "extra",
+            "op": "remove",
+            "path": "/nix/store/11111111111111111111111111111111-fixture-b"
+          },
+          {
+            "name": "hello",
+            "op": "remove",
+            "path": "/nix/store/11111111111111111111111111111111-fixture-b"
+          },
+          {
+            "name": "hello",
+            "op": "install",
+            "path": "/nix/store/00000000000000000000000000000000-fixture-a"
+          }
+        ],
+        "count": 3,
+        "path": "/nix/store/00000000000000000000000000000000-fixture-a",
+        "has_package": true,
+        "authority": false,
+        "executed": 0,
+        "live": false,
+        "schema": 2
+      }
+    },
+    {
+      "case": "ordering-difference",
+      "passed": true,
+      "operation_order_equal": false,
+      "legacy": {
+        "accepted": true,
+        "desired": {
+          "hello": "/nix/store/00000000000000000000000000000000-fixture-a"
+        },
+        "operations": [
+          {
+            "name": "hello",
+            "op": "remove",
+            "path": "/nix/store/11111111111111111111111111111111-fixture-b"
+          },
+          {
+            "name": "hello",
+            "op": "install",
+            "path": "/nix/store/00000000000000000000000000000000-fixture-a"
+          },
+          {
+            "name": "zeta",
+            "op": "remove",
+            "path": "/nix/store/11111111111111111111111111111111-fixture-b"
+          }
+        ],
+        "count": 3,
+        "path": "/nix/store/00000000000000000000000000000000-fixture-a",
+        "has_package": true,
+        "authority": false,
+        "executed": 0,
+        "live": false,
+        "schema": 1
+      },
+      "successor": {
+        "accepted": true,
+        "desired": {
+          "hello": "/nix/store/00000000000000000000000000000000-fixture-a"
+        },
+        "operations": [
+          {
+            "name": "hello",
+            "op": "remove",
+            "path": "/nix/store/11111111111111111111111111111111-fixture-b"
+          },
+          {
+            "name": "zeta",
+            "op": "remove",
+            "path": "/nix/store/11111111111111111111111111111111-fixture-b"
+          },
+          {
+            "name": "hello",
+            "op": "install",
+            "path": "/nix/store/00000000000000000000000000000000-fixture-a"
+          }
+        ],
+        "count": 3,
+        "path": "/nix/store/00000000000000000000000000000000-fixture-a",
+        "has_package": true,
+        "authority": false,
+        "executed": 0,
+        "live": false,
+        "schema": 2
+      }
+    },
+    {
+      "case": "invalid-output",
+      "passed": true,
+      "operation_order_equal": true,
+      "legacy": {
+        "accepted": false,
+        "error_type": "Error"
+      },
+      "successor": {
+        "accepted": false,
+        "error_type": "ValueError"
+      }
+    },
+    {
+      "case": "invalid-name",
+      "passed": true,
+      "operation_order_equal": true,
+      "legacy": {
+        "accepted": false,
+        "error_type": "Error"
+      },
+      "successor": {
+        "accepted": false,
+        "error_type": "ValueError"
+      }
+    },
+    {
+      "case": "duplicate-snapshot-key",
+      "passed": true,
+      "operation_order_equal": true,
+      "legacy": {
+        "accepted": false,
+        "error_type": "Error"
+      },
+      "successor": {
+        "accepted": false,
+        "error_type": "ValueError"
+      }
+    },
+    {
+      "case": "missing-provenance",
+      "passed": true,
+      "operation_order_equal": true,
+      "legacy": {
+        "accepted": false,
+        "error_type": "Error"
+      },
+      "successor": {
+        "accepted": false,
+        "error_type": "ValueError"
+      }
+    },
+    {
+      "case": "invalid-observed-output",
+      "passed": true,
+      "operation_order_equal": true,
+      "legacy": {
+        "accepted": false,
+        "error_type": "Error"
+      },
+      "successor": {
+        "accepted": false,
+        "error_type": "ValueError"
+      }
+    }
+  ],
+  "scope": "active scalar snapshot bridge helpers and unordered read-only operations; not full source-parser/plan identity parity",
+  "package_mutations": 0,
+  "live_nix_observation": false,
+  "license_clearance": false
+}

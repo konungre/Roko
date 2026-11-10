@@ -1,0 +1,16 @@
+error:
+       … while evaluating attribute 'derivationPath'
+         at /workspace/scratch/pinned-rescue-eval-002/wrong-pin.nix:1:477:
+            1| let d=import (builtins.toPath "/workspace/roko-foundation-review/distro/nix/rescue-pinned.nix") { nixpkgsSource=builtins.toPath "/workspace/scratch/nixpkgs-input-001/source/nixpkgs-f4a03c008967841f2a0b3cb7c436fc6fc31671f6"; expectedSourceNarHash="sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; sourceHashes={ init="9369b8a9612d08862b14381b6c54de8a610d6c4978c7b175494813cf386082a1"; builder="06c7275cbe1362204d5ad572b7ac3191630b99631955276da41f0bc9ebbdfc0e"; }; }; in { derivationPath=d.drvPath; outputPath=d.outPath; platform=d.system; }
+             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ^
+
+       … while calling the 'import' builtin
+         at /workspace/roko-foundation-review/distro/nix/rescue-pinned.nix:13:10:
+           12|   };
+           13|   pkgs = import pinned { inherit system; config.allowUnfree = false; };
+             |          ^
+           14|   sources = builtins.path {
+
+       (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+
+       error: store path mismatch in (possibly filtered) path added from '/workspace/scratch/nixpkgs-input-001/source/nixpkgs-f4a03c008967841f2a0b3cb7c436fc6fc31671f6'

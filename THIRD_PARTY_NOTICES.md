@@ -76,3 +76,14 @@ See `components/nars_hyperon/LICENSE_AUDIT.json` for the wheel digest and native
 library inventory. Their individual redistribution obligations remain unaudited;
 the wheel/native closure remains external. Existing exact MIT MeTTa-NARS source
 and license are reused. No universal Apache-2.0 attribution is applied.
+
+## Package-manager prototype status (unresolved)
+
+The pre-existing `omega-baseline/components/omega-pm` implementation matches the
+user-supplied omega-metta-pm-0.2.0.zip. No license grant or rights-holder evidence
+was identified in the archive. The matching source remains in the baseline and
+its read-only planner imports are still active; it must not be described as
+removed from the repository or covered by another project's Apache license.
+See `distro/state/provenance/repository-prototype-audit.json` for exact hashes,
+introduction commit and consumers. The duplicate imported under distro/state was
+removed, but that does not resolve baseline/history redistribution rights.

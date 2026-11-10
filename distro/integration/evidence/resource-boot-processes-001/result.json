@@ -1,0 +1,87 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "case": "low",
+      "expected": "headroom-low",
+      "boot_id": "00000000-0000-0000-0000-000000000001",
+      "process": {
+        "exit_code": 0,
+        "pid": 24164,
+        "max_rss_kib": 9984,
+        "isolated_package_imports": true
+      }
+    },
+    {
+      "case": "wrong-unit",
+      "expected": "unknown",
+      "boot_id": "00000000-0000-0000-0000-000000000001",
+      "process": {
+        "exit_code": 0,
+        "pid": 24165,
+        "max_rss_kib": 9984,
+        "isolated_package_imports": true
+      }
+    },
+    {
+      "case": "duplicate",
+      "expected": "unknown",
+      "boot_id": "00000000-0000-0000-0000-000000000001",
+      "process": {
+        "exit_code": 0,
+        "pid": 24166,
+        "max_rss_kib": 9984,
+        "isolated_package_imports": true
+      }
+    },
+    {
+      "case": "one-byte-below",
+      "expected": "headroom-low",
+      "boot_id": "00000000-0000-0000-0000-000000000001",
+      "process": {
+        "exit_code": 0,
+        "pid": 24167,
+        "max_rss_kib": 9984,
+        "isolated_package_imports": true
+      }
+    },
+    {
+      "case": "exact-threshold",
+      "expected": "resource-check-only-passed",
+      "boot_id": "00000000-0000-0000-0000-000000000001",
+      "process": {
+        "exit_code": 0,
+        "pid": 24168,
+        "max_rss_kib": 9984,
+        "isolated_package_imports": true
+      }
+    },
+    {
+      "case": "new-boot-low",
+      "expected": "headroom-low",
+      "boot_id": "00000000-0000-0000-0000-000000000002",
+      "process": {
+        "exit_code": 0,
+        "pid": 24169,
+        "max_rss_kib": 9984,
+        "isolated_package_imports": true
+      }
+    }
+  ],
+  "package_hashes": {
+    "startup_report.py": "8808e35b890b269613fec4876821e121ac44a84bc6ee740f7d8acfbb9dd70c1a",
+    "memory_budget.py": "4130bace589ed0e5bcaa955d931e8c5c49436888c030905d55dd627b499c48d4"
+  },
+  "limits": {
+    "address_space_mib": 96,
+    "cpu_seconds": 2,
+    "wall_seconds_per_process": 5,
+    "fd_limit": 32,
+    "file_size_bytes": 65536
+  },
+  "scope": "isolated copy matching two-file layout, not a realized Nix derivation or systemd cgroup test",
+  "guest_started": false,
+  "model_started": false,
+  "host_activation": false,
+  "system_ready": false
+}

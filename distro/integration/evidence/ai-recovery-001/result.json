@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "events": [
+    {
+      "case": "startup-failure-kept-stopped",
+      "desktop_pid": 25159,
+      "automatic_restarts": 0
+    },
+    {
+      "case": "heartbeat-deadline-cancelled",
+      "ai_returncode": 0,
+      "desktop_pid": 25159,
+      "ai_reaped": true
+    },
+    {
+      "case": "termination-resistant-ai-killed",
+      "ai_returncode": -9,
+      "desktop_pid": 25159,
+      "ai_reaped": true
+    },
+    {
+      "case": "desktop-epoch-invalidates-pending-choice",
+      "new_desktop_pid": 25164,
+      "old_desktop_reaped": true,
+      "ai_started_from_stale_choice": false
+    },
+    {
+      "case": "explicit-fresh-recovery",
+      "desktop_pid": 25164,
+      "ai_pid": 25165,
+      "automatic_restarts": 0
+    }
+  ],
+  "children_started": 7,
+  "all_children_reaped": true,
+  "explicit_choices_are_fixtures": true,
+  "authentication_tested": false,
+  "systemd_lifecycle_tested": false,
+  "guest_started": false,
+  "model_or_desktop_executed": false,
+  "host_services_activated": false,
+  "source_hashes": {
+    "qualify_ai_recovery.py": "abec7a4580d118adb15598ae0dec67e7dd14db9df1d302c97bb673f92c8b1b6a",
+    "fixture_restart_choice.py": "b5f85d6314a98dcd11ffb141b7d499f7f910d89d3b451ef77ea492a2d8f3600f",
+    "qualify_session_isolation.py": "649f066ec7aee6f6cfa543cb895287d7c576fdb0e9549f2fd5f1f7113204998e",
+    "session_isolation_worker.py": "2cda4389d044b958125c56a6e5f23d659edc9b1a29c16d9934a069d28bf41fbb"
+  },
+  "scope": "owned heartbeat processes; not a production user approval channel, model endpoint or conversation replay test"
+}

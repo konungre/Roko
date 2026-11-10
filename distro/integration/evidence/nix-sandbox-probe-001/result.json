@@ -1,0 +1,7 @@
+{
+  "returncode": 1,
+  "sandbox_requested": true,
+  "fallback_disabled": true,
+  "host_canary_visibility": null,
+  "sandbox_isolation_proven": false
+}

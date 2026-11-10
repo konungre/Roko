@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "modes": {
+    "legacy": true,
+    "successor-v2": true
+  },
+  "scope": "scalar PeTTa/Janus bridge after direct adapter refactor; not Hyperon awareness migration"
+}

@@ -1,0 +1,9 @@
+{
+  "scope": "fixture",
+  "roots": [
+    {
+      "label": "existing-tiny-profile-build",
+      "derivation": "/workspace/scratch/nix-live-001/direct-store/06n09xnwf043h7f148h74y9nbh2g89ns-roko-profile-1.drv"
+    }
+  ]
+}

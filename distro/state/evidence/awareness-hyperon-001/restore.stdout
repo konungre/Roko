@@ -1,0 +1,1 @@
+{"restored_atoms": ["(omega-state 1)", "(state-revision \"\\\") !(exec \\\"not-run\\\")\\n\")"], "origin": "restored-historical-checkpoint", "version": 3, "backend_calls": 0, "hyperon_version": "0.2.10", "legacy_imported": false, "authorizes_actions": false}

@@ -1,0 +1,67 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "case": "argument-rejection",
+      "returncode": 2,
+      "passed": true,
+      "wall_seconds": 0.007208893999631982,
+      "phases": [
+        {
+          "phase": "entered",
+          "elapsed_ms": 0.005,
+          "max_rss_kib": 7472,
+          "uid": 1000
+        }
+      ]
+    },
+    {
+      "case": "missing-model",
+      "returncode": 3,
+      "passed": true,
+      "wall_seconds": 0.01299135500084958,
+      "phases": [
+        {
+          "phase": "entered",
+          "elapsed_ms": 0.005,
+          "max_rss_kib": 7472,
+          "uid": 1000
+        },
+        {
+          "phase": "backend-begin",
+          "elapsed_ms": 0.056,
+          "max_rss_kib": 7472,
+          "uid": 1000
+        },
+        {
+          "phase": "backend-end",
+          "elapsed_ms": 2.159,
+          "max_rss_kib": 7472,
+          "uid": 1000
+        },
+        {
+          "phase": "model-load-begin",
+          "elapsed_ms": 2.453,
+          "max_rss_kib": 7472,
+          "uid": 1000
+        }
+      ]
+    }
+  ],
+  "memory": {
+    "host_available_bytes": 17986605056,
+    "visible_cgroup_limit_bytes": 17179869184,
+    "visible_cgroup_current_bytes": 16724377600,
+    "visible_cgroup_remaining_bytes": 455491584,
+    "observed_headroom_bytes": 455491584,
+    "scope": "visible host/cgroup snapshot only; no reclaim or hidden-ancestor guarantee",
+    "new_512mib_guest_admitted": false
+  },
+  "binary_sha256": "6444517d0dd5a885c4d82813abc8de3e6506ef8becee1961f18e9b0b2102aa67",
+  "probe_source_sha256": "ddba265dc7bc6537adb5753045360296e1edb590b1b29b681299ee2d2c36f5a5",
+  "real_model_loaded": false,
+  "inference_completed": false,
+  "guest_started": false,
+  "host_activation": false,
+  "scope": "host native argument/missing-model negative controls and current memory admission observation"
+}

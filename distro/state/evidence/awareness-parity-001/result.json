@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "fixture_parity_fields": [
+    "initial_atoms",
+    "removed_atoms",
+    "escaped_atoms",
+    "backend",
+    "revision",
+    "failed_refresh_preserved",
+    "query_calls",
+    "backend_observations"
+  ],
+  "results": [
+    {
+      "initial_atoms": [
+        "(omega-state 1)",
+        "(installed hello \"/nix/store/00000000000000000000000000000000-fixture\")",
+        "(state-revision \"1\")"
+      ],
+      "removed_atoms": [
+        "(omega-state 1)",
+        "(state-revision \"2\")"
+      ],
+      "escaped_atoms": [
+        "(omega-state 1)",
+        "(state-revision \"\\\") !(exec \\\"not-run\\\")\\n\")"
+      ],
+      "backend": "read-only-fixture",
+      "revision": "2",
+      "failed_refresh_preserved": true,
+      "query_calls": [],
+      "backend_observations": 4,
+      "legacy_imported": true
+    },
+    {
+      "initial_atoms": [
+        "(omega-state 1)",
+        "(installed hello \"/nix/store/00000000000000000000000000000000-fixture\")",
+        "(state-revision \"1\")"
+      ],
+      "removed_atoms": [
+        "(omega-state 1)",
+        "(state-revision \"2\")"
+      ],
+      "escaped_atoms": [
+        "(omega-state 1)",
+        "(state-revision \"\\\") !(exec \\\"not-run\\\")\\n\")"
+      ],
+      "backend": "read-only-fixture",
+      "revision": "2",
+      "failed_refresh_preserved": true,
+      "query_calls": [],
+      "backend_observations": 4,
+      "legacy_imported": false
+    }
+  ],
+  "native_hyperon_tested": false,
+  "package_mutations": 0,
+  "legacy_binding_changed": false,
+  "license_clearance": false
+}

@@ -1,0 +1,11 @@
+{
+  "sampled_monotonic_ns": 24456235536948,
+  "host_available_bytes": 17979330560,
+  "visible_cgroup_limit_bytes": 17179869184,
+  "visible_cgroup_current_bytes": 16851664896,
+  "visible_cgroup_remaining_bytes": 328204288,
+  "observed_headroom_bytes": 328204288,
+  "scope": "visible host/cgroup snapshot only; no reclaim or hidden-ancestor guarantee",
+  "guest_admitted": false,
+  "guest_started": false
+}

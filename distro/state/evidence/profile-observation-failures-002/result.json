@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "failures": [
+    {
+      "case": "missing-target",
+      "rejected": true,
+      "error": "missing retained generation",
+      "active_unchanged": true
+    },
+    {
+      "case": "corrupt-native-manifest",
+      "rejected": true,
+      "error": "error: [json.exception.parse_error.101] parse error at line 1, column 2: syntax error while parsing object key - invalid literal; last read: '{i'; expected string literal\n",
+      "active_unchanged": true
+    },
+    {
+      "case": "valid-wrong-generation",
+      "rejected": true,
+      "error": "retained profile changed",
+      "active_unchanged": true
+    }
+  ],
+  "rollback": {
+    "before": {
+      "revision": 2,
+      "target": "/workspace/scratch/profile-observation-failures-002/profiles/generation-0590e5eaced3465eadb4a569dd3182f1/profile"
+    },
+    "after": {
+      "revision": 3,
+      "target": "/workspace/scratch/profile-observation-failures-002/profiles/generation-41a2338680174b60b44f9a9eb797edad/profile"
+    },
+    "native": {
+      "elements": {
+        "roko-profile": {
+          "active": true,
+          "priority": 5,
+          "storePaths": [
+            "/workspace/scratch/nix-live-001/direct-store/y0qv1607w8j8pg12zxqny1fqykvdzam0-roko-profile-1"
+          ]
+        }
+      },
+      "version": 3
+    },
+    "scope": "private-user-profile-rollback"
+  },
+  "original_store_manifest_unchanged": true,
+  "restored_payload": "1",
+  "host_activation": false,
+  "scope": "private profile symlink/copy fault fixtures; original Nix store bytes unchanged"
+}

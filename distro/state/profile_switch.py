@@ -1,0 +1,92 @@
+"""Nix2.26 private-profile successor: prepare a complete profile, switch one pointer.
+
+No host profile/system activation. Failed candidates are retained, never adopted.
+"""
+import fcntl,json,os,re,subprocess,uuid
+from revisions import save
+from pathlib import Path
+class Profiles:
+ def __init__(self,root,nix,store,env):
+  self.root=Path(root);self.nix=nix;self.store=store;self.env=env
+  self.root.mkdir(mode=0o700,exist_ok=True)
+  info=self.root.lstat()
+  if self.root.resolve()!=self.root or info.st_uid!=os.getuid() or info.st_mode&0o777!=0o700:raise ValueError('private canonical root required')
+ def run(self,*args):
+  r=subprocess.run([self.nix,'--extra-experimental-features','nix-command flakes','--store',self.store,'--offline',*args],env=self.env,capture_output=True,text=True,timeout=120)
+  if r.returncode:raise RuntimeError(r.stderr)
+  return r.stdout
+ def current(self):
+  p=self.root/'active';journal=self.root/'pointer.json'
+  if os.path.lexists(p) and not p.is_symlink():raise ValueError('foreign active pointer')
+  target=os.readlink(p) if p.is_symlink() else None
+  state=json.loads(journal.read_text()) if journal.exists() else {'revision':0,'target':None,'pending':False}
+  if state['pending'] or state['target']!=target:raise ValueError('incomplete switch or external drift; explicit recovery required')
+  return {'revision':state['revision'],'target':target}
+ def publish(self,target,expected):
+  if self.current()!=expected:raise ValueError('stale action boundary')
+  state={'revision':expected['revision']+1,'target':target,'pending':True}
+  save(self.root/'pointer.json',state) # reserve before any visible switch
+  temporary=self.root/('pointer-'+uuid.uuid4().hex)
+  os.symlink(target,temporary);os.replace(temporary,self.root/'active')
+  fd=os.open(self.root,os.O_DIRECTORY);os.fsync(fd);os.close(fd)
+  state['pending']=False;save(self.root/'pointer.json',state)
+ def switch(self,packages,expected,review):
+  if review is not True:raise PermissionError('external review required')
+  if not packages:raise ValueError('empty profile not supported yet')
+  if any(not re.fullmatch('[a-z][a-z0-9-]{0,63}',n) or not Path(p).is_absolute() for n,p in packages.items()):raise ValueError('invalid packages')
+  if len(set(packages.values()))!=len(packages):raise ValueError('ambiguous output aliases')
+  with (self.root/'lock').open('a') as lock:
+   fcntl.flock(lock,fcntl.LOCK_EX)
+   if self.current()!=expected:raise ValueError('stale profile')
+   for p in packages.values():self.run('path-info','--recursive',p)
+   candidate=self.root/('generation-'+uuid.uuid4().hex);candidate.mkdir(mode=0o700)
+   profile=candidate/'profile'
+   self.run('profile','install','--profile',str(profile),*sorted(packages.values()))
+   observed=json.loads(self.run('profile','list','--profile',str(profile),'--json'))
+   paths=[p for e in observed['elements'].values() if e.get('active',True) for p in e['storePaths']]
+   if sorted(paths)!=sorted(packages.values()):raise ValueError('candidate mismatch')
+   receipt={'packages':packages,'native':observed,'previous':expected,'scope':'private-user-profile'}
+   with (candidate/'receipt.json').open('x') as f:json.dump(receipt,f);f.flush();os.fsync(f.fileno())
+   fd=os.open(candidate,os.O_DIRECTORY);os.fsync(fd);os.close(fd)
+   if self.current()!=expected:raise ValueError('concurrent drift')
+   self.publish(str(profile),expected)
+   return {'before':expected,'after':self.current(),'receipt':receipt}
+ def rollback(self,target,expected,review):
+  if review is not True:raise PermissionError('external review required')
+  target=Path(target)
+  if target.name!='profile' or target.parent.parent!=self.root or not re.fullmatch('generation-[0-9a-f]{32}',target.parent.name):raise ValueError('foreign generation')
+  if target.parent.is_symlink() or not target.exists():raise ValueError('missing retained generation')
+  with (self.root/'lock').open('a') as lock:
+   fcntl.flock(lock,fcntl.LOCK_EX)
+   if self.current()!=expected:raise ValueError('stale profile')
+   receipt=json.loads((target.parent/'receipt.json').read_text())
+   observed=json.loads(self.run('profile','list','--profile',str(target),'--json'))
+   if observed!=receipt['native']:raise ValueError('retained profile changed')
+   self.publish(str(target),expected)
+   return {'before':expected,'after':self.current(),'native':observed,'scope':'private-user-profile-rollback'}
+ def recover(self,target,expected_pending,expected_actual,review):
+  """Explicit reviewed recovery, never automatic adoption of an uncertain switch."""
+  if review is not True:raise PermissionError('external review required')
+  target=Path(target)
+  if target.name!='profile' or target.parent.parent!=self.root or not re.fullmatch('generation-[0-9a-f]{32}',target.parent.name):raise ValueError('foreign generation')
+  if target.parent.is_symlink() or not target.exists():raise ValueError('missing retained generation')
+  with (self.root/'lock').open('a') as lock:
+   fcntl.flock(lock,fcntl.LOCK_EX)
+   state=json.loads((self.root/'pointer.json').read_text())
+   active=self.root/'active'
+   if os.path.lexists(active) and not active.is_symlink():raise ValueError('foreign active pointer')
+   actual=os.readlink(active) if active.is_symlink() else None
+   if set(state)!= {'revision','target','pending'} or type(state['revision'])!=int or state['revision']<1:raise ValueError('invalid pending journal')
+   if not state.get('pending') or state!=expected_pending or actual!=expected_actual:raise ValueError('stale recovery evidence')
+   receipt=json.loads((target.parent/'receipt.json').read_text())
+   observed=json.loads(self.run('profile','list','--profile',str(target),'--json'))
+   if observed!=receipt['native']:raise ValueError('retained profile changed')
+   # Consume another revision, so pre-interruption and prior recovery decisions
+   # cannot become valid again even when returning to the same target.
+   state={'revision':state['revision']+1,'target':str(target),'pending':True}
+   save(self.root/'pointer.json',state)
+   temporary=self.root/('pointer-'+uuid.uuid4().hex)
+   os.symlink(str(target),temporary);os.replace(temporary,self.root/'active')
+   fd=os.open(self.root,os.O_DIRECTORY);os.fsync(fd);os.close(fd)
+   state['pending']=False;save(self.root/'pointer.json',state)
+   return {'before_pending':expected_pending,'before_actual':expected_actual,'after':self.current(),'native':observed,'scope':'explicit-private-profile-recovery'}

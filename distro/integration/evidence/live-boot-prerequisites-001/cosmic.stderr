@@ -1,0 +1,18 @@
+error:
+       … while evaluating attribute 'initrdSystemd'
+         at /workspace/scratch/live-boot-prerequisites-001/cosmic.nix:1:670:
+            1| let s=import (builtins.toPath "/workspace/roko-foundation-review/distro/nix/live-image-eval.nix") { nixpkgsSource=builtins.toPath "/workspace/scratch/nixpkgs-input-001/source/nixpkgs-f4a03c008967841f2a0b3cb7c436fc6fc31671f6"; expectedSourceNarHash="sha256-ziZn2PvCJE5JEEpqTdxXwJpPB+L3YqoCpTAMCzyaP3U="; enableCosmic=true; adminPublicKey="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFZNgIbnWDuHK/8zADFhEl2rmIzfy2M2Cqil4gNEVUdq roko-evaluation-fixture-do-not-deploy"; }; c=s.config; in { kernelVersion=c.boot.kernelPackages.kernel.version; kernelParams=c.boot.kernelParams; initrdAvailableModules=c.boot.initrd.availableKernelModules; initrdModules=c.boot.initrd.kernelModules; initrdSystemd=c.boot.initrd.systemd.enable; firmwarePolicy=c.hardware.enableRedistributableFirmware; graphics=c.hardware.graphics.enable; networkManager=c.networking.networkmanager.enable; dhcp=c.networking.useDHCP; ssh=c.services.openssh.enable; sudo=c.security.sudo.enable; rootPassword=c.users.users.root.hashedPassword; userPassword=c.users.users.roko.hashedPassword; userHome=c.users.users.roko.home; homeMountDeclared=builtins.hasAttr "/home" c.fileSystems; efi=c.isoImage.makeEfiBootable; bios=c.isoImage.makeBiosBootable; isoVolume=c.isoImage.volumeID; fileSystems=map (name: { inherit name; fsType=c.fileSystems.${name}.fsType; device=c.fileSystems.${name}.device; }) (builtins.attrNames c.fileSystems); }
+             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ^
+
+       … while evaluating the attribute 'value'
+         at /workspace/scratch/nix-live-001/direct-store/acjxhgbv8igab18fm4aihyvwgqcnxnld-roko-nixpkgs-pinned/lib/modules.nix:1209:7:
+         1208|     // {
+         1209|       value = addErrorContext "while evaluating the option `${showOption loc}':" (
+             |       ^
+         1210|         # Apply the 'apply' function to the merged value. This allows options to
+
+       … while evaluating the option `boot.initrd.systemd.enable':
+
+       (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+
+       error: The option `boot.initrd.systemd.enable' can no longer be used since it's been removed. Scripted initrd has been removed.

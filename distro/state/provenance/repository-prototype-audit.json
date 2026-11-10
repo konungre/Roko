@@ -1,0 +1,66 @@
+{
+  "schema": "roko-prototype-repository-audit-v1",
+  "tracked_tree_head": "82197a47f7c18f56d288fd51ea02c1cef4c10859",
+  "exact_matches": [
+    {
+      "repository_path": "omega-baseline/components/omega-pm/examples/minimal.metta",
+      "archive_path": "omega-pm/examples/minimal.metta",
+      "sha256": "54c5df24e5c2a07760fc4aa9abb60fd546f3d2ec31ea414c2f4e51a16aa3c765"
+    },
+    {
+      "repository_path": "omega-baseline/components/omega-pm/examples/workstation.metta",
+      "archive_path": "omega-pm/examples/workstation.metta",
+      "sha256": "8362ce87774375c2356a53b920b4e07d4d962e92d040e166c0f183d4d083cf15"
+    },
+    {
+      "repository_path": "omega-baseline/components/omega-pm/omega_pm/__init__.py",
+      "archive_path": "omega-pm/omega_pm/__init__.py",
+      "sha256": "e8d6594e1fb3489dd153ad79668bdddb9c49b99dbf1c641fe320a65564ab5d02"
+    },
+    {
+      "repository_path": "omega-baseline/components/omega-pm/omega_pm/__main__.py",
+      "archive_path": "omega-pm/omega_pm/__main__.py",
+      "sha256": "dc712a443162fd5bfd06b00eb2005554ea9dafc62ac856582c23fca0199420f7"
+    },
+    {
+      "repository_path": "omega-baseline/components/omega-pm/omega_pm/backends.py",
+      "archive_path": "omega-pm/omega_pm/backends.py",
+      "sha256": "45a5bc538c8903145d67ea3733be8e2e3a9a0e44d9bd0907d2d4bda1459ead78"
+    },
+    {
+      "repository_path": "omega-baseline/components/omega-pm/omega_pm/core.py",
+      "archive_path": "omega-pm/omega_pm/core.py",
+      "sha256": "5f540fbf3e3ff52a8c43270bbb430c8ebda5dab99192ee474b0b39553d0991c8"
+    },
+    {
+      "repository_path": "omega-baseline/components/omega-pm/omega_pm/metta.py",
+      "archive_path": "omega-pm/omega_pm/metta.py",
+      "sha256": "d68d68664a6e9612e6771a9adff43bdd10a324bcf248ebd37f2d0cd7a7b1004b"
+    },
+    {
+      "repository_path": "omega-baseline/components/omega-pm/pyproject.toml",
+      "archive_path": "omega-pm/pyproject.toml",
+      "sha256": "b3ed6b41b5477d6bd073a7be0370d22948067d91a03f9a8c1a4870977ec09316"
+    },
+    {
+      "repository_path": "omega-baseline/components/omega-pm/tests/test_metta.py",
+      "archive_path": "omega-pm/tests/test_metta.py",
+      "sha256": "91106fc96c18e3219453ef8f8ab67cd0adf6ff0dc1350485e2bfa6e98290500b"
+    },
+    {
+      "repository_path": "omega-baseline/components/omega-pm/tests/test_pm.py",
+      "archive_path": "omega-pm/tests/test_pm.py",
+      "sha256": "21b42ce8f93f00f85a432373b5a137c9a53264233e03e0563161238871c5f5c3"
+    }
+  ],
+  "baseline_introduction_commit": "7fbcb5f6fb5f28350e865e32b0edcdbd04e79d05",
+  "consumer_files": [
+    "omega-baseline/adapters/package_planning.py",
+    "omega-baseline/integration/package_bridge.py",
+    "omega-baseline/integration/package_native_test.py",
+    "omega-baseline/integration/package_planning.metta"
+  ],
+  "impact": "Read-only snapshot planner depends on baseline omega_pm.core; package CLI/tests also remain. No baseline files removed or changed.",
+  "license_status": "unresolved; Git author metadata and user-supplied archive do not establish ownership or a redistribution license",
+  "correction": "Removal only applied to duplicate distro/state/prototype-v0.2; baseline duplicate remains in current tree and history."
+}

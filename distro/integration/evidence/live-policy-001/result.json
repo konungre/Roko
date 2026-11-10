@@ -1,0 +1,65 @@
+{
+  "passed": false,
+  "cases": [
+    {
+      "case": "offline-locked",
+      "expected_rejection": false,
+      "returncode": 1,
+      "passed": false,
+      "evaluation": null
+    },
+    {
+      "case": "console-password",
+      "expected_rejection": false,
+      "returncode": 1,
+      "passed": false,
+      "evaluation": null
+    },
+    {
+      "case": "managed-key-console",
+      "expected_rejection": false,
+      "returncode": 1,
+      "passed": false,
+      "evaluation": null
+    },
+    {
+      "case": "redistributable-firmware",
+      "expected_rejection": false,
+      "returncode": 1,
+      "passed": false,
+      "evaluation": null
+    },
+    {
+      "case": "missing-console-credential",
+      "expected_rejection": true,
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    },
+    {
+      "case": "ssh-offline",
+      "expected_rejection": true,
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    },
+    {
+      "case": "unrestricted-firmware",
+      "expected_rejection": true,
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    },
+    {
+      "case": "unknown-network",
+      "expected_rejection": true,
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    }
+  ],
+  "host_activation": false,
+  "build_completed": false,
+  "credential_scope": "ephemeral local fixture; no cleartext/hash/private key committed",
+  "firmware_license_audit_completed": false
+}

@@ -1,0 +1,313 @@
+{
+  "schema": "roko-planner-consumers-v1",
+  "repository_commit": "c902702bd7cc078a7baa6cd5f96ca1d556144717",
+  "worktree_changes_present": true,
+  "imports": [
+    {
+      "file": "omega-baseline/adapters/package_planning.py",
+      "line": 15,
+      "module": "omega_pm.core",
+      "names": [
+        "Error",
+        "Snapshot",
+        "make_plan",
+        "parse_config",
+        "validate_packages"
+      ],
+      "category": "consumer-or-interface",
+      "sha256": "79eaf5d1b7d4f353b1a8faf414419dd521b01c34ce8ae9630072cf0abcfffae0"
+    },
+    {
+      "file": "omega-baseline/components/omega-pm/tests/test_metta.py",
+      "line": 8,
+      "module": "omega_pm.backends",
+      "names": [
+        "SimulationBackend"
+      ],
+      "category": "test-or-qualification",
+      "sha256": "91106fc96c18e3219453ef8f8ab67cd0adf6ff0dc1350485e2bfa6e98290500b"
+    },
+    {
+      "file": "omega-baseline/components/omega-pm/tests/test_metta.py",
+      "line": 9,
+      "module": "omega_pm.core",
+      "names": [
+        "Error",
+        "Snapshot",
+        "state_atoms"
+      ],
+      "category": "test-or-qualification",
+      "sha256": "91106fc96c18e3219453ef8f8ab67cd0adf6ff0dc1350485e2bfa6e98290500b"
+    },
+    {
+      "file": "omega-baseline/components/omega-pm/tests/test_metta.py",
+      "line": 10,
+      "module": "omega_pm.metta",
+      "names": [
+        "DESIRED_MARKER",
+        "DESIRED_QUERY",
+        "OmegaAwareness",
+        "desired_from_metta",
+        "new_runtime",
+        "plan_from_metta"
+      ],
+      "category": "test-or-qualification",
+      "sha256": "91106fc96c18e3219453ef8f8ab67cd0adf6ff0dc1350485e2bfa6e98290500b"
+    },
+    {
+      "file": "omega-baseline/components/omega-pm/tests/test_pm.py",
+      "line": 11,
+      "module": "omega_pm.__main__",
+      "names": [
+        "main"
+      ],
+      "category": "test-or-qualification",
+      "sha256": "21b42ce8f93f00f85a432373b5a137c9a53264233e03e0563161238871c5f5c3"
+    },
+    {
+      "file": "omega-baseline/components/omega-pm/tests/test_pm.py",
+      "line": 12,
+      "module": "omega_pm.backends",
+      "names": [
+        "NixBackend",
+        "SimulationBackend"
+      ],
+      "category": "test-or-qualification",
+      "sha256": "21b42ce8f93f00f85a432373b5a137c9a53264233e03e0563161238871c5f5c3"
+    },
+    {
+      "file": "omega-baseline/components/omega-pm/tests/test_pm.py",
+      "line": 13,
+      "module": "omega_pm.core",
+      "names": [
+        "Error",
+        "apply_plan",
+        "digest",
+        "make_plan",
+        "parse_config",
+        "state_atoms",
+        "verify_plan"
+      ],
+      "category": "test-or-qualification",
+      "sha256": "21b42ce8f93f00f85a432373b5a137c9a53264233e03e0563161238871c5f5c3"
+    },
+    {
+      "file": "omega-baseline/integration/package_bridge.py",
+      "line": 10,
+      "module": "package_planning",
+      "names": [
+        "plan_single",
+        "operation_count",
+        "planned_path",
+        "authorizes_actions",
+        "has_planned_package"
+      ],
+      "category": "consumer-or-interface",
+      "sha256": "56f0734dda3ed852c88575f972fe5b99004b93aa37e96517d097932d57177f7e"
+    },
+    {
+      "file": "omega-baseline/integration/package_bridge.py",
+      "line": 12,
+      "module": "package_planning_v2",
+      "names": [
+        "plan_single",
+        "operation_count",
+        "planned_path",
+        "authorizes_actions",
+        "has_planned_package"
+      ],
+      "category": "consumer-or-interface",
+      "sha256": "56f0734dda3ed852c88575f972fe5b99004b93aa37e96517d097932d57177f7e"
+    },
+    {
+      "file": "omega-baseline/integration/package_bridge_v2.py",
+      "line": 5,
+      "module": "package_planning_v2",
+      "names": [
+        "plan_single",
+        "operation_count",
+        "planned_path",
+        "authorizes_actions",
+        "has_planned_package"
+      ],
+      "category": "consumer-or-interface",
+      "sha256": "32b5b6db67bcac4e456615d7955d9fe9808ffeea5d86353e0ec504c7e9eb202a"
+    }
+  ],
+  "text_references": [
+    {
+      "file": "distro/state/audit_planner_consumers.py",
+      "sha256": "9b2aa040c2fb5e062f1b1ead872fd21a283615b85450eb04ccd4a259d9934a4c",
+      "category": "test-or-qualification",
+      "lines": [
+        4,
+        10,
+        14,
+        21,
+        25
+      ]
+    },
+    {
+      "file": "distro/state/qualify_bridge_restart.py",
+      "sha256": "fa6a43696bf7d3c6d442a1afbc8be7ff7828f3d94ce6df205de224bdb34e0703",
+      "category": "test-or-qualification",
+      "lines": [
+        9,
+        14,
+        17,
+        19
+      ]
+    },
+    {
+      "file": "distro/state/qualify_observed_parity.py",
+      "sha256": "bd8e5301776371befbd6d2fafd72301de4300f7ac360cce955e8725a51cf59ff",
+      "category": "test-or-qualification",
+      "lines": [
+        29,
+        46
+      ]
+    },
+    {
+      "file": "distro/state/qualify_planner_parity.py",
+      "sha256": "7430c2c1bffc3d2e095b5a99a3b80d3ebc84187e9ff3539b2a69faaf3a77aab7",
+      "category": "test-or-qualification",
+      "lines": [
+        24
+      ]
+    },
+    {
+      "file": "distro/state/test_baseline_successor.py",
+      "sha256": "e1b88851e8ac042e49fe0fae6d916d7aac9bd53119966180a5ed9733459ee176",
+      "category": "test-or-qualification",
+      "lines": [
+        3,
+        8
+      ]
+    },
+    {
+      "file": "distro/state/test_bridge_selection.py",
+      "sha256": "dc4589419442a62b9675125cedeef53d66c125a51d1cf55344dd2a84f78753a1",
+      "category": "test-or-qualification",
+      "lines": [
+        9
+      ]
+    },
+    {
+      "file": "distro/state/test_consumer_audit.py",
+      "sha256": "c328285ff4b040b69962136f57565fca3063810eb2ea143698daba684b59e125",
+      "category": "test-or-qualification",
+      "lines": [
+        7,
+        8,
+        17
+      ]
+    },
+    {
+      "file": "omega-baseline/adapters/package_planning.py",
+      "sha256": "79eaf5d1b7d4f353b1a8faf414419dd521b01c34ce8ae9630072cf0abcfffae0",
+      "category": "consumer-or-interface",
+      "lines": [
+        1,
+        14,
+        15
+      ]
+    },
+    {
+      "file": "omega-baseline/adapters/package_planning_v2.py",
+      "sha256": "585384a0531f5b7129adeb3283cbcc3ecd68b0cd7ae097ef44584b5264370c0c",
+      "category": "consumer-or-interface",
+      "lines": [
+        1
+      ]
+    },
+    {
+      "file": "omega-baseline/components/omega-pm/omega_pm/__main__.py",
+      "sha256": "dc712a443162fd5bfd06b00eb2005554ea9dafc62ac856582c23fca0199420f7",
+      "category": "consumer-or-interface",
+      "lines": [
+        1,
+        16,
+        57
+      ]
+    },
+    {
+      "file": "omega-baseline/components/omega-pm/omega_pm/metta.py",
+      "sha256": "d68d68664a6e9612e6771a9adff43bdd10a324bcf248ebd37f2d0cd7a7b1004b",
+      "category": "consumer-or-interface",
+      "lines": [
+        35
+      ]
+    },
+    {
+      "file": "omega-baseline/components/omega-pm/pyproject.toml",
+      "sha256": "b3ed6b41b5477d6bd073a7be0370d22948067d91a03f9a8c1a4870977ec09316",
+      "category": "consumer-or-interface",
+      "lines": [
+        13,
+        16
+      ]
+    },
+    {
+      "file": "omega-baseline/components/omega-pm/tests/test_metta.py",
+      "sha256": "91106fc96c18e3219453ef8f8ab67cd0adf6ff0dc1350485e2bfa6e98290500b",
+      "category": "test-or-qualification",
+      "lines": [
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "file": "omega-baseline/components/omega-pm/tests/test_pm.py",
+      "sha256": "21b42ce8f93f00f85a432373b5a137c9a53264233e03e0563161238871c5f5c3",
+      "category": "test-or-qualification",
+      "lines": [
+        11,
+        12,
+        13
+      ]
+    },
+    {
+      "file": "omega-baseline/integration/package_bridge.py",
+      "sha256": "56f0734dda3ed852c88575f972fe5b99004b93aa37e96517d097932d57177f7e",
+      "category": "consumer-or-interface",
+      "lines": [
+        10,
+        12
+      ]
+    },
+    {
+      "file": "omega-baseline/integration/package_bridge_v2.py",
+      "sha256": "32b5b6db67bcac4e456615d7955d9fe9808ffeea5d86353e0ec504c7e9eb202a",
+      "category": "consumer-or-interface",
+      "lines": [
+        5
+      ]
+    },
+    {
+      "file": "omega-baseline/integration/package_native_test.py",
+      "sha256": "ddf60b285f56e369483a7dc6f64c962dc1debb1d5b1cec2c8de99e43a7f526ed",
+      "category": "consumer-or-interface",
+      "lines": [
+        22
+      ]
+    },
+    {
+      "file": "omega-baseline/integration/package_planning.metta",
+      "sha256": "acade40d4620ba9c2bcf91e72ff5a8466ed27ec4f19bd2ac1090c86150af0473",
+      "category": "consumer-or-interface",
+      "lines": [
+        6,
+        7,
+        8,
+        9
+      ]
+    }
+  ],
+  "parse_errors": [],
+  "external_callers_known_complete": false,
+  "dynamic_imports_known_complete": false,
+  "deletion_authorized": false,
+  "license_clearance": false,
+  "scope": "tracked static-source inventory; conditional/test imports do not establish execution"
+}

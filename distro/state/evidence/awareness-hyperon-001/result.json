@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "native_hyperon_tested": true,
+  "version": "0.2.10",
+  "backend": "read-only synthetic package observations",
+  "fresh_processes": 2,
+  "results": [
+    {
+      "initial_atoms": [
+        "(omega-state 1)",
+        "(state-revision \"1\")",
+        "(installed hello \"/nix/store/00000000000000000000000000000000-fixture\")"
+      ],
+      "removed_atoms": [
+        "(omega-state 1)",
+        "(state-revision \"2\")"
+      ],
+      "escaped_atoms": [
+        "(omega-state 1)",
+        "(state-revision \"\\\") !(exec \\\"not-run\\\")\\n\")"
+      ],
+      "failed_refresh_preserved": true,
+      "old_space_unchanged": true,
+      "native_concurrent_refresh_rejected": true,
+      "version": 3,
+      "hyperon_version": "0.2.10",
+      "legacy_imported": false,
+      "authorizes_actions": false
+    },
+    {
+      "restored_atoms": [
+        "(omega-state 1)",
+        "(state-revision \"\\\") !(exec \\\"not-run\\\")\\n\")"
+      ],
+      "origin": "restored-historical-checkpoint",
+      "version": 3,
+      "backend_calls": 0,
+      "hyperon_version": "0.2.10",
+      "legacy_imported": false,
+      "authorizes_actions": false
+    }
+  ],
+  "package_mutations": 0,
+  "host_activation": false,
+  "license_clearance": false,
+  "source_sha256": "ab51a22ff2c7ee44c70948a34831b548362ceb2c6e684bddb42ce3e712024686"
+}

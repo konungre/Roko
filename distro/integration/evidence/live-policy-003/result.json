@@ -1,0 +1,166 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "case": "offline-locked",
+      "expected_rejection": false,
+      "returncode": 0,
+      "passed": true,
+      "evaluation": {
+        "allFirmware": false,
+        "autoLogin": false,
+        "emptyPasswords": false,
+        "failedAssertions": [],
+        "firmware": false,
+        "firmwareDerivation": "/workspace/scratch/nix-live-001/direct-store/p2vp1l2lvl1lg2rv3fbkl5yinidvks36-firmware.drv",
+        "interactiveSsh": false,
+        "networkManager": false,
+        "passwordSsh": false,
+        "rootLocked": true,
+        "rootSsh": "no",
+        "ssh": false,
+        "sshMethods": "publickey",
+        "sshUsers": [
+          "roko"
+        ],
+        "sudo": false,
+        "sudoPassword": true,
+        "userPasswordSet": false
+      }
+    },
+    {
+      "case": "console-password",
+      "expected_rejection": false,
+      "returncode": 0,
+      "passed": true,
+      "evaluation": {
+        "allFirmware": false,
+        "autoLogin": false,
+        "emptyPasswords": false,
+        "failedAssertions": [],
+        "firmware": false,
+        "firmwareDerivation": "/workspace/scratch/nix-live-001/direct-store/p2vp1l2lvl1lg2rv3fbkl5yinidvks36-firmware.drv",
+        "interactiveSsh": false,
+        "networkManager": false,
+        "passwordSsh": false,
+        "rootLocked": true,
+        "rootSsh": "no",
+        "ssh": false,
+        "sshMethods": "publickey",
+        "sshUsers": [
+          "roko"
+        ],
+        "sudo": true,
+        "sudoPassword": true,
+        "userPasswordSet": true
+      }
+    },
+    {
+      "case": "managed-key-console",
+      "expected_rejection": false,
+      "returncode": 0,
+      "passed": true,
+      "evaluation": {
+        "allFirmware": false,
+        "autoLogin": false,
+        "emptyPasswords": false,
+        "failedAssertions": [],
+        "firmware": false,
+        "firmwareDerivation": "/workspace/scratch/nix-live-001/direct-store/i7f4h2a1iqmkmyrvh0b69w86k2wzr4ii-firmware.drv",
+        "interactiveSsh": false,
+        "networkManager": true,
+        "passwordSsh": false,
+        "rootLocked": true,
+        "rootSsh": "no",
+        "ssh": true,
+        "sshMethods": "publickey",
+        "sshUsers": [
+          "roko"
+        ],
+        "sudo": true,
+        "sudoPassword": true,
+        "userPasswordSet": true
+      }
+    },
+    {
+      "case": "redistributable-firmware",
+      "expected_rejection": false,
+      "returncode": 0,
+      "passed": true,
+      "evaluation": {
+        "allFirmware": false,
+        "autoLogin": false,
+        "emptyPasswords": false,
+        "failedAssertions": [],
+        "firmware": true,
+        "firmwareDerivation": "/workspace/scratch/nix-live-001/direct-store/wsdi93smyxwpmgfxvnwf0wbkjd11rk0g-firmware.drv",
+        "interactiveSsh": false,
+        "networkManager": false,
+        "passwordSsh": false,
+        "rootLocked": true,
+        "rootSsh": "no",
+        "ssh": false,
+        "sshMethods": "publickey",
+        "sshUsers": [
+          "roko"
+        ],
+        "sudo": false,
+        "sudoPassword": true,
+        "userPasswordSet": false
+      }
+    },
+    {
+      "case": "missing-console-credential",
+      "expected_rejection": true,
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    },
+    {
+      "case": "ssh-offline",
+      "expected_rejection": true,
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    },
+    {
+      "case": "plaintext-credential",
+      "expected_rejection": true,
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    },
+    {
+      "case": "missing-ssh-key",
+      "expected_rejection": true,
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    },
+    {
+      "case": "malformed-ssh-key",
+      "expected_rejection": true,
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    },
+    {
+      "case": "unrestricted-firmware",
+      "expected_rejection": true,
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    },
+    {
+      "case": "unknown-network",
+      "expected_rejection": true,
+      "returncode": 1,
+      "passed": true,
+      "evaluation": null
+    }
+  ],
+  "host_activation": false,
+  "build_completed": false,
+  "credential_scope": "ephemeral local fixture; no cleartext/hash/private key committed",
+  "firmware_license_audit_completed": false
+}

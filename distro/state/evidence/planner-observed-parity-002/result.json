@@ -1,0 +1,227 @@
+{
+  "passed": true,
+  "observations": [
+    {
+      "profile": "/workspace/scratch/nix-live-001/atomic-profiles-001/generation-0d7ce7de55314511a405a703026036de/profile",
+      "manifest": {
+        "elements": {
+          "roko-profile": {
+            "active": true,
+            "priority": 5,
+            "storePaths": [
+              "/workspace/scratch/nix-live-001/direct-store/y0qv1607w8j8pg12zxqny1fqykvdzam0-roko-profile-1"
+            ]
+          }
+        },
+        "version": 3
+      },
+      "raw_sha256": "dfea0914d57bfa9575a34ed9a42d2cc140212d7479073424bac8760007ca378d"
+    },
+    {
+      "profile": "/workspace/scratch/nix-live-001/atomic-profiles-001/generation-36080ac55c4a4cc8bf655e470bdd3fc9/profile",
+      "manifest": {
+        "elements": {
+          "roko-profile": {
+            "active": true,
+            "priority": 5,
+            "storePaths": [
+              "/workspace/scratch/nix-live-001/direct-store/mk439cr63i5hjg1hvsy0yrzbsvamv54y-roko-profile-2"
+            ]
+          }
+        },
+        "version": 3
+      },
+      "raw_sha256": "285556d586d9b9930f7cc14190de5f28fb2fd62386667df7b10ad869720f6aca"
+    },
+    {
+      "profile": "/workspace/scratch/nix-live-001/profile-2-link",
+      "manifest": {
+        "elements": {},
+        "version": 3
+      },
+      "raw_sha256": "712b11070ffada765902c93e8c5a36f9b71b723c94bfb072f048479ab343f910"
+    }
+  ],
+  "comparisons": [
+    {
+      "profile": "/workspace/scratch/nix-live-001/atomic-profiles-001/generation-0d7ce7de55314511a405a703026036de/profile",
+      "case": "native-workspace-paths",
+      "passed": true,
+      "legacy": {
+        "accepted": false,
+        "error_type": "Error"
+      },
+      "successor": {
+        "accepted": false,
+        "error_type": "ValueError"
+      }
+    },
+    {
+      "profile": "/workspace/scratch/nix-live-001/atomic-profiles-001/generation-0d7ce7de55314511a405a703026036de/profile",
+      "case": "canonical-desired-native-observed",
+      "passed": true,
+      "legacy": {
+        "accepted": false,
+        "error_type": "Error"
+      },
+      "successor": {
+        "accepted": false,
+        "error_type": "ValueError"
+      }
+    },
+    {
+      "profile": "/workspace/scratch/nix-live-001/atomic-profiles-001/generation-0d7ce7de55314511a405a703026036de/profile",
+      "case": "duplicate-provenance",
+      "passed": true,
+      "legacy": {
+        "accepted": false,
+        "error_type": "Error"
+      },
+      "successor": {
+        "accepted": false,
+        "error_type": "ValueError"
+      }
+    },
+    {
+      "profile": "/workspace/scratch/nix-live-001/atomic-profiles-001/generation-36080ac55c4a4cc8bf655e470bdd3fc9/profile",
+      "case": "native-workspace-paths",
+      "passed": true,
+      "legacy": {
+        "accepted": false,
+        "error_type": "Error"
+      },
+      "successor": {
+        "accepted": false,
+        "error_type": "ValueError"
+      }
+    },
+    {
+      "profile": "/workspace/scratch/nix-live-001/atomic-profiles-001/generation-36080ac55c4a4cc8bf655e470bdd3fc9/profile",
+      "case": "canonical-desired-native-observed",
+      "passed": true,
+      "legacy": {
+        "accepted": false,
+        "error_type": "Error"
+      },
+      "successor": {
+        "accepted": false,
+        "error_type": "ValueError"
+      }
+    },
+    {
+      "profile": "/workspace/scratch/nix-live-001/atomic-profiles-001/generation-36080ac55c4a4cc8bf655e470bdd3fc9/profile",
+      "case": "duplicate-provenance",
+      "passed": true,
+      "legacy": {
+        "accepted": false,
+        "error_type": "Error"
+      },
+      "successor": {
+        "accepted": false,
+        "error_type": "ValueError"
+      }
+    },
+    {
+      "profile": "/workspace/scratch/nix-live-001/profile-2-link",
+      "case": "real-empty-profile-explicit-fixture-intent",
+      "passed": true,
+      "legacy": {
+        "accepted": true,
+        "desired": {
+          "fixture": "/nix/store/00000000000000000000000000000000-explicit-fixture"
+        },
+        "operations": [
+          {
+            "name": "fixture",
+            "op": "install",
+            "path": "/nix/store/00000000000000000000000000000000-explicit-fixture"
+          }
+        ],
+        "count": 1,
+        "path": "/nix/store/00000000000000000000000000000000-explicit-fixture",
+        "has_package": true,
+        "authority": false,
+        "executed": 0,
+        "live": false,
+        "schema": 1,
+        "complete_plan": {
+          "backend": "snapshot-only:native-empty-profile:/workspace/scratch/nix-live-001/profile-2-link",
+          "before": {
+            "packages": {},
+            "revision": "712b11070ffada765902c93e8c5a36f9b71b723c94bfb072f048479ab343f910"
+          },
+          "desired": {
+            "fixture": "/nix/store/00000000000000000000000000000000-explicit-fixture"
+          },
+          "id": "c8d22e6410fdc13179e2f28ca172980810079a63981305ca1364121da28450a4",
+          "operations": [
+            {
+              "name": "fixture",
+              "op": "install",
+              "path": "/nix/store/00000000000000000000000000000000-explicit-fixture"
+            }
+          ],
+          "schema": 1
+        }
+      },
+      "successor": {
+        "accepted": true,
+        "desired": {
+          "fixture": "/nix/store/00000000000000000000000000000000-explicit-fixture"
+        },
+        "operations": [
+          {
+            "name": "fixture",
+            "op": "install",
+            "path": "/nix/store/00000000000000000000000000000000-explicit-fixture"
+          }
+        ],
+        "count": 1,
+        "path": "/nix/store/00000000000000000000000000000000-explicit-fixture",
+        "has_package": true,
+        "authority": false,
+        "executed": 0,
+        "live": false,
+        "schema": 2,
+        "complete_plan": {
+          "backend": "snapshot-only:native-empty-profile:/workspace/scratch/nix-live-001/profile-2-link",
+          "before": {
+            "packages": {},
+            "revision": "712b11070ffada765902c93e8c5a36f9b71b723c94bfb072f048479ab343f910"
+          },
+          "desired": {
+            "fixture": "/nix/store/00000000000000000000000000000000-explicit-fixture"
+          },
+          "id": "c8d22e6410fdc13179e2f28ca172980810079a63981305ca1364121da28450a4",
+          "operations": [
+            {
+              "name": "fixture",
+              "op": "install",
+              "path": "/nix/store/00000000000000000000000000000000-explicit-fixture"
+            }
+          ],
+          "schema": 1
+        }
+      }
+    }
+  ],
+  "failed_read": {
+    "returncode": 1,
+    "stderr": "error: getting status of '/workspace/scratch/planner-observed-parity-002/missing-profile': No such file or directory\n"
+  },
+  "pointer_unchanged": true,
+  "retained_rollback_profiles_present": true,
+  "desired_paths_are_fixtures": true,
+  "before": {
+    "pointer": "/workspace/scratch/nix-live-001/atomic-profiles-001/generation-0d7ce7de55314511a405a703026036de/profile",
+    "journal_sha256": null
+  },
+  "after": {
+    "pointer": "/workspace/scratch/nix-live-001/atomic-profiles-001/generation-0d7ce7de55314511a405a703026036de/profile",
+    "journal_sha256": null
+  },
+  "paths_rewritten": false,
+  "package_mutations": 0,
+  "license_clearance": false,
+  "scope": "real workspace-profile observations rejected by both canonical-path snapshot bridges; no installed /nix/store profile claim"
+}

@@ -1,0 +1,1 @@
+{"restored_origin": "restored-historical-checkpoint", "restored_token": ["2acc86fe70754fd380462fa43e55cc5a", 1, 1], "backend_calls_at_restore": 0, "origin": "backend-observation", "token": ["2acc86fe70754fd380462fa43e55cc5a", 2, 2], "atoms": ["(omega-state 1)", "(state-revision \"fixture-b\")"], "backend_calls": 1, "legacy_imported": false, "authorizes_actions": false}

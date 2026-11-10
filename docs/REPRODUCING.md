@@ -56,3 +56,9 @@ and adversarial archive/ELF checks are described in
 [the fresh Linux foundation checkpoint](LINUX_FOUNDATION_FRESH.md). The explicit
 `--minimal` build needs none of the omitted historical profile or asset locks.
 It has no desktop or model and does not boot a VM automatically.
+
+## Local rescue rebuild comparison
+
+The non-destructive two-build gate and the remaining declarative system-image
+requirements are documented in [boot image readiness](../distro/BOOT_IMAGE_READINESS.md).
+A matching rescue archive is not proof of a reproducible NixOS/Guix desktop image.

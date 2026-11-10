@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "modes": {
+    "legacy": true,
+    "successor-v2": true
+  },
+  "host_mutations": 0,
+  "scope": "same bridge entry point, real PeTTa/Janus scalar fixture assertions"
+}

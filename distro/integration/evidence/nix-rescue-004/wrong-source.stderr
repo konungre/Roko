@@ -1,0 +1,9 @@
+error:
+       … while evaluating the condition of the assertion '(((builtins).hashFile "sha256" (sourceRoot + "/init.c")) == (sourceHashes).init)'
+         at /workspace/roko-foundation-review/distro/nix/rescue.nix:5:1:
+            4| assert system == "x86_64-linux";
+            5| assert builtins.hashFile "sha256" (sourceRoot + "/init.c") == sourceHashes.init;
+             | ^
+            6| assert builtins.hashFile "sha256" (sourceRoot + "/build.py") == sourceHashes.builder;
+
+       error: string '"9369b8a9612d08862b14381b6c54de8a610d6c4978c7b175494813cf386082a1"' is not equal to string '"0000000000000000000000000000000000000000000000000000000000000000"'

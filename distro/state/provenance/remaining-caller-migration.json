@@ -1,0 +1,73 @@
+{
+  "schema": "roko-legacy-migration-plan-v1",
+  "default_changed": false,
+  "license_clearance": false,
+  "external_caller_inventory_complete": false,
+  "deletion_authorized": false,
+  "entries": [
+    {
+      "surface": "scalar bridge",
+      "consumer": "omega-baseline/integration/package_bridge.py",
+      "replacement": "omega-baseline/integration/package_bridge_v2.py",
+      "state": "opt-in-tested",
+      "acceptance": [
+        "schema2 outer report accepted",
+        "complete inner-plan parity",
+        "native PeTTa/Janus fixture",
+        "startup-failure restoration",
+        "review outer schema/mode and changed exception boundary explicitly"
+      ],
+      "rollback": "restart with ROKO_PACKAGE_PLANNER=legacy or unset; no package state changes",
+      "default_switch_requires_review": true
+    },
+    {
+      "surface": "direct source parser/SnapshotOnly API",
+      "consumer": "omega-baseline/adapters/package_planning.py",
+      "replacement": "omega-baseline/adapters/package_planning_v2.py",
+      "state": "explicit-json-opt-in-tested",
+      "acceptance": [
+        "ROKO_PACKAGE_PLANNER=successor-v2 at process startup",
+        "plan_source desired input is roko-snapshot-desired-v2 JSON, not MeTTa text",
+        "complete multi-package inner-plan and observed-snapshot equality tested",
+        "SnapshotOnly returns independent observation dictionaries",
+        "review changed outer report/type/error boundaries and unknown external callers"
+      ],
+      "rollback": "retain original adapter/source binding; do not delete while direct callers remain",
+      "default_switch_requires_review": true
+    },
+    {
+      "surface": "console CLI and state directories",
+      "consumer": "omega-baseline/components/omega-pm/omega_pm/__main__.py",
+      "replacement": "distro/state/declarative.py",
+      "state": "parallel-read-only-cli-tested-mutation-not-migrated",
+      "acceptance": [
+        "implement separate reviewed CLI",
+        "export original state read-only",
+        "new private root and monotonic revision gate",
+        "verify complete local closures",
+        "do not mutate old profile or simulation during migration"
+      ],
+      "rollback": "retain source and original state; revert binding only; incompatible legacy Nix mutation path is NOT a validated fallback",
+      "default_switch_requires_review": true,
+      "read_only_entry_point": "omega-baseline/integration/package_snapshot_cli.py --planner successor-v2 --desired FILE --snapshot FILE"
+    },
+    {
+      "surface": "optional Hyperon awareness",
+      "consumer": "omega-baseline/components/omega-pm/omega_pm/metta.py",
+      "replacement": "omega-baseline/adapters/package_awareness_v2.py",
+      "state": "opt-in-observation-fixture-parity-only",
+      "acceptance": [
+        "cognitive-owner stage/revision schema agreement",
+        "live snapshot replacement with preserved provenance",
+        "long-lived restart/CAS tests",
+        "no promotion of observed operation into installed/running/health",
+        "native Hyperon still unavailable/unverified",
+        "fresh dedicated runtime/space owner contract",
+        "legacy-shaped data not durable OS stage facts",
+        "desired query migration remains separate"
+      ],
+      "rollback": "retain old awareness binding until separately adopted and tested",
+      "default_switch_requires_review": true
+    }
+  ]
+}

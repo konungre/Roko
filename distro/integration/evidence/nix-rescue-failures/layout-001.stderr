@@ -1,0 +1,21 @@
+this derivation will be built:
+  /workspace/scratch/nix-live-001/direct-store/53yrgs0a7sa8rjg5lj1jbkpg6w16pw5v-roko-bootstrap-rescue.drv
+building '/workspace/scratch/nix-live-001/direct-store/53yrgs0a7sa8rjg5lj1jbkpg6w16pw5v-roko-bootstrap-rescue.drv'...
+error: builder for '/workspace/scratch/nix-live-001/direct-store/53yrgs0a7sa8rjg5lj1jbkpg6w16pw5v-roko-bootstrap-rescue.drv' failed with exit code 1;
+       last 14 log lines:
+       > Could not find platform dependent libraries <exec_prefix>
+       > Traceback (most recent call last):
+       >   File "/workspace/scratch/nix-live-001/direct-store/yf00g4rgy79aysbq0njh4jk3w4r8zinx-roko-rescue-sources/build.py", line 96, in <module>
+       >     main(minimal=args.minimal,output=args.output)
+       >   File "/workspace/scratch/nix-live-001/direct-store/yf00g4rgy79aysbq0njh4jk3w4r8zinx-roko-rescue-sources/build.py", line 71, in main
+       >     build_id=sha((BOOT/'init.c').read_bytes()+profile+(busybox or b''))
+       >                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       >   File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+       >     with self.open(mode='rb') as f:
+       >          ^^^^^^^^^^^^^^^^^^^^
+       >   File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+       >     return io.open(self, mode, buffering, encoding, errors, newline)
+       >            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       > FileNotFoundError: [Errno 2] No such file or directory: '/workspace/scratch/nix-live-001/direct-store/boot/init.c'
+       For full logs, run:
+         nix log /workspace/scratch/nix-live-001/direct-store/53yrgs0a7sa8rjg5lj1jbkpg6w16pw5v-roko-bootstrap-rescue.drv

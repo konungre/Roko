@@ -1,0 +1,18 @@
+{
+  "model_disk_sha256_after_trial": "0d7600188314a6b7870f5f5a69924459bc6089f66fd44302450cb572debd0812",
+  "matches_admitted_disk": true,
+  "recovered_image_rebuilt": false,
+  "recovered_image_sha256": "515372bf9fc7ca69e9d820ebc87fdc0b813129707f1dd0ae3652764559430e7e",
+  "pre_resume_backup": "/workspace/scratch/delayed-model-recovery-001.tar",
+  "pre_resume_backup_sha256": "52d2678989ae460fb3c61d93891abeb1e1ac0812e9ff22793663d34d6bb2ca55",
+  "inference_qualified": false,
+  "host_activation": false,
+  "source_hashes_at_receipt_collection": {
+    "distro/integration/build_delayed_model_guest.py": "a493e5e128b4705af76ec797ab5ebbcdbc8d1b33786e39bfad97ef99ddf1ef2c",
+    "distro/integration/model_asset_probe.py": "e0af6e540b68265cef837d33370e84befbf5bdf131491a00606c3ddeff586a12",
+    "distro/integration/run_startup_manager_guest.py": "311004aa62d4db05c2afac0855833b6af43ec4a6e5803cb4010d7ada10264b9c",
+    "distro/integration/startup_manager_evidence.py": "15ec266f82fc39e78205f3f0eb048d264d5e43133d0065c996718d841cb580cf"
+  },
+  "final_runner_sha256": "6ac362d1c84b1580321082c3e892ca4057bea549a596322926b63cc159fb6ab9",
+  "runner_change_after_trial": "Docstring updated to mention optional read-only fixture model disk; executable code unchanged."
+}

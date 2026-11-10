@@ -1,0 +1,116 @@
+[
+  {
+    "operation": "build-and-profile-switch",
+    "build": [
+      {
+        "drvPath": "/workspace/scratch/nix-live-001/direct-store/06n09xnwf043h7f148h74y9nbh2g89ns-roko-profile-1.drv",
+        "outputs": {
+          "out": "/workspace/scratch/nix-live-001/direct-store/y0qv1607w8j8pg12zxqny1fqykvdzam0-roko-profile-1"
+        }
+      }
+    ],
+    "switch": {
+      "before": {
+        "revision": 0,
+        "target": null
+      },
+      "after": {
+        "revision": 1,
+        "target": "/workspace/scratch/nix-omega-gate-004/profiles/generation-f6f9941babc043659ee6051549b982a9/profile"
+      },
+      "receipt": {
+        "packages": {
+          "roko": "/workspace/scratch/nix-live-001/direct-store/y0qv1607w8j8pg12zxqny1fqykvdzam0-roko-profile-1"
+        },
+        "native": {
+          "elements": {
+            "roko-profile": {
+              "active": true,
+              "priority": 5,
+              "storePaths": [
+                "/workspace/scratch/nix-live-001/direct-store/y0qv1607w8j8pg12zxqny1fqykvdzam0-roko-profile-1"
+              ]
+            }
+          },
+          "version": 3
+        },
+        "previous": {
+          "revision": 0,
+          "target": null
+        },
+        "scope": "private-user-profile"
+      }
+    },
+    "payload": "1"
+  },
+  {
+    "operation": "build-and-profile-switch",
+    "build": [
+      {
+        "drvPath": "/workspace/scratch/nix-live-001/direct-store/5j9r0zl48xn0zn7dw952cj5yr7sh4j07-roko-profile-2.drv",
+        "outputs": {
+          "out": "/workspace/scratch/nix-live-001/direct-store/mk439cr63i5hjg1hvsy0yrzbsvamv54y-roko-profile-2"
+        }
+      }
+    ],
+    "switch": {
+      "before": {
+        "revision": 1,
+        "target": "/workspace/scratch/nix-omega-gate-004/profiles/generation-f6f9941babc043659ee6051549b982a9/profile"
+      },
+      "after": {
+        "revision": 2,
+        "target": "/workspace/scratch/nix-omega-gate-004/profiles/generation-109f8c3ec1f246aba0dd5db2f1f5dfb4/profile"
+      },
+      "receipt": {
+        "packages": {
+          "roko": "/workspace/scratch/nix-live-001/direct-store/mk439cr63i5hjg1hvsy0yrzbsvamv54y-roko-profile-2"
+        },
+        "native": {
+          "elements": {
+            "roko-profile": {
+              "active": true,
+              "priority": 5,
+              "storePaths": [
+                "/workspace/scratch/nix-live-001/direct-store/mk439cr63i5hjg1hvsy0yrzbsvamv54y-roko-profile-2"
+              ]
+            }
+          },
+          "version": 3
+        },
+        "previous": {
+          "revision": 1,
+          "target": "/workspace/scratch/nix-omega-gate-004/profiles/generation-f6f9941babc043659ee6051549b982a9/profile"
+        },
+        "scope": "private-user-profile"
+      }
+    },
+    "payload": "2"
+  },
+  {
+    "operation": "rollback",
+    "receipt": {
+      "before": {
+        "revision": 2,
+        "target": "/workspace/scratch/nix-omega-gate-004/profiles/generation-109f8c3ec1f246aba0dd5db2f1f5dfb4/profile"
+      },
+      "after": {
+        "revision": 3,
+        "target": "/workspace/scratch/nix-omega-gate-004/profiles/generation-f6f9941babc043659ee6051549b982a9/profile"
+      },
+      "native": {
+        "elements": {
+          "roko-profile": {
+            "active": true,
+            "priority": 5,
+            "storePaths": [
+              "/workspace/scratch/nix-live-001/direct-store/y0qv1607w8j8pg12zxqny1fqykvdzam0-roko-profile-1"
+            ]
+          }
+        },
+        "version": 3
+      },
+      "scope": "private-user-profile-rollback"
+    }
+  }
+]

@@ -1,0 +1,80 @@
+{
+  "/workspace/scratch/nix-live-001/direct-store/pn5f3h37hbcq5x94i182mbbrza6yrvsk-roko-pinned-rescue-0.1.drv": {
+    "args": [
+      "-e",
+      "/workspace/scratch/nix-live-001/direct-store/5jizmf17skc46wcxwmkp5wxpx69nbhcd-source-stdenv.sh",
+      "/workspace/scratch/nix-live-001/direct-store/hwm534hz6a5xikpd8d31pcdvplbx7x43-default-builder.sh"
+    ],
+    "builder": "/workspace/scratch/nix-live-001/direct-store/ysap050xyvab8qk8lil17gjrypkw369w-bash-5.3p20/bin/bash",
+    "env": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "SOURCE_DATE_EPOCH": "0",
+      "TZ": "UTC",
+      "__structuredAttrs": "",
+      "buildInputs": "",
+      "buildPhase": "python3 -B /workspace/scratch/nix-live-001/direct-store/6izlrnnfy382s6jx4sxd5bzq47w04q66-roko-rescue-sources/boot/build.py --minimal --output \"$out\"\n",
+      "builder": "/workspace/scratch/nix-live-001/direct-store/ysap050xyvab8qk8lil17gjrypkw369w-bash-5.3p20/bin/bash",
+      "cmakeFlags": "",
+      "configureFlags": "",
+      "depsBuildBuild": "",
+      "depsBuildBuildPropagated": "",
+      "depsBuildTarget": "",
+      "depsBuildTargetPropagated": "",
+      "depsHostHost": "",
+      "depsHostHostPropagated": "",
+      "depsTargetTarget": "",
+      "depsTargetTargetPropagated": "",
+      "doCheck": "",
+      "doInstallCheck": "",
+      "dontConfigure": "1",
+      "dontFixup": "1",
+      "dontInstall": "1",
+      "dontUnpack": "1",
+      "mesonFlags": "",
+      "name": "roko-pinned-rescue-0.1",
+      "nativeBuildInputs": "/workspace/scratch/nix-live-001/direct-store/jn6jjsy7jrj28lshxjf75v06a1hybxwh-python3-3.14.10",
+      "out": "/workspace/scratch/nix-live-001/direct-store/6dy4g26l8n7ff1ydsqnabsjp3q383ahh-roko-pinned-rescue-0.1",
+      "outputs": "out",
+      "patches": "",
+      "pname": "roko-pinned-rescue",
+      "propagatedBuildInputs": "",
+      "propagatedNativeBuildInputs": "",
+      "stdenv": "/workspace/scratch/nix-live-001/direct-store/dncjzmxpjzkdy2is64v86zy74b4x9wmk-stdenv-linux",
+      "strictDeps": "",
+      "system": "x86_64-linux",
+      "version": "0.1"
+    },
+    "inputDrvs": {
+      "/workspace/scratch/nix-live-001/direct-store/2q3l9gnw068npz9mxgnvwwqmhmn18iji-python3-3.14.10.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/n8x73ifr97901vyp6z6zc4q1pca0w42i-bash-5.3p20.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/xx3zch9311q544bl73r50d7xj09g5zgv-stdenv-linux.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      }
+    },
+    "inputSrcs": [
+      "/workspace/scratch/nix-live-001/direct-store/5jizmf17skc46wcxwmkp5wxpx69nbhcd-source-stdenv.sh",
+      "/workspace/scratch/nix-live-001/direct-store/6izlrnnfy382s6jx4sxd5bzq47w04q66-roko-rescue-sources",
+      "/workspace/scratch/nix-live-001/direct-store/hwm534hz6a5xikpd8d31pcdvplbx7x43-default-builder.sh"
+    ],
+    "name": "roko-pinned-rescue-0.1",
+    "outputs": {
+      "out": {
+        "path": "/workspace/scratch/nix-live-001/direct-store/6dy4g26l8n7ff1ydsqnabsjp3q383ahh-roko-pinned-rescue-0.1"
+      }
+    },
+    "system": "x86_64-linux"
+  }
+}

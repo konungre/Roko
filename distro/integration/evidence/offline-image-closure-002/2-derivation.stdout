@@ -1,0 +1,136 @@
+{
+  "/workspace/scratch/nix-live-001/direct-store/idn7v990x162dflg977nv83id7dvc35h-roko-live-evaluation.iso.drv": {
+    "args": [
+      "-e",
+      "/workspace/scratch/nix-live-001/direct-store/5jizmf17skc46wcxwmkp5wxpx69nbhcd-source-stdenv.sh",
+      "/workspace/scratch/nix-live-001/direct-store/hwm534hz6a5xikpd8d31pcdvplbx7x43-default-builder.sh"
+    ],
+    "builder": "/workspace/scratch/nix-live-001/direct-store/ysap050xyvab8qk8lil17gjrypkw369w-bash-5.3p20/bin/bash",
+    "env": {
+      "__json": "{\"bootImage\":\"/isolinux/isolinux.bin\",\"bootable\":true,\"buildCommandPath\":\"/workspace/scratch/nix-live-001/direct-store/j1r7b0bsdhvhlfnngcwm1cn356r7pzvx-make-iso9660-image.sh\",\"buildInputs\":[],\"builder\":\"/workspace/scratch/nix-live-001/direct-store/ysap050xyvab8qk8lil17gjrypkw369w-bash-5.3p20/bin/bash\",\"closureInfo\":\"/workspace/scratch/nix-live-001/direct-store/03li4h31sk4yhnvrizqrbjiyvz5jn2l7-closure-info\",\"cmakeFlags\":[],\"compressImage\":false,\"configureFlags\":[],\"depsBuildBuild\":[],\"depsBuildBuildPropagated\":[],\"depsBuildTarget\":[],\"depsBuildTargetPropagated\":[],\"depsHostHost\":[],\"depsHostHostPropagated\":[],\"depsTargetTarget\":[],\"depsTargetTargetPropagated\":[],\"doCheck\":false,\"doInstallCheck\":false,\"efiBootImage\":\"boot/efi.img\",\"efiBootable\":true,\"env\":{},\"isoName\":\"roko-live-evaluation.iso\",\"isohybridMbrImage\":\"/workspace/scratch/nix-live-001/direct-store/a2s4inx0cvi98am3ip0yjn9j9kb361h8-syslinux-6.04-pre2-unstable-2019-02-07/share/syslinux/isohdpfx.bin\",\"mesonFlags\":[],\"name\":\"roko-live-evaluation.iso\",\"nativeBuildInputs\":[\"/workspace/scratch/nix-live-001/direct-store/w9qvqf189jga41d9qwb1ln33vpq8v4ls-libisoburn-1.5.8.pl02-dev\",\"/workspace/scratch/nix-live-001/direct-store/a2s4inx0cvi98am3ip0yjn9j9kb361h8-syslinux-6.04-pre2-unstable-2019-02-07\",\"/workspace/scratch/nix-live-001/direct-store/5wcm8y9msd5lfmh1riah04pzhzpvahkx-zstd-1.5.7-dev\",\"/workspace/scratch/nix-live-001/direct-store/hzzxxzblrj7imkj76yxvv8y7gr8z9xkl-libossp-uuid-1.6.2\",\"/workspace/scratch/nix-live-001/direct-store/j30l4pqsz687pxwm8bmv9h32b3alij78-squashfs-tools-4.7.5\"],\"objects\":[],\"outputChecks\":{\"out\":{}},\"outputs\":[\"out\"],\"patches\":[],\"propagatedBuildInputs\":[],\"propagatedNativeBuildInputs\":[],\"sources\":[\"/workspace/scratch/nix-live-001/direct-store/zdr81z9n3r84flb996f2dlhnkvn7wyk8-version\",\"/workspace/scratch/nix-live-001/direct-store/y8nfwisxx98arw4jm78pq16wxl0haz78-linux-6.18.62/bzImage\",\"/workspace/scratch/nix-live-001/direct-store/cw9bhmszvxc5xf8b19yxlc0hfnkydmh3-initrd-linux-6.18.62/initrd\",\"/workspace/scratch/nix-live-001/direct-store/aa88hx1snmcjv5jbx47l4gr941v6fzpv-bios-boot.png\",\"/workspace/scratch/nix-live-001/direct-store/73adhrhvqmw5aqsmmbziymq9qq8fgfqy-isolinux.cfg\",\"/workspace/scratch/nix-live-001/direct-store/a2s4inx0cvi98am3ip0yjn9j9kb361h8-syslinux-6.04-pre2-unstable-2019-02-07/share/syslinux\",\"/workspace/scratch/nix-live-001/direct-store/pkm3hirpdqc5swf3zx16l3fnvlfqy2gl-efi-image_eltorito\",\"/workspace/scratch/nix-live-001/direct-store/hwckyi2pydfrjg1j4mic5j47lnv0llsd-efi-directory/EFI\",\"/workspace/scratch/nix-live-001/direct-store/0w6wy8c0p35c792lm0wc70xc4q2f5jiz-efi-background.png\",\"/workspace/scratch/nix-live-001/direct-store/jm0pcp20b1zsfiwbqn1g97ksn2ga3hvh-source\"],\"squashfsCommand\":\"closureInfo=/workspace/scratch/nix-live-001/direct-store/rk643vp4z14w15m23wilh00jswdpdbns-closure-info\\n\\n# Also include a manifest of the closures in a format suitable\\n# for nix-store --load-db.\\ncp $closureInfo/registration nix-path-registration\\n\\nimgPath=\\\"$out\\\"\\n\\n# Generate the squashfs image.\\n# We have to set SOURCE_DATE_EPOCH to 0 here for reproducibility (https://github.com/NixOS/nixpkgs/issues/390696)\\nSOURCE_DATE_EPOCH=0 mksquashfs nix-path-registration $(cat $closureInfo/store-paths) $imgPath  \\\\\\n  -no-hardlinks  -keep-as-directory -all-root -b 1048576 -comp zstd -Xcompression-level 19 \\\\\\n  -processors $NIX_BUILD_CORES -root-mode 0755\\n\",\"stdenv\":\"/workspace/scratch/nix-live-001/direct-store/dncjzmxpjzkdy2is64v86zy74b4x9wmk-stdenv-linux\",\"strictDeps\":false,\"symlinks\":[],\"system\":\"x86_64-linux\",\"targets\":[\"/version.txt\",\"/boot//workspace/scratch/nix-live-001/direct-store/y8nfwisxx98arw4jm78pq16wxl0haz78-linux-6.18.62/bzImage\",\"/boot//workspace/scratch/nix-live-001/direct-store/cw9bhmszvxc5xf8b19yxlc0hfnkydmh3-initrd-linux-6.18.62/initrd\",\"/isolinux/background.png\",\"/isolinux/isolinux.cfg\",\"/isolinux\",\"/boot/efi.img\",\"/EFI\",\"/EFI/BOOT/efi-background.png\",\"/EFI/BOOT/grub-theme\"],\"unsafeDiscardReferences\":{\"out\":true},\"usbBootable\":true,\"volumeID\":\"ROKO_LIVE_EVAL\"}",
+      "out": "/workspace/scratch/nix-live-001/direct-store/kjqqyfymwz49lm9kqkp2wmdmlicq14k6-roko-live-evaluation.iso"
+    },
+    "inputDrvs": {
+      "/workspace/scratch/nix-live-001/direct-store/28w1xyccyj2cy6ypp7aaprkrpidprqdl-zstd-1.5.7.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "dev"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/2xm6hild01xzgckgrynkyqgwxbilrhsm-initrd-linux-6.18.62.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/99n7phr6f1460m3xjnyb149ny0zwn73h-efi-directory.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/9daxn9cbs8lar7dyicii8hw1dkcqns1k-libisoburn-1.5.8.pl02.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "dev"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/g959jq504qqv62f8y9vm7j3pj617wdxs-libossp-uuid-1.6.2.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/ha9vdj0z0p7j6n8hjvfjqgqxxh46yw7h-bios-boot.png.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/hjya9mi760wgc6ny9fwwgj56l1ip8izs-efi-background.png.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/k0a3w8m6bycl522jd0x9m91gymb7cfxd-closure-info.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/mrpzpyhrrmcj207y7sb5h962qa4dq1kz-linux-6.18.62.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/n8x73ifr97901vyp6z6zc4q1pca0w42i-bash-5.3p20.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/qkjs6lbwc3yar981c8awqjbnih9bcllj-source.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/vxv2i6yqmc8zl88b4jsg8fnxqi72nbrm-squashfs-tools-4.7.5.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/w8sc9na6rapd63qkcp1qy4rkcf8yj2ji-syslinux-6.04-pre2-unstable-2019-02-07.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/wdljdaxs0yf83zswqfhqbf9db2rc2mcc-isolinux.cfg.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/xx3zch9311q544bl73r50d7xj09g5zgv-stdenv-linux.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/yjg2lf4wvja87zskmvcm0cjynpc4rbrp-efi-image_eltorito.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/yshi9h3mahmk72lxbmbs0da5gcl4ws2x-closure-info.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/yzgzakk40hifpabprbj6mzlg2zw0yh4w-version.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      }
+    },
+    "inputSrcs": [
+      "/workspace/scratch/nix-live-001/direct-store/5jizmf17skc46wcxwmkp5wxpx69nbhcd-source-stdenv.sh",
+      "/workspace/scratch/nix-live-001/direct-store/hwm534hz6a5xikpd8d31pcdvplbx7x43-default-builder.sh",
+      "/workspace/scratch/nix-live-001/direct-store/j1r7b0bsdhvhlfnngcwm1cn356r7pzvx-make-iso9660-image.sh"
+    ],
+    "name": "roko-live-evaluation.iso",
+    "outputs": {
+      "out": {
+        "path": "/workspace/scratch/nix-live-001/direct-store/kjqqyfymwz49lm9kqkp2wmdmlicq14k6-roko-live-evaluation.iso"
+      }
+    },
+    "system": "x86_64-linux"
+  }
+}

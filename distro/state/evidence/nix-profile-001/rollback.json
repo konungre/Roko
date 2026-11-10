@@ -1,0 +1,21 @@
+{
+  "before": "/workspace/scratch/nix-live-001/atomic-profiles-001/generation-36080ac55c4a4cc8bf655e470bdd3fc9/profile",
+  "after": "/workspace/scratch/nix-live-001/atomic-profiles-001/generation-0d7ce7de55314511a405a703026036de/profile",
+  "native": {
+    "elements": {
+      "roko-profile": {
+        "active": true,
+        "priority": 5,
+        "storePaths": [
+          "/workspace/scratch/nix-live-001/direct-store/y0qv1607w8j8pg12zxqny1fqykvdzam0-roko-profile-1"
+        ]
+      }
+    },
+    "version": 3
+  },
+  "scope": "private-user-profile-rollback",
+  "unreviewed_rejected": true,
+  "stale_rejected": true,
+  "observed_payload": "1",
+  "host_activation": false
+}

@@ -1,0 +1,73 @@
+{
+  "passed": false,
+  "evaluations": [
+    {
+      "mode": "headless",
+      "returncode": 0,
+      "passed": false,
+      "evaluation": {
+        "canTouchEfi": false,
+        "cosmic": false,
+        "failedAssertions": [
+          "Neither the root account nor any wheel user has a password or SSH authorized key.\nYou must set one to prevent being locked out of your system.\nIf you really want to be locked out of your system, set users.allowNoPasswordLogin = true;\nHowever you are most probably better off by setting users.mutableUsers = true; and\nmanually running passwd root to set the root password.\n"
+        ],
+        "greeter": false,
+        "packageManager": "nix",
+        "rootDevice": "/dev/disk/by-label/ROKO_ROOT",
+        "rootPassword": "!",
+        "scope": {
+          "atomspaceExecutionAuthority": false,
+          "cosmicRequested": false,
+          "licensingResolved": false,
+          "modelIncluded": false,
+          "packageManager": "nix",
+          "productionReady": false,
+          "schema": "roko-system-evaluation-v1"
+        },
+        "stateDevice": "/dev/disk/by-label/ROKO_STATE",
+        "userNormal": true
+      }
+    },
+    {
+      "mode": "cosmic",
+      "returncode": 0,
+      "passed": false,
+      "evaluation": {
+        "canTouchEfi": false,
+        "cosmic": true,
+        "failedAssertions": [
+          "Neither the root account nor any wheel user has a password or SSH authorized key.\nYou must set one to prevent being locked out of your system.\nIf you really want to be locked out of your system, set users.allowNoPasswordLogin = true;\nHowever you are most probably better off by setting users.mutableUsers = true; and\nmanually running passwd root to set the root password.\n"
+        ],
+        "greeter": true,
+        "packageManager": "nix",
+        "rootDevice": "/dev/disk/by-label/ROKO_ROOT",
+        "rootPassword": "!",
+        "scope": {
+          "atomspaceExecutionAuthority": false,
+          "cosmicRequested": true,
+          "licensingResolved": false,
+          "modelIncluded": false,
+          "packageManager": "nix",
+          "productionReady": false,
+          "schema": "roko-system-evaluation-v1"
+        },
+        "stateDevice": "/dev/disk/by-label/ROKO_STATE",
+        "userNormal": true
+      }
+    }
+  ],
+  "source_pin": {
+    "repository": "https://github.com/NixOS/nixpkgs",
+    "revision": "f4a03c008967841f2a0b3cb7c436fc6fc31671f6",
+    "archive_url": "https://codeload.github.com/NixOS/nixpkgs/tar.gz/f4a03c008967841f2a0b3cb7c436fc6fc31671f6",
+    "archive_sha256": "20d36c656575bc07a2348396d31ae5a80187764b4cb401cedca11ee98ac4ea49",
+    "archive_bytes": 54695912,
+    "source_nar_hash": "sha256-ziZn2PvCJE5JEEpqTdxXwJpPB+L3YqoCpTAMCzyaP3U="
+  },
+  "import_from_derivation_allowed": false,
+  "build_completed": false,
+  "image_produced": false,
+  "vm_booted": false,
+  "host_activation": false,
+  "scope": "module/option/assertion evaluation only; not system closure realization"
+}

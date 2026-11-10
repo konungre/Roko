@@ -5,6 +5,7 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from run_probe import verify_runtime
 from probe_gate import serial_evidence
+from memory_budget import admit,observe
 
 def digest(fd):
     h=hashlib.sha256();offset=0
@@ -16,7 +17,7 @@ def available():
 
 def run(guest,runtime,lock,output):
     guest,runtime,lock,output=map(Path,(guest,runtime,lock,output));verify_runtime(runtime,lock)
-    if available()<12*1024**3:raise ValueError('Need 12GiB host availability for 10GiB guest')
+    memory_admission=admit(10240,reserve_mib=2048)
     manifest=json.loads((guest/'manifest.json').read_text());fds={};proc=None;serial_file=None
     output.mkdir(mode=0o700)
     try:
@@ -27,14 +28,15 @@ def run(guest,runtime,lock,output):
         path=lambda name:f'/proc/self/fd/{fds[name]}'
         command=[str(lib/'ld-linux-x86-64.so.2'),'--inhibit-cache','--library-path',str(lib),str(runtime/'usr/bin/qemu-system-x86_64'),'-L',str(runtime/'usr/share/qemu'),'-bios',str(runtime/'usr/share/seabios/bios-256k.bin'),'-no-user-config','-nodefaults','-machine','q35','-accel','tcg,thread=multi','-cpu','max','-m','10240','-smp','4','-display','none','-monitor','none','-serial','stdio','-nic','none','-no-reboot','-kernel',str(kernel),'-initrd',path('initramfs.cpio.gz'),'-append','console=ttyS0 rdinit=/init panic=1']
         for name,ident in [('workspace.img','source'),('model.img','model')]:command+=['-drive',f'if=none,id={ident},format=raw,readonly=on,file='+path(name),'-device','virtio-blk-pci,drive='+ident]
-        admission={'manifest':manifest,'guest_memory_mib':10240,'cpus':4,'deadline_seconds':600,'host_memory_floor_gib':2,'qemu_rss_limit_gib':12,'network':False,'disks_read_only':True,'iso_used':False,'command':command}
+        memory_admission=admit(10240,reserve_mib=2048)
+        admission={'memory_admission':memory_admission,'manifest':manifest,'guest_memory_mib':10240,'cpus':4,'deadline_seconds':600,'host_memory_floor_gib':2,'qemu_rss_limit_gib':12,'network':False,'disks_read_only':True,'iso_used':False,'command':command}
         (output/'admission.json').write_text(json.dumps(admission,indent=2)+'\n')
         proc=subprocess.Popen(command,pass_fds=tuple(fds.values()),stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,env={'PATH':'/usr/bin:/bin','LANG':'C','QEMU_MODULE_DIR':str(lib/'qemu')})
         serial_file=(output/'serial.txt').open('xb')
         data=bytearray();start=time.monotonic();stop='eof'
         while True:
             if time.monotonic()-start>600:stop='deadline';break
-            if available()<2*1024**3:stop='host-memory-floor';break
+            if observe()['observed_headroom_bytes']<2*1024**3:stop='observed-host-cgroup-memory-floor';break
             try:
                 lines=Path(f'/proc/{proc.pid}/status').read_text().splitlines();rss=next((int(l.split()[1])*1024 for l in lines if l.startswith('VmRSS:')),0)
                 if rss>12*1024**3:stop='qemu-rss-limit';break

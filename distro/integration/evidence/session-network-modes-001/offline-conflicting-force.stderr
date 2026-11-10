@@ -1,0 +1,23 @@
+GC Warning: Failed to expand heap by 393216 KiB
+error:
+       … while evaluating attribute 'services'
+
+       … while evaluating attribute 'avahi'
+
+       … while evaluating attribute 'enable'
+
+       … while evaluating the attribute 'value'
+         at /workspace/scratch/nixpkgs-input-001/source/nixpkgs-f4a03c008967841f2a0b3cb7c436fc6fc31671f6/lib/modules.nix:1209:7:
+         1208|     // {
+         1209|       value = addErrorContext "while evaluating the option `${showOption loc}':" (
+             |       ^
+         1210|         # Apply the 'apply' function to the merged value. This allows options to
+
+       … while evaluating the option `services.avahi.enable':
+
+       (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+
+       error: The option `services.avahi.enable' has conflicting definition values:
+       - In `<unknown-file>': true
+       - In `<unknown-file>': false
+       Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.

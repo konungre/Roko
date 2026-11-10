@@ -1,0 +1,40 @@
+{
+  "boot_id": "00000000-0000-0000-0000-000000000001",
+  "declared_policy": {
+    "automaticGenerationDeletion": false,
+    "automaticUpgrade": false,
+    "credentialProvisioningRequired": true,
+    "durableHistoryReady": false,
+    "modelReady": false,
+    "networkIsolationProven": false,
+    "offlineRequested": true,
+    "schema": "roko-first-boot-policy-v1"
+  },
+  "execution_authorized": false,
+  "issues": [
+    "runtime-health-not-observed",
+    "model-not-qualified",
+    "durable-history-not-qualified",
+    "credentials-not-provisioned",
+    "network-isolation-not-proven",
+    "optional-model-deferred-low-memory"
+  ],
+  "resources": {
+    "execution_authorized": false,
+    "host_available_bytes": 16384000000,
+    "model_start_recommendation": "defer",
+    "observed_headroom_bytes": 6442450943,
+    "required_model_headroom_mib": 6144,
+    "sampled_monotonic_ns": 24071750800443,
+    "scope": "visible host/cgroup snapshot only; no reclaim or hidden-ancestor guarantee",
+    "status": "headroom-low",
+    "visible_cgroup_current_bytes": 10737418241,
+    "visible_cgroup_limit_bytes": 17179869184,
+    "visible_cgroup_remaining_bytes": 6442450943
+  },
+  "runtime_health_observed": false,
+  "schema": "roko-startup-report-v1",
+  "scope": "boot-local policy diagnostics; no service/model/persistence probe",
+  "status": "unqualified",
+  "system_ready": false
+}

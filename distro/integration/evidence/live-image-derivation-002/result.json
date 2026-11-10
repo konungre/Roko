@@ -1,0 +1,42 @@
+{
+  "identity_repeat_matches": true,
+  "all_resolved": true,
+  "evaluations": [
+    {
+      "mode": "headless",
+      "returncode": 0,
+      "resolved": true,
+      "identities": {
+        "imageDerivation": "/workspace/scratch/nix-live-001/direct-store/3gfgn3k8pgi4r4m90l4y3vzk9jp9x4bl-roko-live-evaluation.iso.drv",
+        "imageRelativePath": "iso/roko-live-evaluation.iso",
+        "systemDerivation": "/workspace/scratch/nix-live-001/direct-store/m985sw3ah86riwahllfadddhv5fb0zmc-nixos-system-roko-evaluation-26.11pre-git.drv"
+      }
+    },
+    {
+      "mode": "cosmic",
+      "returncode": 0,
+      "resolved": true,
+      "identities": {
+        "imageDerivation": "/workspace/scratch/nix-live-001/direct-store/n34yih5q462cd0xzcrnka3p51a3b25jv-roko-live-evaluation.iso.drv",
+        "imageRelativePath": "iso/roko-live-evaluation.iso",
+        "systemDerivation": "/workspace/scratch/nix-live-001/direct-store/mwbg53z2w00kxhcvpawh46zyia9cy93d-nixos-system-roko-evaluation-26.11pre-git.drv"
+      }
+    },
+    {
+      "mode": "headless-repeat",
+      "returncode": 0,
+      "resolved": true,
+      "identities": {
+        "imageDerivation": "/workspace/scratch/nix-live-001/direct-store/3gfgn3k8pgi4r4m90l4y3vzk9jp9x4bl-roko-live-evaluation.iso.drv",
+        "imageRelativePath": "iso/roko-live-evaluation.iso",
+        "systemDerivation": "/workspace/scratch/nix-live-001/direct-store/m985sw3ah86riwahllfadddhv5fb0zmc-nixos-system-roko-evaluation-26.11pre-git.drv"
+      }
+    }
+  ],
+  "import_from_derivation_allowed": false,
+  "memory_limit_gib": 4,
+  "build_completed": false,
+  "image_produced": false,
+  "vm_booted": false,
+  "host_activation": false
+}

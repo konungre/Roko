@@ -1,0 +1,16 @@
+{
+  "memory": {
+    "sampled_monotonic_ns": 25673298768164,
+    "host_available_bytes": 17978646528,
+    "visible_cgroup_limit_bytes": 17179869184,
+    "visible_cgroup_current_bytes": 16961286144,
+    "visible_cgroup_remaining_bytes": 218583040,
+    "observed_headroom_bytes": 218583040,
+    "scope": "visible host/cgroup snapshot only; no reclaim or hidden-ancestor guarantee"
+  },
+  "full_evaluation_required_headroom_bytes": 335544320,
+  "full_evaluation_attempted": false,
+  "full_evaluation_admitted": false,
+  "fixture_required_headroom_bytes": 167772160,
+  "guest_started": false
+}

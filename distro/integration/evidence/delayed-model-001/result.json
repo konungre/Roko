@@ -1,0 +1,196 @@
+{
+  "command": [
+    "/workspace/scratch/boot-tools-001/minimal-runtime/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+    "--library-path",
+    "/workspace/scratch/boot-tools-001/minimal-runtime/usr/lib/x86_64-linux-gnu",
+    "/workspace/scratch/boot-tools-001/minimal-runtime/usr/bin/qemu-system-x86_64",
+    "-L",
+    "/workspace/scratch/boot-tools-001/minimal-runtime/usr/share/qemu",
+    "-bios",
+    "/workspace/scratch/boot-tools-001/minimal-runtime/usr/share/seabios/bios-256k.bin",
+    "-no-user-config",
+    "-nodefaults",
+    "-machine",
+    "q35,accel=tcg",
+    "-m",
+    "512",
+    "-smp",
+    "1",
+    "-display",
+    "none",
+    "-monitor",
+    "none",
+    "-serial",
+    "stdio",
+    "-nic",
+    "none",
+    "-no-reboot",
+    "-kernel",
+    "/workspace/scratch/boot-tools-001/minimal-runtime/boot/vmlinuz-6.12.116+deb13-amd64",
+    "-initrd",
+    "/workspace/scratch/delayed-model-001/initramfs.gz",
+    "-append",
+    "console=ttyS0 rdinit=/init panic=1",
+    "-drive",
+    "if=none,id=model,format=raw,readonly=on,file=/proc/self/fd/3",
+    "-device",
+    "virtio-blk-pci,drive=model"
+  ],
+  "runtime": {
+    "entries_verified": 131,
+    "lock_sha256": "4b86230ec43ae4326f196dc136e2c5ac364910eadc39f6fcfcde364be8145cab"
+  },
+  "image_sha256": "515372bf9fc7ca69e9d820ebc87fdc0b813129707f1dd0ae3652764559430e7e",
+  "serial_sha256": "81daa60ddabaf3b1223154d98c7e0a543d88f529896219c1704a3ef765c46c49",
+  "manifest_sha256": "4059c1da05276ce8a1f292cfe026f6805268d9fed89ad9af27051de2b32cc5f2",
+  "passed": true,
+  "stop": "eof",
+  "returncode": 0,
+  "elapsed_seconds": 27.91587390100176,
+  "child_reaped": true,
+  "network_device": false,
+  "host_disks": false,
+  "fixture_model_disk_read_only": true,
+  "host_activation": false,
+  "scope": "adapted Debian systemd service-manager fixture, not Nix image",
+  "serial_contract": {
+    "serial_contract_passed": true,
+    "phases": [
+      {
+        "phase": "missing-model-network-unavailable",
+        "report": {
+          "boot_id": "6f264313-17bd-4ecc-87b7-e645aef55092",
+          "declared_policy": {
+            "automaticGenerationDeletion": false,
+            "automaticUpgrade": false,
+            "credentialProvisioningRequired": true,
+            "durableHistoryReady": false,
+            "modelReady": false,
+            "networkIsolationProven": false,
+            "offlineRequested": true,
+            "schema": "roko-first-boot-policy-v1"
+          },
+          "execution_authorized": false,
+          "issues": [
+            "runtime-health-not-observed",
+            "model-not-qualified",
+            "durable-history-not-qualified",
+            "credentials-not-provisioned",
+            "network-isolation-not-proven"
+          ],
+          "runtime_health_observed": false,
+          "schema": "roko-startup-report-v1",
+          "scope": "boot-local policy diagnostics; no service/model/persistence probe",
+          "status": "unqualified",
+          "system_ready": false
+        },
+        "network_unavailable": true
+      },
+      {
+        "phase": "invalid-policy",
+        "report": {
+          "execution_authorized": false,
+          "issues": [
+            "startup-policy-or-boot-identity-unreadable-or-invalid"
+          ],
+          "runtime_health_observed": false,
+          "schema": "roko-startup-report-v1",
+          "status": "failed",
+          "system_ready": false
+        }
+      },
+      {
+        "phase": "recovery",
+        "report": {
+          "boot_id": "6f264313-17bd-4ecc-87b7-e645aef55092",
+          "declared_policy": {
+            "automaticGenerationDeletion": false,
+            "automaticUpgrade": false,
+            "credentialProvisioningRequired": true,
+            "durableHistoryReady": false,
+            "modelReady": false,
+            "networkIsolationProven": false,
+            "offlineRequested": true,
+            "schema": "roko-first-boot-policy-v1"
+          },
+          "execution_authorized": false,
+          "issues": [
+            "runtime-health-not-observed",
+            "model-not-qualified",
+            "durable-history-not-qualified",
+            "credentials-not-provisioned",
+            "network-isolation-not-proven"
+          ],
+          "runtime_health_observed": false,
+          "schema": "roko-startup-report-v1",
+          "scope": "boot-local policy diagnostics; no service/model/persistence probe",
+          "status": "unqualified",
+          "system_ready": false
+        }
+      }
+    ],
+    "observed_service_uids": [
+      63914,
+      63914,
+      63914,
+      63914
+    ],
+    "scope": "serial consistency only; caller must bind runtime/image/process evidence"
+  },
+  "delayed_model_contract": {
+    "serial_contract_passed": true,
+    "phases": [
+      {
+        "phase": "absent-after-startup",
+        "system_ready": false
+      },
+      {
+        "phase": "available-after-startup",
+        "asset": {
+          "bytes": 4230976352,
+          "execution_authorized": false,
+          "gguf_version": 3,
+          "inference_qualified": false,
+          "metadata_count": 42,
+          "model_sha256_verified_in_guest": false,
+          "schema": "roko-model-asset-observation-v1",
+          "scope": "regular-file size and GGUF header only; controller separately binds read-only disk identity",
+          "status": "asset-observed-not-inference-qualified",
+          "system_ready": false,
+          "tensor_count": 666,
+          "writer_uid": 64168
+        },
+        "asset_started_usec": 18807322,
+        "startup_exit_usec": 18041104,
+        "read_only_mount": true
+      },
+      {
+        "phase": "removed-again",
+        "system_ready": false
+      },
+      {
+        "phase": "asset-recovery",
+        "asset": {
+          "bytes": 4230976352,
+          "execution_authorized": false,
+          "gguf_version": 3,
+          "inference_qualified": false,
+          "metadata_count": 42,
+          "model_sha256_verified_in_guest": false,
+          "schema": "roko-model-asset-observation-v1",
+          "scope": "regular-file size and GGUF header only; controller separately binds read-only disk identity",
+          "status": "asset-observed-not-inference-qualified",
+          "system_ready": false,
+          "tensor_count": 666,
+          "writer_uid": 64168
+        },
+        "asset_started_usec": 21874658,
+        "startup_exit_usec": 18041104,
+        "read_only_mount": true
+      }
+    ],
+    "inference_qualified": false,
+    "scope": "delayed asset serial consistency, not native model inference"
+  },
+  "model_disk_sha256": "0d7600188314a6b7870f5f5a69924459bc6089f66fd44302450cb572debd0812"
+}

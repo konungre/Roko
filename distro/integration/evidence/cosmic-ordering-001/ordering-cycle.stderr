@@ -1,0 +1,8 @@
+roko-cosmic-session-report.service: Found ordering cycle on cosmic-session.target/start
+roko-cosmic-session-report.service: Found dependency on roko-cosmic-session-report.service/start
+roko-cosmic-session-report.service: Job roko-cosmic-session-report.service/start deleted to break ordering cycle starting with roko-cosmic-session-report.service/start
+roko-cosmic-session-report.service: Found ordering cycle on cosmic-session.target/start
+roko-cosmic-session-report.service: Found dependency on roko-cosmic-session-report.service/start
+roko-cosmic-session-report.service: Unable to break cycle starting with roko-cosmic-session-report.service/start
+Requested transaction contains an unfixable cyclic ordering dependency: Transaction order is cyclic. See system logs for details.
+roko-cosmic-session-report.service: Failed to create roko-cosmic-session-report.service/start: Transaction order is cyclic. See system logs for details.

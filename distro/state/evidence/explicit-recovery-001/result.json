@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "injected_failure": "after pointer rename, before journal finalized",
+  "pending": {
+    "revision": 2,
+    "target": "/workspace/scratch/nix-explicit-recovery-001/profiles/generation-4a33df0aad104d4e891abb9a3d1a1376/profile",
+    "pending": true
+  },
+  "actual_at_interruption": "/workspace/scratch/nix-explicit-recovery-001/profiles/generation-4a33df0aad104d4e891abb9a3d1a1376/profile",
+  "recovery": {
+    "before_pending": {
+      "revision": 2,
+      "target": "/workspace/scratch/nix-explicit-recovery-001/profiles/generation-4a33df0aad104d4e891abb9a3d1a1376/profile",
+      "pending": true
+    },
+    "before_actual": "/workspace/scratch/nix-explicit-recovery-001/profiles/generation-4a33df0aad104d4e891abb9a3d1a1376/profile",
+    "after": {
+      "revision": 3,
+      "target": "/workspace/scratch/nix-explicit-recovery-001/profiles/generation-844728a03ebf40d28f889d7a669eb9f0/profile"
+    },
+    "native": {
+      "elements": {
+        "roko-profile": {
+          "active": true,
+          "priority": 5,
+          "storePaths": [
+            "/workspace/scratch/nix-live-001/direct-store/y0qv1607w8j8pg12zxqny1fqykvdzam0-roko-profile-1"
+          ]
+        }
+      },
+      "version": 3
+    },
+    "scope": "explicit-private-profile-recovery"
+  },
+  "blocked_while_pending": true,
+  "unreviewed_rejected": true,
+  "stale_recovery_rejected": true,
+  "host_activation": false
+}

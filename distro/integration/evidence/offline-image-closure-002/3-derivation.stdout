@@ -1,0 +1,165 @@
+{
+  "/workspace/scratch/nix-live-001/direct-store/j00a4qsfjc2x05pp428wamsv083c9b7j-nixos-system-roko-evaluation-26.11pre-git.drv": {
+    "args": [
+      "-e",
+      "/workspace/scratch/nix-live-001/direct-store/5jizmf17skc46wcxwmkp5wxpx69nbhcd-source-stdenv.sh",
+      "/workspace/scratch/nix-live-001/direct-store/hwm534hz6a5xikpd8d31pcdvplbx7x43-default-builder.sh"
+    ],
+    "builder": "/workspace/scratch/nix-live-001/direct-store/ysap050xyvab8qk8lil17gjrypkw369w-bash-5.3p20/bin/bash",
+    "env": {
+      "__json": "{\"allowSubstitutes\":false,\"buildCommand\":\"mkdir $out\\n\\n# This must not be a symlink or the abs_path of the grub builder for the tests\\n# will resolve the symlink and we end up with a path that doesn't point to a\\n# system closure.\\ncp \\\"$systemd/lib/systemd/systemd\\\" $out/init\\n\\ncp /workspace/scratch/nix-live-001/direct-store/dsilyw6044h3mc5j6xaz9396ay3dkcpy-stage-2-init.sh $out/prepare-root\\nsubstituteInPlace $out/prepare-root --subst-var-by systemConfig $out\\n\\n\\n\\nln -s /workspace/scratch/nix-live-001/direct-store/q109hb5klghm5lcvrsfm04na5ll3i78l-etc/etc $out/etc\\n\\nln -s /workspace/scratch/nix-live-001/direct-store/9xhixn4l8ak87jfsyzb61cya5lm5aq3g-system-path $out/sw\\nln -s \\\"$systemd\\\" $out/systemd\\n\\necho -n \\\"systemd 2\\\" > $out/init-interface-version\\necho -n \\\"$nixosLabel\\\" > $out/nixos-version\\necho -n \\\"x86_64-linux\\\" > $out/system\\n\\nif [ ! -f /workspace/scratch/nix-live-001/direct-store/y8nfwisxx98arw4jm78pq16wxl0haz78-linux-6.18.62/bzImage ]; then\\n  echo \\\"The bootloader cannot find the proper kernel image.\\\"\\n  echo \\\"(Expecting /workspace/scratch/nix-live-001/direct-store/y8nfwisxx98arw4jm78pq16wxl0haz78-linux-6.18.62/bzImage)\\\"\\n  false\\nfi\\n\\nln -s /workspace/scratch/nix-live-001/direct-store/y8nfwisxx98arw4jm78pq16wxl0haz78-linux-6.18.62/bzImage $out/kernel\\nln -s /workspace/scratch/nix-live-001/direct-store/mfdlr35psflajz5i2g3zm82n40mylwdq-linux-6.18.62-modules $out/kernel-modules\\n\\n\\necho -n \\\"${kernelParams[@]}\\\" > $out/kernel-params\\n\\nln -s /workspace/scratch/nix-live-001/direct-store/cw9bhmszvxc5xf8b19yxlc0hfnkydmh3-initrd-linux-6.18.62/initrd $out/initrd\\n\\n\\n\\n\\nln -s /workspace/scratch/nix-live-001/direct-store/avcnbrnkav9xhz0051b5qzjmlamq8k1h-firmware/lib/firmware $out/firmware\\n\\n\\nln -s /workspace/scratch/nix-live-001/direct-store/j0c9v09vcqpzm27nakwgmh39zcnk1pqd-switch-inhibitors $out/switch-inhibitors\\n\\nmkdir $out/specialisation\\n\\n\\n(\\n  source /workspace/scratch/nix-live-001/direct-store/nhmdmpb6pzjrwxc1hab9mrwy6ws9bcg8-make-shell-wrapper-hook/nix-support/setup-hook\\n\\n  mkdir $out/bin\\n  ln -sf /workspace/scratch/nix-live-001/direct-store/mbjqqfxhd795jrhrp552ynbmq2hf5a0a-switch-to-configuration-0.1.0/bin/switch-to-configuration $out/bin/switch-to-configuration\\n  wrapProgram $out/bin/switch-to-configuration \\\\\\n    --set OUT $out \\\\\\n    --set TOPLEVEL ${!toplevelVar} \\\\\\n    --set DISTRO_ID nixos \\\\\\n    --set INSTALL_BOOTLOADER /workspace/scratch/nix-live-001/direct-store/qmy20r0f8ib0lggnkza4ngi0qg9g1vf3-no-bootloader \\\\\\n    --set PRE_SWITCH_CHECK /workspace/scratch/nix-live-001/direct-store/1kz6b71vj133wflndmvr4hs731dy45bi-pre-switch-checks/bin/pre-switch-checks \\\\\\n    --set LOCALE_ARCHIVE /workspace/scratch/nix-live-001/direct-store/jjnn1rnib8a5ggrdijlcickb8b8p775j-glibc-locales-2.44-57/lib/locale/locale-archive \\\\\\n    --set SYSTEMD /workspace/scratch/nix-live-001/direct-store/xr4rv1rqswaiks3wyxbb9c8v2pnfsndh-systemd-262\\n)\\n\\ncp /workspace/scratch/nix-live-001/direct-store/lbqnngx2qd1ngnhlm8sjah6rq46g44rj-activate/bin/activate $out/activate\\ncp /workspace/scratch/nix-live-001/direct-store/nfh4m31blzhcd05mcnh9kijbnamk5n32-dry-activate/bin/dry-activate $out/dry-activate\\n/workspace/scratch/nix-live-001/direct-store/hgqjqa84b4jva2pgkb09xbpv2kn01b4m-gnused-4.10/bin/sed --in-place --expression \\\"s|@out@|${!toplevelVar}|g\\\" $out/activate $out/dry-activate\\n\\n\\nprintf \\\"%s \\\" \\\"${extraDependencies[@]}\\\" > \\\"$out/extra-dependencies\\\"\\n\\n/workspace/scratch/nix-live-001/direct-store/3m46vlksipqlicmb712v9xgbzwwqcca0-jq-1.8.2-bin/bin/jq '.\\\"org.nixos.bootspec.v1\\\".toplevel = $toplevel |\\n.\\\"org.nixos.bootspec.v1\\\".init = $init\\n' --sort-keys --arg toplevel /1rz4g4znpzjwh1xymhjpm42vipw92pr73vdgl6xs1hycac8kf2n9 --arg init /1rz4g4znpzjwh1xymhjpm42vipw92pr73vdgl6xs1hycac8kf2n9/init < /workspace/scratch/nix-live-001/direct-store/xldms0vghb4rsndlxmf688qz37aq65qp-boot.json | /workspace/scratch/nix-live-001/direct-store/3m46vlksipqlicmb712v9xgbzwwqcca0-jq-1.8.2-bin/bin/jq --sort-keys '.\\\"org.nixos.specialisation.v1\\\" = ($ARGS.named | map_values(. | first))'  > $out/boot.json\\n\\n\\n\",\"buildInputs\":[],\"builder\":\"/workspace/scratch/nix-live-001/direct-store/ysap050xyvab8qk8lil17gjrypkw369w-bash-5.3p20/bin/bash\",\"cmakeFlags\":[],\"configureFlags\":[],\"depsBuildBuild\":[],\"depsBuildBuildPropagated\":[],\"depsBuildTarget\":[],\"depsBuildTargetPropagated\":[],\"depsHostHost\":[],\"depsHostHostPropagated\":[],\"depsTargetTarget\":[],\"depsTargetTargetPropagated\":[],\"distroId\":\"nixos\",\"doCheck\":false,\"doInstallCheck\":false,\"env\":{},\"extraDependencies\":[\"/workspace/scratch/nix-live-001/direct-store/8a725aqn3aig6mbqdirvqqhbf4mkmjlf-grub-2.14\"],\"installBootLoader\":\"/workspace/scratch/nix-live-001/direct-store/qmy20r0f8ib0lggnkza4ngi0qg9g1vf3-no-bootloader\",\"kernelParams\":[\"root=fstab\",\"loglevel=4\",\"lsm=landlock,yama,bpf\"],\"localeArchive\":\"/workspace/scratch/nix-live-001/direct-store/jjnn1rnib8a5ggrdijlcickb8b8p775j-glibc-locales-2.44-57/lib/locale/locale-archive\",\"mesonFlags\":[],\"name\":\"nixos-system-roko-evaluation-26.11pre-git\",\"nativeBuildInputs\":[],\"nixosLabel\":\"26.11pre-git\",\"outputChecks\":{\"out\":{}},\"outputs\":[\"out\"],\"passedChecks\":\"/workspace/scratch/nix-live-001/direct-store/5dbjnpb6fy07bi429yprcvr0z0ciwzbb-ensure-wrapper-integrity\",\"patches\":[],\"preSwitchCheck\":\"/workspace/scratch/nix-live-001/direct-store/1kz6b71vj133wflndmvr4hs731dy45bi-pre-switch-checks/bin/pre-switch-checks\",\"preferLocalBuild\":true,\"propagatedBuildInputs\":[],\"propagatedNativeBuildInputs\":[],\"stdenv\":\"/workspace/scratch/nix-live-001/direct-store/b4gpsianhbxdn453wq31j1ddj1a4zpdr-stdenv-linux-no-cc\",\"strictDeps\":false,\"system\":\"x86_64-linux\",\"systemd\":\"/workspace/scratch/nix-live-001/direct-store/xr4rv1rqswaiks3wyxbb9c8v2pnfsndh-systemd-262\",\"toplevelVar\":\"out\"}",
+      "out": "/workspace/scratch/nix-live-001/direct-store/x9dkbzr8mlgs9nglvrvhwrk1ifjwnih6-nixos-system-roko-evaluation-26.11pre-git"
+    },
+    "inputDrvs": {
+      "/workspace/scratch/nix-live-001/direct-store/03n51lh1bcx6674y9wmyi37laajif4hv-dry-activate.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/0hhndmp8b1dbrjs76lsdk27ilglvcdaz-stdenv-linux-no-cc.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/1dl0cm5sahvl90v691m9bh303r1dnw2c-linux-6.18.62-modules.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/2xm6hild01xzgckgrynkyqgwxbilrhsm-initrd-linux-6.18.62.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/2zwyq1mrs8vmgrzzyvs2jpwsksmnhi05-gnused-4.10.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/4gmpssf063k7bv7h97k9kix5pzrzqrv3-switch-inhibitors.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/9p95f605cdqh6zhjmh7a9rj3dq674l4v-stage-2-init.sh.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/acfj8kmcw7adz49yw8a88d1aj7l07535-grub-2.14.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/bzmnjgn77v52yiwqm709z8g6hpnhd1pi-pre-switch-checks.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/d7qmqy7jnf2wndxrpnlqbmkc2ah57lhm-systemd-262.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/i97ym8f3l3qr0w030bp3hw1n5v8j6v10-glibc-locales-2.44-57.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/jhl1ayycczfa36y68v2d8207cyryqiqj-ensure-wrapper-integrity.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/mrpzpyhrrmcj207y7sb5h962qa4dq1kz-linux-6.18.62.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/n8x73ifr97901vyp6z6zc4q1pca0w42i-bash-5.3p20.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/ndkyfdcmm5cp4by1clcmww487222wa57-switch-to-configuration-0.1.0.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/nq0qbcs9yvw8a76xhcgh06pmdyg0d2hr-jq-1.8.2.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "bin"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/p2vp1l2lvl1lg2rv3fbkl5yinidvks36-firmware.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/phcff81ip3fnjjkn99mi4m2nfb2ws4l1-etc.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/phiplka0lplrdg58mxkl6n9p3cviz8rg-no-bootloader.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/q3w0vr8clr3p0sc82b3iz2i6nmw1321i-system-path.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/qm4m3v1cm2bh1canlgnnd9g2h31cjcvw-activate.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/wcinrhsghww3h7wpq6xfid59qy0fw1nh-boot.json.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      },
+      "/workspace/scratch/nix-live-001/direct-store/zp38790kaynyk43ls5y9xsx7wry8nfmf-make-shell-wrapper-hook.drv": {
+        "dynamicOutputs": {},
+        "outputs": [
+          "out"
+        ]
+      }
+    },
+    "inputSrcs": [
+      "/workspace/scratch/nix-live-001/direct-store/5jizmf17skc46wcxwmkp5wxpx69nbhcd-source-stdenv.sh",
+      "/workspace/scratch/nix-live-001/direct-store/hwm534hz6a5xikpd8d31pcdvplbx7x43-default-builder.sh"
+    ],
+    "name": "nixos-system-roko-evaluation-26.11pre-git",
+    "outputs": {
+      "out": {
+        "path": "/workspace/scratch/nix-live-001/direct-store/x9dkbzr8mlgs9nglvrvhwrk1ifjwnih6-nixos-system-roko-evaluation-26.11pre-git"
+      }
+    },
+    "system": "x86_64-linux"
+  }
+}

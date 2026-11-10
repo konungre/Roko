@@ -1,0 +1,34 @@
+{
+  "observed_at_utc": "2026-11-09T22:53:50.392673+00:00",
+  "canonical_paths": [
+    {
+      "path": "/nix",
+      "exists": false,
+      "reason": "ENOENT"
+    },
+    {
+      "path": "/nix/store",
+      "exists": false,
+      "reason": "ENOENT"
+    },
+    {
+      "path": "/nix/var/nix/profiles",
+      "exists": false,
+      "reason": "ENOENT"
+    },
+    {
+      "path": "/home/agent/.nix-profile",
+      "exists": false,
+      "reason": "ENOENT"
+    }
+  ],
+  "canonical_populated_native_qualification_available": false,
+  "existing_native_profile_base": "/workspace/scratch/nix-live-001",
+  "existing_populated_outputs": "alternate workspace direct-store paths; not rewritten",
+  "missing_prerequisite": "A disposable Nix store/profile with genuinely realized populated canonical /nix/store outputs, accessible to the native Nix runtime in that same store context.",
+  "new_native_coverage": false,
+  "host_activation": false,
+  "host_paths_created": false,
+  "sandbox_retried": false,
+  "scope": "explicit canonical locations and existing authorized workspace profiles; not an exhaustive filesystem inventory"
+}

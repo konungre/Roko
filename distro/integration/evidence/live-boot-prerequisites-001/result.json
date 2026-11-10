@@ -1,0 +1,17 @@
+{
+  "evaluations": [
+    {
+      "mode": "headless",
+      "returncode": 1,
+      "configuration": null
+    },
+    {
+      "mode": "cosmic",
+      "returncode": 1,
+      "configuration": null
+    }
+  ],
+  "build_requested": false,
+  "host_activation": false,
+  "scope": "resolved configuration prerequisites only, not hardware/boot health"
+}

@@ -1,0 +1,38 @@
+[33m--> metta runnable  -->
+[36m!(add-atom &self (roko-os-fact v1 executor nix 1 built m2jycqzjaj6i9vi7bapz6csi4da1r50k-roko-offline-generation h1d160f61fdd3bf2398a386a7b9fda0ec5d2879bdb1f17b4686b67343d288e511 h0000000000000000000000000000000000000000000000000000000000000000))
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           'add-atom'('&self',
+                      [ 'roko-os-fact',
+                        v1,
+                        executor,
+                        nix,
+                        1,
+                        built,
+                        'm2jycqzjaj6i9vi7bapz6csi4da1r50k-roko-offline-generation',
+                        h1d160f61fdd3bf2398a386a7b9fda0ec5d2879bdb1f17b4686b67343d288e511,
+                        h0000000000000000000000000000000000000000000000000000000000000000
+                      ],
+                      A),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0m[33m--> metta runnable  -->
+[36m!(match &self (roko-os-fact v1 executor nix 1 built $g h1d160f61fdd3bf2398a386a7b9fda0ec5d2879bdb1f17b4686b67343d288e511 h0000000000000000000000000000000000000000000000000000000000000000) $g)
+[33m-->  prolog goal  -->[35m 
+:- findall(A,
+           match('&self',
+                 [ 'roko-os-fact',
+                   v1,
+                   executor,
+                   nix,
+                   1,
+                   built,
+                   A,
+                   h1d160f61fdd3bf2398a386a7b9fda0ec5d2879bdb1f17b4686b67343d288e511,
+                   h0000000000000000000000000000000000000000000000000000000000000000
+                 ],
+                 A,
+                 A),
+           _).
+[33m^^^^^^^^^^^^^^^^^^^^^^^
+[0mROKO_STATE_ATOMSPACE_PASS

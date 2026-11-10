@@ -1,0 +1,7 @@
+
+ERROR: [Thread main] /workspace/scratch/planner-native-parity-001/legacy.pl:1: user:main Python 'ValueError':
+ERROR: [Thread main]   Unknown ROKO_PACKAGE_PLANNER; use legacy or successor-v2
+ERROR: [Thread main] Python stack:
+ERROR: [Thread main]   File "/workspace/roko-foundation-review/omega-baseline/integration/package_bridge.py", line 14, in <module>
+ERROR: [Thread main]     raise ValueError('Unknown ROKO_PACKAGE_PLANNER; use legacy or successor-v2')
+ERROR: [Thread main] 
