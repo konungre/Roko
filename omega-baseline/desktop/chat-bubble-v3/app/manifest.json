@@ -1,0 +1,113 @@
+{
+  "version": 3,
+  "name": "Roko",
+  "purpose": "Omega desktop character; not a replacement of active ChatGPT pet",
+  "states": [
+    "idle",
+    "idle-alternate",
+    "greeting",
+    "rest",
+    "attentive",
+    "playful",
+    "walk-right-a",
+    "walk-right-b"
+  ],
+  "sprite": "assets/character.png",
+  "sha256": "d8320efed515b1d11088c1b2b0c62be05d71e724c6b48597e123f889ed0eddf0",
+  "reference_sha256": "19cb30c6c508eca0ae3e77016ad8948ebfc0f91ff6aab86cd17b865d61f6aed1",
+  "generated_source_sha256": "ce065b12bc09950e1b788af9a5515ad04a55bcad6d279dcc0d5b894b7fef0bac",
+  "frames": [
+    {
+      "index": 0,
+      "source_bbox": [
+        42,
+        68,
+        376,
+        441
+      ],
+      "scale": 0.47
+    },
+    {
+      "index": 1,
+      "source_bbox": [
+        32,
+        68,
+        364,
+        441
+      ],
+      "scale": 0.47
+    },
+    {
+      "index": 2,
+      "source_bbox": [
+        14,
+        68,
+        355,
+        441
+      ],
+      "scale": 0.47
+    },
+    {
+      "index": 3,
+      "source_bbox": [
+        16,
+        152,
+        348,
+        420
+      ],
+      "scale": 0.47
+    },
+    {
+      "index": 4,
+      "source_bbox": [
+        45,
+        44,
+        356,
+        404
+      ],
+      "scale": 0.47
+    },
+    {
+      "index": 5,
+      "source_bbox": [
+        11,
+        88,
+        344,
+        404
+      ],
+      "scale": 0.47
+    },
+    {
+      "index": 6,
+      "source_bbox": [
+        9,
+        38,
+        348,
+        397
+      ],
+      "scale": 0.47
+    },
+    {
+      "index": 7,
+      "source_bbox": [
+        17,
+        38,
+        353,
+        397
+      ],
+      "scale": 0.47
+    }
+  ],
+  "method": "Built-in image generation from selected reference, followed by deterministic crop and common scale. Two-frame walking and pose transitions, not full skeletal animation.",
+  "corner_sha256": "c2152989ef82ccf5ebd49f8fc57393d79e045815d0679d7e55223ac8b244db7f",
+  "corner_geometry": {
+    "size": [
+      192,
+      208
+    ],
+    "window_corner_offset": [
+      60,
+      65
+    ]
+  }
+}

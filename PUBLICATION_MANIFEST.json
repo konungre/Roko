@@ -7,10 +7,10 @@
       "sha256": "13ab9878f855b08162785df259f2c76040c5139707454c7b1b895efaad4008ae"
     },
     "README.md": {
-      "bytes": 2835,
-      "git_blob_sha": "acab84a94d9b5c1091d7a3daa79cfe996fe157de",
+      "bytes": 3299,
+      "git_blob_sha": "346213f525c221ac5567e65b945c4fe3b5c6e7d0",
       "mode": "100644",
-      "sha256": "2aa3c6aba759d230c804a8bb6ccb50bfe7847b8224754d7e56343826d0e26b50"
+      "sha256": "ae9f27c82dbdd812f2293b9cc862b345e823e04571c56774dac031393186ff5d"
     },
     "THIRD_PARTY_NOTICES.md": {
       "bytes": 1979,
@@ -30,11 +30,17 @@
       "mode": "100644",
       "sha256": "748e3b04123bc6e3acb9a3a7a1200b823a3bf33fec4a1db24ddf710a273aa8e9"
     },
-    "docs/PUBLICATION_SCOPE.md": {
-      "bytes": 2855,
-      "git_blob_sha": "80c76ada78ede5604f992061dfdb8df4097a647a",
+    "docs/BASILISK_VALIDATION.json": {
+      "bytes": 1574,
+      "git_blob_sha": "2ff3dbde906d28d2907e47a5f422179994c0584a",
       "mode": "100644",
-      "sha256": "9ed552a3c8471c406ed409b6f48fd2237be9dcd38b7de39c37bbd79d0cc4edef"
+      "sha256": "6a927eedbc8fad139edaa56dda28a2ce95a6ba3170a61d9d4dcdc2b068e7e52f"
+    },
+    "docs/PUBLICATION_SCOPE.md": {
+      "bytes": 3545,
+      "git_blob_sha": "e329ddd9946a452210da2f58985cd3255f3bdbac",
+      "mode": "100644",
+      "sha256": "32a60cf4c5483e8c49f371ac7857d21871b8e8953a6f1c3692a47a09ce32728f"
     },
     "docs/REPOSITORY_MAP.md": {
       "bytes": 728,
@@ -2208,6 +2214,210 @@
       "mode": "100644",
       "sha256": "8e2f01b673c60b9fd683754a4278c9ca3de8ceb88e46d8b22944b6da1aa82e23"
     },
+    "omega-baseline/desktop/basilisk/check_runtime.py": {
+      "bytes": 3752,
+      "git_blob_sha": "234f64e90be7b0a3e87ca5c2303f10ee0ebebc01",
+      "mode": "100644",
+      "sha256": "bef6678fbe03e962c92bda98293a50d8f42abaa35b32b1785c3f3f27a84ba8d5"
+    },
+    "omega-baseline/desktop/basilisk/test_check_runtime.py": {
+      "bytes": 1102,
+      "git_blob_sha": "c76d0e97c259c420ba02b93d44ff6653d48184d7",
+      "mode": "100644",
+      "sha256": "11a863c41df2c80312bb4d828f2a8bf9ba07bd5a6c26a3c05995a6b20159452b"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/README.md": {
+      "bytes": 4004,
+      "git_blob_sha": "a01b9b32cf8a7ca4e92be15402f4e4d168804cc0",
+      "mode": "100644",
+      "sha256": "8edcb36937e238bc610cdadd585f995f5856936f43b54f871b6459f2e5661653"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/README.md": {
+      "bytes": 197,
+      "git_blob_sha": "c7529faded32d02278c4071915991796e8708b91",
+      "mode": "100644",
+      "sha256": "dfc6c98725d1614625ce8455f4e4397b720be6f6d1a9852eead4819b0e6f6180"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/animation.py": {
+      "bytes": 1860,
+      "git_blob_sha": "70df689b0cf195523f96367c5564f25c2fadd3f8",
+      "mode": "100644",
+      "sha256": "a2bc133a2b2031a57feb7118797e1a670f3facba2d904ecb76ec0e41d85699a2"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/assets/character.png": {
+      "bytes": 432125,
+      "git_blob_sha": "9db22cb034bb6227b68f6fc9c0256a6559546993",
+      "mode": "100644",
+      "sha256": "d8320efed515b1d11088c1b2b0c62be05d71e724c6b48597e123f889ed0eddf0"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/assets/corner.png": {
+      "bytes": 43507,
+      "git_blob_sha": "a5f7aad82c927add6edc782b162e705230880a42",
+      "mode": "100644",
+      "sha256": "c2152989ef82ccf5ebd49f8fc57393d79e045815d0679d7e55223ac8b244db7f"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/avatar_state.py": {
+      "bytes": 3011,
+      "git_blob_sha": "1883794e61705bd48ec0ed6dcda1d3a2231d9f0a",
+      "mode": "100644",
+      "sha256": "f59ae9f91355e08bb7841a9c13dcf2f5998b410d15fe18e03181b34b43ca4716"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/character.py": {
+      "bytes": 2505,
+      "git_blob_sha": "6d1c2ef16cc35d5a8a9ef0f1989abd94a3d28c0f",
+      "mode": "100644",
+      "sha256": "707030cea073257303409687172a0c471f2d23761dfe2f3cb510246bba41a1b6"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/chat_bubble.py": {
+      "bytes": 7698,
+      "git_blob_sha": "07d1c8e973d43ccca57be2dee8c3da4491a0f5bd",
+      "mode": "100644",
+      "sha256": "ef8a45f3fdda896015f29f71562d1901d4905157ac121eb1521609d085136cd6"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/companion.py": {
+      "bytes": 22606,
+      "git_blob_sha": "2a48c156df0cff704eee474c801f59b52429062c",
+      "mode": "100644",
+      "sha256": "f172b21992370263f37e1e206835a2c87a5732cf7eb8ed9406186592a2c74935"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/conversation_state.py": {
+      "bytes": 2037,
+      "git_blob_sha": "32002012d496c0417b75d3d1be2e14fc403d0d02",
+      "mode": "100644",
+      "sha256": "a2ae9a077a2255680ab78bb178fde62ad9ff3c2df24fdd9d2df3db575f9a017f"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/corner_motion.py": {
+      "bytes": 2989,
+      "git_blob_sha": "7fe188525bfd750e4a19327b5b7e2467982bf544",
+      "mode": "100644",
+      "sha256": "d9c3d535efa0a0d84b9f8d486f3098d056f4e7222f76bcc49622ed00df695ec2"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/flight_motion.py": {
+      "bytes": 1330,
+      "git_blob_sha": "d2bb57af2027c92a245164c8b8fa901f227a2224",
+      "mode": "100644",
+      "sha256": "49d20d1bf129419c3c76f168dfcaab7fbfdd77eb87d372b3ab61f9fb69db9dde"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/gtk_target.py": {
+      "bytes": 3504,
+      "git_blob_sha": "3d52d558a7f66f4a8fa748c226ee260504b1c580",
+      "mode": "100644",
+      "sha256": "e9fc30605671f3357a6134beb2fe4a133c975f342660bc2aded4cc31b7fb3855"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/head_region.py": {
+      "bytes": 2332,
+      "git_blob_sha": "91080915846454af5835a513ef860720d0632bbd",
+      "mode": "100644",
+      "sha256": "01c3f1d3ab5fbc3a8a19cb9f28a39b4b052b9e87d877b9c359bde41d502d42e9"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/head_report.py": {
+      "bytes": 536,
+      "git_blob_sha": "d5287551b986ee37ed98bd87762148715418dc0c",
+      "mode": "100644",
+      "sha256": "26dcdb8e0c7bfe330b99e878e887aa45ecd236469aa93cf23d09bc6f390a4fa8"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/input_mask.py": {
+      "bytes": 863,
+      "git_blob_sha": "454623c653e9302d90794a4154d229dd8d10c60f",
+      "mode": "100644",
+      "sha256": "a8a54827f99de68cbf48b829f61be7efbb04ef7ec213f60a97556d4c146f553e"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/layered_motion.py": {
+      "bytes": 2208,
+      "git_blob_sha": "e474ca0cf14e188042c86bf66b86e44178fc1940",
+      "mode": "100644",
+      "sha256": "c9a4857e4e8209ad53beed663105516136f9026f87f621c375a6e65d1948d584"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/lifecycle.py": {
+      "bytes": 852,
+      "git_blob_sha": "d8224bcbf782f8cd737fa8a2514e4f85843b9b3b",
+      "mode": "100644",
+      "sha256": "edfcb6a886191fb09e56c47a25d208a367bc9c559f0e76693ef5319af301fdd6"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/live_adapter.py": {
+      "bytes": 4300,
+      "git_blob_sha": "80559be85befe53a7f0b7492f886a1a6f9e78ff0",
+      "mode": "100644",
+      "sha256": "0bd29cf3b2aaa33b75cbda403a795b88a49d829417a793c07163491c9bc935cc"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/manifest.json": {
+      "bytes": 2043,
+      "git_blob_sha": "28f60f602a842187176de1c92326e2d30ecc0c8d",
+      "mode": "100644",
+      "sha256": "5146ce4f8172882833d6bacdefafb875b4e673fe2b84337b9c46c670dc568607"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/omega_transport.py": {
+      "bytes": 7708,
+      "git_blob_sha": "a1df01b8c52a419ba5f9240fb8f77f0d13c5bb37",
+      "mode": "100644",
+      "sha256": "7e811d4a89cbc9a2674d7e030583d12ee71f68c342dbb5afe4d65dffb4a6a258"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/report_lease.py": {
+      "bytes": 1379,
+      "git_blob_sha": "0d4f84d1254be91434f2cacb7ce8fa5353f2a793",
+      "mode": "100644",
+      "sha256": "fb5f76bcc3f80a15bd882e0c8b7cfd8803d885596883457d8eb5a6434a28eb3d"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/sender_lease.py": {
+      "bytes": 1826,
+      "git_blob_sha": "056a31aeca71a6b955b054c2e890ffc4ec9b31ce",
+      "mode": "100644",
+      "sha256": "2176d7d88516a5bddcce8c719f8faa690833a79b9108a30993c9c066a4aba837"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/theme.css": {
+      "bytes": 1233,
+      "git_blob_sha": "30d1322a29b7974607579d9857bd6d49885fecd2",
+      "mode": "100644",
+      "sha256": "2933c87cc719b364658f06086dc67501be1dee40c9c2f15ca506ec064a0f79e5"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/tracker_client.py": {
+      "bytes": 1245,
+      "git_blob_sha": "aad7d767ab01a80725986c9ea21a0fdcd7386308",
+      "mode": "100644",
+      "sha256": "425e538354e46f0c5f3d19ae1ba7d3b5917e942edac90d3c049df2d364b1f71f"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/app/ui_layout.py": {
+      "bytes": 1081,
+      "git_blob_sha": "e9d80f5b2269e56f692977c72d65fb0893275170",
+      "mode": "100644",
+      "sha256": "f6c177f902c29a0fef8c6f3e9ed8dfcd1d665abd93ec18990a477aef7dbd20a5"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/probe_transport.py": {
+      "bytes": 1208,
+      "git_blob_sha": "e7ff7d558ee57edc8f1589e15d937707e76cdf85",
+      "mode": "100644",
+      "sha256": "4b7b93efaf1a5dccb52348cbbcdfc15ecb4bf62e9b9bac112a0ad38483246b09"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/stage.py": {
+      "bytes": 2185,
+      "git_blob_sha": "1331e81bf9fca621759664b4738bbf95578a573d",
+      "mode": "100644",
+      "sha256": "126e92a6544ea27ce9181e5f823d188aea63f1efa38c85a8a7fde57b8aa68b87"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/tests/test_bubble.py": {
+      "bytes": 1169,
+      "git_blob_sha": "365ff97325493ce521da2f1263a5dfbfad9fbcac",
+      "mode": "100644",
+      "sha256": "f5dac09fa815c29b831a0d16065bd277e485f14bd07dabd99ea5ad6aeebb6da2"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/tests/test_lifecycle.py": {
+      "bytes": 4383,
+      "git_blob_sha": "08cc11889a3b047c258441e03f8a775a6a506edf",
+      "mode": "100644",
+      "sha256": "5735ade0ac302ad5d96ebafb3a53c80873f647f0a3fb313ebdc6583102618013"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/tests/test_stage.py": {
+      "bytes": 993,
+      "git_blob_sha": "e1a0443cb0cfc679c4158fc3b5d4d280a61a47e8",
+      "mode": "100644",
+      "sha256": "6faa1943891329f01a6c3abba9afbe2a7fb6ef83dbede0b855ed00bcc19c9446"
+    },
+    "omega-baseline/desktop/chat-bubble-v3/tests/test_transport.py": {
+      "bytes": 3077,
+      "git_blob_sha": "b70a102a61830208a570c85ef340f016f94975ea",
+      "mode": "100644",
+      "sha256": "6a46c062a0bccaa85aa5183dc418c0cadb7c63b2b9638ed64df15c533e959514"
+    },
     "omega-baseline/desktop/live-request-media/cli.py": {
       "bytes": 1279,
       "git_blob_sha": "4f13b55f49eebb520242d5ef2431b289222548eb",
@@ -2642,5 +2852,5 @@
     }
   },
   "schema": 1,
-  "scope": "Public authored source subset and confirmed Roko artwork. No private runtime or host inventory."
+  "scope": "Public authored source subset, latest basilisk conversation UI and confirmed Roko artwork. No private runtime or host inventory."
 }
